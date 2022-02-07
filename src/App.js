@@ -3,38 +3,61 @@ export class App {
   constructor() {
     this._command = new FibonacciList(new Fibonacci(new FibonacciRecursive()));
     this._list = this._command.exec(100);
+    this.render(this._list);
+  }
 
-    const select = (render, table) => {
-      let list;
-      let command;
-      const changeEvent = (e) => {
-        const value = e.target.value;
-        switch (value) {
-          case "1":
-            command = new FibonacciList(
-              new Fibonacci(new FibonacciRecursive())
-            );
-            list = command.exec(100);
-            render(table(list));
-            break;
-          case "2":
-            command = new FibonacciList(new Fibonacci(new FibonacciLoop()));
-            list = this._command.exec(100);
-            render(table(list));
-            break;
-          case "3":
-            command = new FibonacciList(
-              new Fibonacci(new FibonacciGeneralTerm())
-            );
-            list = this._command.exec(100);
-            render(table(list));
-            break;
-          default:
-            throw new Error("該当するアルゴリズムが存在しません");
-        }
-      };
+  render(list) {
+    const renderTable = (contents) => {
+      document.getElementById("app-table").innerHTML = contents;
+    };
 
-      const contents = `
+    const select = selectComponent(renderTable, tableComponent(list));
+    const table = tableComponent(list);
+    const contents = `
+      <div>
+        <div id="app-select">
+          ${select.contents}
+        </div>
+        <div id="app-table">
+          ${table.contents}
+        </div>
+      </div>
+    `;
+
+    document.getElementById("app").innerHTML = contents;
+    document
+      .getElementById("app-select")
+      .addEventListener("change", select.changeEvent);
+  }
+}
+
+const selectComponent = (render, table) => {
+  let list;
+  let command;
+  const changeEvent = (e) => {
+    const value = e.target.value;
+    switch (value) {
+      case "1":
+        command = new FibonacciList(new Fibonacci(new FibonacciRecursive()));
+        list = command.exec(100);
+        render(tableComponent(list).contents);
+        break;
+      case "2":
+        command = new FibonacciList(new Fibonacci(new FibonacciLoop()));
+        list = command.exec(100);
+        render(tableComponent(list).contents);
+        break;
+      case "3":
+        command = new FibonacciList(new Fibonacci(new FibonacciGeneralTerm()));
+        list = command.exec(100);
+        render(tableComponent(list).contents);
+        break;
+      default:
+        throw new Error("該当するアルゴリズムが存在しません");
+    }
+  };
+
+  const contents = `
         <select id="app-select">
           <option value="1">再帰</option>
           <option value="2">ループ</option>
@@ -42,19 +65,17 @@ export class App {
         </select>
       `;
 
-      return { contents, changeEvent };
-    };
+  return { contents, changeEvent };
+};
 
-    const table = (list) => {
-      const header = [...Array(10).keys()]
-        .map((i) => `<td>${i + 1}</td>`)
-        .join("");
-      const body = [...Array(10).keys()]
-        .map((i) => (i === 0 ? 0 : i * 10))
-        .map((j) =>
-          [...Array(10).keys()].map((k) => `<td>${list[k + j]}`).join("")
-        );
-      return `
+const tableComponent = (list) => {
+  const header = [...Array(10).keys()].map((i) => `<td>${i + 1}</td>`).join("");
+  const body = [...Array(10).keys()]
+    .map((i) => (i === 0 ? 0 : i * 10))
+    .map((j) =>
+      [...Array(10).keys()].map((k) => `<td>${list[k + j]}`).join("")
+    );
+  const contents = `
         <table>
           <thead bgcolor="darkgray">
            <tr>
@@ -76,26 +97,9 @@ export class App {
           </tbody>
         </table>
       `;
-    };
 
-    const renderTable = (contents) => {
-      document.getElementById("app-table").innerHTML = contents;
-    };
-
-    const contents = `
-      <div>
-      ${select(table).contents}
-      <div id="app-table">
-        ${table(this._list)}
-      </div>
-      </div>
-    `;
-    document.getElementById("app").innerHTML = contents;
-    document
-      .getElementById("app-select")
-      .addEventListener("change", select(renderTable, table).changeEvent);
-  }
-}
+  return { contents };
+};
 
 export class FibonacciList {
   constructor(command) {
