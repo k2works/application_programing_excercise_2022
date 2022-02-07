@@ -63,7 +63,7 @@ export class FibonacciList {
   }
 
   exec(count) {
-    return [...Array(count + 1).keys()].map((i) => this._command.exec(i + 1));
+    return [...Array(count).keys()].map((i) => this._command.exec(i + 1));
   }
 }
 
