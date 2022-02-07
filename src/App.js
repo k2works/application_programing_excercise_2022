@@ -11,8 +11,8 @@ export class App {
       document.getElementById("app-table").innerHTML = contents;
     };
 
-    const select = selectComponent(renderTable);
-    const table = tableComponent(list);
+    const select = this.selectComponent(renderTable);
+    const table = this.tableComponent(list);
     const contents = `
       <div>
         <div id="app-select">
@@ -29,35 +29,38 @@ export class App {
       .getElementById("app-select")
       .addEventListener("change", select.changeEvent);
   }
-}
 
-const selectComponent = (render) => {
-  let list;
-  let command;
-  const changeEvent = (e) => {
-    const value = e.target.value;
-    switch (value) {
-      case "1":
-        command = new FibonacciList(new Fibonacci(new FibonacciRecursive()));
-        list = command.exec(100);
-        render(tableComponent(list).contents);
-        break;
-      case "2":
-        command = new FibonacciList(new Fibonacci(new FibonacciLoop()));
-        list = command.exec(100);
-        render(tableComponent(list).contents);
-        break;
-      case "3":
-        command = new FibonacciList(new Fibonacci(new FibonacciGeneralTerm()));
-        list = command.exec(100);
-        render(tableComponent(list).contents);
-        break;
-      default:
-        throw new Error("該当するアルゴリズムが存在しません");
-    }
-  };
+  selectComponent(render) {
+    let list;
+    let command;
+    const changeEvent = (e) => {
+      const value = e.target.value;
+      switch (value) {
+        case "1":
+          this._command = new FibonacciList(
+            new Fibonacci(new FibonacciRecursive())
+          );
+          this._list = this._command.exec(100);
+          render(this.tableComponent(this._list).contents);
+          break;
+        case "2":
+          this._command = new FibonacciList(new Fibonacci(new FibonacciLoop()));
+          this._list = this._command.exec(100);
+          render(this.tableComponent(this._list).contents);
+          break;
+        case "3":
+          this._command = new FibonacciList(
+            new Fibonacci(new FibonacciGeneralTerm())
+          );
+          this._list = this._command.exec(100);
+          render(this.tableComponent(this._list).contents);
+          break;
+        default:
+          throw new Error("該当するアルゴリズムが存在しません");
+      }
+    };
 
-  const contents = `
+    const contents = `
         <select id="app-select">
           <option value="1">再帰</option>
           <option value="2">ループ</option>
@@ -65,17 +68,19 @@ const selectComponent = (render) => {
         </select>
       `;
 
-  return { contents, changeEvent };
-};
+    return { contents, changeEvent };
+  }
 
-const tableComponent = (list) => {
-  const header = [...Array(10).keys()].map((i) => `<td>${i + 1}</td>`).join("");
-  const body = [...Array(10).keys()]
-    .map((i) => (i === 0 ? 0 : i * 10))
-    .map((j) =>
-      [...Array(10).keys()].map((k) => `<td>${list[k + j]}`).join("")
-    );
-  const contents = `
+  tableComponent(list) {
+    const header = [...Array(10).keys()]
+      .map((i) => `<td>${i + 1}</td>`)
+      .join("");
+    const body = [...Array(10).keys()]
+      .map((i) => (i === 0 ? 0 : i * 10))
+      .map((j) =>
+        [...Array(10).keys()].map((k) => `<td>${list[k + j]}`).join("")
+      );
+    const contents = `
         <table>
           <thead bgcolor="darkgray">
            <tr>
@@ -98,9 +103,9 @@ const tableComponent = (list) => {
         </table>
       `;
 
-  return { contents };
-};
-
+    return { contents };
+  }
+}
 export class FibonacciList {
   constructor(command) {
     this._command = command;
