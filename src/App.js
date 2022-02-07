@@ -3,16 +3,16 @@ export class App {
   constructor() {
     this._command = new FibonacciList(new Fibonacci(new FibonacciRecursive()));
     this._list = this._command.exec(100);
-    this.render(this._list);
+    this.render();
   }
 
-  render(list) {
+  render() {
     const renderTable = (contents) => {
       document.getElementById("app-table").innerHTML = contents;
     };
 
     const select = this.selectComponent(renderTable);
-    const table = this.tableComponent(list);
+    const table = this.tableComponent(this._list);
     const contents = `
       <div>
         <div id="app-select">
