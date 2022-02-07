@@ -14,4 +14,16 @@ export class Fibonacci {
     memo[number] = this.calc(number - 1, memo) + this.calc(number - 2, memo);
     return memo[number];
   }
+
+  static calc2(number) {
+    let a = 0;
+    let b = 1;
+    let c = 0;
+    for (let i = 0; i < number; i++) {
+      a = b;
+      b = c;
+      c = a + b;
+    }
+    return c;
+  }
 }
