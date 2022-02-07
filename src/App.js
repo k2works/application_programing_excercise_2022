@@ -5,7 +5,6 @@ export class App {
 
   constructor() {
     this._command = new FibonacciList(new Fibonacci(new FibonacciRecursive()));
-    this.render();
   }
 
   render() {
