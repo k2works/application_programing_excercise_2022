@@ -65,7 +65,6 @@ class FibonacciList {
 }
 class App {
   command
-  list
   render()
 }
 `;
