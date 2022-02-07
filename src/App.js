@@ -71,6 +71,16 @@ export class App {
   }
 }
 
+export class FibonacciList {
+  constructor(command) {
+    this._command = command;
+  }
+
+  exec(count) {
+    return [...Array(count + 1).keys()].map((i) => this._command.exec(i));
+  }
+}
+
 export class Fibonacci {
   constructor(algorithm) {
     this._algorithm = algorithm;
