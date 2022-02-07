@@ -17,4 +17,11 @@ describe("フィボナッチ数列", () => {
   test("3を渡したら2を返す", () => {
     expect(Fibonacci.fib(3)).toEqual(2);
   });
+
+  test("4を渡したら3を返す", () => {
+    expect(Fibonacci.fib(4)).toEqual(3);
+  });
+  test("5を渡したら5を返す", () => {
+    expect(Fibonacci.fib(5)).toEqual(5);
+  });
 });
