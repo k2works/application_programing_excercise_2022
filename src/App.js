@@ -1,8 +1,59 @@
 console.log("App.js: loaded");
 export class App {
   constructor() {
-    const fib = new Fibonacci(new FibonacciRecursive());
-    document.getElementById("app").innerHTML = fib.exec(40);
+    const contents = `
+    <select>
+      <option>再帰</option>
+      <option>ループ</option>
+      <option>一般項</option>
+    </select>
+    <table>
+      <thead>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+          <td>10</td>
+        </tr>
+      </thead>
+      <tbody bgcolor="darkgray">
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>5</td>
+          <td>8</td>
+          <td>13</td>
+          <td>21</td>
+          <td>34</td>
+          <td>55</td>
+        </tr>
+        <tr>
+          <td>89</td>
+          <td>144</td>
+          <td>233</td>
+          <td>377</td>
+          <td>610</td>
+          <td>987</td>
+          <td>1597</td>
+          <td>2584</td>
+          <td>4181</td>
+          <td>6765</td>
+        </tr>
+        <tr>
+          <td>...</td>
+        </tr>
+      </tbody>
+    </table>
+    `;
+    document.getElementById("app").innerHTML = contents;
   }
 }
 
