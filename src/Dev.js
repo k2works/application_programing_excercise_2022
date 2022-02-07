@@ -1,7 +1,31 @@
 import marked from "marked";
 
 const contents = `
-## 機能名
+## フィボナッチ数列
+## 仕様
+> n 番目のフィボナッチ数を Fn で表すと、Fn は再帰的に
+>
+> F0 = 0,
+>
+> F1 = 1,
+>
+> Fn + 2 = Fn + Fn + 1 (n ≧ 0)
+>
+> で定義される。これは、2つの初期条件を持つ漸化式である。
+>
+> この数列 (Fn)はフィボナッチ数列（フィボナッチすうれつ、（英: Fibonacci sequence）と呼ばれ、
+>
+> 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987,
+> 1597, 2584, 4181, 6765, 10946, …（オンライン整数列大辞典の数列 A45） と続く。最初の二項は 0, 1
+> であり、以後どの項もその直前の2つの項の和となっている。
+>
+> —  Wikipedia
+表形式にすると以下のようになります。
+
+|   |   |   |   |   |   |   |    |    |    |    |    |     |     |     |     |     |      |      |    |
+| --- | --- | --- | --- | --- | --- | --- | ---- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---- | ---- | --- |
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7  | 8  | 9  | 10 | 11 | 12  | 13  | 14  | 15  | 16  | 18   | 19   | …​ |
+| 0 | 1 | 1 | 2 | 3 | 5 | 8 | 13 | 21 | 34 | 55 | 89 | 144 | 233 | 377 | 610 | 987 | 1597 | 2584 | …​ |
 
 ## 仕様
 
@@ -9,62 +33,9 @@ const contents = `
 `;
 
 const uml = `
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-  Object[] elementData
-  size()
-}
-
-enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
-}
-
-annotation SuppressWarnings
 `;
 
 const erd = `
-' hide the spot
-hide circle
-
-' avoid problems with angled crows feet
-skinparam linetype ortho
-
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
-  --
-  *name : text
-  description : text
-}
-
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
-  --
-  *e1_id : number <<FK>>
-  other_details : text
-}
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
 `;
 
 export const setUp = () => {
