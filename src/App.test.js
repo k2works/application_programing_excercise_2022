@@ -2,6 +2,11 @@
 import { Fibonacci } from "./App.js";
 
 describe("フィボナッチ数列", () => {
+  let fib;
+  beforeEach(() => {
+    fib = Fibonacci;
+  });
+
   test.each([
     [0, 0],
     [1, 1],
@@ -10,6 +15,6 @@ describe("フィボナッチ数列", () => {
     [4, 3],
     [5, 5],
   ])("%iを渡したら%pを返す", (number, expected) => {
-    expect(Fibonacci.fib(number)).toEqual(expected);
+    expect(fib.fib(number)).toEqual(expected);
   });
 });
