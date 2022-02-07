@@ -13,4 +13,8 @@ describe("フィボナッチ数列", () => {
   test("2を渡したら2を返す", () => {
     expect(Fibonacci.fib(2)).toEqual(1);
   });
+
+  test("3を渡したら2を返す", () => {
+    expect(Fibonacci.fib(3)).toEqual(2);
+  });
 });
