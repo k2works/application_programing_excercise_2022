@@ -26,4 +26,11 @@ export class Fibonacci {
     }
     return c;
   }
+
+  static calc3(number) {
+    let a = ((1 + Math.sqrt(5)) / 2) ** number;
+    let b = ((1 - Math.sqrt(5)) / 2) ** number;
+    const result = (a - b) / Math.sqrt(5);
+    return Math.round(result);
+  }
 }
