@@ -17,4 +17,8 @@ describe("フィボナッチ数列", () => {
   ])("%iを渡したら%pを返す", (number, expected) => {
     expect(fib.calc(number)).toEqual(expected);
   });
+
+  test("大きな数値を計算する", () => {
+    expect(fib.calc(40)).toEqual(102334155);
+  });
 });
