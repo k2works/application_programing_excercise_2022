@@ -12,6 +12,7 @@ export class Fibonacci {
   }
 
   exec(number) {
+    if (number < 0) throw new Error("マイナスの値は指定できません");
     return this._algorithm.exec(number);
   }
 }

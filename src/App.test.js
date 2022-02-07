@@ -40,4 +40,11 @@ describe("フィボナッチ数列", () => {
   test("大きな数値を計算する(一般項による実装)", () => {
     expect(generalTerm.exec(40)).toEqual(102334155);
   });
+
+  test("マイナスの値はエラーを返す", () => {
+    const result = () => {
+      recursive.exec(-1);
+    };
+    expect(result).toThrow("マイナスの値は指定できません");
+  });
 });
