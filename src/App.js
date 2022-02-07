@@ -11,7 +11,7 @@ export class App {
       document.getElementById("app-table").innerHTML = contents;
     };
 
-    const select = selectComponent(renderTable, tableComponent(list));
+    const select = selectComponent(renderTable);
     const table = tableComponent(list);
     const contents = `
       <div>
@@ -31,7 +31,7 @@ export class App {
   }
 }
 
-const selectComponent = (render, table) => {
+const selectComponent = (render) => {
   let list;
   let command;
   const changeEvent = (e) => {
