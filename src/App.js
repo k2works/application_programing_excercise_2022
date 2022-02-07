@@ -1,5 +1,9 @@
 console.log("App.js: loaded");
 export class App {
+  get MAX_COUNT() {
+    return 100;
+  }
+
   constructor() {
     this._command = new FibonacciList(new Fibonacci(new FibonacciRecursive()));
     this.render();
@@ -11,7 +15,7 @@ export class App {
     };
 
     const select = this.selectComponent(renderTable);
-    const list = this._command.exec(100);
+    const list = this._command.exec(this.MAX_COUNT);
     const table = this.tableComponent(list);
     const contents = `
       <div>
@@ -39,19 +43,19 @@ export class App {
           this._command = new FibonacciList(
             new Fibonacci(new FibonacciRecursive())
           );
-          list = this._command.exec(100);
+          list = this._command.exec(this.MAX_COUNT);
           render(this.tableComponent(list).contents);
           break;
         case "2":
           this._command = new FibonacciList(new Fibonacci(new FibonacciLoop()));
-          list = this._command.exec(100);
+          list = this._command.exec(this.MAX_COUNT);
           render(this.tableComponent(list).contents);
           break;
         case "3":
           this._command = new FibonacciList(
             new Fibonacci(new FibonacciGeneralTerm())
           );
-          list = this._command.exec(100);
+          list = this._command.exec(this.MAX_COUNT);
           render(this.tableComponent(list).contents);
           break;
         default:
