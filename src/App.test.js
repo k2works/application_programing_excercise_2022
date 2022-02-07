@@ -1,5 +1,8 @@
-import { sum } from "./App.js";
 
-test("adds 1 + 2 to equal 3", () => {
-  expect(sum(1, 2)).toBe(3);
+import { Fibonacci } from "./App.js";
+
+describe("フィボナッチ数列", () => {
+  test("挨拶する", () => {
+    expect(Fibonacci.greeting()).toEqual("hello world");
+  });
 });

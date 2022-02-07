@@ -1,10 +1,12 @@
 console.log("App.js: loaded");
 export class App {
   constructor() {
-    console.log("App initialized");
+    document.getElementById("app").innerHTML = Fibonacci.greeting();
   }
 }
 
-export function sum(a, b) {
-  return a + b;
+export class Fibonacci {
+  static greeting() {
+    return "hello world";
+  }
 }
