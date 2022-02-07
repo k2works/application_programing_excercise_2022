@@ -6,10 +6,10 @@ export class App {
 }
 
 export class Fibonacci {
-  static fib(n) {
-    if (n === 0) return 0;
-    if (n === 1) return 1;
+  static fib(number) {
+    if (number === 0) return 0;
+    if (number === 1) return 1;
 
-    return this.fib(n - 1) + this.fib(n - 2);
+    return this.fib(number - 1) + this.fib(number - 2);
   }
 }
