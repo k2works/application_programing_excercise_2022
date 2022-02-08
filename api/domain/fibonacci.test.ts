@@ -6,9 +6,9 @@ import {
 } from "./fibonacci";
 
 describe("フィボナッチ数列", () => {
-  let fib: Fibonacci;
+  let command: FibonacciRecursive;
   beforeEach(() => {
-    fib = new Fibonacci();
+    command = new FibonacciRecursive();
   });
   test.each([
     [0, 0],
@@ -18,7 +18,7 @@ describe("フィボナッチ数列", () => {
     [4, 3],
     [5, 5],
   ])("%iを渡した%pを返す", (number: number, expected: number) => {
-    expect(fib.recursive(number)).toEqual(expected);
+    expect(command.exec(number)).toEqual(expected);
   });
 
   test("大きな数値で計算する(再帰による実装)", () => {
