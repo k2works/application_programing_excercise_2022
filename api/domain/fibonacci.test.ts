@@ -16,7 +16,11 @@ describe("フィボナッチ数列", () => {
     expect(fib.calc(number)).toEqual(expected);
   });
 
-  test("大きな数値で計算する", () => {
+  test("大きな数値で計算する(再帰による実装)", () => {
     expect(fib.calc(40)).toEqual(102334155);
+  });
+
+  test("大きな数値で計算する(ループによる実装)", () => {
+    expect(fib.calc2(40)).toEqual(102334155);
   });
 });
