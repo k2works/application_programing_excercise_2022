@@ -1,4 +1,5 @@
-import { App } from "./src/App.js";
+import { View } from "./src/View";
 import { setUp } from "./src/Dev.js";
-const app = new App();
+const view = new View();
+view.render();
 setUp();
