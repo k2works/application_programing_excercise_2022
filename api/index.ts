@@ -13,7 +13,7 @@ app.get("/api", (req, res) => {
   res.send(command.exec(100));
 });
 
-app.get("/api/:type/:number", (req, res) => {
+app.get("/api/fib/:type/:number", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   const { type, number } = req.params;
   const typeValue: number = parseInt(type, 10);
