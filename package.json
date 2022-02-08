@@ -1,5 +1,5 @@
 {
-  "name": "tdd_metu",
+  "name": "ape_2022",
   "version": "1.0.0",
   "description": "## 概要",
   "main": "index.js",
@@ -12,7 +12,7 @@
     "test": "jest --coverage",
     "test:e2e": "cypress run",
     "test:cypress": "cypress open",
-    "watch": "webpack --watch --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.dev.config.js",
     "build": "webpack --config webpack.config.js",
     "deploy:local": "vercel dev",
     "deploy": "vercel"
@@ -32,14 +32,18 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.12.1",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^26.0.15",
     "browser-sync": "^2.26.13",
     "cpx": "^1.5.0",
     "foreman": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^26.6.1",
+    "jest": "^26.6.3",
     "marked": "^1.2.2",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "ts-jest": "^26.5.6",
+    "typescript": "^4.5.5",
     "watch": "^1.0.2",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2"
@@ -55,10 +59,19 @@
   },
   "jest": {
     "moduleFileExtensions": [
-      "js"
+      "js",
+      "ts"
     ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
     "testMatch": [
-      "**/**/*.test.js"
+      "**/**/*.test.ts"
     ]
   }
 }
