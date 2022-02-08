@@ -52,3 +52,12 @@ export class FibonacciLoop implements Command {
     return c;
   }
 }
+
+export class FibonacciGenralTerm implements Command {
+  exec(number: number): number {
+    let a: number = ((1 + Math.sqrt(5)) / 2) ** number;
+    let b: number = ((1 - Math.sqrt(5)) / 2) ** number;
+    const result: number = (a - b) / Math.sqrt(5);
+    return Math.round(result);
+  }
+}
