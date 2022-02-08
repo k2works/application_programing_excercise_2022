@@ -40,35 +40,58 @@ const contents = `
 `;
 
 const uml = `
-class View {
-  command
-  render()
+package "Api" {
+  package "Domain" {
+    interface FibonacciAlgorithm {
+      calc(number)
+    }
+    class FibonacciRecursive {
+      calc(number)
+    }
+    class FibonacciLoop {
+      calc(number)
+    }
+    class FibonacciGeneralTerm {
+      calc(number)
+    }
+    enum FibonacciTypeEnum{
+      Recursive = 1
+      Loop = 2
+      GeneralTerm = 3
+    }
+  }
+  package "Application" {
+    interface Command{
+      exec(number)
+    }
+    class Fibonacci {
+      algorith
+      exec(number)
+    }
+    class FibonacciList {
+      command
+      exec(number)
+    }
+  }
+  package "Presentation" {
+    class Express {}
+  }
 }
-package model {
-  View *- FibonacciList
-  FibonacciList *- Fibonacci
-  Fibonacci -> Protocol
-  Protocol <|-- FibonacciRecursive
-  Protocol <|-- FibonacciLoop
-  Protocol <|-- FibonacciGeneralTerm
-  class Fibonacci {
-    algorith
-    exec(number)
-  }
-  class FibonacciRecursive {
-    exec(number)
-  }
-  class FibonacciLoop {
-    exec(number)
-  }
-  class FibonacciGeneralTerm {
-    exec(number)
-  }
-  class FibonacciList {
-    command
-    exec(count)
+package "Client" {
+  class View {
+    render()
   }
 }
+View -> Express
+Express -> Command
+Express -> FibonacciTypeEnum
+FibonacciList *- Fibonacci
+Command <|-- Fibonacci
+Command <|-- FibonacciList
+Fibonacci *-- FibonacciAlgorithm
+FibonacciAlgorithm <|-- FibonacciRecursive
+FibonacciAlgorithm <|-- FibonacciLoop
+FibonacciAlgorithm <|-- FibonacciGeneralTerm
 `;
 
 const erd = `
