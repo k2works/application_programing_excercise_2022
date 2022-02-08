@@ -1,9 +1,21 @@
 export interface Command {
-  exec(number: number): number;
+  exec(number: number): any;
+}
+
+export class FibonacciList implements Command {
+  private _command: Command;
+
+  constructor(command: Command) {
+    this._command = command;
+  }
+
+  exec(number: number): number[] {
+    return [...Array(number)].map((_, i: number) => this._command.exec(i + 1));
+  }
 }
 
 export class Fibonacci implements Command {
-  private _algorithm;
+  private _algorithm: Command;
 
   constructor(algorithm: Command) {
     this._algorithm = algorithm;
