@@ -13,7 +13,7 @@ app.get("/api", (req, res) => {
   res.send(command.exec(100));
 });
 
-app.get("/api/fib/:type/:number", (req, res) => {
+app.post("/api", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   const { type, number } = req.params;
   const typeValue: number = parseInt(type, 10);
@@ -23,7 +23,7 @@ app.get("/api/fib/:type/:number", (req, res) => {
   res.send({ value: command.exec(numberValue) });
 });
 
-app.get("/api/list/:type", (req, res) => {
+app.get("/api/:type", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   const { type } = req.params;
   const value: number = parseInt(type, 10);
