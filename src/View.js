@@ -1,18 +1,20 @@
-import {
-  Fibonacci,
-  FibonacciRecursive,
-  FibonacciLoop,
-  FibonacciGeneralTerm,
-  FibonacciList,
-} from "./Model.js";
-
 export class View {
   get MAX_COUNT() {
     return 100;
   }
 
-  constructor() {
-    this._command = new FibonacciList(new Fibonacci(new FibonacciRecursive()));
+  constructor(apiUrl = "http://localhost:3000/api") {
+    this._apiUrl = apiUrl;
+  }
+
+  fetchApi(url) {
+    const service = (resolve, reject) => {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
+    };
+    return new Promise(service);
   }
 
   render() {
@@ -21,9 +23,9 @@ export class View {
     };
 
     const select = this.createSelectComponent(renderTable);
-    const list = this._command.exec(this.MAX_COUNT);
-    const table = this.createTableComponent(list);
-    const contents = `
+    this.fetchApi(this._apiUrl).then((list) => {
+      const table = this.createTableComponent(list);
+      const contents = `
       <div>
         <div id="app-select">
           ${select.contents}
@@ -34,39 +36,19 @@ export class View {
       </div>
     `;
 
-    document.getElementById("app").innerHTML = contents;
-    document
-      .getElementById("app-select")
-      .addEventListener("change", select.changeEvent);
+      document.getElementById("app").innerHTML = contents;
+      document
+        .getElementById("app-select")
+        .addEventListener("change", select.changeEvent);
+    });
   }
 
   createSelectComponent(render) {
-    let list;
     const changeEvent = (e) => {
       const value = e.target.value;
-      switch (value) {
-        case "1":
-          this._command = new FibonacciList(
-            new Fibonacci(new FibonacciRecursive())
-          );
-          list = this._command.exec(this.MAX_COUNT);
-          render(this.createTableComponent(list).contents);
-          break;
-        case "2":
-          this._command = new FibonacciList(new Fibonacci(new FibonacciLoop()));
-          list = this._command.exec(this.MAX_COUNT);
-          render(this.createTableComponent(list).contents);
-          break;
-        case "3":
-          this._command = new FibonacciList(
-            new Fibonacci(new FibonacciGeneralTerm())
-          );
-          list = this._command.exec(this.MAX_COUNT);
-          render(this.createTableComponent(list).contents);
-          break;
-        default:
-          throw new Error("該当するアルゴリズムが存在しません");
-      }
+      this.fetchApi(`${this._apiUrl}/${value}`).then((list) => {
+        render(this.createTableComponent(list).contents);
+      });
     };
 
     const contents = `
