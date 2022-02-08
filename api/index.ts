@@ -10,7 +10,10 @@ const app = express();
 app.get("/api", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   const command: Command = new FibonacciList(FibonacciTypeEnum.valueOf(1));
-  res.send(command.exec(100));
+  const json = JSON.stringify(command.exec(100), (k, v) =>
+    typeof v === "bigint" ? v.toString() + "n" : v
+  );
+  res.send(json);
 });
 
 app.post("/api", (req, res) => {
@@ -29,7 +32,10 @@ app.get("/api/:type", (req, res) => {
   const value: number = parseInt(type, 10);
 
   const command: Command = new FibonacciList(FibonacciTypeEnum.valueOf(value));
-  res.send(command.exec(100));
+  const json = JSON.stringify(command.exec(100), (k, v) =>
+    typeof v === "bigint" ? v.toString() + "n" : v
+  );
+  res.send(json);
 });
 
 module.exports = app;
