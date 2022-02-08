@@ -7,25 +7,15 @@ export class View {
     this._apiUrl = params.apiUrl;
   }
 
-  fetchApi(url) {
-    const service = (resolve, reject) => {
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => resolve(data))
-        .catch((error) => reject(error));
-    };
-    return new Promise(service);
-  }
-
-  render() {
+  async render() {
     const renderTable = (contents) => {
       document.getElementById("app-table").innerHTML = contents;
     };
 
     const select = this.createSelectComponent(renderTable);
-    this.fetchApi(this._apiUrl).then((list) => {
-      const table = this.createTableComponent(list);
-      const contents = `
+    const list = await this.fetchApi(this._apiUrl);
+    const table = this.createTableComponent(list);
+    const contents = `
       <div>
         <div id="app-select">
           ${select.contents}
@@ -36,19 +26,28 @@ export class View {
       </div>
     `;
 
-      document.getElementById("app").innerHTML = contents;
-      document
-        .getElementById("app-select")
-        .addEventListener("change", select.changeEvent);
-    });
+    document.getElementById("app").innerHTML = contents;
+    document
+      .getElementById("app-select")
+      .addEventListener("change", select.changeEvent);
+  }
+
+  fetchApi(url) {
+    const service = (resolve, reject) => {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
+    };
+    return new Promise(service);
   }
 
   createSelectComponent(render) {
-    const changeEvent = (e) => {
+    const changeEvent = async (e) => {
       const value = e.target.value;
-      this.fetchApi(`${this._apiUrl}/${value}`).then((list) => {
-        render(this.createTableComponent(list).contents);
-      });
+      const list = await this.fetchApi(`${this._apiUrl}/${value}`);
+      render(this.createTableComponent(list).contents);
+      this.fetchApi(`${this._apiUrl}/${value}`).then((list) => {});
     };
 
     const contents = `
