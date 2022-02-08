@@ -1,4 +1,4 @@
-import { Fibonacci } from "./fibonacci";
+import { Fibonacci, FibonacciRecursive } from "./fibonacci";
 
 describe("フィボナッチ数列", () => {
   let fib: Fibonacci;
@@ -17,7 +17,8 @@ describe("フィボナッチ数列", () => {
   });
 
   test("大きな数値で計算する(再帰による実装)", () => {
-    expect(fib.recursive(40)).toEqual(102334155);
+    const command = new FibonacciRecursive();
+    expect(command.exec(40)).toEqual(102334155);
   });
 
   test("大きな数値で計算する(ループによる実装)", () => {
