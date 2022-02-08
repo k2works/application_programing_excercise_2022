@@ -1,4 +1,13 @@
-import { App } from "./src/App.js";
+import { View } from "./src/View";
 import { setUp } from "./src/Dev.js";
-const app = new App();
-setUp();
+
+let view;
+if (process.env.NODE_ENV === "production") {
+  view = new View({ apiUrl: "/api" });
+  view.render();
+  setUp();
+} else {
+  view = new View({ apiUrl: "http://localhost:3000/api" });
+  view.render();
+  setUp();
+}

@@ -38,6 +38,9 @@ npm install webpack webpack-cli html-webpack-plugin --save-dev
 touch Procfile
 npm install cypress
 npmx cypress open
+npm install --save express uuid
+npm install --save-dev typescript jest ts-jest @types/jest @types/express
+npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom --module commonjs
 ```
 
 **[⬆ back to top](#構成)**
@@ -73,3 +76,5 @@ npm start
 - [webpack](https://webpack.js.org/)
 - [GitHub Actions でステータスバッジを表示する](https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8)
 - [cypress](https://www.cypress.io/)
+- [Using Express.js with Vercel](https://vercel.com/guides/using-express-with-vercel)
+- [TypeScript Deep Dive 日本語版](https://typescript-jp.gitbook.io/deep-dive/)
