@@ -3,8 +3,8 @@ export class View {
     return 100;
   }
 
-  constructor(apiUrl = "http://localhost:3000/api") {
-    this._apiUrl = apiUrl;
+  constructor(params) {
+    this._apiUrl = params.apiUrl;
   }
 
   fetchApi(url) {
