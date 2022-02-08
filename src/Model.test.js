@@ -1,11 +1,10 @@
-
 import {
   Fibonacci,
   FibonacciRecursive,
   FibonacciLoop,
   FibonacciGeneralTerm,
   FibonacciList,
-} from "./App.js";
+} from "./Model.js";
 
 describe("フィボナッチ数列", () => {
   let fib;
