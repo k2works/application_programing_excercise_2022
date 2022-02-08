@@ -1,5 +1,5 @@
 export class Fibonacci {
-  greeting(): string {
-    return "hello world";
+  calc(number: number): number {
+    return 0;
   }
 }
