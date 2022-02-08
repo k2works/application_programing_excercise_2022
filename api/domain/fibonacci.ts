@@ -34,7 +34,7 @@ export enum FibonacciType {
 }
 
 export namespace FibonacciTypeEnum {
-  export function valuOf(value: FibonacciType) {
+  export function valueOf(value: FibonacciType) {
     switch (value) {
       case FibonacciType.Recursive:
         return new FibonacciRecursive();

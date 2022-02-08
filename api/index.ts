@@ -4,7 +4,7 @@ const app = express();
 
 app.get("/api", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const command: Command = new FibonacciList(FibonacciTypeEnum.valuOf(1));
+  const command: Command = new FibonacciList(FibonacciTypeEnum.valueOf(1));
   res.send(command.exec(100));
 });
 
