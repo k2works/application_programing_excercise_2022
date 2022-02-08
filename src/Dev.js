@@ -40,32 +40,34 @@ const contents = `
 `;
 
 const uml = `
-App *- FibonacciList
-FibonacciList *- Fibonacci
-Fibonacci -> Protocol
-Protocol <|-- FibonacciRecursive
-Protocol <|-- FibonacciLoop
-Protocol <|-- FibonacciGeneralTerm
-class Fibonacci {
-  algorith
-  exec(number)
-}
-class FibonacciRecursive {
-  exec(number)
-}
-class FibonacciLoop {
-  exec(number)
-}
-class FibonacciGeneralTerm {
-  exec(number)
-}
-class FibonacciList {
-  command
-  exec(count)
-}
-class App {
+class View {
   command
   render()
+}
+package model {
+  View *- FibonacciList
+  FibonacciList *- Fibonacci
+  Fibonacci -> Protocol
+  Protocol <|-- FibonacciRecursive
+  Protocol <|-- FibonacciLoop
+  Protocol <|-- FibonacciGeneralTerm
+  class Fibonacci {
+    algorith
+    exec(number)
+  }
+  class FibonacciRecursive {
+    exec(number)
+  }
+  class FibonacciLoop {
+    exec(number)
+  }
+  class FibonacciGeneralTerm {
+    exec(number)
+  }
+  class FibonacciList {
+    command
+    exec(count)
+  }
 }
 `;
 
