@@ -55,5 +55,15 @@ describe("フィボナッチ数列", () => {
       const result = () => recursive.exec(-1);
       expect(result).toThrowError("マイナスの値は指定できません");
     });
+
+    test("100以上は計算できない", () => {
+      expect(() => recursive.exec(101)).toThrow("");
+    });
+
+    test("リストは100項まで", () => {
+      const command = new Fibonacci(FibonacciTypeEnum.valueOf(1));
+      const listCommand = new FibonacciList(command);
+      expect(() => listCommand.exec(101)).toThrow("");
+    });
   });
 });
