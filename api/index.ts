@@ -7,7 +7,9 @@ const app = express();
 
 app.get("/api", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const command: Command = new FibonacciList(FibonacciTypeEnum.valueOf(1));
+  const command: Command = new FibonacciList(
+    new Fibonacci(FibonacciTypeEnum.valueOf(1))
+  );
   const json = JSON.stringify(command.exec(100), (k, v) =>
     typeof v === "bigint" ? v.toString() + "n" : v
   );
@@ -29,7 +31,9 @@ app.get("/api/:type", (req, res) => {
   const { type } = req.params;
   const value: number = parseInt(type, 10);
 
-  const command: Command = new FibonacciList(FibonacciTypeEnum.valueOf(value));
+  const command: Command = new FibonacciList(
+    new Fibonacci(FibonacciTypeEnum.valueOf(value))
+  );
   const json = JSON.stringify(command.exec(100), (k, v) =>
     typeof v === "bigint" ? v.toString() + "n" : v
   );

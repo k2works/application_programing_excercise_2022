@@ -1,7 +1,7 @@
-import { Command } from "../../application/command";
+import { FibonacciAlgorithm } from "../../application/fibonacciAlgorithm";
 
-export class FibonacciLoop implements Command {
-  exec(number: number): bigint {
+export class FibonacciLoop implements FibonacciAlgorithm {
+  calc(number: number): bigint {
     let a: number = 0;
     let b: number = 1;
     let c: number = 0;
