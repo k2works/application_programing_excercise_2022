@@ -1,5 +1,6 @@
 import {
   Command,
+  Fibonacci,
   FibonacciGenralTerm,
   FibonacciLoop,
   FibonacciRecursive,
@@ -10,9 +11,9 @@ describe("フィボナッチ数列", () => {
   let loop: Command;
   let generalTerm: Command;
   beforeEach(() => {
-    recursive = new FibonacciRecursive();
-    loop = new FibonacciLoop();
-    generalTerm = new FibonacciGenralTerm();
+    recursive = new Fibonacci(new FibonacciRecursive());
+    loop = new Fibonacci(new FibonacciLoop());
+    generalTerm = new Fibonacci(new FibonacciGenralTerm());
   });
   test.each([
     [0, 0],
@@ -35,5 +36,10 @@ describe("フィボナッチ数列", () => {
 
   test("大きな数値で計算する(一般項による実装)", () => {
     expect(generalTerm.exec(40)).toEqual(102334155);
+  });
+
+  test("マイナスの値はエラーを返す", () => {
+    const result = () => recursive.exec(-1);
+    expect(result).toThrowError("マイナスの値は指定できません");
   });
 });
