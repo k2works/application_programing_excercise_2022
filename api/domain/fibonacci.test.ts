@@ -5,4 +5,9 @@ describe("フィボナッチ数列", () => {
     const fib = new Fibonacci();
     expect(fib.calc(0)).toEqual(0);
   });
+
+  test("1を渡したら1を返す", () => {
+    const fib = new Fibonacci();
+    expect(fib.calc(1)).toEqual(1);
+  });
 });
