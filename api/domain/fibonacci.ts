@@ -1,7 +1,17 @@
-export class Fibonacci {}
-
 export interface Command {
   exec(number: number): number;
+}
+
+export class Fibonacci implements Command {
+  private _algorithm;
+
+  constructor(algorithm: Command) {
+    this._algorithm = algorithm;
+  }
+
+  exec(number: number): number {
+    return this._algorithm.exec(number);
+  }
 }
 
 export class FibonacciRecursive implements Command {
