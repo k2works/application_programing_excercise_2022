@@ -27,19 +27,19 @@ describe("フィボナッチ数列", () => {
       [4, 3],
       [5, 5],
     ])("%iを渡したら%pを返す", (number, expected) => {
-      expect(recursive.exec(number)).toEqual(expected);
+      expect(recursive.exec(number)).toEqual(BigInt(expected));
     });
 
     test("大きな数値を計算する(再起処理による実装)", () => {
-      expect(recursive.exec(40)).toEqual(102334155);
+      expect(recursive.exec(40)).toEqual(BigInt(102334155));
     });
 
     test("大きな数値を計算する(ループ処理による実装)", () => {
-      expect(loop.exec(40)).toEqual(102334155);
+      expect(loop.exec(40)).toEqual(BigInt(102334155));
     });
 
     test("大きな数値を計算する(一般項による実装)", () => {
-      expect(generalTerm.exec(40)).toEqual(102334155);
+      expect(generalTerm.exec(40)).toEqual(BigInt(102334155));
     });
 
     test("40までのフィボナッチ配列を返す", () => {
@@ -47,10 +47,10 @@ describe("フィボナッチ数列", () => {
       const listCommand = new FibonacciList(command);
       const result = listCommand.exec(40);
 
-      expect(result[0]).toEqual(1);
-      expect(result[result.length - 3]).toEqual(39088169);
-      expect(result[result.length - 2]).toEqual(63245986);
-      expect(result[result.length - 1]).toEqual(102334155);
+      expect(result[0]).toEqual(BigInt(1));
+      expect(result[result.length - 3]).toEqual(BigInt(39088169));
+      expect(result[result.length - 2]).toEqual(BigInt(63245986));
+      expect(result[result.length - 1]).toEqual(BigInt(102334155));
     });
   });
 
