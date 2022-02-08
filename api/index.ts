@@ -1,10 +1,8 @@
 import express from "express";
-import {
-  Command,
-  Fibonacci,
-  FibonacciList,
-  FibonacciTypeEnum,
-} from "./domain/fibonacci";
+import { Command } from "./application/command";
+import { Fibonacci } from "./application/fibonacci";
+import { FibonacciList } from "./application/fibonacciList";
+import { FibonacciTypeEnum } from "./domain/type/fibonacciTypeEnum";
 const app = express();
 
 app.get("/api", (req, res) => {
