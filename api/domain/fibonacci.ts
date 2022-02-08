@@ -27,6 +27,27 @@ export class Fibonacci implements Command {
   }
 }
 
+export enum FibonacciType {
+  Recursive = 1,
+  Loop = 2,
+  GeneralTerm = 3,
+}
+
+export namespace FibonacciTypeEnum {
+  export function valuOf(value: FibonacciType) {
+    switch (value) {
+      case FibonacciType.Recursive:
+        return new FibonacciRecursive();
+      case FibonacciType.Loop:
+        return new FibonacciLoop();
+      case FibonacciType.GeneralTerm:
+        return new FibonacciGenralTerm();
+      default:
+        throw new Error("該当するアルゴリズムが存在しません");
+    }
+  }
+}
+
 export class FibonacciRecursive implements Command {
   exec(number: number, memo: number[] = []): number {
     if (memo[number]) return memo[number];

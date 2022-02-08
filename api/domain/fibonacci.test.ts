@@ -5,6 +5,7 @@ import {
   FibonacciList,
   FibonacciLoop,
   FibonacciRecursive,
+  FibonacciTypeEnum,
 } from "./fibonacci";
 
 describe("フィボナッチ数列", () => {
@@ -12,9 +13,9 @@ describe("フィボナッチ数列", () => {
   let loop: Command;
   let generalTerm: Command;
   beforeEach(() => {
-    recursive = new Fibonacci(new FibonacciRecursive());
-    loop = new Fibonacci(new FibonacciLoop());
-    generalTerm = new Fibonacci(new FibonacciGenralTerm());
+    recursive = new Fibonacci(FibonacciTypeEnum.valuOf(1));
+    loop = new Fibonacci(FibonacciTypeEnum.valuOf(2));
+    generalTerm = new Fibonacci(FibonacciTypeEnum.valuOf(3));
   });
   describe("正常系", () => {
     test.each([
@@ -41,7 +42,7 @@ describe("フィボナッチ数列", () => {
     });
 
     test("40までのフィボナッチ配列を返す", () => {
-      const command = new Fibonacci(new FibonacciRecursive());
+      const command = new Fibonacci(FibonacciTypeEnum.valuOf(1));
       const listCommand = new FibonacciList(command);
       const result = listCommand.exec(40);
 
