@@ -5,6 +5,7 @@ import { TodoItemView } from "./view/TodoItemView";
 import { TodoListView } from "./view/TodoListView";
 import { TodoItemRepository } from "./application/TodoItemRepository";
 import { nSQL } from "@nano-sql/core";
+import { TodoService } from "./application/TodoService";
 
 const spyLog = jest.spyOn(console, "log");
 spyLog.mockImplementation((x) => x);
@@ -137,7 +138,6 @@ describe("TodoItemRepositoryを利用するサンプルコード", () => {
     });
   });
 
-
   test("Destroy", () => {
     const todoListModel = new TodoListModel();
     [...Array(10).keys()]
@@ -170,6 +170,85 @@ describe("TodoItemRepositoryを利用するサンプルコード", () => {
           });
           return repository.save(updateEntity).then(() => {
             return repository.find(id).then((result) => {
+              expect(result.title).toEqual("更新したTodoアイテム");
+              expect(result.completed).toBe(true);
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
+describe("TodoServiceを利用するサンプルコード", () => {
+  let service = new TodoService();
+
+  beforeEach(() => {
+    service.deleteAll();
+  });
+
+  test("CreateTodoItem", () => {
+    const expected = new TodoItemModel({
+      title: "新しいTodoアイテム",
+      completed: false,
+    });
+
+    return service.createTodoItem(expected).then(() => {
+      return service.selectAll().then((result) => {
+        return expect(result[0]).toEqual(expected);
+      });
+    });
+  });
+
+  test("Delete", () => {
+    const entity = new TodoItemModel({
+      title: "新しいTodoアイテム",
+      completed: false,
+    });
+
+    return service.createTodoItem(entity).then(() => {
+      return service.find(entity).then((result) => {
+        return service.delete(entity).then(() => {
+          return service.find(entity).then((result) => {
+            expect(result).toBe(null);
+          });
+        });
+      });
+    });
+  });
+
+  test("DeleteAll", () => {
+    const todoListModel = new TodoListModel();
+    [...Array(10).keys()]
+      .map((i) => new TodoItemModel({ title: `Todo${i}`, completed: false }))
+      .map((j) => todoListModel.addTodo(j));
+
+    return service.createTodoList(todoListModel.getTodoItems()).then(() => {
+      return service.deleteAll().then(() => {
+        return service.selectAll().then((result) => {
+          expect(result).toEqual([]);
+        });
+      });
+    });
+  });
+
+  test("Save", () => {
+    const entity = new TodoItemModel({
+      title: "新しいTodoアイテム",
+      completed: false,
+    });
+
+    return service.createTodoItem(entity).then(() => {
+      return service.selectAll().then((result) => {
+        const id = result[result.length - 1].id;
+        return service.find(entity).then((result) => {
+          const updateEntity = new TodoItemModel({
+            id,
+            title: "更新したTodoアイテム",
+            completed: true,
+          });
+          return service.save(updateEntity).then(() => {
+            return service.find(updateEntity).then((result) => {
               expect(result.title).toEqual("更新したTodoアイテム");
               expect(result.completed).toBe(true);
             });
