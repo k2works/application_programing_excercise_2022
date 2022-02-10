@@ -80,4 +80,51 @@ export class TodoItemRepository {
         });
     });
   }
+
+  find(id) {
+    return new Promise((resolve, reject) => {
+      nSQL(this.table)
+        .query("select")
+        .where(["id", "=", id])
+        .exec()
+        .then((rows) => {
+          console.log(rows);
+          const result = rows.map(
+            (row) =>
+              new TodoItemModel({
+                id: row.id,
+                title: row.title,
+                completed: row.completed,
+              })
+          );
+          return result[0] === undefined ? resolve(null) : resolve(result[0]);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
+  }
+  delete(id) {
+    return new Promise((resolve, reject) => {
+      nSQL(this.table)
+        .query("delete")
+        .where(["id", "=", id])
+        .exec()
+        .then((rows) => {
+          console.log(rows);
+          const result = rows.map(
+            (row) =>
+              new TodoItemModel({
+                id: row.id,
+                title: row.title,
+                completed: row.completed,
+              })
+          );
+          return resolve(result[0]);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
+  }
 }

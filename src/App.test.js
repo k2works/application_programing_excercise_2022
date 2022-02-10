@@ -116,4 +116,24 @@ describe("TodoItemRepositoryを利用するサンプルコード", () => {
       });
     });
   });
+
+  test("Delete", () => {
+    const expected = new TodoItemModel({
+      title: "新しいTodoアイテム",
+      completed: false,
+    });
+
+    return repository.create(expected).then(() => {
+      return repository.selectAll().then((result) => {
+        const id = result[result.length - 1].id;
+        return repository.find(id).then(() => {
+          return repository.delete(id).then(() => {
+            return repository.find(id).then((result) => {
+              expect(result).toBe(null);
+            });
+          });
+        });
+      });
+    });
+  });
 });
