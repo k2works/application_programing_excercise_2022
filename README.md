@@ -40,6 +40,7 @@ npm install cypress
 npmx cypress open
 npm install --save-dev style-loader css-loader
 npm i @nano-sql/core --save
+npm install --save-dev cypress-cucumber-preprocessor
 ```
 
 **[⬆ back to top](#構成)**
@@ -75,3 +76,4 @@ npm start
 - [webpack](https://webpack.js.org/)
 - [GitHub Actions でステータスバッジを表示する](https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8)
 - [cypress](https://www.cypress.io/)
+- [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
