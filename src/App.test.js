@@ -3,6 +3,8 @@ import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListModel } from "./model/TodoListModel";
 import { TodoItemView } from "./view/TodoItemView";
 import { TodoListView } from "./view/TodoListView";
+import { TodoItemRepository } from "./application/TodoItemRepository";
+import { nSQL } from "@nano-sql/core";
 
 const spyLog = jest.spyOn(console, "log");
 spyLog.mockImplementation((x) => x);
@@ -85,5 +87,32 @@ describe("TodoListViewを利用するサンプルコード", () => {
     );
 
     expect(todoListElement.textContent).toMatch(/Todo9/);
+  });
+});
+
+describe("TodoItemRepositoryを利用するサンプルコード", () => {
+  test("Create", () => {
+    const expected = [
+      {
+        age: 20,
+        id: 1,
+        meta: {
+          color: "blue",
+        },
+        name: "Jeb",
+        tags: ["some", "tags", "here"],
+      },
+    ];
+
+    const repository = new TodoItemRepository();
+    return repository.setup().then((result) => {
+      const dbList = nSQL().listDatabases();
+      console.log(dbList);
+      return repository.create().then((result) => {
+        return repository.selectAll().then((result) => {
+          return expect(result).toEqual(expected);
+        });
+      });
+    });
   });
 });
