@@ -26,6 +26,27 @@ const contents = `
 `;
 
 const uml = `
+class App {
+  todoListView
+  todoListModel
+  handleAdd()
+  handleUpdate()
+  handleDelete()
+  mount()
+}
+package view{
+  App *- TodoListView
+  TodoListView -> TodoItemView
+  class TodoItemView {}
+  class TodoListView {}
+}
+package model {
+  App *-- TodoListModel
+  App --> TodoItemModel
+  TodoListModel *- TodoItemModel
+  class TodoItemModel {}
+  class TodoListModel {}
+}
 `;
 
 const erd = `
