@@ -91,20 +91,28 @@ describe("TodoListViewを利用するサンプルコード", () => {
 });
 
 describe("TodoItemRepositoryを利用するサンプルコード", () => {
+  let repository;
+
+  test("Setup", () => {
+    repository = new TodoItemRepository("todo_test", "todo_items");
+    return repository.setup().then(() => {
+      const dbList = nSQL().listDatabases();
+      console.log(dbList);
+
+      expect(console.log).toBeCalled();
+      expect(spyLog.mock.calls[3][0]).toEqual(["todo_test"]);
+    });
+  });
+
   test("Create", () => {
-    const repository = new TodoItemRepository("todo_test", "todo_items");
     const expected = new TodoItemModel({
       title: "新しいTodoアイテム",
       completed: false,
     });
 
-    return repository.setup().then((result) => {
-      const dbList = nSQL().listDatabases();
-      console.log(dbList);
-      return repository.create(expected).then((result) => {
-        return repository.selectAll().then((result) => {
-          return expect(result[0]).toEqual(expected);
-        });
+    return repository.create(expected).then(() => {
+      return repository.selectAll().then((result) => {
+        return expect(result[0]).toEqual(expected);
       });
     });
   });

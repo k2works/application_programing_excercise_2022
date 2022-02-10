@@ -37,8 +37,8 @@ export class TodoItemRepository {
         .then(() => {
           return resolve();
         })
-        .catch(() => {
-          return reject();
+        .catch((error) => {
+          return reject(error);
         });
     });
   }
@@ -52,8 +52,8 @@ export class TodoItemRepository {
           console.log(rows);
           return resolve();
         })
-        .catch(() => {
-          return reject();
+        .catch((error) => {
+          return reject(error);
         });
     });
   }
@@ -75,8 +75,8 @@ export class TodoItemRepository {
           );
           return resolve(result);
         })
-        .catch(() => {
-          return reject();
+        .catch((error) => {
+          return reject(error);
         });
     });
   }
