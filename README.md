@@ -1,4 +1,5 @@
 [![Node.js CI](https://github.com/k2works/application_programing_excercise_2022/actions/workflows/node.js.yml/badge.svg)](https://github.com/k2works/application_programing_excercise_2022/actions/workflows/node.js.yml)
+[![Todo](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/4uqmc1&style=plastic&logo=cypress)](https://dashboard.cypress.io/projects/4uqmc1/runs)
 
 # アプリケーション開発のための練習プログラミング
 

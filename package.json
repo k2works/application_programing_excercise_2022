@@ -10,7 +10,7 @@
     "start": "nf start -j Procfile",
     "app": "browser-sync start -s ./ --watch --port 8080 --ui-port 8081",
     "test": "jest --coverage",
-    "test:e2e": "cypress run",
+    "test:e2e": "cypress run  --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
     "watch": "webpack --watch --config webpack.config.js",
     "build": "webpack --config webpack.config.js",
