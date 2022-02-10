@@ -3,6 +3,7 @@ import { TodoItemRepository } from "./TodoItemRepository";
 export class TodoService {
   constructor() {
     this.repository = new TodoItemRepository("todo_test", "todo_items");
+    this.repository.setup();
   }
 
   createTodoItem(entity) {
@@ -31,7 +32,7 @@ export class TodoService {
 
   selectAll() {
     return new Promise((resolve, reject) => {
-      resolve(this.repository.selectAll());
+      this.repository.selectAll().then((result) => resolve(result));
     }).catch((error) => {
       console.error(error);
     });
