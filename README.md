@@ -38,6 +38,7 @@ npm install webpack webpack-cli html-webpack-plugin --save-dev
 touch Procfile
 npm install cypress
 npmx cypress open
+npm install --save-dev style-loader css-loader
 ```
 
 **[⬆ back to top](#構成)**
