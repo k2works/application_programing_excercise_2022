@@ -39,6 +39,7 @@ touch Procfile
 npm install cypress
 npmx cypress open
 npm install --save-dev style-loader css-loader
+npm i @nano-sql/core --save
 ```
 
 **[⬆ back to top](#構成)**
