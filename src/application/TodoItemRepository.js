@@ -163,4 +163,39 @@ export class TodoItemRepository {
         });
     });
   }
+
+  save(data) {
+    return new Promise((resolve, reject) => {
+      nSQL(this.table)
+        .query("delete")
+        .where(["id", "=", data.id])
+        .exec()
+        .then(() => {
+          return resolve(
+            nSQL(this.table)
+              .query("upsert", data)
+              .exec()
+              .then((rows) => {
+                console.log(rows);
+                return resolve(
+                  rows.map(
+                    (row) =>
+                      new TodoItemModel({
+                        id: row.id,
+                        title: row.title,
+                        completed: row.completed,
+                      })
+                  )[0]
+                );
+              })
+              .catch((error) => {
+                return reject(error);
+              })
+          );
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
+  }
 }

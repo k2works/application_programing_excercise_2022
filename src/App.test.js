@@ -152,4 +152,30 @@ describe("TodoItemRepositoryを利用するサンプルコード", () => {
       });
     });
   });
+
+  test("Save", () => {
+    const entity = new TodoItemModel({
+      title: "新しいTodoアイテム",
+      completed: false,
+    });
+
+    return repository.create(entity).then(() => {
+      return repository.selectAll().then((result) => {
+        const id = result[result.length - 1].id;
+        return repository.find(id).then(() => {
+          const updateEntity = new TodoItemModel({
+            id,
+            title: "更新したTodoアイテム",
+            completed: true,
+          });
+          return repository.save(updateEntity).then(() => {
+            return repository.find(id).then((result) => {
+              expect(result.title).toEqual("更新したTodoアイテム");
+              expect(result.completed).toBe(true);
+            });
+          });
+        });
+      });
+    });
+  });
 });
