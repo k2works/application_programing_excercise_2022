@@ -2,69 +2,66 @@ import marked from "marked";
 
 const contents = `
 ## 機能名
-
+## Todoアプリ
+[JavaScript Primer](https://jsprimer.net/) ユースーケース実装
 ## 仕様
+> Todoアプリでは、ユーザーが次のような操作した場合に、Todoアイテムを追加します。
+
+>
+
+> 入力欄にTodoアイテムのタイトルを入力する
+
+> 入力欄でEnterキーを押して送信する
+
+> TodoリストにTodoアイテムが追加される
+
+> [ユースケース:Todoアプリ](https://jsprimer.net/use-case/todoapp/)
 
 ## TODOリスト
+
+- ~~Todoアイテムを追加する~~
+- ~~Todoアイテムを更新する~~
+- ~~Todoアイテムを削除する~~
+- ~~Todoアイテム数（合計）を表示する~~
 `;
 
 const uml = `
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-  Object[] elementData
-  size()
+class App {
+  todoListView
+  todoListModel
+  handleAdd()
+  handleUpdate()
+  handleDelete()
+  render()
+  mount()
 }
-
-enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
+package view{
+  App *- TodoListView
+  TodoListView -> TodoItemView
+  class TodoItemView {}
+  class TodoListView {}
 }
-
-annotation SuppressWarnings
+package application {
+  App *-- TodoService
+  TodoService *-- TodoItemRepository
+}
+package model {
+  App *-- TodoListModel
+  App --> TodoItemModel
+  TodoListModel *-- TodoItemModel
+  TodoItemRepository -> TodoItemModel
+  class TodoItemModel {}
+  class TodoListModel {}
+}
 `;
 
 const erd = `
-' hide the spot
-hide circle
-
-' avoid problems with angled crows feet
-skinparam linetype ortho
-
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
+entity TodoItems {
+  * id
   --
-  *name : text
-  description : text
+  title
+  completed
 }
-
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
-  --
-  *e1_id : number <<FK>>
-  other_details : text
-}
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
 `;
 
 export const setUp = () => {
