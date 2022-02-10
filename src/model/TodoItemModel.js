@@ -1,11 +1,11 @@
 let todoIdx = 0;
 
 export class TodoItemModel {
-  constructor({ id, title, completed }) {
-    if (id) {
-      this.id = id;
-    } else {
+  constructor({ id = null, title, completed }) {
+    if (id == null) {
       this.id = todoIdx++;
+    } else {
+      this.id = id;
     }
     this.title = title;
     this.completed = completed;
