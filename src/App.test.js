@@ -136,4 +136,20 @@ describe("TodoItemRepositoryを利用するサンプルコード", () => {
       });
     });
   });
+
+
+  test("Destroy", () => {
+    const todoListModel = new TodoListModel();
+    [...Array(10).keys()]
+      .map((i) => new TodoItemModel({ title: `Todo${i}`, completed: false }))
+      .map((j) => todoListModel.addTodo(j));
+
+    return repository.createBatch(todoListModel.getTodoItems()).then(() => {
+      return repository.destroy().then(() => {
+        return repository.selectAll().then((result) => {
+          expect(result).toEqual([]);
+        });
+      });
+    });
+  });
 });

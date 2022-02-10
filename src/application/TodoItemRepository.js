@@ -58,6 +58,27 @@ export class TodoItemRepository {
     });
   }
 
+  createBatch(list) {
+    return new Promise((resolve, reject) => {
+      nSQL(this.table)
+        .query("upsert", list)
+        .exec()
+        .then((rows) => {
+          console.log(rows);
+          return resolve(
+            rows.map(
+              (row) =>
+                new TodoItemModel({
+                  id: row.id,
+                  title: row.title,
+                  completed: row.completed,
+                })
+            )
+          );
+        });
+    });
+  }
+
   selectAll() {
     return new Promise((resolve, reject) => {
       nSQL(this.table)
@@ -104,6 +125,7 @@ export class TodoItemRepository {
         });
     });
   }
+
   delete(id) {
     return new Promise((resolve, reject) => {
       nSQL(this.table)
@@ -124,6 +146,20 @@ export class TodoItemRepository {
         })
         .catch((error) => {
           return reject(error);
+        });
+    });
+  }
+
+  destroy() {
+    return new Promise((resolve, reject) => {
+      nSQL(this.table)
+        .query("delete")
+        .exec()
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
         });
     });
   }
