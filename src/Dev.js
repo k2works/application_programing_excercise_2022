@@ -32,6 +32,7 @@ class App {
   handleAdd()
   handleUpdate()
   handleDelete()
+  render()
   mount()
 }
 package view{
@@ -40,16 +41,27 @@ package view{
   class TodoItemView {}
   class TodoListView {}
 }
+package application {
+  App *-- TodoService
+  TodoService *-- TodoItemRepository
+}
 package model {
   App *-- TodoListModel
   App --> TodoItemModel
-  TodoListModel *- TodoItemModel
+  TodoListModel *-- TodoItemModel
+  TodoItemRepository -> TodoItemModel
   class TodoItemModel {}
   class TodoListModel {}
 }
 `;
 
 const erd = `
+entity TodoItems {
+  * id
+  --
+  title
+  completed
+}
 `;
 
 export const setUp = () => {
