@@ -62,4 +62,12 @@ export class TodoService {
       console.error(error);
     });
   }
+
+  count() {
+    return new Promise((resolve, reject) => {
+      this.repository.count().then((result) => resolve(result));
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
 }

@@ -198,4 +198,20 @@ export class TodoItemRepository {
         });
     });
   }
+
+  count() {
+    return new Promise((resolve, reject) => {
+      nSQL(this.table)
+        .query("select", ["COUNT(*) AS count"])
+        .exec()
+        .then((rows) => {
+          console.log(rows);
+          const result = rows[0].count;
+          return resolve(result);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
+  }
 }

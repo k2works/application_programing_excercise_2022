@@ -24,7 +24,9 @@ export class App {
       },
     });
     render(todoListElement, containerElement);
-    todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+    this.service.count().then((count) => {
+      todoItemCountElement.textContent = `Todoアイテム数: ${count}`;
+    });
   }
 
   handleAdd(title) {

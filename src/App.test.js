@@ -178,6 +178,15 @@ describe("TodoItemRepositoryを利用するサンプルコード", () => {
       });
     });
   });
+
+  test("Count", () => {
+    const expected = 2;
+    return repository.create(expected).then(() => {
+      return repository.count().then((result) => {
+        return expect(result).toEqual(expected);
+      });
+    });
+  });
 });
 
 describe("TodoServiceを利用するサンプルコード", () => {
