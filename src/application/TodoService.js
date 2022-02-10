@@ -3,7 +3,6 @@ import { TodoItemRepository } from "./TodoItemRepository";
 export class TodoService {
   constructor() {
     this.repository = new TodoItemRepository("todo_test", "todo_items");
-    this.repository.setup();
   }
 
   createTodoItem(entity) {

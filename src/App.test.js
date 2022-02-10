@@ -96,6 +96,13 @@ describe("TodoItemRepositoryを利用するサンプルコード", () => {
 
   test("Setup", () => {
     repository = new TodoItemRepository("todo_test", "todo_items");
+    return repository.setup().then(() => {
+      const dbList = nSQL().listDatabases();
+      console.log(dbList);
+
+      expect(console.log).toBeCalled();
+      expect(spyLog.mock.calls[3][0]).toEqual(["todo_test"]);
+    });
   });
 
   test("Create", () => {

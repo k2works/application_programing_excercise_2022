@@ -14,23 +14,74 @@ export class App {
   handleAdd(title) {
     const model = new TodoItemModel({ title, completed: false });
     this.todoListModel.addTodo(model);
-    this.service.createTodoItem(model);
+    this.service.createTodoItem(model).then(() => {
+      this.service.selectAll().then((todoItems) => {
+        const containerElement = document.querySelector("#js-todo-list");
+        const todoItemCountElement = document.querySelector("#js-todo-count");
+        const todoListElement = this.todoListView.createElement(todoItems, {
+          onUpdateTodo: ({ id, completed }) => {
+            this.handleUpdate({ id, completed });
+          },
+          onDeleteTodo: ({ id }) => {
+            this.handleDelete({ id });
+          },
+        });
+        render(todoListElement, containerElement);
+        todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+      });
+    });
   }
 
   handleUpdate({ id, completed }) {
     this.todoListModel.updateTodo({ id, completed });
     const entity = new TodoItemModel({ id, completed });
     this.service.find(entity).then((entity) => {
-      this.service.save(
-        new TodoItemModel({ id, title: entity.title, completed })
-      );
+      this.service
+        .save(new TodoItemModel({ id, title: entity.title, completed }))
+        .then(() => {
+          this.service.createTodoItem(model).then(() => {
+            this.service.selectAll().then((todoItems) => {
+              const containerElement = document.querySelector("#js-todo-list");
+              const todoItemCountElement =
+                document.querySelector("#js-todo-count");
+              const todoListElement = this.todoListView.createElement(
+                todoItems,
+                {
+                  onUpdateTodo: ({ id, completed }) => {
+                    this.handleUpdate({ id, completed });
+                  },
+                  onDeleteTodo: ({ id }) => {
+                    this.handleDelete({ id });
+                  },
+                }
+              );
+              render(todoListElement, containerElement);
+              todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+            });
+          });
+        });
     });
   }
 
   handleDelete({ id }) {
     this.todoListModel.deleteTodo({ id });
     const entity = new TodoItemModel({ id });
-    this.service.delete(entity);
+    this.service.delete(entity).then(() => {
+      this.service.selectAll().then((todoItems) => {
+        const containerElement = document.querySelector("#js-todo-list");
+        const todoItemCountElement = document.querySelector("#js-todo-count");
+        const todoListElement = this.todoListView.createElement(todoItems, {
+          onUpdateTodo: ({ id, completed }) => {
+            this.handleUpdate({ id, completed });
+          },
+          onDeleteTodo: ({ id }) => {
+            this.handleDelete({ id });
+          },
+        });
+        render(todoListElement, containerElement);
+        todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+      });
+    });
   }
 
   mount() {
@@ -38,6 +89,19 @@ export class App {
     const inputElement = document.querySelector("#js-form-input");
     const containerElement = document.querySelector("#js-todo-list");
     const todoItemCountElement = document.querySelector("#js-todo-count");
+
+    this.service.selectAll().then((todoItems) => {
+      const todoListElement = this.todoListView.createElement(todoItems, {
+        onUpdateTodo: ({ id, completed }) => {
+          this.handleUpdate({ id, completed });
+        },
+        onDeleteTodo: ({ id }) => {
+          this.handleDelete({ id });
+        },
+      });
+      render(todoListElement, containerElement);
+      todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+    });
 
     this.todoListModel.onChange(() => {
       this.service.selectAll().then((todoItems) => {
