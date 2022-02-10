@@ -1,6 +1,7 @@
 import { EventEmitter } from "./EventEmitter";
 import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListModel } from "./model/TodoListModel";
+import { TodoItemView } from "./view/TodoItemView";
 
 const spyLog = jest.spyOn(console, "log");
 spyLog.mockImplementation((x) => x);
@@ -48,5 +49,21 @@ describe("TodoListModelを利用するサンプルコード", () => {
 
     expect(console.log).toBeCalled();
     expect(todoListModel.getTotalCount()).toEqual(1);
+  });
+});
+
+describe("TodoItemViewを利用するサンプルコード", () => {
+  test("要素が入る", () => {
+    const todoItemView = new TodoItemView();
+    const todoItemModel = new TodoItemModel({
+      title: "あたらしいTodo",
+      completed: false,
+    });
+    const todoItemElement = todoItemView.createElement(todoItemModel, {
+      onUpdateTodo: () => {},
+      onDeleteTodo: () => {},
+    });
+
+    expect(todoItemElement.textContent).toMatch(/あたらしいTodo/);
   });
 });
