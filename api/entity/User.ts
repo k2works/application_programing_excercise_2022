@@ -3,14 +3,14 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 @Entity("user")
 export class User {
   @PrimaryGeneratedColumn()
-  id: number | undefined;
+  id!: number;
 
   @Column("varchar")
-  firstName: string | undefined;
+  firstName!: string;
 
   @Column("varchar")
-  lastName: string | undefined;
+  lastName!: string;
 
   @Column("integer")
-  age: number | undefined;
+  age!: number;
 }
