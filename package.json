@@ -9,6 +9,7 @@
   "scripts": {
     "start": "nf start -j Procfile",
     "app": "browser-sync start -s ./ --watch --port 8080 --ui-port 8081",
+    "api": "node ./server.js",
     "test": "jest --coverage",
     "test:e2e": "cypress run  --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
@@ -49,7 +50,9 @@
   },
   "dependencies": {
     "@nano-sql/core": "^2.3.7",
-    "cypress": "^9.4.1"
+    "cypress": "^9.4.1",
+    "express": "^4.17.2",
+    "uuid": "^8.3.2"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/",
