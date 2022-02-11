@@ -45,6 +45,9 @@ npm install --save-dev cypress-cucumber-preprocessor
 npm install --save express uuid
 npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node@10.5.0 @types/jest @types/express 
 npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom --module commonjs
+npm install typeorm reflect-metadata --save
+npm install @types/node --save-dev
+npm install sqlite3 --save
 ```
 
 **[⬆ back to top](#構成)**
