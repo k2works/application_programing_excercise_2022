@@ -43,7 +43,7 @@ npm install --save-dev style-loader css-loader
 npm i @nano-sql/core --save
 npm install --save-dev cypress-cucumber-preprocessor
 npm install --save express uuid
-npm install --save-dev typescript jest ts-jest@26.5.6 @types/jest @types/express ts-node
+npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node@10.5.0 @types/jest @types/express 
 npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom --module commonjs
 ```
 
