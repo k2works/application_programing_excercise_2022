@@ -16,8 +16,10 @@ beforeEach(async () => {
 
 it("やることを作成する", async () => {
   const todo = new Todo();
+  const today = new Date();
   todo.title = "タイトル";
   todo.completed = false;
+  todo.createdAt = today;
 
   let repository = getRepository(Todo);
   await repository.save(todo);
@@ -29,8 +31,10 @@ it("やることを作成する", async () => {
 
 it("やることを更新する", async () => {
   const todo = new Todo();
+  const today = new Date();
   todo.title = "タイトル";
   todo.completed = false;
+  todo.createdAt = today;
 
   let repository = getRepository(Todo);
   await repository.save(todo);
@@ -43,8 +47,10 @@ it("やることを更新する", async () => {
 
 it("やることを削除する", async () => {
   const todo = new Todo();
+  const today = new Date();
   todo.title = "タイトル";
   todo.completed = false;
+  todo.createdAt = today;
 
   let repository = getRepository(Todo);
   await repository.save(todo);

@@ -10,4 +10,13 @@ export class Todo {
 
   @Column("boolean")
   completed!: boolean;
+
+  @Column("datetime")
+  createdAt!: Date;
+
+  @Column({ type: "datetime", nullable: true })
+  completedAt!: Date | null;
+
+  @Column({ type: "datetime", nullable: true })
+  dueDate!: Date | null;
 }
