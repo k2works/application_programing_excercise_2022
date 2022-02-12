@@ -45,12 +45,7 @@ export class Todo {
   }
 
   public overDue(): boolean {
-    const due = this.dueDate.getValue();
-    if (due === null) {
-      return false;
-    }
-    const today = new Date();
-    return today.getTime() > due.getTime();
+    return this.dueDate.overDue();
   }
 
   public setDueDate(due: DueDate): Todo {
@@ -141,5 +136,14 @@ export class DueDate {
 
   public equals(dueDate: DueDate): boolean {
     return this.value?.getTime() === dueDate.getValue()?.getTime();
+  }
+
+  public overDue(): boolean {
+    const due = this.getValue();
+    if (due === null) {
+      return false;
+    }
+    const today = new Date();
+    return today.getTime() > due.getTime();
   }
 }
