@@ -9,6 +9,7 @@ export class Todo {
   private createdAt: CreatedAt;
   private completedAt: CompletedAt;
   private dueDate: DueDate;
+  private id: number | null;
 
   getTitle(): string {
     return this.title.getValue();
@@ -30,18 +31,24 @@ export class Todo {
     return this.dueDate?.getValue();
   }
 
+  getId(): number | null {
+    return this.id;
+  }
+
   constructor(
     title: string,
     completed: boolean = false,
     createdAt: CreatedAt = new CreatedAt(new Date()),
     completedAt: CompletedAt = new CompletedAt(null),
-    dueDate: DueDate = new DueDate(null)
+    dueDate: DueDate = new DueDate(null),
+    id: number | null = null
   ) {
     this.title = new Title(title);
     this.completed = completed;
     this.createdAt = createdAt;
     this.completedAt = completedAt;
     this.dueDate = dueDate;
+    this.id = id;
   }
 
   public complete(): void {

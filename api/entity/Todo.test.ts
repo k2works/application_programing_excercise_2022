@@ -1,5 +1,5 @@
 import { getManager, getRepository } from "typeorm";
-import connection from "../connection";
+import connection from "../application/connection";
 import { Todo } from "./Todo";
 
 beforeAll(async () => {
