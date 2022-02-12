@@ -1,6 +1,9 @@
 export class Todo {
   private title: Title;
   private completed: boolean;
+  private createdAt: Date;
+  private completedAt: Date | null;
+  private dueDate: Date | null;
 
   getTitle(): string {
     return this.title.getValue();
@@ -10,16 +13,43 @@ export class Todo {
     return this.completed;
   }
 
+  getCreatedAt(): Date {
+    return this.createdAt;
+  }
+
+  getCompletedAt(): Date | null {
+    return this.completedAt;
+  }
+
+  getDueDate(): Date | null {
+    return this.dueDate;
+  }
+
+  setDueDate(due: Date) {
+    this.dueDate = due;
+  }
+
   constructor(title: string) {
     this.title = new Title(title);
     this.completed = false;
+    this.createdAt = new Date();
+    this.completedAt = null;
+    this.dueDate = null;
   }
 
   public complete(): void {
     this.completed = true;
+    this.completedAt = new Date();
   }
 
-  equals(other: Todo): boolean {
+  public overDue(): boolean {
+    if (this.dueDate === null) {
+      return false;
+    }
+    return this.createdAt.getTime() > this.dueDate.getTime();
+  }
+
+  public equals(other: Todo): boolean {
     return this.title.equals(other.title) && this.completed === other.completed;
   }
 }
