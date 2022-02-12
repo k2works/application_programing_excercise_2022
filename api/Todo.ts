@@ -50,7 +50,13 @@ export class Todo {
   }
 
   public equals(other: Todo): boolean {
-    return this.title.equals(other.title) && this.completed === other.completed;
+    return (
+      this.title.equals(other.title) &&
+      this.completed === other.completed &&
+      this.createdAt == other.createdAt &&
+      this.completedAt == other.completedAt &&
+      this.dueDate == other.dueDate
+    );
   }
 }
 
