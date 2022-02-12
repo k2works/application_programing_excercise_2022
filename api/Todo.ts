@@ -25,10 +25,6 @@ export class Todo {
     return this.dueDate?.getValue();
   }
 
-  setDueDate(due: DueDate): void {
-    this.dueDate = due;
-  }
-
   constructor(
     title: string,
     completed: boolean = false,
@@ -53,7 +49,18 @@ export class Todo {
     if (due === null) {
       return false;
     }
-    return this.createdAt.getValue().getTime() > due.getTime();
+    const today = new Date();
+    return today.getTime() > due.getTime();
+  }
+
+  public setDueDate(due: DueDate): Todo {
+    return new Todo(
+      this.title.getValue(),
+      this.completed,
+      this.createdAt,
+      this.completedAt,
+      due
+    );
   }
 
   public equals(other: Todo): boolean {

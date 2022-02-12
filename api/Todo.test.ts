@@ -32,15 +32,23 @@ describe("Todo", () => {
 
   it("やることに期限を設定する", () => {
     const todo = new Todo("タイトル");
-    todo.setDueDate(new DueDate(new Date()));
-    expect(todo.getDueDate()).toBeDefined();
+    const todo2 = todo.setDueDate(new DueDate(new Date()));
+    expect(todo2.getDueDate()).toBeDefined();
   });
 
-  it("やることの期限を確認する", () => {
+  it("期限が過ぎている", () => {
     const todo = new Todo("タイトル");
     const due = new Date();
     due.setDate(due.getDate() - 1);
-    todo.setDueDate(new DueDate(due));
-    expect(todo.overDue()).toBe(true);
+    const todo2 = todo.setDueDate(new DueDate(due));
+    expect(todo2.overDue()).toBe(true);
+  });
+
+  it("期限が過ぎていない", () => {
+    const todo = new Todo("タイトル");
+    const due = new Date();
+    due.setDate(due.getDate() + 1);
+    const todo2 = todo.setDueDate(new DueDate(due));
+    expect(todo2.overDue()).toBe(false);
   });
 });
