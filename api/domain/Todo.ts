@@ -1,8 +1,13 @@
+import { CompletedAt } from "./CompletedAt";
+import { CreatedAt } from "./CreatedAt";
+import { DueDate } from "./DueDate";
+import { Title } from "./Title";
+
 export class Todo {
   private title: Title;
   private completed: boolean;
   private createdAt: CreatedAt;
-  private completedAt: CompletedAd;
+  private completedAt: CompletedAt;
   private dueDate: DueDate;
 
   getTitle(): string {
@@ -29,7 +34,7 @@ export class Todo {
     title: string,
     completed: boolean = false,
     createdAt: CreatedAt = new CreatedAt(new Date()),
-    completedAt: CompletedAd = new CompletedAd(null),
+    completedAt: CompletedAt = new CompletedAt(null),
     dueDate: DueDate = new DueDate(null)
   ) {
     this.title = new Title(title);
@@ -41,7 +46,7 @@ export class Todo {
 
   public complete(): void {
     this.completed = true;
-    this.completedAt = new CompletedAd(new Date());
+    this.completedAt = new CompletedAt(new Date());
   }
 
   public overDue(): boolean {
@@ -72,78 +77,5 @@ export class Todo {
       this.completedAt?.equals(other.completedAt) &&
       this.dueDate?.equals(other.dueDate)
     );
-  }
-}
-
-export class Title {
-  private value: string;
-
-  public getValue(): string {
-    return this.value;
-  }
-
-  constructor(value: string) {
-    this.value = value;
-  }
-
-  public equals(title: Title): boolean {
-    return this.value === title.getValue();
-  }
-}
-
-export class CreatedAt {
-  private value: Date;
-
-  public getValue(): Date {
-    return this.value;
-  }
-
-  constructor(value: Date) {
-    this.value = value;
-  }
-
-  public equals(createdAt: CreatedAt): boolean {
-    return this.value.getTime() === createdAt.getValue().getTime();
-  }
-}
-
-export class CompletedAd {
-  private value: Date | null;
-
-  public getValue(): Date | null {
-    return this.value;
-  }
-
-  constructor(value: Date | null) {
-    this.value = value;
-  }
-
-  public equals(completedAt: CompletedAd): boolean {
-    return this.value?.getTime() === completedAt.getValue()?.getTime();
-  }
-}
-
-export class DueDate {
-  private value: Date | null;
-
-  public getValue(): Date | null {
-    return this.value;
-  }
-
-  constructor(value: Date | null) {
-    this.value = value;
-  }
-
-  public equals(dueDate: DueDate): boolean {
-    return this.value?.getTime() === dueDate.getValue()?.getTime();
-  }
-
-  public overDue(): boolean {
-    const due = this.getValue();
-    if (due === null) {
-      return false;
-    }
-    const today = new Date();
-    return today.getTime() > due.getTime();
   }
 }

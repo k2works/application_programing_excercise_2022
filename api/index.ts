@@ -1,5 +1,5 @@
 import express from "express";
-import { Todo } from "./Todo";
+import { Todo } from "./domain/Todo";
 const app = express();
 
 app.get("/api", (req, res) => {

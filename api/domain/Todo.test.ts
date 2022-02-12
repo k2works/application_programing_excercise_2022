@@ -1,4 +1,7 @@
-import { CompletedAd, CreatedAt, DueDate, Todo } from "./Todo";
+import { CompletedAt } from "./CompletedAt";
+import { CreatedAt } from "./CreatedAt";
+import { DueDate } from "./DueDate";
+import { Todo } from "./Todo";
 
 describe("Todo", () => {
   it("やることを生成する", () => {
@@ -44,7 +47,7 @@ describe("Todo", () => {
       "タイトル",
       false,
       new CreatedAt(twoBeforeDay),
-      new CompletedAd(null),
+      new CompletedAt(null),
       new DueDate(null)
     );
     const todo2 = todo.setDueDate(new DueDate(oneBeforeDay));
