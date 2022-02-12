@@ -1,4 +1,4 @@
-import { Todo } from "./Todo";
+import { DueDate, Todo } from "./Todo";
 
 describe("Todo", () => {
   it("やることを生成する", () => {
@@ -32,7 +32,7 @@ describe("Todo", () => {
 
   it("やることに期限を設定する", () => {
     const todo = new Todo("タイトル");
-    todo.setDueDate(new Date());
+    todo.setDueDate(new DueDate(new Date()));
     expect(todo.getDueDate()).toBeDefined();
   });
 
@@ -40,7 +40,7 @@ describe("Todo", () => {
     const todo = new Todo("タイトル");
     const due = new Date();
     due.setDate(due.getDate() - 1);
-    todo.setDueDate(due);
+    todo.setDueDate(new DueDate(due));
     expect(todo.overDue()).toBe(true);
   });
 });

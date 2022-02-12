@@ -1,9 +1,9 @@
 export class Todo {
   private title: Title;
   private completed: boolean;
-  private createdAt: Date;
-  private completedAt: Date | null;
-  private dueDate: Date | null;
+  private createdAt: CreatedAt;
+  private completedAt: CompletedAd;
+  private dueDate: DueDate;
 
   getTitle(): string {
     return this.title.getValue();
@@ -14,53 +14,54 @@ export class Todo {
   }
 
   getCreatedAt(): Date {
-    return this.createdAt;
+    return this.createdAt.getValue();
   }
 
   getCompletedAt(): Date | null {
-    return this.completedAt;
+    return this.completedAt?.getValue();
   }
 
   getDueDate(): Date | null {
-    return this.dueDate;
+    return this.dueDate?.getValue();
   }
 
-  setDueDate(due: Date) {
+  setDueDate(due: DueDate): void {
     this.dueDate = due;
   }
 
   constructor(title: string) {
     this.title = new Title(title);
     this.completed = false;
-    this.createdAt = new Date();
-    this.completedAt = null;
-    this.dueDate = null;
+    this.createdAt = new CreatedAt(new Date());
+    this.completedAt = new CompletedAd(null);
+    this.dueDate = new DueDate(null);
   }
 
   public complete(): void {
     this.completed = true;
-    this.completedAt = new Date();
+    this.completedAt = new CompletedAd(new Date());
   }
 
   public overDue(): boolean {
-    if (this.dueDate === null) {
+    const due = this.dueDate.getValue();
+    if (due === null) {
       return false;
     }
-    return this.createdAt.getTime() > this.dueDate.getTime();
+    return this.createdAt.getValue().getTime() > due.getTime();
   }
 
   public equals(other: Todo): boolean {
     return (
       this.title.equals(other.title) &&
-      this.completed === other.completed &&
-      this.createdAt == other.createdAt &&
-      this.completedAt == other.completedAt &&
-      this.dueDate == other.dueDate
+      this.completed == other.completed &&
+      this.createdAt.equals(other.createdAt) &&
+      this.completedAt?.equals(other.completedAt) &&
+      this.dueDate?.equals(other.dueDate)
     );
   }
 }
 
-class Title {
+export class Title {
   private value: string;
 
   public getValue(): string {
@@ -73,5 +74,53 @@ class Title {
 
   public equals(title: Title): boolean {
     return this.value === title.getValue();
+  }
+}
+
+export class CreatedAt {
+  private value: Date;
+
+  public getValue(): Date {
+    return this.value;
+  }
+
+  constructor(value: Date) {
+    this.value = value;
+  }
+
+  public equals(createdAt: CreatedAt): boolean {
+    return this.value.getTime() === createdAt.getValue().getTime();
+  }
+}
+
+export class CompletedAd {
+  private value: Date | null;
+
+  public getValue(): Date | null {
+    return this.value;
+  }
+
+  constructor(value: Date | null) {
+    this.value = value;
+  }
+
+  public equals(completedAt: CompletedAd): boolean {
+    return this.value?.getTime() === completedAt.getValue()?.getTime();
+  }
+}
+
+export class DueDate {
+  private value: Date | null;
+
+  public getValue(): Date | null {
+    return this.value;
+  }
+
+  constructor(value: Date | null) {
+    this.value = value;
+  }
+
+  public equals(dueDate: DueDate): boolean {
+    return this.value?.getTime() === dueDate.getValue()?.getTime();
   }
 }
