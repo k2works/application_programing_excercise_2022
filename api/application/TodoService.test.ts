@@ -1,4 +1,4 @@
-import connection from "../application/connection";
+import connection from "../utils/connection";
 import { CompletedAt } from "../domain/CompletedAt";
 import { CreatedAt } from "../domain/CreatedAt";
 import { DueDate } from "../domain/DueDate";
