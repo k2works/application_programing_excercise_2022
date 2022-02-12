@@ -3,7 +3,7 @@ import { CompletedAt } from "../domain/CompletedAt";
 import { CreatedAt } from "../domain/CreatedAt";
 import { DueDate } from "../domain/DueDate";
 import { Todo } from "../domain/Todo";
-import { TodoRepository } from "./TodoRepository";
+import { TodoService } from "./TodoService";
 
 beforeAll(async () => {
   await connection.create();
@@ -17,20 +17,20 @@ beforeEach(async () => {
   await connection.clear();
 });
 
-describe("TodoRepository", () => {
+describe("TodoService", () => {
   it("やることを作成する", async () => {
-    const repository = new TodoRepository();
+    const servce = new TodoService();
     const todo = new Todo("タイトル");
-    await repository.addTodo(todo);
-    const result = await repository.getTodos();
+    await servce.create(todo);
+    const result = await servce.selectAll();
     expect(result[0].getTitle()).toBe("タイトル");
   });
 
   it("やることを更新する", async () => {
-    const repository = new TodoRepository();
+    const servce = new TodoService();
     const todo = new Todo("タイトル");
-    await repository.addTodo(todo);
-    let result = await repository.getTodos();
+    await servce.create(todo);
+    let result = await servce.selectAll();
 
     const id = result[0].getId();
     if (id !== null) {
@@ -43,19 +43,19 @@ describe("TodoRepository", () => {
         id
       );
 
-      await repository.updateTodo(todo2);
-      result = await repository.getTodos();
+      await servce.update(todo2);
+      result = await servce.selectAll();
     }
     expect(result[0].getTitle()).toBe("タイトル2");
   });
 
   it("やることを削除する", async () => {
-    const repository = new TodoRepository();
+    const servce = new TodoService();
     const todo = new Todo("タイトル");
-    await repository.addTodo(todo);
-    let result = await repository.getTodos();
-    await repository.deleteTodo(result[0]);
-    result = await repository.getTodos();
+    await servce.create(todo);
+    let result = await servce.selectAll();
+    await servce.delete(result[0]);
+    result = await servce.selectAll();
     expect(result.length).toBe(0);
   });
 });
