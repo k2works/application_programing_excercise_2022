@@ -19,7 +19,7 @@ export class Todo {
     this.completed = true;
   }
 
-  equals(other: Todo): any {
+  equals(other: Todo): boolean {
     return this.title.equals(other.title) && this.completed === other.completed;
   }
 }
