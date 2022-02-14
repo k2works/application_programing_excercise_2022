@@ -48,6 +48,7 @@ npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule 
 npm install typeorm reflect-metadata --save
 npm install @types/node --save-dev
 npm install sqlite3 --save
+npm i -D better-sqlite3
 ```
 
 **[⬆ back to top](#構成)**

@@ -11,7 +11,6 @@ createConnection()
     app.get("/api", async (req, res) => {
       res.setHeader("Access-Control-Allow-Origin", "*");
       const result = await service.selectAll();
-      console.log(result);
       res.send(result);
     });
 
@@ -20,7 +19,6 @@ createConnection()
       const todo = new Todo("helllo world");
       await service.create(todo);
       const result = await service.selectAll();
-      console.log(result);
       res.send(result);
     });
   })
