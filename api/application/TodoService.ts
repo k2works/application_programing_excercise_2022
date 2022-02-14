@@ -9,7 +9,11 @@ export class TodoService {
   }
 
   async selectAll(): Promise<TodoList> {
-    return await this.repository.getTodos();
+    return this.repository.getTodos();
+  }
+
+  async find(id: number): Promise<Todo> {
+    return this.repository.getTodo(id);
   }
 
   async create(todo: Todo): Promise<void> {
