@@ -1,7 +1,7 @@
 export class CreatedAt {
   private value: Date;
 
-  public getValue(): Date {
+  get Value(): Date {
     return this.value;
   }
 
@@ -10,6 +10,6 @@ export class CreatedAt {
   }
 
   public equals(createdAt: CreatedAt): boolean {
-    return this.value.getTime() === createdAt.getValue().getTime();
+    return this.value.getTime() === createdAt.Value.getTime();
   }
 }

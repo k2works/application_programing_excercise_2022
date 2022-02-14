@@ -11,27 +11,27 @@ export class Todo {
   private dueDate: DueDate;
   private id: number | null;
 
-  getTitle(): string {
-    return this.title.getValue();
+  get Title(): string {
+    return this.title.Value;
   }
 
-  getCompleted(): boolean {
+  get Completed(): boolean {
     return this.completed;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt.getValue();
+  get CreatedAt(): Date {
+    return this.createdAt.Value;
   }
 
-  getCompletedAt(): Date | null {
-    return this.completedAt?.getValue();
+  get CompletedAt(): Date | null {
+    return this.completedAt?.Value;
   }
 
-  getDueDate(): Date | null {
-    return this.dueDate?.getValue();
+  get DueDate(): Date | null {
+    return this.dueDate?.Value;
   }
 
-  getId(): number | null {
+  get Id(): number | null {
     return this.id;
   }
 
@@ -61,14 +61,14 @@ export class Todo {
   }
 
   public setDueDate(due: DueDate): Todo {
-    const dueDate = due.getValue();
+    const dueDate = due.Value;
     if (dueDate !== null) {
-      if (this.createdAt.getValue().getTime() > dueDate.getTime())
+      if (this.createdAt.Value.getTime() > dueDate.getTime())
         throw new Error("開始日より前に期限が設定されています");
     }
 
     return new Todo(
-      this.title.getValue(),
+      this.title.Value,
       this.completed,
       this.createdAt,
       this.completedAt,

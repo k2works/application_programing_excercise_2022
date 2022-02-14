@@ -7,8 +7,6 @@ import { CompletedAt } from "../domain/CompletedAt";
 import { DueDate } from "../domain/DueDate";
 
 export class TodoRepository {
-  constructor() {}
-
   async getTodos(): Promise<FirstCollection> {
     const result = await getRepository(Entity).find();
     return new FirstCollection(
@@ -28,23 +26,23 @@ export class TodoRepository {
 
   async addTodo(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
-    entiry.title = todo.getTitle();
-    entiry.completed = todo.getCompleted();
-    entiry.createdAt = todo.getCreatedAt();
-    entiry.completedAt = todo.getCompletedAt();
-    entiry.dueDate = todo.getDueDate();
+    entiry.title = todo.Title;
+    entiry.completed = todo.Completed;
+    entiry.createdAt = todo.CreatedAt;
+    entiry.completedAt = todo.CompletedAt;
+    entiry.dueDate = todo.DueDate;
 
     await getRepository(Entity).save(entiry);
   }
 
   async deleteTodo(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
-    entiry.title = todo.getTitle();
-    entiry.completed = todo.getCompleted();
-    entiry.createdAt = todo.getCreatedAt();
-    entiry.completedAt = todo.getCompletedAt();
-    entiry.dueDate = todo.getDueDate();
-    const id = todo.getId();
+    entiry.title = todo.Title;
+    entiry.completed = todo.Completed;
+    entiry.createdAt = todo.CreatedAt;
+    entiry.completedAt = todo.CompletedAt;
+    entiry.dueDate = todo.DueDate;
+    const id = todo.Id;
     if (id !== null) {
       entiry.id = id;
       await getRepository(Entity).remove(entiry);
@@ -53,12 +51,12 @@ export class TodoRepository {
 
   async updateTodo(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
-    entiry.title = todo.getTitle();
-    entiry.completed = todo.getCompleted();
-    entiry.createdAt = todo.getCreatedAt();
-    entiry.completedAt = todo.getCompletedAt();
-    entiry.dueDate = todo.getDueDate();
-    const id = todo.getId();
+    entiry.title = todo.Title;
+    entiry.completed = todo.Completed;
+    entiry.createdAt = todo.CreatedAt;
+    entiry.completedAt = todo.CompletedAt;
+    entiry.dueDate = todo.DueDate;
+    const id = todo.Id;
     if (id !== null) {
       entiry.id = id;
       await getRepository(Entity).save(entiry);

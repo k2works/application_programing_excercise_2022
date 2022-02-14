@@ -1,7 +1,7 @@
 export class Title {
   private value: string;
 
-  public getValue(): string {
+  get Value(): string {
     return this.value;
   }
 
@@ -10,6 +10,6 @@ export class Title {
   }
 
   public equals(title: Title): boolean {
-    return this.value === title.getValue();
+    return this.value === title.Value;
   }
 }

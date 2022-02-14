@@ -23,7 +23,7 @@ describe("TodoService", () => {
     const todo = new Todo("タイトル");
     await servce.create(todo);
     const result = await servce.selectAll();
-    expect(result.Value[0].getTitle()).toBe("タイトル");
+    expect(result.Value[0].Title).toBe("タイトル");
   });
 
   it("やることを更新する", async () => {
@@ -32,7 +32,7 @@ describe("TodoService", () => {
     await servce.create(todo);
     let result = await servce.selectAll();
 
-    const id = result.Value[0].getId();
+    const id = result.Value[0].Id;
     if (id !== null) {
       const todo2 = new Todo(
         "タイトル2",
@@ -46,7 +46,7 @@ describe("TodoService", () => {
       await servce.update(todo2);
       result = await servce.selectAll();
     }
-    expect(result.Value[0].getTitle()).toBe("タイトル2");
+    expect(result.Value[0].Title).toBe("タイトル2");
   });
 
   it("やることを削除する", async () => {

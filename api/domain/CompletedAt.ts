@@ -1,7 +1,7 @@
 export class CompletedAt {
   private value: Date | null;
 
-  public getValue(): Date | null {
+  get Value(): Date | null {
     return this.value;
   }
 
@@ -10,6 +10,6 @@ export class CompletedAt {
   }
 
   public equals(completedAt: CompletedAt): boolean {
-    return this.value?.getTime() === completedAt.getValue()?.getTime();
+    return this.value?.getTime() === completedAt.Value?.getTime();
   }
 }

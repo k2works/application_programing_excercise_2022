@@ -1,7 +1,7 @@
 export class DueDate {
   private value: Date | null;
 
-  public getValue(): Date | null {
+  get Value(): Date | null {
     return this.value;
   }
 
@@ -10,11 +10,11 @@ export class DueDate {
   }
 
   public equals(dueDate: DueDate): boolean {
-    return this.value?.getTime() === dueDate.getValue()?.getTime();
+    return this.value?.getTime() === dueDate.Value?.getTime();
   }
 
   public overDue(): boolean {
-    const due = this.getValue();
+    const due = this.Value;
     if (due === null) {
       return false;
     }

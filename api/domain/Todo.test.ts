@@ -7,14 +7,14 @@ import { TodoList } from "./TodoList";
 describe("Todo", () => {
   it("やることを生成する", () => {
     const todo = new Todo("タイトル");
-    expect(todo.getTitle()).toBe("タイトル");
-    expect(todo.getCompleted()).toBe(false);
+    expect(todo.Title).toBe("タイトル");
+    expect(todo.Completed).toBe(false);
   });
 
   it("やることを完了する", () => {
     const todo = new Todo("タイトル");
     todo.complete();
-    expect(todo.getCompleted()).toBe(true);
+    expect(todo.Completed).toBe(true);
   });
 
   it("内容が同じ", () => {
@@ -25,19 +25,19 @@ describe("Todo", () => {
 
   it("やることを生成したら開始日を設定する", () => {
     const todo = new Todo("タイトル");
-    expect(todo.getCreatedAt()).toBeDefined();
+    expect(todo.CreatedAt).toBeDefined();
   });
 
   it("やることを更新したら完了日を設定する", () => {
     const todo = new Todo("タイトル");
     todo.complete();
-    expect(todo.getCompletedAt()).toBeDefined();
+    expect(todo.CompletedAt).toBeDefined();
   });
 
   it("やることに期限を設定する", () => {
     const todo = new Todo("タイトル");
     const todo2 = todo.setDueDate(new DueDate(new Date()));
-    expect(todo2.getDueDate()).toBeDefined();
+    expect(todo2.DueDate).toBeDefined();
   });
 
   it("期限が過ぎている", () => {
