@@ -44,7 +44,7 @@ export class App {
     const entity = new TodoItemModel({ id, title: null, completed });
     this.service.find(entity).then((entity) => {
       this.service
-        .save(new TodoItemModel({ id, title: entity.title, completed }))
+        .save(new TodoItemModel({ id, title: entity.title.value, completed }))
         .then(() => {
           this.service.selectAll().then((todoItems) => {
             this.render(todoItems);

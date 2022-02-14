@@ -3,6 +3,9 @@ import cors from "cors";
 import { Todo } from "./domain/Todo";
 import { createConnection } from "typeorm";
 import { TodoService } from "./application/TodoService";
+import { CreatedAt } from "./domain/CreatedAt";
+import { CompletedAt } from "./domain/CompletedAt";
+import { DueDate } from "./domain/DueDate";
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -31,8 +34,14 @@ createConnection()
       res.send(result);
     });
 
+    app.get("/api/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await service.find(parseInt(id));
+      res.send(result);
+    });
+
     app.post("/api", async (req, res) => {
-      const request: TodoRequest = JSON.parse(req.body);
+      const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
       const todo = new Todo(request.title, request.completed);
       await service.create(todo);
       res.end();
@@ -45,6 +54,24 @@ createConnection()
         await service.delete(todo);
       }
       res.end();
+    });
+
+    app.put("/api", async (req, res) => {
+      const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
+      console.log(request);
+      if (request.id !== null) {
+        const todo = await service.find(request.id);
+        const updatedTodo = new Todo(
+          todo.Title,
+          todo.Completed,
+          new CreatedAt(todo.CreatedAt),
+          new CompletedAt(todo.CompletedAt),
+          new DueDate(todo.DueDate),
+          todo.Id
+        );
+        await service.update(updatedTodo);
+      }
+      res.send();
     });
   })
   .catch((error) => console.log(error));

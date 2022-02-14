@@ -22,7 +22,6 @@ export class TodoApiRepository {
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        mode: "no-cors",
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
@@ -42,6 +41,24 @@ export class TodoApiRepository {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: data }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  }
+
+  putApi(url, data) {
+    const service = (resolve, reject) => {
+      fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       })
         .then((response) => response.json())
         .then((json) => {
@@ -86,7 +103,7 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.getApi(`${this._apiUrl}/${id}`)
         .then((result) => {
-          return resolve(result.value);
+          return resolve(result);
         })
         .catch((error) => {
           return reject(error);
@@ -111,7 +128,15 @@ export class TodoApiRepository {
   }
 
   save(data) {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      this.putApi(this._apiUrl, data)
+        .then((result) => {
+          return resolve(result.value);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
   }
 
   count() {
