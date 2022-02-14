@@ -49,6 +49,8 @@ npm install typeorm reflect-metadata --save
 npm install @types/node --save-dev
 npm install sqlite3 --save
 npm i -D better-sqlite3
+npm install cors
+npm install --save-dev @types/cors
 ```
 
 **[⬆ back to top](#構成)**
