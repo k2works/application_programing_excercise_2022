@@ -3,7 +3,7 @@ export class TodoApiRepository {
     this._apiUrl = apiUrl;
   }
 
-  fetchApi(url) {
+  getApi(url) {
     const service = (resolve, reject) => {
       fetch(url)
         .then((response) => response.json())
@@ -17,8 +17,35 @@ export class TodoApiRepository {
     return new Promise(service);
   }
 
+  postApi(url, data) {
+    const service = (resolve, reject) => {
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  }
+
   create(data) {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      this.postApi(this._apiUrl, data)
+        .then((result) => {
+          return resolve(result.value);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
   }
 
   createBatch(list) {
@@ -26,7 +53,15 @@ export class TodoApiRepository {
   }
 
   selectAll() {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      this.getApi(this._apiUrl)
+        .then((result) => {
+          return resolve(result.value);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
   }
 
   find(id) {

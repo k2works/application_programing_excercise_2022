@@ -1,8 +1,7 @@
-import { TodoApiRepsitory } from "./TodoApiRepsitory";
-
+import { TodoApiRepository } from "./TodoApiRepository";
 export class TodoApiService {
   constructor() {
-    this.repository = new TodoApiRepsitory();
+    this.repository = new TodoApiRepository();
   }
 
   createTodoItem(entity) {
