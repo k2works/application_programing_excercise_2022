@@ -1,6 +1,7 @@
 import { getRepository } from "typeorm";
 import { Todo as Entity } from "../entity/Todo";
 import { Todo as DomainObject } from "../domain/Todo";
+import { TodoList as FirstCollection } from "../domain/TodoList";
 import { CreatedAt } from "../domain/CreatedAt";
 import { CompletedAt } from "../domain/CompletedAt";
 import { DueDate } from "../domain/DueDate";
@@ -8,18 +9,20 @@ import { DueDate } from "../domain/DueDate";
 export class TodoRepository {
   constructor() {}
 
-  async getTodos(): Promise<DomainObject[]> {
+  async getTodos(): Promise<FirstCollection> {
     const result = await getRepository(Entity).find();
-    return result.map(
-      (entity) =>
-        new DomainObject(
-          entity.title,
-          entity.completed,
-          new CreatedAt(entity.createdAt),
-          new CompletedAt(entity.completedAt),
-          new DueDate(entity.dueDate),
-          entity.id
-        )
+    return new FirstCollection(
+      result.map(
+        (entity) =>
+          new DomainObject(
+            entity.title,
+            entity.completed,
+            new CreatedAt(entity.createdAt),
+            new CompletedAt(entity.completedAt),
+            new DueDate(entity.dueDate),
+            entity.id
+          )
+      )
     );
   }
 
