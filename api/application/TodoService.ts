@@ -1,5 +1,4 @@
-import { Todo } from "../domain/Todo";
-import { TodoList } from "../domain/TodoList";
+import { Todo, TodoList } from "../domain/Todo";
 import { TodoRepository } from "./TodoRepository";
 
 export class TodoService {

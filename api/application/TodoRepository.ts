@@ -1,7 +1,9 @@
 import { getRepository } from "typeorm";
 import { Todo as Entity } from "../entity/Todo";
-import { Todo as DomainObject } from "../domain/Todo";
-import { TodoList as FirstCollection } from "../domain/TodoList";
+import {
+  Todo as DomainObject,
+  TodoList as FirstCollection,
+} from "../domain/Todo";
 import { CreatedAt } from "../domain/CreatedAt";
 import { CompletedAt } from "../domain/CompletedAt";
 import { DueDate } from "../domain/DueDate";

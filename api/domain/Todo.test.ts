@@ -1,8 +1,7 @@
 import { CompletedAt } from "./CompletedAt";
 import { CreatedAt } from "./CreatedAt";
 import { DueDate } from "./DueDate";
-import { Todo } from "./Todo";
-import { TodoList } from "./TodoList";
+import { Todo, TodoList } from "./Todo";
 
 describe("Todo", () => {
   it("やることを生成する", () => {
