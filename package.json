@@ -11,6 +11,7 @@
     "app": "browser-sync start -s ./ --watch --port 8080 --ui-port 8081",
     "app:dev": "webpack server --config webpack.dev.config.js --open",
     "api": "ts-node ./server.ts",
+    "api:dev": "ts-node-dev --respawn ./server.ts",
     "test": "jest --coverage",
     "test:e2e": "cypress run  --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
@@ -65,6 +66,7 @@
     "express": "^4.17.2",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",
+    "ts-node-dev": "^1.1.8",
     "typeorm": "^0.2.41",
     "uuid": "^8.3.2"
   },
