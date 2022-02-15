@@ -2,7 +2,14 @@ import { element } from "./html-util.js";
 
 export class TodoItemView {
   createElement(todoItem, { onUpdateTodo, onDeleteTodo, onDueUpdateTodo }) {
-    const dueValue = (value) => (value === null ? "" : value);
+    const dueValue = (value) => {
+      if (value === null) {
+        return "";
+      } else {
+        const date = new Date(value);
+        return date.toISOString().substring(0, 10);
+      }
+    };
     const todoItemElement = todoItem.completed
       ? element`<li><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title.value}</s>
@@ -12,6 +19,7 @@ export class TodoItemView {
       : element`<li><input type="checkbox" class="checkbox">
              ${todoItem.title.value} 
              <input class="due"
+              type="date"
               placeholder="Set Due Date" 
               value=${dueValue(todoItem.dueDate.value)}>
              </input>
