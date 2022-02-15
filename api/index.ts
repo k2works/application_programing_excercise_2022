@@ -34,10 +34,15 @@ createConnection()
       res.send(result);
     });
 
-    app.get("/api/:id", async (req, res) => {
+    app.get("/api/todo/:id", async (req, res) => {
       const id = req.params.id;
       const result = await service.find(parseInt(id));
       res.send(result);
+    });
+
+    app.get("/api/todos/count", async (req, res) => {
+      const result = await service.count();
+      res.send(result.toString());
     });
 
     app.post("/api", async (req, res) => {
