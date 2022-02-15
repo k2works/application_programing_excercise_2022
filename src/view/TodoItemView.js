@@ -13,7 +13,7 @@ export class TodoItemView {
 
     const overDue = () => (todoItem.isOverDue ? "overdue" : "");
 
-    const todoItemElement = todoItem.completed
+    const todoItemElement = todoItem.isCompleted
       ? element`<li class=${overDue()}><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title.value}</s>
               <s class="due">${dueValue(todoItem.dueDate.value)}</s>
@@ -34,7 +34,7 @@ export class TodoItemView {
     inputCheckboxElement.addEventListener("change", () => {
       onUpdateTodo({
         id: todoItem.id,
-        completed: !todoItem.completed,
+        completed: !todoItem.isCompleted,
       });
     });
 
