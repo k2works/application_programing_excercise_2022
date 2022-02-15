@@ -69,10 +69,11 @@ createConnection()
           request.title,
           request.completed,
           new CreatedAt(todo.CreatedAt),
-          new CompletedAt(todo.CompletedAt),
+          new CompletedAt(null),
           new DueDate(request.dueDate),
           request.id
         );
+        if (request.completed) updatedTodo.complete();
         await service.update(updatedTodo);
       }
       res.end();
