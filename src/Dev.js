@@ -31,6 +31,7 @@ package "Api" {
     class Todo {
       isComplete: boolean
       isOverdue: boolean
+      status: TodoStatus
     }
     class Title {
     }
@@ -40,6 +41,15 @@ package "Api" {
     }
     class DueDate{
       overDue()
+    }
+    abstract class TodoStatus {
+      static create()
+    }
+    class NotStarted extends TodoStatus {
+    }
+    class InProgress extends TodoStatus {
+    }
+    class Completed extends TodoStatus {
     }
   }
   package "Application" {
@@ -52,14 +62,16 @@ package "Api" {
     class Express {}
   }
   
-Express -> TodoService
-TodoService *- TodoRepository
-TodoRepository --> Todo
-Todo *-- Title
-Todo *-- CompletedAt
-Todo *-- CreatedAt
-Todo *-- DueDate
+  Express -> TodoService
+  TodoService *- TodoRepository
+  TodoRepository --> Todo
+  Todo *-- Title
+  Todo *-- CompletedAt
+  Todo *-- CreatedAt
+  Todo *-- DueDate
+  Todo *- TodoStatus
 }
+
 package "Client" {
   class App {
   }
