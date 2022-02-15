@@ -9,6 +9,7 @@ export class Todo {
   private createdAt: CreatedAt;
   private completedAt: CompletedAt;
   private dueDate: DueDate;
+  private isOverDue: boolean;
   private id: number | null;
 
   get Title(): string {
@@ -49,6 +50,7 @@ export class Todo {
     this.completedAt = completedAt;
     this.dueDate = dueDate;
     this.id = id;
+    this.isOverDue = this.overDue();
   }
 
   public complete(): void {

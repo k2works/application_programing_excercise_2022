@@ -6,6 +6,7 @@ import { TodoService } from "./application/TodoService";
 import { CreatedAt } from "./domain/CreatedAt";
 import { CompletedAt } from "./domain/CompletedAt";
 import { DueDate } from "./domain/DueDate";
+import { copyFileSync } from "fs";
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -31,6 +32,7 @@ createConnection()
   .then(async (connection) => {
     app.get("/api", async (req, res) => {
       const result = await service.selectAll();
+      console.log(result);
       res.send(result);
     });
 
