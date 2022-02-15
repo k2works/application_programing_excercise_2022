@@ -70,7 +70,7 @@ createConnection()
           request.completed,
           new CreatedAt(todo.CreatedAt),
           new CompletedAt(todo.CompletedAt),
-          new DueDate(todo.DueDate),
+          new DueDate(request.dueDate),
           request.id
         );
         await service.update(updatedTodo);

@@ -42,4 +42,13 @@ export class TodoListModel extends EventEmitter {
     });
     this.emitChange();
   }
+
+  updateTodoDue({ id, dueDate }) {
+    const todoItem = this.items.find((todo) => todo.id === id);
+    if (!todoItem) {
+      return;
+    }
+    todoItem.dueDate = dueDate;
+    this.emitChange();
+  }
 }

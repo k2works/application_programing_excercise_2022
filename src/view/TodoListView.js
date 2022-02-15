@@ -2,7 +2,7 @@ import { element } from "./html-util";
 import { TodoItemView } from "./TodoItemView";
 
 export class TodoListView {
-  createElement(todoItems, { onUpdateTodo, onDeleteTodo }) {
+  createElement(todoItems, { onUpdateTodo, onDeleteTodo, onDueUpdateTodo }) {
     const todoListElement = element`<ul />`;
 
     todoItems.forEach((todoItem) => {
@@ -10,6 +10,7 @@ export class TodoListView {
       const todoItemElement = todoItemView.createElement(todoItem, {
         onDeleteTodo,
         onUpdateTodo,
+        onDueUpdateTodo,
       });
       todoListElement.appendChild(todoItemElement);
     });

@@ -1,7 +1,7 @@
 let todoIdx = 0;
 
 export class TodoItemModel {
-  constructor({ id = null, title, completed }) {
+  constructor({ id = null, title, completed, dueDate }) {
     if (id == null) {
       this.id = todoIdx++;
     } else {
@@ -9,5 +9,6 @@ export class TodoItemModel {
     }
     this.title = title;
     this.completed = completed;
+    this.dueDate = dueDate;
   }
 }

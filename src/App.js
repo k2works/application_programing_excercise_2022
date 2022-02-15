@@ -22,6 +22,9 @@ export class App {
       onDeleteTodo: ({ id }) => {
         this.handleDelete({ id });
       },
+      onDueUpdateTodo: ({ id, dueDate }) => {
+        this.handleDueUpdate({ id, dueDate });
+      },
     });
     render(todoListElement, containerElement);
     this.service.count().then((count) => {
@@ -60,6 +63,27 @@ export class App {
       this.service.selectAll().then((todoItems) => {
         this.render(todoItems);
       });
+    });
+  }
+
+  handleDueUpdate({ id, dueDate }) {
+    this.todoListModel.updateTodoDue({ id, dueDate });
+    const entity = new TodoItemModel({ id, title: null, dueDate });
+    this.service.find(entity).then((result) => {
+      this.service
+        .save(
+          new TodoItemModel({
+            id,
+            title: result.title.value,
+            completed: result.completed,
+            dueDate,
+          })
+        )
+        .then(() => {
+          this.service.selectAll().then((todoItems) => {
+            this.render(todoItems);
+          });
+        });
     });
   }
 
