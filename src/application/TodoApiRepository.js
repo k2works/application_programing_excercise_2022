@@ -42,9 +42,8 @@ export class TodoApiRepository {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: data }),
       })
-        .then((response) => response.json())
-        .then((json) => {
-          return resolve(json);
+        .then(() => {
+          return resolve();
         })
         .catch((error) => {
           return reject(error);
@@ -60,9 +59,8 @@ export class TodoApiRepository {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       })
-        .then((response) => response.json())
-        .then((json) => {
-          return resolve(json);
+        .then(() => {
+          return resolve();
         })
         .catch((error) => {
           return reject(error);
@@ -75,7 +73,7 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.postApi(this._apiUrl, data)
         .then((result) => {
-          return resolve(result.value);
+          return resolve(result);
         })
         .catch((error) => {
           return reject(error);
@@ -131,7 +129,7 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.putApi(this._apiUrl, data)
         .then((result) => {
-          return resolve(result.value);
+          return resolve(result);
         })
         .catch((error) => {
           return reject(error);

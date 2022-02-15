@@ -44,7 +44,7 @@ createConnection()
       const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
       const todo = new Todo(request.title, request.completed);
       await service.create(todo);
-      res.end();
+      res.send(todo);
     });
 
     app.delete("/api", async (req, res) => {
@@ -58,20 +58,19 @@ createConnection()
 
     app.put("/api", async (req, res) => {
       const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
-      console.log(request);
       if (request.id !== null) {
         const todo = await service.find(request.id);
         const updatedTodo = new Todo(
-          todo.Title,
-          todo.Completed,
+          request.title,
+          request.completed,
           new CreatedAt(todo.CreatedAt),
           new CompletedAt(todo.CompletedAt),
           new DueDate(todo.DueDate),
-          todo.Id
+          request.id
         );
         await service.update(updatedTodo);
       }
-      res.send();
+      res.end();
     });
   })
   .catch((error) => console.log(error));
