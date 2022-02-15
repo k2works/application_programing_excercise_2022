@@ -29,7 +29,7 @@ const uml = `
 package "Api" {
   package "Domain" {
     class Todo {
-      complete: boolean
+      isComplete: boolean
       isOverdue: boolean
     }
     class Title {
