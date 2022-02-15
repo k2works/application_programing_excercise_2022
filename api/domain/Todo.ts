@@ -53,9 +53,15 @@ export class Todo {
     this.isOverDue = this.overDue();
   }
 
-  public complete(): void {
-    this.completed = true;
-    this.completedAt = new CompletedAt(new Date());
+  public complete(): Todo {
+    return new Todo(
+      this.title.Value,
+      true,
+      this.createdAt,
+      new CompletedAt(new Date()),
+      this.dueDate,
+      this.Id
+    );
   }
 
   public overDue(): boolean {

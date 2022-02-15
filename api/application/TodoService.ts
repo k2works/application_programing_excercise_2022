@@ -1,4 +1,3 @@
-import { param } from "cypress/types/jquery";
 import { TodoRequest } from "..";
 import { CompletedAt } from "../domain/CompletedAt";
 import { CreatedAt } from "../domain/CreatedAt";
@@ -43,8 +42,13 @@ export class TodoService {
         new DueDate(params.dueDate),
         params.id
       );
-      if (params.completed) updatedTodo.complete();
-      await this.repository.updateTodo(updatedTodo);
+
+      if (params.completed) {
+        const updateCompletedTodo = updatedTodo.complete();
+        await this.repository.updateTodo(updateCompletedTodo);
+      } else {
+        await this.repository.updateTodo(updatedTodo);
+      }
     }
   }
 
