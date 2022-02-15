@@ -18,6 +18,7 @@ export class TodoItemView {
           </li>`
       : element`<li><input type="checkbox" class="checkbox">
              ${todoItem.title.value} 
+             By
              <input class="due"
               type="date"
               placeholder="Set Due Date" 
