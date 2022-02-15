@@ -26,33 +26,62 @@ const contents = `
 `;
 
 const uml = `
-class App {
-  todoListView
-  todoListModel
-  handleAdd()
-  handleUpdate()
-  handleDelete()
-  render()
-  mount()
+package "Api" {
+  package "Domain" {
+    class Todo {
+      complete: boolean
+      isOverdue: boolean
+    }
+    class Title {
+    }
+    class CompletedAt {
+    }
+    class CreatedAt{
+    }
+    class DueDate{
+      overDue()
+    }
+  }
+  package "Application" {
+    class TodoService {
+    }
+    class TodoRepository {
+    }
+  }
+  package "Presentation" {
+    class Express {}
+  }
+  
+Express -> TodoService
+TodoService *- TodoRepository
+TodoRepository --> Todo
+Todo *-- Title
+Todo *-- CompletedAt
+Todo *-- CreatedAt
+Todo *-- DueDate
 }
-package view{
-  App *- TodoListView
-  TodoListView -> TodoItemView
-  class TodoItemView {}
-  class TodoListView {}
+package "Client" {
+  class App {
+  }
+  package view{
+    App *- TodoListView
+    TodoListView -> TodoItemView
+    class TodoItemView {}
+    class TodoListView {}
+  }
+  package application {
+    App *-- TodoApiService
+    TodoApiService *-- TodoApiRepository
+  }
+  package model {
+    App *-- TodoListModel
+    App --> TodoItemModel
+    TodoListModel *-- TodoItemModel
+    class TodoItemModel {}
+    class TodoListModel {}
+  }
 }
-package application {
-  App *-- TodoService
-  TodoService *-- TodoItemRepository
-}
-package model {
-  App *-- TodoListModel
-  App --> TodoItemModel
-  TodoListModel *-- TodoItemModel
-  TodoItemRepository -> TodoItemModel
-  class TodoItemModel {}
-  class TodoListModel {}
-}
+TodoApiRepository --> Express
 `;
 
 const erd = `
@@ -61,6 +90,9 @@ entity TodoItems {
   --
   title
   completed
+  createdAt
+  updatedAt
+  dueDate
 }
 `;
 
