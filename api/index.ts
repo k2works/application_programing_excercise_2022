@@ -44,17 +44,13 @@ createConnection()
 
     app.post("/api", async (req, res) => {
       const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
-      const todo = new Todo(request.title, request.completed);
-      await service.create(todo);
-      res.send(todo);
+      const result = await service.create(request);
+      res.send(result);
     });
 
     app.delete("/api", async (req, res) => {
-      const data = JSON.parse(JSON.stringify(req.body));
-      if (data.id !== null) {
-        const todo = await service.find(parseInt(data.id));
-        await service.delete(todo);
-      }
+      const request = JSON.parse(JSON.stringify(req.body));
+      if (request.id !== null) await service.delete(parseInt(request.id));
       res.end();
     });
 
