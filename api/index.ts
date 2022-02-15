@@ -6,7 +6,6 @@ import { TodoService } from "./application/TodoService";
 import { CreatedAt } from "./domain/CreatedAt";
 import { CompletedAt } from "./domain/CompletedAt";
 import { DueDate } from "./domain/DueDate";
-import { copyFileSync } from "fs";
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));

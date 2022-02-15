@@ -10,13 +10,16 @@ export class TodoItemView {
         return date.toISOString().substring(0, 10);
       }
     };
+
+    const overDue = () => (todoItem.isOverDue ? "overdue" : "");
+
     const todoItemElement = todoItem.completed
-      ? element`<li><input type="checkbox" class="checkbox" checked>
+      ? element`<li class=${overDue()}><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title.value}</s>
               <s class="due">${dueValue(todoItem.dueDate.value)}</s>
               <button class="delete">x</button>
           </li>`
-      : element`<li><input type="checkbox" class="checkbox">
+      : element`<li class=${overDue()}><input type="checkbox" class="checkbox">
              ${todoItem.title.value} 
              By
              <input class="due"
