@@ -1,5 +1,6 @@
 const app = require("./src/api/index");
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.set("port", process.env.PORT || 3000);
+app.listen(app.get("port"), () => {
+  console.log("Server is running on port " + app.get("port"));
 });
