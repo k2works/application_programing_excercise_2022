@@ -42,6 +42,8 @@ package "Api" {
       overDue()
     }
     abstract class TodoStatus {
+      value
+      code
       static create()
     }
     class NotStarted extends TodoStatus {
@@ -50,6 +52,7 @@ package "Api" {
     }
     class Completed extends TodoStatus {
     }
+    enum TodoType {}
   }
   package "Application" {
     class TodoService {
@@ -68,7 +71,8 @@ package "Api" {
   Todo *-- CompletedAt
   Todo *-- CreatedAt
   Todo *-- DueDate
-  Todo *- TodoStatus
+  TodoStatus -* Todo
+  TodoType <- TodoStatus
 }
 
 package "Client" {
@@ -96,7 +100,7 @@ TodoApiRepository --> Express
 `;
 
 const erd = `
-entity TodoItems {
+entity Todo {
   * id
   --
   title
@@ -104,7 +108,15 @@ entity TodoItems {
   createdAt
   updatedAt
   dueDate
+  todoid <<FK>>
 }
+entity Status {
+  *id
+  --
+  code
+  name
+}
+Status ||.o{ Todo
 `;
 
 export const setUp = () => {
