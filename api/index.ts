@@ -15,37 +15,62 @@ export interface TodoRequest {
 const service = new TodoService();
 
 router.get("/", async (req, res) => {
-  const result = await service.selectAll();
-  res.send(result);
+  try {
+    const result = await service.selectAll();
+    res.send(result);
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.get("/todo/:id", async (req, res) => {
-  const id = req.params.id;
-  const result = await service.find(parseInt(id));
-  res.send(result);
+  try {
+    const id = req.params.id;
+    const result = await service.find(parseInt(id));
+    res.send(result);
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.get("/todos/count", async (req, res) => {
-  const result = await service.count();
-  res.send(result.toString());
+  try {
+    const result = await service.count();
+    res.send(result.toString());
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.post("/", async (req, res) => {
-  const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
-  const result = await service.create(request);
-  res.send(result);
+  try {
+    const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
+    const result = await service.create(request);
+    res.send(result);
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.delete("/", async (req, res) => {
-  const request = JSON.parse(JSON.stringify(req.body));
-  if (request.id !== null) await service.delete(parseInt(request.id));
-  res.end();
+  try {
+    const request = JSON.parse(JSON.stringify(req.body));
+    if (request.id !== null) await service.delete(parseInt(request.id));
+    res.send({ result: "success" });
+  } catch (err: any) {
+    console.log(err.message);
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.put("/", async (req, res) => {
-  const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
-  await service.update(request);
-  res.end();
+  try {
+    const request: TodoRequest = JSON.parse(JSON.stringify(req.body));
+    await service.update(request);
+    res.send({ result: "success" });
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 const app = express();

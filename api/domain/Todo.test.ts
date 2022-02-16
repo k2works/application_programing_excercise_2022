@@ -104,5 +104,9 @@ describe("Todo", () => {
     });
   });
 
-  describe("異常系", () => {});
+  describe("異常系", () => {
+    it("タイトルが設定されていない", () => {
+      expect(() => new Todo("")).toThrow();
+    });
+  });
 });

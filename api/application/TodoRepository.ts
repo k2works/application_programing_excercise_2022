@@ -30,7 +30,9 @@ export class TodoRepository {
     const entity = await getRepository(Entity).findOne(id, {
       relations: ["status"],
     });
-    if (entity !== undefined) {
+    if (entity === undefined) {
+      throw new Error("指定されたIDのTodoは存在しません");
+    } else {
       return new DomainObject(
         entity.title,
         entity.completed,
@@ -39,8 +41,6 @@ export class TodoRepository {
         new DueDate(entity.dueDate),
         entity.id
       );
-    } else {
-      return new DomainObject("", false);
     }
   }
 

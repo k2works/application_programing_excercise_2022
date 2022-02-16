@@ -86,14 +86,6 @@ describe("TodoService", () => {
         expect(result).toBe(1);
       }
     });
-
-    it("未着手のステータスを記録する", async () => {
-      const servce = new TodoService();
-      const params: TodoRequest = setupParams();
-      await servce.create(params);
-      const result = await servce.find(1);
-      expect(result.Status).toBe("未着手");
-    });
   });
 
   describe("異常系", () => {});

@@ -9,6 +9,7 @@ export class App {
     this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
     this.service = new TodoApiService(params);
+    this.messageElement = document.querySelector("#js-todo-message");
   }
 
   render(todoItems) {
@@ -32,10 +33,24 @@ export class App {
     });
   }
 
+  errorHandler(result) {
+    if (result === undefined) {
+      this.messageElement.textContent = "";
+      return;
+    }
+    if (result.error) {
+      this.messageElement.textContent = result.error;
+    } else {
+      this.messageElement.textContent = "";
+    }
+  }
+
   handleAdd(title) {
     const entity = new TodoItemModel({ title, completed: false });
     this.todoListModel.addTodo(entity);
-    this.service.createTodoItem(entity).then(() => {
+    this.service.createTodoItem(entity).then((result) => {
+      this.errorHandler(result);
+
       this.service.selectAll().then((todoItems) => {
         this.render(todoItems);
       });
@@ -45,9 +60,11 @@ export class App {
   handleUpdate({ id, completed }) {
     this.todoListModel.updateTodo({ id, completed });
     const entity = new TodoItemModel({ id, title: null, completed });
-    this.service.find(entity).then((entity) => {
+    this.service.find(entity).then((result) => {
+      this.errorHandler(result);
+
       this.service
-        .save(new TodoItemModel({ id, title: entity.title.value, completed }))
+        .save(new TodoItemModel({ id, title: result.title.value, completed }))
         .then(() => {
           this.service.selectAll().then((todoItems) => {
             this.render(todoItems);
@@ -59,7 +76,9 @@ export class App {
   handleDelete({ id }) {
     this.todoListModel.deleteTodo({ id });
     const entity = new TodoItemModel({ id, title: null, completed: null });
-    this.service.delete(entity).then(() => {
+    this.service.delete(entity).then((result) => {
+      this.errorHandler(result);
+
       this.service.selectAll().then((todoItems) => {
         this.render(todoItems);
       });
@@ -70,6 +89,8 @@ export class App {
     this.todoListModel.updateTodoDue({ id, dueDate });
     const entity = new TodoItemModel({ id, title: null, dueDate });
     this.service.find(entity).then((result) => {
+      this.errorHandler(result);
+
       this.service
         .save(
           new TodoItemModel({
