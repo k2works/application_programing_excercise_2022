@@ -13,13 +13,28 @@ export class TodoItemView {
 
     const overDue = () => (todoItem.isOverDue ? "overdue" : "");
 
+    const statusColor = (value) => {
+      if (value === "完了") {
+        return "status completed";
+      } else if (value === "進行中") {
+        return "status in-progress";
+      } else {
+        return "status not-started";
+      }
+    };
+
     const todoItemElement = todoItem.isCompleted
-      ? element`<li class=${overDue()}><input type="checkbox" class="checkbox" checked>
+      ? element`<li class="${overDue()} ${statusColor(
+          todoItem.status.value
+        )}"><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title.value}</s>
               <s class="due">${dueValue(todoItem.dueDate.value)}</s>
+              ${todoItem.status.value}
               <button class="delete">x</button>
           </li>`
-      : element`<li class=${overDue()}><input type="checkbox" class="checkbox">
+      : element`<li class="${overDue()} ${statusColor(
+          todoItem.status.value
+        )}"><input type="checkbox" class="checkbox">
              ${todoItem.title.value} 
              By
              <input class="due"
@@ -27,6 +42,7 @@ export class TodoItemView {
               placeholder="Set Due Date" 
               value=${dueValue(todoItem.dueDate.value)}>
              </input>
+             ${todoItem.status.value}
              <button class="delete">x</button>
           </li>`;
 

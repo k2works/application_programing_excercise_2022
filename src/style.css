@@ -5,3 +5,13 @@
 .overdue {
   background: red;
 }
+
+.status.not-started {
+  color: yellow;
+}
+.status.in-progress {
+  color: green;
+}
+.status.completed {
+  color: blue;
+}
