@@ -1,7 +1,7 @@
-import "./src/style.css";
-import { App } from "./src/App.js";
-import { setUp } from "./src/Dev.js";
-import { TodoItemRepository } from "./src/application/TodoItemRepository";
+import "./src/client/style.css";
+import { App } from "./src/client/App.js";
+import { setUp } from "./src/client/Dev.js";
+import { TodoItemRepository } from "./src/client/application/TodoItemRepository";
 
 const repository = new TodoItemRepository("todo_test", "todo_items");
 repository.setup().then(() => {
