@@ -42,6 +42,8 @@ npmx cypress open
 npm install --save-dev style-loader css-loader
 npm i @nano-sql/core --save
 npm install --save-dev cypress-cucumber-preprocessor
+npm install -D webpack-dev-server
+npm install --save express uuid
 ```
 
 **[⬆ back to top](#構成)**

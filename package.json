@@ -7,8 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "nf start -j Procfile",
-    "app": "browser-sync start -s ./ --watch --port 8080 --ui-port 8081",
+    "start": "nf start -j Procfile.dev",
+    "app": "webpack server --config webpack.config.js --open",
+    "api": "node ./server.js",
     "test": "jest --coverage",
     "test:e2e": "cypress run  --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
@@ -45,11 +46,14 @@
     "style-loader": "^3.3.1",
     "watch": "^1.0.2",
     "webpack": "^5.68.0",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
     "@nano-sql/core": "^2.3.7",
-    "cypress": "^9.4.1"
+    "cypress": "^9.4.1",
+    "express": "^4.17.2",
+    "uuid": "^8.3.2"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/",
