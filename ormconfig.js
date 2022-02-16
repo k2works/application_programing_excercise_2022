@@ -1,10 +1,10 @@
 module.exports = {
-  type: "better-sqlite3",
+  type: "sqlite",
   host: "localhost",
   port: 3306,
   username: "test",
   password: "test",
-  database: ":memory:",
+  database: "db.sqlite",
   synchronize: true,
   logging: false,
   entities: ["api/entity/**/*.ts"],

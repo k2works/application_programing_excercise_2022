@@ -41,6 +41,10 @@ export class Todo {
     return this.status.Value;
   }
 
+  get StatusCode(): string {
+    return this.status.Code.toString();
+  }
+
   constructor(
     title: string,
     completed: boolean = false,
@@ -119,11 +123,18 @@ export class TodoList {
 
 export abstract class TodoStatus {
   protected value: string;
+  protected code: number;
+
   constructor() {
     this.value = "";
+    this.code = TodoType.UNDEFINED;
   }
   get Value(): string {
     return this.value;
+  }
+
+  get Code(): number {
+    return this.code;
   }
 
   public static create(todo: Todo) {
@@ -142,6 +153,7 @@ export class NotStarted extends TodoStatus {
   constructor() {
     super();
     this.value = "未着手";
+    this.code = TodoType.NOT_STARTED;
   }
   get Value(): string {
     return this.value;
@@ -153,6 +165,7 @@ export class InProgress extends TodoStatus {
   constructor() {
     super();
     this.value = "進行中";
+    this.code = TodoType.IN_PROGRESS;
   }
 
   get Value(): string {
@@ -165,6 +178,7 @@ export class Completed extends TodoStatus {
   constructor() {
     super();
     this.value = "完了";
+    this.code = TodoType.COMPLETED;
   }
 
   get Value(): string {
@@ -185,6 +199,7 @@ export class Undefined extends TodoStatus {
 }
 
 export enum TodoType {
+  UNDEFINED = 0,
   NOT_STARTED = 1,
   IN_PROGRESS = 2,
   COMPLETED = 3,
