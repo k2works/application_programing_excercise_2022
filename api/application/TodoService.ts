@@ -34,7 +34,8 @@ export class TodoService {
   async update(params: TodoRequest): Promise<void> {
     if (params.id !== null) {
       const todo = await this.find(params.id);
-      const updatedTodo = new Todo(
+
+      let updatedTodo = new Todo(
         params.title,
         params.completed,
         new CreatedAt(todo.CreatedAt),
@@ -43,12 +44,12 @@ export class TodoService {
         params.id
       );
 
-      if (params.completed) {
-        const updateCompletedTodo = updatedTodo.complete();
-        await this.repository.updateTodo(updateCompletedTodo);
-      } else {
-        await this.repository.updateTodo(updatedTodo);
-      }
+      if (params.completed) updatedTodo = updatedTodo.complete();
+
+      if (params.dueDate)
+        updatedTodo = updatedTodo.setDueDate(new DueDate(params.dueDate));
+
+      await this.repository.updateTodo(updatedTodo);
     }
   }
 

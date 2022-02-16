@@ -100,7 +100,9 @@ export class App {
             dueDate,
           })
         )
-        .then(() => {
+        .then((result) => {
+          this.errorHandler(result);
+
           this.service.selectAll().then((todoItems) => {
             this.render(todoItems);
           });

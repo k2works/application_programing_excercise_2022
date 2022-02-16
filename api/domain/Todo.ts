@@ -81,7 +81,8 @@ export class Todo {
   public setDueDate(due: DueDate): Todo {
     const dueDate = due.Value;
     if (dueDate !== null) {
-      if (this.createdAt.Value.getTime() > dueDate.getTime())
+      const otherDay = new Date(dueDate);
+      if (this.createdAt.Value.getTime() > otherDay.getTime())
         throw new Error("開始日より前に期限が設定されています");
     }
 
@@ -90,7 +91,8 @@ export class Todo {
       this.isCompleted,
       this.createdAt,
       this.completedAt,
-      due
+      due,
+      this.id
     );
   }
 
