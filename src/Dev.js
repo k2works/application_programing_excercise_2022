@@ -31,7 +31,6 @@ package "Api" {
     class Todo {
       isComplete: boolean
       isOverdue: boolean
-      status: TodoStatus
     }
     class Title {
     }
