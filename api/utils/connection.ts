@@ -2,7 +2,8 @@ import { createConnection, getConnection } from "typeorm";
 
 const connection = {
   async create() {
-    await createConnection();
+    const con = await createConnection();
+    await con.query("PRAGMA foreign_keys=OFF");
   },
 
   async close() {
