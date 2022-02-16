@@ -79,12 +79,8 @@ export class Todo {
   }
 
   public setDueDate(due: DueDate): Todo {
-    const dueDate = due.Value;
-    if (dueDate !== null) {
-      const otherDay = new Date(dueDate);
-      if (this.createdAt.Value.getTime() > otherDay.getTime())
-        throw new Error("開始日より前に期限が設定されています");
-    }
+    if (due.overDue(this.createdAt.Value))
+      throw new Error("開始日より前に期限が設定されています");
 
     return new Todo(
       this.title.Value,
