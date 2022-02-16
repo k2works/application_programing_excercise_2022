@@ -1,7 +1,7 @@
 import { TodoApiRepository } from "./TodoApiRepository";
 export class TodoApiService {
-  constructor() {
-    this.repository = new TodoApiRepository();
+  constructor(params) {
+    this.repository = new TodoApiRepository(params.apiUrl);
   }
 
   createTodoItem(entity) {

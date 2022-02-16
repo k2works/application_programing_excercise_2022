@@ -5,10 +5,10 @@ import { render } from "./view/html-util";
 import { TodoListView } from "./view/TodoListView";
 
 export class App {
-  constructor() {
+  constructor(params) {
     this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
-    this.service = new TodoApiService();
+    this.service = new TodoApiService(params);
   }
 
   render(todoItems) {
