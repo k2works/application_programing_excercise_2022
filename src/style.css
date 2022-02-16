@@ -1,0 +1,22 @@
+.todoapp {
+  background: silver;
+}
+
+.overdue {
+  background: red;
+}
+
+.status.not-started {
+  color: yellow;
+}
+.status.in-progress {
+  color: green;
+}
+.status.completed {
+  color: blue;
+}
+
+.message {
+  color: red;
+  font-weight: bold;
+}

@@ -1,4 +1,5 @@
 [![Node.js CI](https://github.com/k2works/application_programing_excercise_2022/actions/workflows/node.js.yml/badge.svg)](https://github.com/k2works/application_programing_excercise_2022/actions/workflows/node.js.yml)
+[![Todo](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/4uqmc1&style=plastic&logo=cypress)](https://dashboard.cypress.io/projects/4uqmc1/runs)
 
 # アプリケーション開発のための練習プログラミング
 
@@ -38,7 +39,18 @@ npm install webpack webpack-cli html-webpack-plugin --save-dev
 touch Procfile
 npm install cypress
 npmx cypress open
+npm install --save-dev style-loader css-loader
+npm i @nano-sql/core --save
 npm install --save-dev cypress-cucumber-preprocessor
+npm install --save express uuid
+npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node@10.5.0 @types/jest @types/express 
+npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom --module commonjs
+npm install typeorm reflect-metadata --save
+npm install @types/node --save-dev
+npm install sqlite3 --save
+npm i -D better-sqlite3
+npm install cors
+npm install --save-dev @types/cors
 ```
 
 **[⬆ back to top](#構成)**
@@ -75,3 +87,5 @@ npm start
 - [GitHub Actions でステータスバッジを表示する](https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8)
 - [cypress](https://www.cypress.io/)
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
+- [Using Express.js with Vercel](https://vercel.com/guides/using-express-with-vercel)
+- [TypeScript Deep Dive 日本語版](https://typescript-jp.gitbook.io/deep-dive/)
