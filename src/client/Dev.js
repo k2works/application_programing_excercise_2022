@@ -33,7 +33,9 @@ package Api {
   class Title {}
   class CreatedAt {}
   class CompletedAt {}
-  class DueDate {}
+  class DueDate {
+    overDue()
+  }
   Todo *-- Title
   Todo *-- CreatedAt
   Todo *-- CompletedAt
