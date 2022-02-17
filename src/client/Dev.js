@@ -29,12 +29,15 @@ const uml = `
 package Api {
   class Todo {
     completed
-    createdAt
-    completedAt
-    dueDate
   }
   class Title {}
-  Todo *- Title
+  class CreatedAt {}
+  class CompletedAt {}
+  class DueDate {}
+  Todo *-- Title
+  Todo *-- CreatedAt
+  Todo *-- CompletedAt
+  Todo *-- DueDate
 }
 package Client {
   class App {
