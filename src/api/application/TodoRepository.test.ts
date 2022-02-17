@@ -23,7 +23,7 @@ describe("TodoRepository", () => {
     const todo = new Todo("タイトル");
     await repository.addTodo(todo);
     const result = await repository.getTodos();
-    expect(result[0].Title).toBe("タイトル");
+    expect(result.Value[0].Title).toBe("タイトル");
   });
 
   it("やることを更新する", async () => {
@@ -32,7 +32,7 @@ describe("TodoRepository", () => {
     await repository.addTodo(todo);
     let result = await repository.getTodos();
 
-    const id = result[0].Id;
+    const id = result.Value[0].Id;
     if (id !== null) {
       const todo2 = new Todo(
         "タイトル2",
@@ -46,7 +46,7 @@ describe("TodoRepository", () => {
       await repository.updateTodo(todo2);
       result = await repository.getTodos();
     }
-    expect(result[0].Title).toBe("タイトル2");
+    expect(result.Value[0].Title).toBe("タイトル2");
   });
 
   it("やることを削除する", async () => {
@@ -54,8 +54,8 @@ describe("TodoRepository", () => {
     const todo = new Todo("タイトル");
     await repository.addTodo(todo);
     let result = await repository.getTodos();
-    await repository.deleteTodo(result[0]);
+    await repository.deleteTodo(result.Value[0]);
     result = await repository.getTodos();
-    expect(result.length).toBe(0);
+    expect(result.Value.length).toBe(0);
   });
 });

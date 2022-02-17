@@ -1,4 +1,5 @@
 import { Todo } from "../domain/Todo";
+import { TodoList } from "../domain/TodoList";
 import { TodoRepository } from "./TodoRepository";
 
 export class TodoService {
@@ -8,7 +9,7 @@ export class TodoService {
     this.repository = new TodoRepository();
   }
 
-  async selectAll(): Promise<Todo[]> {
+  async selectAll(): Promise<TodoList> {
     return this.repository.getTodos();
   }
 
