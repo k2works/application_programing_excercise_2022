@@ -27,7 +27,10 @@ const contents = `
 
 const uml = `
 package Api {
-  package domain {
+  package Application {
+    class TodoRepository {}
+  }
+  package Domain {
     class Todo {
       completed
     }
