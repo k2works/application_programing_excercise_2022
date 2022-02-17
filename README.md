@@ -46,6 +46,7 @@ npm install -D webpack-dev-server
 npm install --save express uuid cors
 npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node@10.5.0 ts-node-dev@1.1.8 @types/jest @types/express @types/cors
 npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom --module commonjs
+npm install --save-dev typescript ts-loader
 ```
 
 **[⬆ back to top](#構成)**

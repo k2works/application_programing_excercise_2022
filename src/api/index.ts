@@ -15,4 +15,9 @@ app.get("/api", (req, res) => {
   res.send(todo.greeting());
 });
 
+app.set("port", process.env.PORT || 3000);
+app.listen(app.get("port"), () => {
+  console.log("Server is running on port " + app.get("port"));
+});
+
 export default app;

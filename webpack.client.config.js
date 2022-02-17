@@ -1,10 +1,15 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const env = process.env.NODE_ENV || "development";
+const isDevelopment = env === "development";
+
 module.exports = {
-  mode: "development",
-  devtool: "inline-source-map",
-  entry: "./src/client/index.js",
+  mode: env,
+  devtool: isDevelopment ? "source-map" : false,
+  entry: {
+    public: "./src/client/index.js",
+  },
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "public"),
