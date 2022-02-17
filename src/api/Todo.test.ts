@@ -12,4 +12,10 @@ describe("Todo", () => {
     todo.complete();
     expect(todo.Completed).toBe(true);
   });
+
+  it("内容が同じであれば同じTodo", () => {
+    const todo1 = new Todo("タイトル");
+    const todo2 = new Todo("タイトル");
+    expect(todo1.equals(todo2)).toBe(true);
+  });
 });
