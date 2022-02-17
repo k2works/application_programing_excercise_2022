@@ -15,9 +15,12 @@
     "test:e2e": "cypress run  --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
     "watch": "webpack --watch --config webpack.config.js",
-    "build": "npm-run-all build:*",
+    "build": "npm-run-all clean build:*",
     "build:client": "webpack --config ./webpack.client.config.js",
     "build:api": "webpack --config ./webpack.api.config.js",
+    "clean": "npm-run-all clean:*",
+    "clean:client": "rimraf ./public",
+    "clean:api": "rimraf ./dist",
     "deploy:local": "vercel dev",
     "deploy": "vercel"
   },
