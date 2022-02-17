@@ -29,6 +29,8 @@ const uml = `
 package Api {
   package Application {
     class TodoRepository {}
+    class TodoService {}
+    TodoService *- TodoRepository
   }
   package Domain {
     class Todo {
@@ -45,6 +47,7 @@ package Api {
     Todo *-- CompletedAt
     Todo *-- DueDate
   }
+  TodoRepository --> Todo
 }
 package Client {
   class App {
@@ -56,8 +59,8 @@ package Client {
     class TodoListView {}
   }
   package application {
-    App *-- TodoService
-    TodoService *-- TodoItemRepository
+    App *-- TodoItemService
+    TodoItemService *-- TodoItemRepository
   }
   package model {
     App *-- TodoListModel
