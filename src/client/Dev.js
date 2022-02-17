@@ -33,7 +33,7 @@ package Api {
   package Application {
     class TodoRepository {}
     class TodoService {}
-    TodoService *- TodoRepository
+    TodoRepository -* TodoService
   }
   package Domain {
     class Todo {
@@ -54,6 +54,7 @@ package Api {
   }
   TodoRepository --> Todo
   TodoRepository --> TodoList
+  TodoService <- Express
 }
 package Client {
   class App {
