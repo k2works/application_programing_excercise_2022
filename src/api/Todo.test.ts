@@ -1,4 +1,4 @@
-import { Todo } from "./Todo";
+import { DueDate, Todo } from "./Todo";
 
 describe("Todo", () => {
   it("やることを生成する", () => {
@@ -19,28 +19,36 @@ describe("Todo", () => {
     expect(todo1.equals(todo2)).toBe(true);
   });
 
-    it("やることを生成したら開始日を設定する", () => {
-      const todo = new Todo("タイトル");
-      expect(todo.CreatedAt).toBeDefined();
-    });
+  it("やることを生成したら開始日を設定する", () => {
+    const todo = new Todo("タイトル");
+    expect(todo.CreatedAt).toBeDefined();
+  });
 
-    it("やることを更新したら完了日を設定する", () => {
-      const todo = new Todo("タイトル");
-      todo.complete();
-      expect(todo.CompletedAt).toBeDefined();
-    });
+  it("やることを更新したら完了日を設定する", () => {
+    const todo = new Todo("タイトル");
+    todo.complete();
+    expect(todo.CompletedAt).toBeDefined();
+  });
 
-    it("やることに期限を設定する", () => {
-      const todo = new Todo("タイトル");
-      todo.DueDate = new Date();
-      expect(todo.DueDate).toBeDefined();
-    });
+  it("やることに期限を設定する", () => {
+    const todo = new Todo("タイトル");
+    const todo2 = todo.setDueDate(new DueDate(new Date()));
+    expect(todo2.DueDate).toBeDefined();
+  });
 
-    it("やることの期限を確認する", () => {
-      const todo = new Todo("タイトル");
-      const due = new Date();
-      due.setDate(due.getDate() - 1);
-      todo.DueDate = due;
-      expect(todo.overDue()).toBe(true);
-    });
+  it("期限が過ぎている", () => {
+    const todo = new Todo("タイトル");
+    const due = new Date();
+    due.setDate(due.getDate() - 1);
+    const todo2 = todo.setDueDate(new DueDate(due));
+    expect(todo2.overDue()).toBe(true);
+  });
+
+  it("期限が過ぎていない", () => {
+    const todo = new Todo("タイトル");
+    const due = new Date();
+    due.setDate(due.getDate() + 1);
+    const todo2 = todo.setDueDate(new DueDate(due));
+    expect(todo2.overDue()).toBe(false);
+  });
 });
