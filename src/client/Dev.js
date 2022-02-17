@@ -36,6 +36,7 @@ package Api {
     class Todo {
       completed
     }
+    class TodoList {}
     class Title {}
     class CreatedAt {}
     class CompletedAt {}
@@ -46,8 +47,10 @@ package Api {
     Todo *-- CreatedAt
     Todo *-- CompletedAt
     Todo *-- DueDate
+    TodoList *- Todo
   }
   TodoRepository --> Todo
+  TodoRepository --> TodoList
 }
 package Client {
   class App {
