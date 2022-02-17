@@ -11,8 +11,8 @@ app.use(
 app.use(express.text());
 
 app.get("/api", (req, res) => {
-  const todo = new Todo();
-  res.send(todo.greeting());
+  const todo = new Todo("hello world");
+  res.send(todo.Title);
 });
 
 app.set("port", process.env.PORT || 3000);
