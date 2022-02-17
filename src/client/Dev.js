@@ -26,37 +26,37 @@ const contents = `
 `;
 
 const uml = `
-class App {
-  todoListView
-  todoListModel
-  handleAdd()
-  handleUpdate()
-  handleDelete()
-  render()
-  mount()
+package Api {
+  class Todo {}
+  class Title {}
+  Todo *- Title
 }
-package view{
-  App *- TodoListView
-  TodoListView -> TodoItemView
-  class TodoItemView {}
-  class TodoListView {}
-}
-package application {
-  App *-- TodoService
-  TodoService *-- TodoItemRepository
-}
-package model {
-  App *-- TodoListModel
-  App --> TodoItemModel
-  TodoListModel *-- TodoItemModel
-  TodoItemRepository -> TodoItemModel
-  class TodoItemModel {}
-  class TodoListModel {}
+package Client {
+  class App {
+  }
+  package view{
+    App *- TodoListView
+    TodoListView -> TodoItemView
+    class TodoItemView {}
+    class TodoListView {}
+  }
+  package application {
+    App *-- TodoService
+    TodoService *-- TodoItemRepository
+  }
+  package model {
+    App *-- TodoListModel
+    App --> TodoItemModel
+    TodoListModel *-- TodoItemModel
+    TodoItemRepository -> TodoItemModel
+    class TodoItemModel {}
+    class TodoListModel {}
+  }
 }
 `;
 
 const erd = `
-entity TodoItems {
+entity Todo {
   * id
   --
   title
