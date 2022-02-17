@@ -9,8 +9,8 @@
   "scripts": {
     "start": "nf start -j Procfile.dev",
     "app": "webpack server --config ./webpack.client.config.js --open",
-    "api": "node ./dist/main.js",
-    "api:dev": "ts-node-dev ./dist/main.js",
+    "api": "cross-env NODE_ENV=production node ./dist/main.js",
+    "api:dev": "cross-env NODE_ENV=development PORT=3000 ts-node-dev ./src/api/index.ts",
     "test": "jest --coverage",
     "test:e2e": "cypress run  --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
@@ -63,6 +63,7 @@
   "dependencies": {
     "@nano-sql/core": "^2.3.7",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "cypress": "^9.4.1",
     "express": "^4.17.3",
     "uuid": "^8.3.2"
