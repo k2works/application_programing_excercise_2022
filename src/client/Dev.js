@@ -27,7 +27,12 @@ const contents = `
 
 const uml = `
 package Api {
-  class Todo {}
+  class Todo {
+    completed
+    createdAt
+    completedAt
+    dueDate
+  }
   class Title {}
   Todo *- Title
 }
