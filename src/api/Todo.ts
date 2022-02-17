@@ -45,13 +45,21 @@ export class Todo {
 
   public overDue(): boolean {
     const due = this.dueDate.Value;
+    const today = new Date();
     if (due === null) {
       return false;
     }
-    return this.createdAt.Value.getTime() > due.getTime();
+    return today.getTime() > due.getTime();
   }
 
   public setDueDate(due: DueDate): Todo {
+    const dueDate = due.Value;
+    if (dueDate !== null) {
+      if (this.createdAt.Value.getTime() > dueDate.getTime()) {
+        throw new Error("開始日より前に期限を設定できません");
+      }
+    }
+
     return new Todo(
       this.title.Value,
       this.completed,
