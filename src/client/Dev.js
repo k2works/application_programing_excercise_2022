@@ -71,6 +71,9 @@ entity Todo {
   --
   title
   completed
+  createdAt
+  completedAt
+  dueDate
 }
 `;
 
