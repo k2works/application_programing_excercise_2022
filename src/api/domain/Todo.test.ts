@@ -2,6 +2,7 @@ import { CompletedAt } from "./CompletedAt";
 import { CreatedAt } from "./CreatedAt";
 import { DueDate } from "./DueDate";
 import { Todo } from "./Todo";
+import { TodoList } from "./TodoList";
 
 describe("Todo", () => {
   it("やることを生成する", () => {
@@ -69,5 +70,23 @@ describe("Todo", () => {
     const due = new Date();
     due.setDate(due.getDate() - 1);
     expect(() => todo.setDueDate(new DueDate(due))).toThrow();
+  });
+});
+
+describe("TodoList", () => {
+  it("やることリストを生成する", () => {
+    const todo = new Todo("タイトル");
+    const todo2 = new Todo("タイトル2");
+    const todoList = new TodoList([todo, todo2]);
+    expect(todoList.Value.length).toBe(2);
+  });
+
+  it("やることリストを追加する", () => {
+    const todo = new Todo("タイトル");
+    const todo2 = new Todo("タイトル2");
+    const todoList = new TodoList([todo, todo2]);
+    const todoList2 = todoList.add(new Todo("タイトル3"));
+    expect(todoList.Value.length).toBe(2);
+    expect(todoList2.Value.length).toBe(3);
   });
 });
