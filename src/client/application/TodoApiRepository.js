@@ -17,8 +17,34 @@ export class TodoApiRepository {
     return new Promise(service);
   }
 
+  postApi(url, data) {
+    const service = (resolve, reject) => {
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  }
+
   create(data) {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      this.postApi(this._apiUrl + "/todo", data)
+        .then((result) => {
+          return resolve(result.message);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
   }
 
   selectAll() {
