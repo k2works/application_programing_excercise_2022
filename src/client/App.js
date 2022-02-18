@@ -1,4 +1,4 @@
-import { TodoService } from "./application/TodoService";
+import { TodoApiService } from "./application/TodoApiService";
 import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListModel } from "./model/TodoListModel";
 import { render } from "./view/html-util";
@@ -8,7 +8,7 @@ export class App {
   constructor() {
     this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
-    this.service = new TodoService();
+    this.service = new TodoApiService();
   }
 
   render(todoItems) {
