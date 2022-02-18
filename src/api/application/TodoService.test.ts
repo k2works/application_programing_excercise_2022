@@ -26,6 +26,16 @@ describe("TodoService", () => {
     expect(result.Value[0].Title).toBe("タイトル");
   });
 
+  it("やることを検索する", async () => {
+    const servce = new TodoService();
+    const todo = new Todo("タイトル");
+    await servce.create(todo);
+    if (todo.Id !== null) {
+      const result = await servce.find(todo.Id);
+      expect(result.Title).toBe("タイトル");
+    }
+  });
+
   it("やることを更新する", async () => {
     const servce = new TodoService();
     const todo = new Todo("タイトル");

@@ -13,6 +13,10 @@ export class TodoService {
     return this.repository.getTodos();
   }
 
+  async find(id: number): Promise<Todo> {
+    return this.repository.getTodo(id);
+  }
+
   async create(todo: Todo): Promise<void> {
     await this.repository.addTodo(todo);
   }
