@@ -66,8 +66,6 @@ package Client {
     class TodoListView {}
   }
   package application {
-    App *-- TodoItemService
-    TodoItemService *-- TodoItemRepository
     App *-- TodoApiService
     TodoApiService *-- TodoApiRepository
   }
@@ -75,7 +73,6 @@ package Client {
     App *-- TodoListModel
     App --> TodoItemModel
     TodoListModel *-- TodoItemModel
-    TodoItemRepository -> TodoItemModel
     class TodoItemModel {}
     class TodoListModel {}
   }
