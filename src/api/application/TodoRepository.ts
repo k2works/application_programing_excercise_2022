@@ -75,4 +75,8 @@ export class TodoRepository {
       await getRepository(Entity).save(entiry);
     }
   }
+
+  async count(): Promise<number> {
+    return getRepository(Entity).count();
+  }
 }

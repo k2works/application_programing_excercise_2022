@@ -68,4 +68,14 @@ describe("TodoService", () => {
     result = await servce.selectAll();
     expect(result.Value.length).toBe(0);
   });
+
+  it("やることの件数を取得する", async () => {
+    const servce = new TodoService();
+    const todo = new Todo("タイトル");
+    await servce.create(todo);
+    if (todo.Id !== null) {
+      const result = await servce.count();
+      expect(result).toBe(1);
+    }
+  });
 });

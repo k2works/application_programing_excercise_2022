@@ -28,4 +28,8 @@ export class TodoService {
   async update(todo: Todo): Promise<void> {
     await this.repository.updateTodo(todo);
   }
+
+  async count(): Promise<number> {
+    return this.repository.count();
+  }
 }
