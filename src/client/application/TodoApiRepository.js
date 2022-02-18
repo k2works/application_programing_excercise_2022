@@ -132,6 +132,14 @@ export class TodoApiRepository {
   }
 
   count() {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      this.getApi(`${this._apiUrl}/todos/count`)
+        .then((result) => {
+          return resolve(result);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
   }
 }
