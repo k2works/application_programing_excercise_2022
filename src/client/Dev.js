@@ -68,6 +68,8 @@ package Client {
   package application {
     App *-- TodoItemService
     TodoItemService *-- TodoItemRepository
+    App *-- TodoApiService
+    TodoApiService *-- TodoApiRepository
   }
   package model {
     App *-- TodoListModel
@@ -78,6 +80,7 @@ package Client {
     class TodoListModel {}
   }
 }
+TodoApiRepository --> Express
 `;
 
 const erd = `
