@@ -27,53 +27,76 @@ const service = new TodoService();
 createConnection()
   .then(async (connection) => {
     app.get("/api/todos", async (req, res) => {
-      const result = await service.selectAll();
-      res.send(result);
+      try {
+        const result = await service.selectAll();
+        res.send(result);
+      } catch (err: any) {
+        res.status(400).send({ error: err.message });
+      }
     });
 
     app.get("/api/todos/count", async (req, res) => {
-      const result = await service.count();
-      res.send(result.toString());
+      try {
+        const result = await service.count();
+        res.send(result.toString());
+      } catch (err: any) {
+        res.status(400).send({ error: err.message });
+      }
     });
 
     app.get("/api/todo/:id", async (req, res) => {
-      const id = req.params.id;
-      const result = await service.find(parseInt(id));
-      console.log(result);
-      res.send({ value: result });
+      try {
+        const id = req.params.id;
+        const result = await service.find(parseInt(id));
+        res.send({ value: result });
+      } catch (err: any) {
+        res.status(400).send({ error: err.message });
+      }
     });
 
     app.post("/api/todo", async (req, res) => {
-      const request: TodoRequest = req.body;
-      const todo = new Todo(request.title, request.completed);
-      await service.create(todo);
-      res.send({ message: "success" });
+      try {
+        const request: TodoRequest = req.body;
+        const todo = new Todo(request.title, request.completed);
+        await service.create(todo);
+        res.send({ success: "success" });
+      } catch (err: any) {
+        res.status(400).send({ error: err.message });
+      }
     });
 
     app.delete("/api/todo", async (req, res) => {
-      const data = req.body;
-      if (data.id !== null) {
-        const todo = await service.find(parseInt(data.id));
-        await service.delete(todo);
+      try {
+        const data = req.body;
+        if (data.id !== null) {
+          const todo = await service.find(parseInt(data.id));
+          await service.delete(todo);
+        }
+        res.send({ success: "success" });
+      } catch (err: any) {
+        res.status(400).send({ error: err.message });
       }
-      res.send({ message: "success" });
     });
 
     app.put("/api/todo", async (req, res) => {
-      const request: TodoRequest = req.body;
-      if (request.id !== null) {
-        const todo = await service.find(request.id);
-        const updatedTodo = new Todo(
-          todo.Title,
-          request.completed,
-          new CreatedAt(todo.CreatedAt),
-          new CompletedAt(todo.CompletedAt),
-          new DueDate(todo.DueDate),
-          todo.Id
-        );
-        await service.update(updatedTodo);
+      try {
+        const request: TodoRequest = req.body;
+        if (request.id !== null) {
+          const todo = await service.find(request.id);
+          const updatedTodo = new Todo(
+            todo.Title,
+            request.completed,
+            new CreatedAt(todo.CreatedAt),
+            new CompletedAt(todo.CompletedAt),
+            new DueDate(todo.DueDate),
+            todo.Id
+          );
+          await service.update(updatedTodo);
+        }
+        res.send({ success: "success" });
+      } catch (err: any) {
+        res.status(400).send({ error: err.message });
       }
-      res.send({ message: "success" });
     });
   })
   .catch((error) => console.log(error));

@@ -75,7 +75,8 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.postApi(this._apiUrl + "/todo", data)
         .then((result) => {
-          return resolve(result.message);
+          if (result.error) reject(result);
+          return resolve(result);
         })
         .catch((error) => {
           return reject(error);
@@ -87,6 +88,7 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.getApi(this._apiUrl + "/todos")
         .then((result) => {
+          if (result.error) reject(result);
           return resolve(result.value);
         })
         .catch((error) => {
@@ -99,6 +101,7 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.getApi(`${this._apiUrl}/todo/${id}`)
         .then((result) => {
+          if (result.error) reject(result);
           return resolve(result.value);
         })
         .catch((error) => {
@@ -111,7 +114,8 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.deleteApi(`${this._apiUrl}/todo`, id)
         .then((result) => {
-          return resolve(result.message);
+          if (result.error) reject(result);
+          return resolve(result);
         })
         .catch((error) => {
           return reject(error);
@@ -123,7 +127,8 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.putApi(`${this._apiUrl}/todo`, data)
         .then((result) => {
-          return resolve(result.message);
+          if (result.error) reject(result);
+          return resolve(result);
         })
         .catch((error) => {
           return reject(error);
@@ -135,6 +140,7 @@ export class TodoApiRepository {
     return new Promise((resolve, reject) => {
       this.getApi(`${this._apiUrl}/todos/count`)
         .then((result) => {
+          if (result.error) reject(result);
           return resolve(result);
         })
         .catch((error) => {
