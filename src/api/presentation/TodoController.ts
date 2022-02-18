@@ -71,17 +71,17 @@ router.delete("/todo", async (req, res) => {
 router.put("/todo", async (req, res) => {
   try {
     const request: TodoRequest = req.body;
-    console.log(request);
     if (request.id !== null) {
       const todo = await service.find(request.id);
       const updatedTodo = new Todo(
         todo.Title,
         request.completed,
         new CreatedAt(todo.CreatedAt),
-        new CompletedAt(todo.CompletedAt),
+        new CompletedAt(null),
         new DueDate(request.dueDate),
         todo.Id
       );
+      if (request.completed) updatedTodo.complete();
       await service.update(updatedTodo);
     }
     res.send({ success: "success" });

@@ -15,10 +15,12 @@ export class DueDate {
 
   public overDue(): boolean {
     const due = this.Value;
-    const today = new Date();
     if (due === null) {
       return false;
+    } else {
+      const today = new Date();
+      const dueDay = new Date(due);
+      return today.getTime() > dueDay.getTime();
     }
-    return today.getTime() > due.getTime();
   }
 }
