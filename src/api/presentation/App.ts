@@ -29,10 +29,18 @@ createConnection()
     });
 
     app.post("/api/todo", async (req, res) => {
-      console.log(req.body);
       const request: TodoRequest = req.body;
       const todo = new Todo(request.title, request.completed);
       await service.create(todo);
+      res.send({ message: "success" });
+    });
+
+    app.delete("/api/todo", async (req, res) => {
+      const data = req.body;
+      if (data.id !== null) {
+        const todo = await service.find(parseInt(data.id));
+        await service.delete(todo);
+      }
       res.send({ message: "success" });
     });
   })

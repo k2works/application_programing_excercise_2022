@@ -35,6 +35,24 @@ export class TodoApiRepository {
     return new Promise(service);
   }
 
+  deleteApi(url, data) {
+    const service = (resolve, reject) => {
+      fetch(url, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: data }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  }
+
   create(data) {
     return new Promise((resolve, reject) => {
       this.postApi(this._apiUrl + "/todo", data)
@@ -60,11 +78,27 @@ export class TodoApiRepository {
   }
 
   find(id) {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      this.getApi(`${this._apiUrl}/todo/${id}`)
+        .then((result) => {
+          return resolve(result.value);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
   }
 
   delete(id) {
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      this.deleteApi(`${this._apiUrl}/todo`, id)
+        .then((result) => {
+          return resolve(result.message);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    });
   }
 
   save(data) {
