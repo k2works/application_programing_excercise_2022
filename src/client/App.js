@@ -16,8 +16,8 @@ export class App {
     const todoItemCountElement = document.querySelector("#js-todo-count");
 
     const todoListElement = this.todoListView.createElement(todoItems, {
-      onUpdateTodo: ({ id, completed }) => {
-        this.handleUpdate({ id, completed });
+      onUpdateTodo: ({ id, completed, dueDate }) => {
+        this.handleUpdate({ id, completed, dueDate });
       },
       onDeleteTodo: ({ id }) => {
         this.handleDelete({ id });
@@ -34,7 +34,12 @@ export class App {
 
   handleMessage(message) {
     const messageElement = document.querySelector("#js-message");
-    messageElement.classList.remove("message", "error", "success", "system-error");
+    messageElement.classList.remove(
+      "message",
+      "error",
+      "success",
+      "system-error"
+    );
     if (message.error) {
       messageElement.classList.add("message", "error");
       messageElement.textContent = message.error;
@@ -65,15 +70,22 @@ export class App {
       .catch((error) => this.handleMessage(error));
   }
 
-  handleUpdate({ id, completed }) {
-    this.todoListModel.updateTodo({ id, completed });
-    const entity = new TodoItemModel({ id, title: null, completed });
+  handleUpdate({ id, completed, dueDate }) {
+    this.todoListModel.updateTodo({ id, completed, dueDate });
+    const entity = new TodoItemModel({ id, title: null, completed, dueDate });
     this.service
       .find(entity)
       .then((result) => {
         this.handleMessage(result);
         this.service
-          .save(new TodoItemModel({ id, title: result.title.value, completed }))
+          .save(
+            new TodoItemModel({
+              id,
+              title: result.title.value,
+              completed,
+              dueDate,
+            })
+          )
           .then((result) => {
             this.handleMessage(result);
             this.service.selectAll().then((todoItems) => {

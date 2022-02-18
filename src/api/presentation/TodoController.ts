@@ -71,6 +71,7 @@ router.delete("/todo", async (req, res) => {
 router.put("/todo", async (req, res) => {
   try {
     const request: TodoRequest = req.body;
+    console.log(request);
     if (request.id !== null) {
       const todo = await service.find(request.id);
       const updatedTodo = new Todo(
@@ -78,7 +79,7 @@ router.put("/todo", async (req, res) => {
         request.completed,
         new CreatedAt(todo.CreatedAt),
         new CompletedAt(todo.CompletedAt),
-        new DueDate(todo.DueDate),
+        new DueDate(request.dueDate),
         todo.Id
       );
       await service.update(updatedTodo);
