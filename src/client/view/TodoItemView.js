@@ -2,17 +2,27 @@ import { element } from "./html-util.js";
 
 export class TodoItemView {
   createElement(todoItem, { onUpdateTodo, onDeleteTodo }) {
-    const dueValue = (value) => (value === null ? "" : value);
+    const dueValue = (value) => {
+      if (value === null) {
+        return "";
+      } else {
+        const date = new Date(value);
+        return date.toISOString().substring(0, 10);
+      }
+    };
+
     const todoItemElement = todoItem.completed
       ? element`<li><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title.value}</s>
+              By
               <s class="due">${dueValue(todoItem.dueDate.value)}</s>
               <button class="delete">x</button>
           </li>`
       : element`<li><input type="checkbox" class="checkbox">
              ${todoItem.title.value} 
+             By
              <input class="due"
-              placeholder="Set Due Date" 
+              type="date"
               value=${dueValue(todoItem.dueDate.value)}>
              </input>
              <button class="delete">x</button>
