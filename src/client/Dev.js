@@ -37,7 +37,8 @@ package Api {
   }
   package Domain {
     class Todo {
-      completed
+      isCompleted
+      isOverdue
     }
     class TodoList {}
     class Title {}
