@@ -74,7 +74,11 @@ describe("Todo", () => {
     });
   });
 
-  describe("例外系", () => {});
+  describe("例外系", () => {
+    it("タイトルが未入力", () => {
+      expect(() => new Todo("")).toThrow();
+    });
+  });
 });
 
 describe("TodoList", () => {

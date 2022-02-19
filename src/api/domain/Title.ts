@@ -6,6 +6,9 @@ export class Title {
   }
 
   constructor(value: string) {
+    if (value === null || value === undefined || value === "") {
+      throw new Error("タイトルが未入力です");
+    }
     this.value = value;
   }
 
