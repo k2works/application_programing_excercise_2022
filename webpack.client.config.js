@@ -9,7 +9,7 @@ module.exports = {
   target: ["web", "es5"],
   devtool: isDevelopment ? "source-map" : false,
   entry: {
-    public: "./src/client/main.tsx",
+    public: "./src/client/index.tsx",
   },
   output: {
     filename: "main.js",
