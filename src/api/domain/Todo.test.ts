@@ -65,18 +65,18 @@ describe("Todo", () => {
       const todo2 = todo.setDueDate(new DueDate(due));
       expect(todo2.overDue()).toBe(false);
     });
+  });
+
+  describe("例外系", () => {
+    it("タイトルが未入力", () => {
+      expect(() => new Todo("")).toThrow();
+    });
 
     it("開始日より前に期限を設定できない", () => {
       const todo = new Todo("タイトル");
       const due = new Date();
       due.setDate(due.getDate() - 1);
       expect(() => todo.setDueDate(new DueDate(due))).toThrow();
-    });
-  });
-
-  describe("例外系", () => {
-    it("タイトルが未入力", () => {
-      expect(() => new Todo("")).toThrow();
     });
   });
 });

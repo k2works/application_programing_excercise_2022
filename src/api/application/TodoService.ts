@@ -44,6 +44,13 @@ export class TodoService {
       );
       await this.repository.updateTodo(updatedTodo);
 
+      if (params.dueDate) {
+        const updateDueDateTodo = updatedTodo.setDueDate(
+          new DueDate(params.dueDate)
+        );
+        await this.repository.updateTodo(updateDueDateTodo);
+      }
+
       if (params.completed) {
         const updateCompletedTodo = updatedTodo.complete();
         await this.repository.updateTodo(updateCompletedTodo);
