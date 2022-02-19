@@ -126,7 +126,6 @@ export class App {
       this.service
         .selectAll()
         .then((todoItems) => {
-          this.handleMessage("");
           this.render(todoItems);
         })
         .catch((error) => this.handleMessage(error));
