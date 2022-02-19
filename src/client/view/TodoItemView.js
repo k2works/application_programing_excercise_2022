@@ -11,7 +11,7 @@ export class TodoItemView {
       }
     };
 
-    const todoItemElement = todoItem.completed
+    const todoItemElement = todoItem.isCompleted
       ? element`<li><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title.value}</s>
               By
@@ -32,7 +32,7 @@ export class TodoItemView {
     inputCheckboxElement.addEventListener("change", () => {
       onUpdateTodo({
         id: todoItem.id,
-        completed: !todoItem.completed,
+        completed: !todoItem.isCompleted,
       });
     });
 
@@ -47,7 +47,7 @@ export class TodoItemView {
     inputDueElement.addEventListener("change", (e) => {
       onUpdateTodo({
         id: todoItem.id,
-        completed: todoItem.completed,
+        completed: todoItem.isCompleted,
         dueDate: e.target.value,
       });
     });
