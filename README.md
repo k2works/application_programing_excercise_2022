@@ -51,6 +51,7 @@ npm install --save-dev typescript ts-loader
 npm install --save cross-env
 npm install typeorm reflect-metadata --save
 npm install better-sqlite3 --save
+npm i -S react react-dom @types/react @types/react-dom
 ```
 
 **[⬆ back to top](#構成)**
@@ -88,3 +89,4 @@ npm start
 - [cypress](https://www.cypress.io/)
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
 - [TypeScript Deep Dive 日本語版](https://typescript-jp.gitbook.io/deep-dive/)
+- [最新版TypeScript+webpack5の環境構築まとめ](https://ics.media/entry/16329/)

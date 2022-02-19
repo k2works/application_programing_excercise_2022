@@ -6,9 +6,10 @@ const isDevelopment = env === "development";
 
 module.exports = {
   mode: env,
+  target: ["web", "es5"],
   devtool: isDevelopment ? "source-map" : false,
   entry: {
-    public: "./src/client/index.js",
+    public: "./src/client/main.tsx",
   },
   output: {
     filename: "main.js",
@@ -20,6 +21,9 @@ module.exports = {
       filename: "index.html",
     }),
   ],
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".json"],
+  },
   module: {
     rules: [
       {
@@ -31,6 +35,10 @@ module.exports = {
             options: { url: false },
           },
         ],
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
       },
     ],
   },
