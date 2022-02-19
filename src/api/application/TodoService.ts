@@ -21,11 +21,13 @@ export class TodoService {
     return this.repository.getTodo(id);
   }
 
-  async create(todo: Todo): Promise<void> {
+  async create(params: TodoRequest): Promise<void> {
+    const todo = new Todo(params.title, params.completed);
     await this.repository.addTodo(todo);
   }
 
-  async delete(todo: Todo): Promise<void> {
+  async delete(id: number): Promise<void> {
+    const todo = await this.find(id);
     await this.repository.deleteTodo(todo);
   }
 

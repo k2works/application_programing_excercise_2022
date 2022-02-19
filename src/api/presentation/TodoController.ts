@@ -44,8 +44,7 @@ router.get("/todo/:id", async (req, res) => {
 router.post("/todo", async (req, res) => {
   try {
     const request: TodoRequest = req.body;
-    const todo = new Todo(request.title, request.completed);
-    await service.create(todo);
+    await service.create(request);
     res.send({ success: "success" });
   } catch (err: any) {
     res.status(400).send({ error: err.message });
@@ -54,11 +53,8 @@ router.post("/todo", async (req, res) => {
 
 router.delete("/todo", async (req, res) => {
   try {
-    const data = req.body;
-    if (data.id !== null) {
-      const todo = await service.find(parseInt(data.id));
-      await service.delete(todo);
-    }
+    const request = JSON.parse(JSON.stringify(req.body));
+    if (request.id !== null) await service.delete(request.id);
     res.send({ success: "success" });
   } catch (err: any) {
     res.status(400).send({ error: err.message });
