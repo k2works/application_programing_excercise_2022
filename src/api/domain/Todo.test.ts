@@ -65,6 +65,23 @@ describe("Todo", () => {
       const todo2 = todo.setDueDate(new DueDate(due));
       expect(todo2.overDue()).toBe(false);
     });
+
+    it("ステータスが未着手", () => {
+      const todo = new Todo("タイトル");
+      expect(todo.Status).toBe("未着手");
+    });
+
+    it("ステータスが進行中", () => {
+      const todo = new Todo("タイトル");
+      const todo2 = todo.setDueDate(new DueDate(new Date()));
+      expect(todo2.Status).toBe("進行中");
+    });
+
+    it("ステータスが完了", () => {
+      const todo = new Todo("タイトル");
+      const todo2 = todo.complete();
+      expect(todo2.Status).toBe("完了");
+    });
   });
 
   describe("例外系", () => {
