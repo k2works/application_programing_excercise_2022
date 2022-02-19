@@ -100,7 +100,16 @@ entity Todo {
   createdAt
   completedAt
   dueDate
+  todoid <<FK>>
 }
+entity Status {
+  *id
+  --
+  type
+  code
+  name
+}
+Status ||.o{ Todo
 `;
 
 export const setUp = () => {
