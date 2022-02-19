@@ -47,11 +47,21 @@ package Api {
     class DueDate {
       overDue()
     }
+    abstract class TodoStatus {
+      static create()
+    }
+    class NotStarted extends TodoStatus {}
+    class InProgress extends TodoStatus {}
+    class Completed extends TodoStatus {}
+    class TodoStatusType {}
+    
     Todo *-- Title
     Todo *-- CreatedAt
     Todo *-- CompletedAt
     Todo *-- DueDate
     TodoList *- Todo
+    Todo *- TodoStatus
+    TodoStatus -> TodoStatusType
   }
   TodoRepository --> Todo
   TodoRepository --> TodoList
