@@ -6,15 +6,15 @@
   font-size: x-large;
 }
 
-.error {
+.message.error {
   color: red;
 }
 
-.success {
+.message.success {
   color: green;
 }
 
-.system-error {
+.message.system-error {
   color: yellow;
 }
 
