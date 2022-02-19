@@ -13,14 +13,13 @@ export class DueDate {
     return this.value?.getTime() === dueDate.Value?.getTime();
   }
 
-  public overDue(): boolean {
+  public overDue(day: Date = new Date()): boolean {
     const due = this.Value;
     if (due === null) {
       return false;
     } else {
-      const today = new Date();
       const dueDay = new Date(due);
-      return today.getTime() > dueDay.getTime();
+      return day.getTime() > dueDay.getTime();
     }
   }
 }
