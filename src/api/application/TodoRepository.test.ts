@@ -25,6 +25,7 @@ describe("TodoRepository", () => {
       await repository.addTodo(todo);
       const result = await repository.getTodos();
       expect(result.Value[0].Title).toBe("タイトル");
+      expect(result.Value[0].Status).toBe("未着手");
     });
 
     it("やることを更新する", async () => {
@@ -48,6 +49,7 @@ describe("TodoRepository", () => {
         result = await repository.getTodos();
       }
       expect(result.Value[0].Title).toBe("タイトル2");
+      expect(result.Value[0].Status).toBe("完了");
     });
 
     it("やることを削除する", async () => {

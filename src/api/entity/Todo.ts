@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Status } from "./Status";
 
 @Entity("todo")
 export class Todo {
@@ -19,4 +20,7 @@ export class Todo {
 
   @Column({ type: "datetime", nullable: true })
   dueDate!: Date | null;
+
+  @ManyToOne(() => Status, (status) => status.todos)
+  status!: Status;
 }
