@@ -17,3 +17,7 @@
 .system-error {
   color: yellow;
 }
+
+.overdue {
+  background: red;
+}
