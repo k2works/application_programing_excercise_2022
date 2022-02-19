@@ -1,11 +1,8 @@
 import express from "express";
 import { Todo } from "../domain/Todo";
-import { CompletedAt } from "../domain/CompletedAt";
-import { CreatedAt } from "../domain/CreatedAt";
-import { DueDate } from "../domain/DueDate";
 import { TodoService } from "../application/TodoService";
 
-interface TodoRequest {
+export interface TodoRequest {
   title: string;
   completed: boolean;
   createdAt: Date | null;
@@ -71,19 +68,7 @@ router.delete("/todo", async (req, res) => {
 router.put("/todo", async (req, res) => {
   try {
     const request: TodoRequest = req.body;
-    if (request.id !== null) {
-      const todo = await service.find(request.id);
-      const updatedTodo = new Todo(
-        todo.Title,
-        request.completed,
-        new CreatedAt(todo.CreatedAt),
-        new CompletedAt(null),
-        new DueDate(request.dueDate),
-        todo.Id
-      );
-      if (request.completed) updatedTodo.complete();
-      await service.update(updatedTodo);
-    }
+    await service.update(request);
     res.send({ success: "success" });
   } catch (err: any) {
     res.status(400).send({ error: err.message });

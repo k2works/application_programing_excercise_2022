@@ -1,5 +1,9 @@
+import { CompletedAt } from "../domain/CompletedAt";
+import { CreatedAt } from "../domain/CreatedAt";
+import { DueDate } from "../domain/DueDate";
 import { Todo } from "../domain/Todo";
 import { TodoList } from "../domain/TodoList";
+import { TodoRequest } from "../presentation/TodoController";
 import { TodoRepository } from "./TodoRepository";
 
 export class TodoService {
@@ -25,8 +29,20 @@ export class TodoService {
     await this.repository.deleteTodo(todo);
   }
 
-  async update(todo: Todo): Promise<void> {
-    await this.repository.updateTodo(todo);
+  async update(params: TodoRequest): Promise<void> {
+    if (params.id !== null) {
+      const todo = await this.find(params.id);
+      const updatedTodo = new Todo(
+        todo.Title,
+        params.completed,
+        new CreatedAt(todo.CreatedAt),
+        new CompletedAt(null),
+        new DueDate(params.dueDate),
+        todo.Id
+      );
+      if (params.completed) updatedTodo.complete();
+      await this.repository.updateTodo(updatedTodo);
+    }
   }
 
   async count(): Promise<number> {
