@@ -76,7 +76,6 @@ export class App {
     this.service
       .find(entity)
       .then((result) => {
-        this.handleMessage(result);
         this.service
           .save(
             new TodoItemModel({
