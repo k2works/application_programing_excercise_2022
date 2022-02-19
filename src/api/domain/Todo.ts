@@ -20,6 +20,10 @@ export class Todo {
     return this.isCompleted;
   }
 
+  get OverDue(): boolean {
+    return this.isOverDue;
+  }
+
   get CreatedAt(): Date {
     return this.createdAt.Value;
   }
