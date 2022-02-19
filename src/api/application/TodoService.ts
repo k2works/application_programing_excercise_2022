@@ -35,7 +35,7 @@ export class TodoService {
     if (params.id !== null) {
       const todo = await this.find(params.id);
       const updatedTodo = new Todo(
-        todo.Title,
+        params.title,
         params.completed,
         new CreatedAt(todo.CreatedAt),
         new CompletedAt(null),
