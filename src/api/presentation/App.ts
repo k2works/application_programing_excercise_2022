@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { createConnection } from "typeorm";
-import router from "./TodoController";
+import router from "./Route";
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(

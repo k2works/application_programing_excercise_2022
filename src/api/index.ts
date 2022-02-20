@@ -1,7 +1,7 @@
 import app from "./presentation/App";
 import swaggerUi from "swagger-ui-express";
 app.use(
-  "/docs",
+  "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(undefined, {
     swaggerOptions: {
