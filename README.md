@@ -51,8 +51,7 @@ npm install --save-dev typescript ts-loader
 npm install --save cross-env
 npm install typeorm reflect-metadata --save
 npm install better-sqlite3 --save
-npm i -S tsoa swagger-ui-express
-npm i -D @types/swagger-ui-express
+npm i -S tsoa swagger-ui-express @types/swagger-ui-express
 ```
 
 **[⬆ back to top](#構成)**
