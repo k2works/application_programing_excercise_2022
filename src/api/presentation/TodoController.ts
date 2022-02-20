@@ -1,8 +1,23 @@
 import express from "express";
-import { Get, Route } from "tsoa";
+import { Body, Delete, Get, Patch, Path, Post, Put, Route, Tags } from "tsoa";
 import { TodoService } from "../application/TodoService";
-import { TodoList } from "../domain/TodoList";
 
+export interface Todo {
+  Title: string;
+  Completed: boolean;
+  OverDue: boolean;
+  CreatedAt: Date | null;
+  CompletedAt: Date | null;
+  DueDate: Date | null;
+  Id: number | null;
+  Status: string;
+  StatusCode: string;
+  StatusType: string;
+}
+
+export interface TodoList {
+  Value: Todo[];
+}
 export interface TodoRequest {
   title: string;
   completed: boolean;
@@ -13,10 +28,42 @@ export interface TodoRequest {
 }
 const service = new TodoService();
 @Route("api")
+@Tags("todo")
 class TodoController {
+  private service: TodoService;
+
+  constructor() {
+    this.service = new TodoService();
+  }
   @Get("/todos")
   public async selectAll(): Promise<TodoList> {
-    return service.selectAll();
+    return this.service.selectAll();
+  }
+
+  @Get("/todos/count")
+  public async count(): Promise<number> {
+    return this.service.count();
+  }
+
+  @Get("/todo/{id}")
+  public async select(@Path() id: number): Promise<Todo> {
+    return this.service.find(id);
+  }
+
+  @Post("/todo")
+  public async create(@Body() todo: TodoRequest): Promise<void> {
+    return this.service.create(todo);
+  }
+
+  @Delete("/todo")
+  public async delete(@Body() req: any): Promise<void> {
+    const request = JSON.parse(JSON.stringify(req.body));
+    if (request.id !== null) await this.service.delete(request.id);
+  }
+
+  @Put("/todo")
+  public async update(@Body() todo: TodoRequest): Promise<void> {
+    return this.service.update(todo);
   }
 }
 const router = express.Router();
