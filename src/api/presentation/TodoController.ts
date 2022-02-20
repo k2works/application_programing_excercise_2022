@@ -1,6 +1,7 @@
 import express from "express";
-import { Todo } from "../domain/Todo";
+import { Get, Route } from "tsoa";
 import { TodoService } from "../application/TodoService";
+import { TodoList } from "../domain/TodoList";
 
 export interface TodoRequest {
   title: string;
@@ -11,6 +12,13 @@ export interface TodoRequest {
   id: number | null;
 }
 const service = new TodoService();
+@Route("api")
+class TodoController {
+  @Get("/todos")
+  public async selectAll(): Promise<TodoList> {
+    return service.selectAll();
+  }
+}
 const router = express.Router();
 
 router.get("/todos", async (req, res) => {

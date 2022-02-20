@@ -51,6 +51,8 @@ npm install --save-dev typescript ts-loader
 npm install --save cross-env
 npm install typeorm reflect-metadata --save
 npm install better-sqlite3 --save
+npm i -S tsoa swagger-ui-express
+npm i -D @types/swagger-ui-express
 ```
 
 **[⬆ back to top](#構成)**
@@ -88,3 +90,5 @@ npm start
 - [cypress](https://www.cypress.io/)
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
 - [TypeScript Deep Dive 日本語版](https://typescript-jp.gitbook.io/deep-dive/)
+- [Building REST API with Express, TypeScript and Swagger](https://dev.to/rsbh/building-rest-api-with-express-typescript-and-swagger-2dma)
+- [tsoa](https://tsoa-community.github.io/docs/)
