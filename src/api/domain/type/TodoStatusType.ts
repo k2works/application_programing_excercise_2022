@@ -4,7 +4,7 @@ import {
   Completed,
   Undefined,
   NotStarted,
-} from "../TodoStatus";
+} from "../model/status/TodoStatus";
 
 export enum TodoStatusType {
   UNDEFINED = 0,

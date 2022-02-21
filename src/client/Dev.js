@@ -33,43 +33,61 @@ package Api {
     TodoController <- Express
   }
   package Application {
-    class TodoRepository {}
     class TodoService {}
     interface IService
-    TodoRepository -* TodoService
     TodoService -|> IService
   }
+  package Infrastructure {
+    class TodoRepository {}
+    interface IRepository
+    class TypeORM {}
+    TodoRepository -|> IRepository
+    TypeORM <- TodoRepository
+  }
+  IRepository -* TodoService
   package Domain {
-    class Todo {
-      isCompleted
-      isOverdue
+    package Type {
+      class TodoStatusType {}
     }
-    class TodoList {}
-    class Title {}
-    class CreatedAt {}
-    class CompletedAt {}
-    class DueDate {
-      overDue()
-    }
-    abstract class TodoStatus {
-      static create()
-    }
-    class NotStarted extends TodoStatus {}
-    class InProgress extends TodoStatus {}
-    class Completed extends TodoStatus {}
-    class TodoStatusType {}
     
+    package Model {
+      package Status {
+        abstract class TodoStatus {
+          static create()
+        }
+        class NotStarted extends TodoStatus {}
+        class InProgress extends TodoStatus {}
+        class Completed extends TodoStatus {}
+        interface IStatus
+      }
+
+      package Todo {
+        class Todo {
+          isCompleted
+          isOverdue
+        }
+        class TodoList {}
+        class Title {}
+        class CreatedAt {}
+        class CompletedAt {}
+        class DueDate {
+          overDue()
+        }
+      }
+    }
+
     Todo *-- Title
     Todo *-- CreatedAt
     Todo *-- CompletedAt
     Todo *-- DueDate
     TodoList *- Todo
-    Todo *- TodoStatus
+    Todo *- IStatus
     TodoStatus -> TodoStatusType
+    IStatus <|- TodoStatus
   }
   TodoRepository --> Todo
   TodoRepository --> TodoList
-  IService <- TodoController
+  IService -* TodoController
 }
 package Client {
   class App {

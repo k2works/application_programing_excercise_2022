@@ -1,9 +1,9 @@
-import connection from "../utils/connection";
-import { CompletedAt } from "../domain/CompletedAt";
-import { CreatedAt } from "../domain/CreatedAt";
-import { DueDate } from "../domain/DueDate";
-import { Todo } from "../domain/Todo";
+import connection from "./utils/connection";
+import { CompletedAt } from "../domain/model/todo/CompletedAt";
 import { TodoRepository } from "./TodoRepository";
+import { CreatedAt } from "../domain/model/todo/CreatedAt";
+import { DueDate } from "../domain/model/todo/DueDate";
+import { Todo } from "../domain/model/todo/Todo";
 
 describe("TodoRepository", () => {
   beforeAll(async () => {
@@ -22,8 +22,8 @@ describe("TodoRepository", () => {
     it("やることを作成する", async () => {
       const repository = new TodoRepository();
       const todo = new Todo("タイトル");
-      await repository.addTodo(todo);
-      const result = await repository.getTodos();
+      await repository.add(todo);
+      const result = await repository.getAll();
       expect(result.Value[0].Title).toBe("タイトル");
       expect(result.Value[0].Status).toBe("未着手");
     });
@@ -31,8 +31,8 @@ describe("TodoRepository", () => {
     it("やることを更新する", async () => {
       const repository = new TodoRepository();
       const todo = new Todo("タイトル");
-      await repository.addTodo(todo);
-      let result = await repository.getTodos();
+      await repository.add(todo);
+      let result = await repository.getAll();
 
       const id = result.Value[0].Id;
       if (id !== null) {
@@ -45,8 +45,8 @@ describe("TodoRepository", () => {
           id
         );
 
-        await repository.updateTodo(todo2);
-        result = await repository.getTodos();
+        await repository.update(todo2);
+        result = await repository.getAll();
       }
       expect(result.Value[0].Title).toBe("タイトル2");
       expect(result.Value[0].Status).toBe("完了");
@@ -55,10 +55,10 @@ describe("TodoRepository", () => {
     it("やることを削除する", async () => {
       const repository = new TodoRepository();
       const todo = new Todo("タイトル");
-      await repository.addTodo(todo);
-      let result = await repository.getTodos();
-      await repository.deleteTodo(result.Value[0]);
-      result = await repository.getTodos();
+      await repository.add(todo);
+      let result = await repository.getAll();
+      await repository.delete(result.Value[0]);
+      result = await repository.getAll();
       expect(result.Value.length).toBe(0);
     });
   });

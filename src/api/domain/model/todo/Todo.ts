@@ -1,7 +1,8 @@
+import { IStatus } from "../status/IStatus";
+import { TodoStatus } from "../status/TodoStatus";
 import { CompletedAt } from "./CompletedAt";
 import { CreatedAt } from "./CreatedAt";
 import { DueDate } from "./DueDate";
-import { TodoStatus } from "./TodoStatus";
 import { Title } from "./Title";
 
 export class Todo {
@@ -12,7 +13,7 @@ export class Todo {
   private dueDate: DueDate;
   private isOverDue: boolean;
   private id: number | null = null;
-  private status: TodoStatus;
+  private status: IStatus;
 
   get Title(): string {
     return this.title.Value;

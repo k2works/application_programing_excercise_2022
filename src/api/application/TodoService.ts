@@ -1,35 +1,36 @@
-import { CompletedAt } from "../domain/CompletedAt";
-import { CreatedAt } from "../domain/CreatedAt";
-import { DueDate } from "../domain/DueDate";
-import { Todo } from "../domain/Todo";
-import { TodoList } from "../domain/TodoList";
+import { CompletedAt } from "../domain/model/todo/CompletedAt";
+import { CreatedAt } from "../domain/model/todo/CreatedAt";
+import { DueDate } from "../domain/model/todo/DueDate";
+import { Todo } from "../domain/model/todo/Todo";
+import { TodoList } from "../domain/model/todo/TodoList";
 import { TodoRequest } from "../presentation/TodoController";
 import { IService } from "./IService";
-import { TodoRepository } from "./TodoRepository";
+import { TodoRepository } from "../infrastructure/TodoRepository";
+import { IRepository } from "../infrastructure/IRepository";
 
-export class TodoService implements IService {
-  private repository: TodoRepository;
+export class TodoService implements IService<TodoRequest, Todo, TodoList> {
+  private repository: IRepository<Todo, TodoList>;
 
   constructor() {
     this.repository = new TodoRepository();
   }
 
   async selectAll(): Promise<TodoList> {
-    return this.repository.getTodos();
+    return this.repository.getAll();
   }
 
   async find(id: number): Promise<Todo> {
-    return this.repository.getTodo(id);
+    return this.repository.get(id);
   }
 
   async create(params: TodoRequest): Promise<void> {
     const todo = new Todo(params.title, params.completed);
-    await this.repository.addTodo(todo);
+    await this.repository.add(todo);
   }
 
   async delete(id: number): Promise<void> {
     const todo = await this.find(id);
-    await this.repository.deleteTodo(todo);
+    await this.repository.delete(todo);
   }
 
   async update(params: TodoRequest): Promise<void> {
@@ -49,7 +50,7 @@ export class TodoService implements IService {
 
       if (params.completed) updatedTodo = updatedTodo.complete();
 
-      await this.repository.updateTodo(updatedTodo);
+      await this.repository.update(updatedTodo);
     }
   }
 

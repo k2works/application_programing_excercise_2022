@@ -1,13 +1,16 @@
 import { getRepository } from "typeorm";
-import { Todo as Entity } from "../entity/Todo";
-import { Status as StatusEntity } from "../entity/Status";
-import { Todo as DomainObject } from "../domain/Todo";
-import { TodoList as FirstCollection } from "../domain/TodoList";
-import { CreatedAt } from "../domain/CreatedAt";
-import { CompletedAt } from "../domain/CompletedAt";
-import { DueDate } from "../domain/DueDate";
+import { Todo as Entity } from "./entity/Todo";
+import { Status as StatusEntity } from "./entity/Status";
+import { Todo as DomainObject } from "../domain/model/todo/Todo";
+import { TodoList as FirstCollection } from "../domain/model/todo/TodoList";
+import { CreatedAt } from "../domain/model/todo/CreatedAt";
+import { CompletedAt } from "../domain/model/todo/CompletedAt";
+import { DueDate } from "../domain/model/todo/DueDate";
+import { IRepository } from "./IRepository";
 
-export class TodoRepository {
+export class TodoRepository
+  implements IRepository<DomainObject, FirstCollection>
+{
   private async createUpdateStatus(todo: DomainObject): Promise<StatusEntity> {
     const statusEntity = await getRepository(StatusEntity)
       .createQueryBuilder("status")
@@ -23,7 +26,7 @@ export class TodoRepository {
     return statusEntity;
   }
 
-  async getTodos(): Promise<FirstCollection> {
+  async getAll(): Promise<FirstCollection> {
     const result = await getRepository(Entity).find({ relations: ["status"] });
     return new FirstCollection(
       result.map(
@@ -40,7 +43,7 @@ export class TodoRepository {
     );
   }
 
-  async getTodo(id: number): Promise<DomainObject> {
+  async get(id: number): Promise<DomainObject> {
     const entity = await getRepository(Entity).findOne(id, {
       relations: ["status"],
     });
@@ -55,7 +58,7 @@ export class TodoRepository {
     );
   }
 
-  async addTodo(todo: DomainObject): Promise<void> {
+  async add(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
     entiry.title = todo.Title;
     entiry.completed = todo.Completed;
@@ -67,7 +70,7 @@ export class TodoRepository {
     await getRepository(Entity).save(entiry);
   }
 
-  async deleteTodo(todo: DomainObject): Promise<void> {
+  async delete(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
     entiry.title = todo.Title;
     entiry.completed = todo.Completed;
@@ -81,7 +84,7 @@ export class TodoRepository {
     }
   }
 
-  async updateTodo(todo: DomainObject): Promise<void> {
+  async update(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
     entiry.title = todo.Title;
     entiry.completed = todo.Completed;
