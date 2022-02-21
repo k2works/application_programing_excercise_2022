@@ -1,11 +1,8 @@
-import { Todo } from "../domain/model/todo/Todo";
-import { TodoList } from "../domain/model/todo/TodoList";
-
-export interface IRepository<T> {
+export interface IRepository<T1, T2> {
+  add(arg: T1): Promise<void>;
+  getAll(): PromiseLike<T2>;
+  get(id: number): PromiseLike<T1>;
+  update(arg: T1): Promise<void>;
+  delete(arg: T1): Promise<void>;
   count(): number | PromiseLike<number>;
-  updateTodo(updatedTodo: Todo): Promise<void>;
-  deleteTodo(todo: Todo): Promise<void>;
-  addTodo: any;
-  getTodo(id: number): PromiseLike<Todo>;
-  getTodos(): PromiseLike<TodoList>;
 }

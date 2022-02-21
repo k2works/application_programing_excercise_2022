@@ -8,7 +8,9 @@ import { CompletedAt } from "../domain/model/todo/CompletedAt";
 import { DueDate } from "../domain/model/todo/DueDate";
 import { IRepository } from "./IRepository";
 
-export class TodoRepository implements IRepository<DomainObject> {
+export class TodoRepository
+  implements IRepository<DomainObject, FirstCollection>
+{
   private async createUpdateStatus(todo: DomainObject): Promise<StatusEntity> {
     const statusEntity = await getRepository(StatusEntity)
       .createQueryBuilder("status")
@@ -24,7 +26,7 @@ export class TodoRepository implements IRepository<DomainObject> {
     return statusEntity;
   }
 
-  async getTodos(): Promise<FirstCollection> {
+  async getAll(): Promise<FirstCollection> {
     const result = await getRepository(Entity).find({ relations: ["status"] });
     return new FirstCollection(
       result.map(
@@ -41,7 +43,7 @@ export class TodoRepository implements IRepository<DomainObject> {
     );
   }
 
-  async getTodo(id: number): Promise<DomainObject> {
+  async get(id: number): Promise<DomainObject> {
     const entity = await getRepository(Entity).findOne(id, {
       relations: ["status"],
     });
@@ -56,7 +58,7 @@ export class TodoRepository implements IRepository<DomainObject> {
     );
   }
 
-  async addTodo(todo: DomainObject): Promise<void> {
+  async add(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
     entiry.title = todo.Title;
     entiry.completed = todo.Completed;
@@ -68,7 +70,7 @@ export class TodoRepository implements IRepository<DomainObject> {
     await getRepository(Entity).save(entiry);
   }
 
-  async deleteTodo(todo: DomainObject): Promise<void> {
+  async delete(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
     entiry.title = todo.Title;
     entiry.completed = todo.Completed;
@@ -82,7 +84,7 @@ export class TodoRepository implements IRepository<DomainObject> {
     }
   }
 
-  async updateTodo(todo: DomainObject): Promise<void> {
+  async update(todo: DomainObject): Promise<void> {
     const entiry = new Entity();
     entiry.title = todo.Title;
     entiry.completed = todo.Completed;
