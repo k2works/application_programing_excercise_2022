@@ -33,12 +33,14 @@ package Api {
     TodoController <- Express
   }
   package Application {
-    class TodoRepository {}
     class TodoService {}
     interface IService
-    TodoRepository -* TodoService
     TodoService -|> IService
   }
+  package Infrastructure {
+    class TodoRepository {}
+  }
+  TodoRepository -* TodoService
   package Domain {
     package Type {
       class TodoStatusType {}
