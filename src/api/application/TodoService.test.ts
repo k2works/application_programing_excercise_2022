@@ -1,4 +1,4 @@
-import connection from "../utils/connection";
+import connection from "../infrastructure/utils/connection";
 import { Todo } from "../domain/model/todo/Todo";
 import { TodoService } from "./TodoService";
 import { TodoRequest } from "../presentation/TodoController";

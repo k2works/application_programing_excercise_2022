@@ -1,6 +1,6 @@
 import { getRepository } from "typeorm";
-import { Todo as Entity } from "../entity/Todo";
-import { Status as StatusEntity } from "../entity/Status";
+import { Todo as Entity } from "./entity/Todo";
+import { Status as StatusEntity } from "./entity/Status";
 import { Todo as DomainObject } from "../domain/model/todo/Todo";
 import { TodoList as FirstCollection } from "../domain/model/todo/TodoList";
 import { CreatedAt } from "../domain/model/todo/CreatedAt";

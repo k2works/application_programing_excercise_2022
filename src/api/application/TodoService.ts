@@ -5,7 +5,7 @@ import { Todo } from "../domain/model/todo/Todo";
 import { TodoList } from "../domain/model/todo/TodoList";
 import { TodoRequest } from "../presentation/TodoController";
 import { IService } from "./IService";
-import { TodoRepository } from "./TodoRepository";
+import { TodoRepository } from "../infrastructure/TodoRepository";
 
 export class TodoService implements IService {
   private repository: TodoRepository;

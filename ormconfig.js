@@ -7,10 +7,10 @@ module.exports = {
   database: ":memory:",
   synchronize: true,
   logging: false,
-  entities: ["src/api/entity/**/*.ts"],
+  entities: ["src/api/infrastructure/entity/**/*.ts"],
   migrations: ["migration/*.ts"],
   cli: {
-    entitiesDir: "src/api/entity",
+    entitiesDir: "src/api/infrastructure/entity",
     migrationsDir: "migration",
   },
 };

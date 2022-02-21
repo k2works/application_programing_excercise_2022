@@ -1,4 +1,4 @@
-import connection from "../utils/connection";
+import connection from "./utils/connection";
 import { CompletedAt } from "../domain/model/todo/CompletedAt";
 import { TodoRepository } from "./TodoRepository";
 import { CreatedAt } from "../domain/model/todo/CreatedAt";
