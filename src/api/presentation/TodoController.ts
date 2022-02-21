@@ -29,7 +29,7 @@ const service = new TodoService();
 @Route("api")
 @Tags("todo")
 export class TodoController {
-  private service: IService;
+  private service: IService<TodoRequest, Todo, TodoList>;
 
   constructor() {
     this.service = new TodoService();
