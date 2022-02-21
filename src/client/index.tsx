@@ -1,6 +1,9 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { SubComponent } from "./sub-component";
+import React from "react";
+import { render } from "react-dom";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import App from "./app/main";
+import rootReducer from "./reducers";
 
 import "./style.css";
 const app = require("./App.js");
@@ -13,15 +16,13 @@ const view = new app.App(apiUrl);
 view.mount();
 dev.setUp();
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Hello React!</h1>
-        <SubComponent name="My Counter for TypeScript" />
-      </div>
-    );
-  }
-}
+const store = configureStore({
+  reducer: rootReducer,
+});
 
-ReactDOM.render(<App />, document.querySelector("#app"));
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.querySelector("#app")
+);
