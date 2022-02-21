@@ -6,8 +6,9 @@ import { TodoList as FirstCollection } from "../domain/model/todo/TodoList";
 import { CreatedAt } from "../domain/model/todo/CreatedAt";
 import { CompletedAt } from "../domain/model/todo/CompletedAt";
 import { DueDate } from "../domain/model/todo/DueDate";
+import { IRepository } from "./IRepository";
 
-export class TodoRepository {
+export class TodoRepository implements IRepository<DomainObject> {
   private async createUpdateStatus(todo: DomainObject): Promise<StatusEntity> {
     const statusEntity = await getRepository(StatusEntity)
       .createQueryBuilder("status")
