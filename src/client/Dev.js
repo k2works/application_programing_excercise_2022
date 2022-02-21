@@ -71,7 +71,7 @@ package Client {
   class App {
   }
   package view{
-    App *- TodoListView
+    App *-- TodoListView
     TodoListView -> TodoItemView
     class TodoItemView {}
     class TodoListView {}
@@ -87,6 +87,21 @@ package Client {
     class TodoItemModel {}
     class TodoListModel {}
   }
+  package app {
+    class main {}
+  }
+  package components {
+    class subcomponent
+  }
+  package features {
+    class counter
+  }
+  package reducers {
+    class index
+  }
+  main -> subcomponent
+  subcomponent -> counter
+  counter -> index  
 }
 TodoApiRepository --> Express
 `;
