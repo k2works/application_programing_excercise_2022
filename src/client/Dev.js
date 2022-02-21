@@ -40,26 +40,36 @@ package Api {
     TodoService -|> IService
   }
   package Domain {
-    class Todo {
-      isCompleted
-      isOverdue
+    package Type {
+      class TodoStatusType {}
     }
-    class TodoList {}
-    class Title {}
-    class CreatedAt {}
-    class CompletedAt {}
-    class DueDate {
-      overDue()
-    }
-    abstract class TodoStatus {
-      static create()
-    }
-    class NotStarted extends TodoStatus {}
-    class InProgress extends TodoStatus {}
-    class Completed extends TodoStatus {}
-    class TodoStatusType {}
-    interface IStatus
     
+    package Model {
+      package Status {
+        abstract class TodoStatus {
+          static create()
+        }
+        class NotStarted extends TodoStatus {}
+        class InProgress extends TodoStatus {}
+        class Completed extends TodoStatus {}
+        interface IStatus
+      }
+
+      package Todo {
+        class Todo {
+          isCompleted
+          isOverdue
+        }
+        class TodoList {}
+        class Title {}
+        class CreatedAt {}
+        class CompletedAt {}
+        class DueDate {
+          overDue()
+        }
+      }
+    }
+
     Todo *-- Title
     Todo *-- CreatedAt
     Todo *-- CompletedAt
