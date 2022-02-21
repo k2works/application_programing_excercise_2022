@@ -54,7 +54,7 @@ export class TodoController {
   }
 
   @Delete("/todo")
-  public async delete(@Body() request: any): Promise<void> {
+  public async delete(@Body() request: { id: number }): Promise<void> {
     if (request.id !== null) await this.service.delete(request.id);
   }
 
