@@ -1,0 +1,33 @@
+.todoapp {
+  background: silver;
+}
+
+.message {
+  font-size: x-large;
+}
+
+.message.error {
+  color: red;
+}
+
+.message.success {
+  color: green;
+}
+
+.message.system-error {
+  color: yellow;
+}
+
+.overdue {
+  background: red;
+}
+
+.status.not-started {
+  color: yellow;
+}
+.status.in-progress {
+  color: green;
+}
+.status.completed {
+  color: blue;
+} 

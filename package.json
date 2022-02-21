@@ -1,19 +1,30 @@
 {
   "name": "ape_2022",
   "version": "1.0.0",
-  "description": "## 概要",
+  "description": "",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "start": "nf start -j Procfile",
-    "app": "browser-sync start -s ./ --watch --port 8080 --ui-port 8081",
+    "start": "nf start -j Procfile.dev",
+    "app": "webpack server --config ./webpack.client.config.js --open",
+    "api": "cross-env NODE_ENV=production ts-node ./src/api/index.ts",
+    "api:dev": "cross-env NODE_ENV=development PORT=3000 ts-node-dev ./src/api/index.ts",
     "test": "jest --coverage",
-    "test:e2e": "cypress run",
+    "test:e2e": "cypress run  --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
-    "watch": "webpack --watch --config webpack.config.js",
-    "build": "webpack --config webpack.config.js",
+    "docs": "tsoa spec",
+    "watch": "webpack --watch --config webpack.client.config.js",
+    "build": "npm-run-all clean build:prd:* docs",
+    "build:dev": "npm-run-all clean build:dev:* docs",
+    "build:dev:client": "webpack --config ./webpack.client.config.js",
+    "build:dev:api": "webpack --config ./webpack.api.config.js",
+    "build:prd:client": "cross-env NODE_ENV=production webpack --config ./webpack.client.config.js",
+    "build:prd:api": "cross-env NODE_ENV=production webpack --config ./webpack.api.config.js",
+    "clean": "npm-run-all clean:*",
+    "clean:client": "rimraf ./public",
+    "clean:api": "rimraf ./dist",
     "deploy:local": "vercel dev",
     "deploy": "vercel"
   },
@@ -32,21 +43,44 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.12.1",
+    "@types/jest": "^27.4.0",
     "browser-sync": "^2.26.13",
     "cpx": "^1.5.0",
+    "css-loader": "^6.6.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "foreman": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^26.6.1",
+    "jest": "^27.5.1",
     "marked": "^1.2.2",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "style-loader": "^3.3.1",
+    "ts-jest": "^27.1.3",
+    "ts-loader": "^9.2.6",
+    "ts-node-dev": "^1.1.8",
     "watch": "^1.0.2",
     "webpack": "^5.68.0",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "cypress": "^9.4.1"
+    "@nano-sql/core": "^2.3.7",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^14.18.10",
+    "@types/swagger-ui-express": "^4.1.3",
+    "better-sqlite3": "^7.5.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "cypress": "^9.4.1",
+    "express": "^4.17.3",
+    "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^4.3.0",
+    "ts-node": "^10.5.0",
+    "tsoa": "^3.14.1",
+    "typeorm": "^0.2.42",
+    "typescript": "^4.5.5",
+    "uuid": "^8.3.2"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/",
@@ -54,10 +88,19 @@
   },
   "jest": {
     "moduleFileExtensions": [
-      "js"
+      "js",
+      "ts"
     ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
     "testMatch": [
-      "**/**/*.test.js"
+      "**/**/*.test.ts"
     ]
   }
 }

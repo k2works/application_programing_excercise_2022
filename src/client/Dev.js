@@ -2,69 +2,136 @@ import marked from "marked";
 
 const contents = `
 ## 機能名
-
+## Todoアプリ
+[JavaScript Primer](https://jsprimer.net/) ユースーケース実装
 ## 仕様
+> Todoアプリでは、ユーザーが次のような操作した場合に、Todoアイテムを追加します。
+
+>
+
+> 入力欄にTodoアイテムのタイトルを入力する
+
+> 入力欄でEnterキーを押して送信する
+
+> TodoリストにTodoアイテムが追加される
+
+> [ユースケース:Todoアプリ](https://jsprimer.net/use-case/todoapp/)
 
 ## TODOリスト
+
+- ~~Todoアイテムを追加する~~
+- ~~Todoアイテムを更新する~~
+- ~~Todoアイテムを削除する~~
+- ~~Todoアイテム数（合計）を表示する~~
 `;
 
 const uml = `
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+package Api {
+  package Presentation {
+    class Express {}
+    class TodoController {}
+    TodoController <- Express
+  }
+  package Application {
+    class TodoService {}
+    interface IService
+    TodoService -|> IService
+  }
+  package Infrastructure {
+    class TodoRepository {}
+    interface IRepository
+    class TypeORM {}
+    TodoRepository -|> IRepository
+    TypeORM <- TodoRepository
+  }
+  IRepository -* TodoService
+  package Domain {
+    package Type {
+      class TodoStatusType {}
+    }
+    
+    package Model {
+      package Status {
+        abstract class TodoStatus {
+          static create()
+        }
+        class NotStarted extends TodoStatus {}
+        class InProgress extends TodoStatus {}
+        class Completed extends TodoStatus {}
+        interface IStatus
+      }
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
+      package Todo {
+        class Todo {
+          isCompleted
+          isOverdue
+        }
+        class TodoList {}
+        class Title {}
+        class CreatedAt {}
+        class CompletedAt {}
+        class DueDate {
+          overDue()
+        }
+      }
+    }
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-  Object[] elementData
-  size()
+    Todo *-- Title
+    Todo *-- CreatedAt
+    Todo *-- CompletedAt
+    Todo *-- DueDate
+    TodoList *- Todo
+    Todo *- IStatus
+    TodoStatus -> TodoStatusType
+    IStatus <|- TodoStatus
+  }
+  TodoRepository --> Todo
+  TodoRepository --> TodoList
+  IService -* TodoController
 }
-
-enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
+package Client {
+  class App {
+  }
+  package view{
+    App *- TodoListView
+    TodoListView -> TodoItemView
+    class TodoItemView {}
+    class TodoListView {}
+  }
+  package application {
+    App *-- TodoApiService
+    TodoApiService *-- TodoApiRepository
+  }
+  package model {
+    App *-- TodoListModel
+    App --> TodoItemModel
+    TodoListModel *-- TodoItemModel
+    class TodoItemModel {}
+    class TodoListModel {}
+  }
 }
-
-annotation SuppressWarnings
+TodoApiRepository --> Express
 `;
 
 const erd = `
-' hide the spot
-hide circle
-
-' avoid problems with angled crows feet
-skinparam linetype ortho
-
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
+entity Todo {
+  * id
   --
-  *name : text
-  description : text
+  title
+  completed
+  createdAt
+  completedAt
+  dueDate
+  todoid <<FK>>
 }
-
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
+entity Status {
+  *id
   --
-  *e1_id : number <<FK>>
-  other_details : text
+  type
+  code
+  name
 }
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
+Status ||.o{ Todo
 `;
 
 export const setUp = () => {
