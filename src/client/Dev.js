@@ -39,8 +39,10 @@ package Api {
   }
   package Infrastructure {
     class TodoRepository {}
+    interface IRepository
+    TodoRepository -|> IRepository
   }
-  TodoRepository -* TodoService
+  IRepository -* TodoService
   package Domain {
     package Type {
       class TodoStatusType {}
@@ -83,7 +85,7 @@ package Api {
   }
   TodoRepository --> Todo
   TodoRepository --> TodoList
-  IService <- TodoController
+  IService -* TodoController
 }
 package Client {
   class App {
