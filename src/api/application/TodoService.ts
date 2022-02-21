@@ -4,9 +4,10 @@ import { DueDate } from "../domain/DueDate";
 import { Todo } from "../domain/Todo";
 import { TodoList } from "../domain/TodoList";
 import { TodoRequest } from "../presentation/TodoController";
+import { IService } from "./IService";
 import { TodoRepository } from "./TodoRepository";
 
-export class TodoService {
+export class TodoService implements IService {
   private repository: TodoRepository;
 
   constructor() {

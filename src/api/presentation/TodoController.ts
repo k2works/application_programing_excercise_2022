@@ -1,4 +1,5 @@
 import { Body, Delete, Get, Patch, Path, Post, Put, Route, Tags } from "tsoa";
+import { IService } from "../application/IService";
 import { TodoService } from "../application/TodoService";
 
 export interface Todo {
@@ -28,7 +29,7 @@ const service = new TodoService();
 @Route("api")
 @Tags("todo")
 export class TodoController {
-  private service: TodoService;
+  private service: IService;
 
   constructor() {
     this.service = new TodoService();

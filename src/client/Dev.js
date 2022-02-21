@@ -29,11 +29,15 @@ const uml = `
 package Api {
   package Presentation {
     class Express {}
+    class TodoController {}
+    TodoController <- Express
   }
   package Application {
     class TodoRepository {}
     class TodoService {}
+    interface IService
     TodoRepository -* TodoService
+    TodoService -|> IService
   }
   package Domain {
     class Todo {
@@ -65,7 +69,7 @@ package Api {
   }
   TodoRepository --> Todo
   TodoRepository --> TodoList
-  TodoService <- Express
+  IService <- TodoController
 }
 package Client {
   class App {
