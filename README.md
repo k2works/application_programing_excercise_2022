@@ -51,7 +51,8 @@ npm install --save-dev typescript ts-loader
 npm install --save cross-env
 npm install typeorm reflect-metadata --save
 npm install better-sqlite3 --save
-npm i -S tsoa swagger-ui-express @types/swagger-ui-express
+npm i -save tsoa swagger-ui-express @types/swagger-ui-express
+npm i -save react react-dom @types/react @types/react-dom
 ```
 
 **[⬆ back to top](#構成)**
@@ -91,3 +92,4 @@ npm start
 - [TypeScript Deep Dive 日本語版](https://typescript-jp.gitbook.io/deep-dive/)
 - [Building REST API with Express, TypeScript and Swagger](https://dev.to/rsbh/building-rest-api-with-express-typescript-and-swagger-2dma)
 - [tsoa](https://tsoa-community.github.io/docs/)
+- [最新版TypeScript+webpack5の環境構築まとめ](https://ics.media/entry/16329/)
