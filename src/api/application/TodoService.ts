@@ -1,8 +1,8 @@
-import { CompletedAt } from "../domain/CompletedAt";
-import { CreatedAt } from "../domain/CreatedAt";
-import { DueDate } from "../domain/DueDate";
-import { Todo } from "../domain/Todo";
-import { TodoList } from "../domain/TodoList";
+import { CompletedAt } from "../domain/model/todo/CompletedAt";
+import { CreatedAt } from "../domain/model/todo/CreatedAt";
+import { DueDate } from "../domain/model/todo/DueDate";
+import { Todo } from "../domain/model/todo/Todo";
+import { TodoList } from "../domain/model/todo/TodoList";
 import { TodoRequest } from "../presentation/TodoController";
 import { IService } from "./IService";
 import { TodoRepository } from "./TodoRepository";

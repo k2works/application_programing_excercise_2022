@@ -1,4 +1,4 @@
-import { Todo } from "../domain/Todo";
+import { Todo } from "../domain/model/todo";
 import { TodoList } from "../domain/TodoList";
 import { TodoRequest } from "../presentation/TodoController";
 

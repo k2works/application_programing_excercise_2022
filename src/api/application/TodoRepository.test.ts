@@ -1,9 +1,9 @@
 import connection from "../utils/connection";
-import { CompletedAt } from "../domain/CompletedAt";
-import { CreatedAt } from "../domain/CreatedAt";
-import { DueDate } from "../domain/DueDate";
-import { Todo } from "../domain/Todo";
+import { CompletedAt } from "../domain/model/todo/CompletedAt";
 import { TodoRepository } from "./TodoRepository";
+import { CreatedAt } from "../domain/model/todo/CreatedAt";
+import { DueDate } from "../domain/model/todo/DueDate";
+import { Todo } from "../domain/model/todo/Todo";
 
 describe("TodoRepository", () => {
   beforeAll(async () => {

@@ -1,9 +1,9 @@
+import { IStatus } from "../status/IStatus";
+import { TodoStatus } from "../status/TodoStatus";
 import { CompletedAt } from "./CompletedAt";
 import { CreatedAt } from "./CreatedAt";
 import { DueDate } from "./DueDate";
-import { TodoStatus } from "./TodoStatus";
 import { Title } from "./Title";
-import { IStatus } from "./IStatus";
 
 export class Todo {
   private title: Title;

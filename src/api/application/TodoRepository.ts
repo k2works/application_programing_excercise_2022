@@ -1,11 +1,11 @@
 import { getRepository } from "typeorm";
 import { Todo as Entity } from "../entity/Todo";
 import { Status as StatusEntity } from "../entity/Status";
-import { Todo as DomainObject } from "../domain/Todo";
-import { TodoList as FirstCollection } from "../domain/TodoList";
-import { CreatedAt } from "../domain/CreatedAt";
-import { CompletedAt } from "../domain/CompletedAt";
-import { DueDate } from "../domain/DueDate";
+import { Todo as DomainObject } from "../domain/model/todo/Todo";
+import { TodoList as FirstCollection } from "../domain/model/todo/TodoList";
+import { CreatedAt } from "../domain/model/todo/CreatedAt";
+import { CompletedAt } from "../domain/model/todo/CompletedAt";
+import { DueDate } from "../domain/model/todo/DueDate";
 
 export class TodoRepository {
   private async createUpdateStatus(todo: DomainObject): Promise<StatusEntity> {

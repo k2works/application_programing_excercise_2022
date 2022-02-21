@@ -1,6 +1,6 @@
 import { IStatus } from "./IStatus";
-import { Todo } from "./Todo";
-import { TodoStatusTypeEnum, TodoStatusType } from "./type/TodoStatusType";
+import { TodoStatusTypeEnum, TodoStatusType } from "../../type/TodoStatusType";
+import { Todo } from "../todo/Todo";
 
 export abstract class TodoStatus implements IStatus {
   protected value: string;
