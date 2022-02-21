@@ -58,14 +58,16 @@ package Api {
     class InProgress extends TodoStatus {}
     class Completed extends TodoStatus {}
     class TodoStatusType {}
+    interface IStatus
     
     Todo *-- Title
     Todo *-- CreatedAt
     Todo *-- CompletedAt
     Todo *-- DueDate
     TodoList *- Todo
-    Todo *- TodoStatus
+    Todo *- IStatus
     TodoStatus -> TodoStatusType
+    IStatus <|- TodoStatus
   }
   TodoRepository --> Todo
   TodoRepository --> TodoList
