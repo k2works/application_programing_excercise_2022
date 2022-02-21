@@ -40,7 +40,9 @@ package Api {
   package Infrastructure {
     class TodoRepository {}
     interface IRepository
+    class TypeORM {}
     TodoRepository -|> IRepository
+    TypeORM <- TodoRepository
   }
   IRepository -* TodoService
   package Domain {
