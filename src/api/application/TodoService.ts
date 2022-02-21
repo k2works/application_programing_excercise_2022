@@ -6,9 +6,10 @@ import { TodoList } from "../domain/model/todo/TodoList";
 import { TodoRequest } from "../presentation/TodoController";
 import { IService } from "./IService";
 import { TodoRepository } from "../infrastructure/TodoRepository";
+import { IRepository } from "../infrastructure/IRepository";
 
 export class TodoService implements IService {
-  private repository: TodoRepository;
+  private repository: IRepository<Todo>;
 
   constructor() {
     this.repository = new TodoRepository();
