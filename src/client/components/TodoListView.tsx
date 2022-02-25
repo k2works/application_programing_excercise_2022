@@ -15,7 +15,7 @@ export const TodoListView: React.FC = () => {
           title={"b"}
           status={"未着手"}
           id={0}
-          completed={false}
+          completed={true}
           dueDate={""}
         ></TodoItemView>
         <TodoItemView
