@@ -1,8 +1,7 @@
 import React from "react";
 
 export const TodoItemView: React.FC = () => {
-  return (
-    <ul>
+    const li1 = (
       <li className=" status not-started">
         <input type="checkbox" placeholder="check" className="checkbox" />
         a By
@@ -10,6 +9,9 @@ export const TodoItemView: React.FC = () => {
         未着手
         <button className="delete">x</button>
       </li>
+    );
+
+    const li2 = (
       <li className=" status not-started">
         <input type="checkbox" className="checkbox" placeholder="input" />
         b By
@@ -17,6 +19,9 @@ export const TodoItemView: React.FC = () => {
         未着手
         <button className="delete">x</button>
       </li>
+    );
+
+    const li3 = (
       <li className=" status not-started">
         <input type="checkbox" className="checkbox" placeholder="input" />
         c By
@@ -24,6 +29,9 @@ export const TodoItemView: React.FC = () => {
         未着手
         <button className="delete">x</button>
       </li>
-    </ul>
-  );
+    );
+
+    const list = [li1, li2, li3];
+
+    return <ul>{list.map((li, index) => li)}</ul>;
 };
