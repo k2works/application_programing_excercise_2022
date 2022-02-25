@@ -9,6 +9,15 @@ type Props = {
 };
 
 export const TodoItemView: React.FC<Props> = (props) => {
+  const dueValue = (value: any) => {
+    if (value === null || value === "") {
+      return "";
+    } else {
+      const date = new Date(value);
+      return date.toISOString().substring(0, 10);
+    }
+  };
+
   const element = () => {
     if (props.completed) {
       return (
@@ -25,7 +34,12 @@ export const TodoItemView: React.FC<Props> = (props) => {
         <li className=" status not-started">
           <input type="checkbox" placeholder="check" className="checkbox" />
           {props.title} By
-          <input className="due" type="date" value="" placeholder="check" />
+          <input
+            className="due"
+            type="date"
+            value={dueValue(props.dueDate)}
+            placeholder="check"
+          />
           {props.status}
           <button className="delete">x</button>
         </li>
