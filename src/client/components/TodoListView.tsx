@@ -2,29 +2,23 @@ import React from "react";
 import { TodoItemView } from "./TodoItemView";
 
 export const TodoListView: React.FC = () => {
-    return (
-      <ul>
+  const items = [
+    { title: "a", status: "未着手", id: 0, completed: false, duDate: "" },
+    { title: "b", status: "未着手", id: 0, completed: true, duDate: "" },
+    { title: "a", status: "未着手", id: 0, completed: false, duDate: "" },
+  ];
+
+  return (
+    <ul>
+      {items.map((item) => (
         <TodoItemView
-          title={"a"}
-          status={"未着手"}
-          id={0}
-          completed={false}
-          dueDate={""}
+          title={item.title}
+          status={item.status}
+          id={item.id}
+          completed={item.completed}
+          dueDate={item.duDate}
         ></TodoItemView>
-        <TodoItemView
-          title={"b"}
-          status={"未着手"}
-          id={0}
-          completed={true}
-          dueDate={""}
-        ></TodoItemView>
-        <TodoItemView
-          title={"c"}
-          status={"未着手"}
-          id={0}
-          completed={false}
-          dueDate={""}
-        ></TodoItemView>
-      </ul>
-    );
+      ))}
+    </ul>
+  );
 };
