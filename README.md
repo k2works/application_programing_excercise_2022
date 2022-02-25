@@ -94,3 +94,6 @@ npm start
 - [Building REST API with Express, TypeScript and Swagger](https://dev.to/rsbh/building-rest-api-with-express-typescript-and-swagger-2dma)
 - [tsoa](https://tsoa-community.github.io/docs/)
 - [最新版TypeScript+webpack5の環境構築まとめ](https://ics.media/entry/16329/)
+- [フックの導入](https://ja.reactjs.org/docs/hooks-intro.html)
+- [TypeScript で書く React コンポーネントを基礎から理解する](https://qiita.com/sangotaro/items/3ea63110517a1b66745b)
+- [React Hooksでデータを取得する方法](https://qiita.com/ossan-engineer/items/c3853315f59dc20bc9dc#react-hooks-%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E5%8F%96%E5%BE%97)
