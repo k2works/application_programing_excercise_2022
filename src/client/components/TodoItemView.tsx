@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const TodoItemView: React.FC<Props> = (props) => {
-  const result = () => {
+  const element = () => {
     if (props.completed) {
       return (
         <li className=" status not-started">
@@ -33,5 +33,5 @@ export const TodoItemView: React.FC<Props> = (props) => {
     }
   };
 
-  return result();
+  return element();
 };
