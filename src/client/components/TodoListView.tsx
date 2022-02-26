@@ -28,6 +28,8 @@ const useTodoListApi = (url: string, initialData: any) => {
   });
 
   useEffect(() => {
+    let didCancel = false;
+
     const getApi = async (url: string) => {
       const service = (
         resolve: (value?: string) => void,
@@ -59,9 +61,13 @@ const useTodoListApi = (url: string, initialData: any) => {
         }));
         dispatch({ type: "FETCH_SUCCESS", payload: items });
       } catch (error) {
-        dispatch({ type: "FETCH_FAILURE" });
+        if (!didCancel) dispatch({ type: "FETCH_FAILURE" });
       }
     })();
+
+    return () => {
+      didCancel = true;
+    };
   }, []);
 
   return [state];
