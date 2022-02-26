@@ -7,6 +7,8 @@ export const TodoListView: React.FC = () => {
     { title: "", status: "", id: 0, completed: false, dueDate: "" },
   ];
   const [todoList, setTodoList] = useState(items);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getApi = async (url: string) => {
@@ -27,33 +29,43 @@ export const TodoListView: React.FC = () => {
     };
 
     (async () => {
-      const result: any = await getApi("http://localhost:3000/api/todos");
-      const items = result.value.map((item: any) => ({
-        title: item.title.value,
-        status: item.status.value,
-        id: item.id,
-        completed: item.isCompleted,
-        dueDate: item.dueDate.value,
-      }));
-      setTodoList(items);
+      setIsLoading(true);
+      try {
+        const result: any = await getApi("http://localhost:3000/api/todos");
+        const items = result.value.map((item: any) => ({
+          title: item.title.value,
+          status: item.status.value,
+          id: item.id,
+          completed: item.isCompleted,
+          dueDate: item.dueDate.value,
+        }));
+        setTodoList(items);
+      } catch (error) {
+        setIsError(true);
+      }
+      setIsLoading(false);
     })();
-  });
+  }, []);
 
   return (
     <div>
-      <ul>
-        {todoList.map((item) => (
-          <TodoItemView
-            title={item.title}
-            status={item.status}
-            id={item.id}
-            completed={item.completed}
-            dueDate={item.dueDate}
-            key={item.id}
-          ></TodoItemView>
-        ))}
-      </ul>
-
+      {isError && <div>Something went wrong ...</div>}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <ul>
+          {todoList.map((item) => (
+            <TodoItemView
+              title={item.title}
+              status={item.status}
+              id={item.id}
+              completed={item.completed}
+              dueDate={item.dueDate}
+              key={item.id}
+            ></TodoItemView>
+          ))}
+        </ul>
+      )}
       <TodoItemCountView count={todoList.length}></TodoItemCountView>
     </div>
   );

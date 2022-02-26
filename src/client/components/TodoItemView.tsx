@@ -40,7 +40,9 @@ export const TodoItemView: React.FC<Props> = (props) => {
       };
       return new Promise(service);
     };
-    (async () => putApi("http://localhost:3000/api/todo", todo))();
+    (async () => {
+      if (todo.id !== 0) await putApi("http://localhost:3000/api/todo", todo);
+    })();
   }, [todo]);
 
   const dueValue = (value: any) => {
@@ -84,7 +86,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
       return new Promise(service);
     };
     await deleteApi("http://localhost:3000/api/todo", props.id);
-    setTodo({ ...todo, id: -1 });
+    setTodo({ ...todo, id: 0 });
   };
 
   const element = () => {
