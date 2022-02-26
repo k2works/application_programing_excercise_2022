@@ -2,10 +2,7 @@ import React from "react";
 import { userCountApi } from "../app/Todo";
 
 export const TodoItemCountView: React.FC<{ count: number }> = (props) => {
-  const [count, setCount] = userCountApi(
-    "http://localhost:3000/api/todos/count",
-    props.count
-  );
+  const [count, setCount] = userCountApi(props.count);
 
   return (
     <footer className="footer">

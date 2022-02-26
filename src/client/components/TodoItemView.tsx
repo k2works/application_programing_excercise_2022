@@ -11,10 +11,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
     completed: isCompleted,
     dueDate: dueDate,
   };
-  const [todo, setTodo] = useTodoUpdateApi(
-    "http://localhost:3000/api/todo",
-    item
-  );
+  const [todo, setTodo] = useTodoUpdateApi(item);
 
   const dueValue = (value: any) => {
     if (value === null || value === "") {
@@ -36,7 +33,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
   };
 
   const handleClickDelete = async () => {
-    useDeleteApi("http://localhost:3000/api/todo", props.id);
+    useDeleteApi(props.id);
     setTodo({ ...todo, id: 0 });
   };
 

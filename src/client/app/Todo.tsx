@@ -11,6 +11,15 @@ export type Props = {
   status: string;
 };
 
+const baseUrl = "http://localhost:3000/api/";
+const apiUrl = {
+  selectAll: `${baseUrl}/todos`,
+  create: `${baseUrl}/todo`,
+  update: `${baseUrl}/todo`,
+  delete: `${baseUrl}/todo`,
+  count: `${baseUrl}/todos/count`,
+};
+
 const dataFetchReducer = (state: any, action: any) => {
   switch (action.type) {
     case "FETCH_INIT":
@@ -29,7 +38,8 @@ const dataFetchReducer = (state: any, action: any) => {
   }
 };
 
-const useTodoListApi = (url: string, initialData: any) => {
+const useTodoListApi = (initialData: any) => {
+  const url = apiUrl.selectAll;
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
@@ -81,7 +91,8 @@ const useTodoListApi = (url: string, initialData: any) => {
   return [state];
 };
 
-export const useCreateApi = (url: string, item: any) => {
+export const useCreateApi = (item: any) => {
+  const url = apiUrl.create;
   const [todo, setTodo] = useState(item);
 
   const postApi = (url: string, data: any) => {
@@ -110,7 +121,8 @@ export const useCreateApi = (url: string, item: any) => {
   return [todo, setTodo, create];
 };
 
-export const useTodoUpdateApi = (url: string, item: any) => {
+export const useTodoUpdateApi = (item: any) => {
+  const url = apiUrl.update;
   const [todo, setTodo] = useState(item);
 
   useEffect(() => {
@@ -142,7 +154,8 @@ export const useTodoUpdateApi = (url: string, item: any) => {
   return [todo, setTodo];
 };
 
-export const useDeleteApi = (url: string, id: number) => {
+export const useDeleteApi = (id: number) => {
+  const url = apiUrl.delete;
   const deleteApi = async (url: string, data: number) => {
     const service = (
       resolve: (value?: string) => void,
@@ -168,7 +181,8 @@ export const useDeleteApi = (url: string, id: number) => {
   return [];
 };
 
-export const userCountApi = (url: string, propsCount: number) => {
+export const userCountApi = (propsCount: number) => {
+  const url = apiUrl.count;
   const [count, setCount] = React.useState(0);
   useEffect(() => {
     const getApi = (url: string) => {
@@ -202,10 +216,10 @@ export const Todo: React.FC = () => {
   const items = [
     { title: "", status: "", id: 0, completed: false, dueDate: "" },
   ];
-  const [state] = useTodoListApi("http://localhost:3000/api/todos", items);
+  const [state] = useTodoListApi(items);
 
   const handleChange = () => {
-    useTodoListApi("http://localhost:3000/api/todos", state);
+    useTodoListApi(state);
   };
 
   return (

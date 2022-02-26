@@ -7,10 +7,7 @@ export const TodoInputView: React.FC<{}> = () => {
     completed: false,
   };
 
-  const [todo, setTodo, create] = useCreateApi(
-    "http://localhost:3000/api/todo",
-    item
-  );
+  const [todo, setTodo, create] = useCreateApi(item);
   const inputRef: any = useRef();
 
   useEffect(() => {
