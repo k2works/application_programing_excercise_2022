@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { TodoItemCountView } from "./TodoItemCountView";
 import { TodoItemView } from "./TodoItemView";
 
 export const TodoListView: React.FC = () => {
@@ -39,17 +40,21 @@ export const TodoListView: React.FC = () => {
   });
 
   return (
-    <ul>
-      {todoList.map((item) => (
-        <TodoItemView
-          title={item.title}
-          status={item.status}
-          id={item.id}
-          completed={item.completed}
-          dueDate={item.dueDate}
-          key={item.id}
-        ></TodoItemView>
-      ))}
-    </ul>
+    <div>
+      <ul>
+        {todoList.map((item) => (
+          <TodoItemView
+            title={item.title}
+            status={item.status}
+            id={item.id}
+            completed={item.completed}
+            dueDate={item.dueDate}
+            key={item.id}
+          ></TodoItemView>
+        ))}
+      </ul>
+
+      <TodoItemCountView count={todoList.length}></TodoItemCountView>
+    </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export const TodoInputView: React.FC<{}> = () => {
   const item = {
@@ -6,6 +6,11 @@ export const TodoInputView: React.FC<{}> = () => {
     completed: false,
   };
   const [todo, setTodo] = useState(item);
+  const inputRef: any = useRef();
+
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  });
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({ ...todo, title: e.target.value });
@@ -44,6 +49,7 @@ export const TodoInputView: React.FC<{}> = () => {
         autoComplete="off"
         value={todo.title}
         onChange={handleChangeTitle}
+        ref={inputRef}
       />
     </form>
   );

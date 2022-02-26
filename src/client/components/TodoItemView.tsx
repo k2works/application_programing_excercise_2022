@@ -84,6 +84,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
       return new Promise(service);
     };
     await deleteApi("http://localhost:3000/api/todo", props.id);
+    setTodo({ ...todo, id: -1 });
   };
 
   const element = () => {
