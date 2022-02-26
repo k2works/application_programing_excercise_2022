@@ -35,7 +35,7 @@ const useTodoUpdateApi = (url: string, item: any) => {
     (async () => {
       if (todo.id !== 0) await putApi(url, todo);
     })();
-  }, [todo]);
+  });
 
   return [todo, setTodo];
 };

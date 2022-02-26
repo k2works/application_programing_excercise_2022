@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { TodoInputView } from "../components/TodoInputView";
 import { TodoItemCountView } from "../components/TodoItemCountView";
 import { TodoListView } from "../components/TodoListView";
@@ -22,13 +22,13 @@ const dataFetchReducer = (state: any, action: any) => {
 };
 
 const useTodoListApi = (url: string, initialData: any) => {
-  const [state, dispatch] = React.useReducer(dataFetchReducer, {
+  const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
     data: initialData,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     let didCancel = false;
 
     const getApi = async (url: string) => {
@@ -50,7 +50,6 @@ const useTodoListApi = (url: string, initialData: any) => {
 
     (async () => {
       dispatch({ type: "FETCH_INIT" });
-
       try {
         const result: any = await getApi(url);
         const items = result.value.map((item: any) => ({
@@ -80,6 +79,10 @@ export const Todo: React.FC = () => {
   ];
   const [state] = useTodoListApi("http://localhost:3000/api/todos", items);
 
+  const handleChange = () => {
+    useTodoListApi("http://localhost:3000/api/todos", state);
+  };
+
   return (
     <div>
       {state.isError && <div>Something went wrong ...</div>}
@@ -88,7 +91,9 @@ export const Todo: React.FC = () => {
       ) : (
         <div>
           <TodoInputView></TodoInputView>
-          <TodoListView data={state.data}></TodoListView>
+          <form onSubmit={handleChange}>
+            <TodoListView data={state.data}></TodoListView>
+          </form>
         </div>
       )}
       <TodoItemCountView count={state.data.length}></TodoItemCountView>
