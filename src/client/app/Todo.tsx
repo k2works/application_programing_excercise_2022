@@ -1,7 +1,15 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { TodoInputView } from "../components/TodoInputView";
 import { TodoItemCountView } from "../components/TodoItemCountView";
 import { TodoListView } from "../components/TodoListView";
+
+export type Props = {
+  id: number;
+  title: string;
+  completed: boolean;
+  dueDate: string;
+  status: string;
+};
 
 const dataFetchReducer = (state: any, action: any) => {
   switch (action.type) {
@@ -71,6 +79,123 @@ const useTodoListApi = (url: string, initialData: any) => {
   }, []);
 
   return [state];
+};
+
+export const useCreateApi = (url: string, item: any) => {
+  const [todo, setTodo] = useState(item);
+
+  const postApi = (url: string, data: any) => {
+    const service = (
+      resolve: (value?: string) => void,
+      reject: (reason?: any) => void
+    ) => {
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  };
+
+  const create = async () => postApi(url, todo);
+
+  return [todo, setTodo, create];
+};
+
+export const useTodoUpdateApi = (url: string, item: any) => {
+  const [todo, setTodo] = useState(item);
+
+  useEffect(() => {
+    const putApi = (url: string, data: any) => {
+      const service = (
+        resolve: (value?: string) => void,
+        reject: (reason?: any) => void
+      ) => {
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            return resolve(json);
+          })
+          .catch((error) => {
+            return reject(error);
+          });
+      };
+      return new Promise(service);
+    };
+    (async () => {
+      if (todo.id !== 0) await putApi(url, todo);
+    })();
+  });
+
+  return [todo, setTodo];
+};
+
+export const useDeleteApi = (url: string, id: number) => {
+  const deleteApi = async (url: string, data: number) => {
+    const service = (
+      resolve: (value?: string) => void,
+      reject: (reason?: any) => void
+    ) => {
+      fetch(url, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: data }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  };
+  (async () => deleteApi(url, id))();
+
+  return [];
+};
+
+export const userCountApi = (url: string, propsCount: number) => {
+  const [count, setCount] = React.useState(0);
+  useEffect(() => {
+    const getApi = (url: string) => {
+      const service = (
+        resolve: (value?: string) => void,
+        reject: (reason?: any) => void
+      ) => {
+        fetch(url)
+          .then((response) => response.json())
+          .then((json) => {
+            return resolve(json);
+          })
+          .catch((error) => {
+            return reject(error);
+          });
+      };
+      return new Promise(service);
+    };
+
+    (async () => {
+      const result = await getApi(url);
+      if (result) setCount(parseInt(result));
+      if (propsCount === 0) setCount(0);
+    })();
+  }, [propsCount]);
+
+  return [count, setCount];
 };
 
 export const Todo: React.FC = () => {

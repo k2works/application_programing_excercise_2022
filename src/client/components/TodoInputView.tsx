@@ -1,33 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
-const useCreateApi = (url: string, item: any) => {
-  const [todo, setTodo] = useState(item);
-
-  const postApi = (url: string, data: any) => {
-    const service = (
-      resolve: (value?: string) => void,
-      reject: (reason?: any) => void
-    ) => {
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          return resolve(json);
-        })
-        .catch((error) => {
-          return reject(error);
-        });
-    };
-    return new Promise(service);
-  };
-
-  const create = async () => postApi(url, todo);
-
-  return [todo, setTodo, create];
-};
+import { useCreateApi } from "../app/Todo";
 
 export const TodoInputView: React.FC<{}> = () => {
   const item = {
