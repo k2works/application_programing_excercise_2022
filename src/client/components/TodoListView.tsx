@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { TodoItemCountView } from "./TodoItemCountView";
 import { TodoItemView } from "./TodoItemView";
 
-const useTodoListApi = (url: string) => {
-  const items = [
-    { title: "", status: "", id: 0, completed: false, dueDate: "" },
-  ];
-  const [todoList, setTodoList] = useState(items);
+const useTodoListApi = (url: string, initialData: any) => {
+  const [todoList, setTodoList] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -45,14 +42,18 @@ const useTodoListApi = (url: string) => {
       }
       setIsLoading(false);
     })();
-  }, [url]);
+  }, []);
 
   return [{ todoList, isLoading, isError }];
 };
 
 export const TodoListView: React.FC = () => {
+  const items = [
+    { title: "", status: "", id: 0, completed: false, dueDate: "" },
+  ];
   const [{ todoList, isLoading, isError }] = useTodoListApi(
-    "http://localhost:3000/api/todos"
+    "http://localhost:3000/api/todos",
+    items
   );
 
   return (
@@ -62,7 +63,7 @@ export const TodoListView: React.FC = () => {
         <div>Loading...</div>
       ) : (
         <ul>
-          {todoList.map((item) => (
+          {todoList.map((item: any) => (
             <TodoItemView
               title={item.title}
               status={item.status}
