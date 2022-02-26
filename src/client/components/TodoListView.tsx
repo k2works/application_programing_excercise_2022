@@ -47,6 +47,7 @@ export const TodoListView: React.FC = () => {
           id={item.id}
           completed={item.completed}
           dueDate={item.dueDate}
+          key={item.id}
         ></TodoItemView>
       ))}
     </ul>

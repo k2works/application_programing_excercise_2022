@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   id: number;
@@ -9,6 +9,40 @@ type Props = {
 };
 
 export const TodoItemView: React.FC<Props> = (props) => {
+  const [isCompleted, setIsCompleted] = useState(props.completed);
+  const [dueDate, setDueDate] = useState(props.dueDate);
+  const item = {
+    title: props.title,
+    status: props.status,
+    id: props.id,
+    completed: isCompleted,
+    dueDate: dueDate,
+  };
+  const [todo, setTodo] = useState(item);
+  useEffect(() => {
+    const putApi = (url: string, data: any) => {
+      const service = (
+        resolve: (value?: string) => void,
+        reject: (reason?: any) => void
+      ) => {
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            return resolve(json);
+          })
+          .catch((error) => {
+            return reject(error);
+          });
+      };
+      return new Promise(service);
+    };
+    (async () => putApi("http://localhost:3000/api/todo", todo))();
+  }, [todo]);
+
   const dueValue = (value: any) => {
     if (value === null || value === "") {
       return "";
@@ -18,30 +52,81 @@ export const TodoItemView: React.FC<Props> = (props) => {
     }
   };
 
+  const handleChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsCompleted(!isCompleted);
+    setTodo({ ...todo, completed: !isCompleted });
+  };
+
+  const handleChangeDueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDueDate(e.target.value);
+    setTodo({ ...todo, dueDate: dueValue(e.target.value) });
+  };
+
+  const handleClickDelete = async () => {
+    const deleteApi = async (url: string, data: number) => {
+      const service = (
+        resolve: (value?: string) => void,
+        reject: (reason?: any) => void
+      ) => {
+        fetch(url, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: data }),
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            return resolve(json);
+          })
+          .catch((error) => {
+            return reject(error);
+          });
+      };
+      return new Promise(service);
+    };
+    await deleteApi("http://localhost:3000/api/todo", props.id);
+  };
+
   const element = () => {
-    if (props.completed) {
+    if (isCompleted) {
       return (
         <li className=" status not-started">
-          <input type="checkbox" placeholder="check" className="checkbox" />
+          <input
+            type="checkbox"
+            placeholder="check"
+            className="checkbox"
+            checked={isCompleted}
+            onChange={handleChangeCheck}
+          />
           <s>{props.title}</s>
           <s className="due">{props.dueDate}</s>
           {props.status}
-          <button className="delete">x</button>
+          <button className="delete" onClick={handleClickDelete}>
+            x
+          </button>
         </li>
       );
     } else {
       return (
         <li className=" status not-started">
-          <input type="checkbox" placeholder="check" className="checkbox" />
+          <input
+            type="checkbox"
+            placeholder="check"
+            className="checkbox"
+            checked={isCompleted}
+            onChange={handleChangeCheck}
+          />
           {props.title} By
           <input
             className="due"
             type="date"
-            value={dueValue(props.dueDate)}
+            value={dueValue(dueDate)}
             placeholder="check"
+            onChange={handleChangeDueDate}
           />
           {props.status}
-          <button className="delete">x</button>
+          <button className="delete" onClick={handleClickDelete}>
+            x
+          </button>
         </li>
       );
     }
