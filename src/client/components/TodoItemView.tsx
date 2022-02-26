@@ -8,17 +8,9 @@ type Props = {
   status: string;
 };
 
-export const TodoItemView: React.FC<Props> = (props) => {
-  const [isCompleted, setIsCompleted] = useState(props.completed);
-  const [dueDate, setDueDate] = useState(props.dueDate);
-  const item = {
-    title: props.title,
-    status: props.status,
-    id: props.id,
-    completed: isCompleted,
-    dueDate: dueDate,
-  };
+const useTodoUpdateApi = (url: string, item: any) => {
   const [todo, setTodo] = useState(item);
+
   useEffect(() => {
     const putApi = (url: string, data: any) => {
       const service = (
@@ -41,9 +33,53 @@ export const TodoItemView: React.FC<Props> = (props) => {
       return new Promise(service);
     };
     (async () => {
-      if (todo.id !== 0) await putApi("http://localhost:3000/api/todo", todo);
+      if (todo.id !== 0) await putApi(url, todo);
     })();
   }, [todo]);
+
+  return [todo, setTodo];
+};
+
+const useDeleteApi = (url: string, id: number) => {
+  const deleteApi = async (url: string, data: number) => {
+    const service = (
+      resolve: (value?: string) => void,
+      reject: (reason?: any) => void
+    ) => {
+      fetch(url, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: data }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  };
+  (async () => deleteApi(url, id))();
+
+  return [];
+};
+
+export const TodoItemView: React.FC<Props> = (props) => {
+  const [isCompleted, setIsCompleted] = useState(props.completed);
+  const [dueDate, setDueDate] = useState(props.dueDate);
+  const item = {
+    title: props.title,
+    status: props.status,
+    id: props.id,
+    completed: isCompleted,
+    dueDate: dueDate,
+  };
+  const [todo, setTodo] = useTodoUpdateApi(
+    "http://localhost:3000/api/todo",
+    item
+  );
 
   const dueValue = (value: any) => {
     if (value === null || value === "") {
@@ -65,27 +101,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
   };
 
   const handleClickDelete = async () => {
-    const deleteApi = async (url: string, data: number) => {
-      const service = (
-        resolve: (value?: string) => void,
-        reject: (reason?: any) => void
-      ) => {
-        fetch(url, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: data }),
-        })
-          .then((response) => response.json())
-          .then((json) => {
-            return resolve(json);
-          })
-          .catch((error) => {
-            return reject(error);
-          });
-      };
-      return new Promise(service);
-    };
-    await deleteApi("http://localhost:3000/api/todo", props.id);
+    useDeleteApi("http://localhost:3000/api/todo", props.id);
     setTodo({ ...todo, id: 0 });
   };
 

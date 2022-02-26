@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-export const TodoItemCountView: React.FC<{ count: number }> = (props) => {
+
+const userCountApi = (url: string, propsCount: number) => {
   const [count, setCount] = React.useState(0);
   useEffect(() => {
     const getApi = (url: string) => {
@@ -20,11 +21,20 @@ export const TodoItemCountView: React.FC<{ count: number }> = (props) => {
     };
 
     (async () => {
-      const result = await getApi("http://localhost:3000/api/todos/count");
+      const result = await getApi(url);
       if (result) setCount(parseInt(result));
-      if (props.count === 0) setCount(0);
+      if (propsCount === 0) setCount(0);
     })();
-  }, [props.count]);
+  }, [propsCount]);
+
+  return [count, setCount];
+};
+
+export const TodoItemCountView: React.FC<{ count: number }> = (props) => {
+  const [count, setCount] = userCountApi(
+    "http://localhost:3000/api/todos/count",
+    props.count
+  );
 
   return (
     <footer className="footer">
