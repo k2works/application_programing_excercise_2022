@@ -8,7 +8,7 @@ export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
     completed: false,
   };
 
-  const [todo, setTodo, create] = useCreateApi(item, props.setMessage);
+  const [todo, setTodo, create] = useCreateApi(item);
   const inputRef: any = useRef();
 
   useEffect(() => {
@@ -20,7 +20,12 @@ export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
   };
 
   const handleCreate = async () => {
-    create();
+    try {
+      create();
+      props.setMessage("Success");
+    } catch (error) {
+      props.setMessage(error);
+    }
   };
 
   return (

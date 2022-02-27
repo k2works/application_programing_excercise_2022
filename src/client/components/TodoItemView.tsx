@@ -16,8 +16,8 @@ export const TodoItemView: React.FC<Props> = (props) => {
     completed: isCompleted,
     dueDate: dueDate,
   };
-  const [todo, setTodo] = useTodoUpdateApi(item, props.setMessage);
-  const [todoList, selectAll] = useTodoSelectAllApi([], props.setMessage);
+  const [todo, setTodo] = useTodoUpdateApi(item);
+  const [todoList, selectAll] = useTodoSelectAllApi([]);
 
   const dueValue = (value: any) => {
     if (value === null || value === "") {
@@ -29,21 +29,36 @@ export const TodoItemView: React.FC<Props> = (props) => {
   };
 
   const handleChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsCompleted(!isCompleted);
-    setTodo({ ...todo, completed: !isCompleted });
-    selectAll();
+    try {
+      setIsCompleted(!isCompleted);
+      setTodo({ ...todo, completed: !isCompleted });
+      selectAll();
+      props.setMessage("Success");
+    } catch (error) {
+      props.setMessage(error);
+    }
   };
 
   const handleChangeDueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDueDate(e.target.value);
-    setTodo({ ...todo, dueDate: dueValue(e.target.value) });
-    selectAll();
+    try {
+      setDueDate(e.target.value);
+      setTodo({ ...todo, dueDate: dueValue(e.target.value) });
+      selectAll();
+      props.setMessage("Success");
+    } catch (error) {
+      props.setMessage(error);
+    }
   };
 
   const handleClickDelete = async () => {
-    useDeleteApi(props.id, props.setMessage);
-    setTodo({ ...todo, id: 0 });
-    selectAll();
+    try {
+      useDeleteApi(props.id);
+      setTodo({ ...todo, id: 0 });
+      selectAll();
+      props.setMessage("Success");
+    } catch (error) {
+      props.setMessage(error);
+    }
   };
 
   const element = () => {

@@ -24,9 +24,6 @@ const apiUrl = {
 
 export const useTodoMessage = (message: any) => {
   const [messageState, setMessageState] = useState(message);
-  useEffect(() => {
-    setMessageState(message);
-  }, []);
   return [messageState, setMessageState];
 };
 
@@ -101,7 +98,7 @@ const useTodoListApi = (initialData: any) => {
   return [state];
 };
 
-export const useTodoSelectAllApi = (initialData: any, setMessage: any) => {
+export const useTodoSelectAllApi = (initialData: any) => {
   const [todoList, setTodoList] = useState(initialData);
   const url = apiUrl.selectAll;
   const getApi = async (url: string) => {
@@ -132,16 +129,16 @@ export const useTodoSelectAllApi = (initialData: any, setMessage: any) => {
         dueDate: item.dueDate.value,
       }));
       setTodoList(items);
-      setMessage("Success");
     } catch (error) {
-      setMessage(error);
+      console.log(error);
+      throw error;
     }
   };
 
   return [todoList, selectAll];
 };
 
-export const useCreateApi = (item: any, setMessage: any) => {
+export const useCreateApi = (item: any) => {
   const url = apiUrl.create;
   const [todo, setTodo] = useState(item);
 
@@ -169,16 +166,16 @@ export const useCreateApi = (item: any, setMessage: any) => {
   const create = async () => {
     try {
       postApi(url, todo);
-      setMessage("Success");
     } catch (error) {
-      setMessage(error);
+      console.log(error);
+      throw error;
     }
   };
 
   return [todo, setTodo, create];
 };
 
-export const useTodoUpdateApi = (item: any, setMessage: any) => {
+export const useTodoUpdateApi = (item: any) => {
   const url = apiUrl.update;
   const [todo, setTodo] = useState(item);
 
@@ -206,9 +203,9 @@ export const useTodoUpdateApi = (item: any, setMessage: any) => {
     (async () => {
       try {
         if (todo.id !== 0) await putApi(url, todo);
-        setMessage("Success");
       } catch (error) {
-        setMessage(error);
+        console.log(error);
+        throw error;
       }
     })();
   }, [todo]);
@@ -216,7 +213,7 @@ export const useTodoUpdateApi = (item: any, setMessage: any) => {
   return [todo, setTodo];
 };
 
-export const useDeleteApi = (id: number, setMessage: any) => {
+export const useDeleteApi = (id: number) => {
   const url = apiUrl.delete;
   const deleteApi = async (url: string, data: number) => {
     const service = (
@@ -241,9 +238,9 @@ export const useDeleteApi = (id: number, setMessage: any) => {
   (async () => {
     try {
       deleteApi(url, id);
-      setMessage("Success");
     } catch (error) {
-      setMessage(error);
+      console.log(error);
+      throw error;
     }
   })();
 
@@ -284,7 +281,7 @@ export const userCountApi = (propsCount: number) => {
 export const Todo: React.FC = () => {
   const [message, setMessage] = useTodoMessage("");
   const [state] = useTodoListApi([]);
-  const [todoList, selectAll] = useTodoSelectAllApi(state.data, setMessage);
+  const [todoList, selectAll] = useTodoSelectAllApi(state.data);
   selectAll();
 
   return (
