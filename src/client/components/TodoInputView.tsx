@@ -1,13 +1,14 @@
+import { setMaxListeners } from "process";
 import React, { useEffect, useRef, useState } from "react";
 import { useCreateApi } from "../app/Todo";
 
-export const TodoInputView: React.FC<{}> = () => {
+export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
   const item = {
     title: "",
     completed: false,
   };
 
-  const [todo, setTodo, create] = useCreateApi(item);
+  const [todo, setTodo, create] = useCreateApi(item, props.setMessage);
   const inputRef: any = useRef();
 
   useEffect(() => {

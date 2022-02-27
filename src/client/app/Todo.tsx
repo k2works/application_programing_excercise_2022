@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { TodoInputView } from "../components/TodoInputView";
 import { TodoItemCountView } from "../components/TodoItemCountView";
 import { TodoListView } from "../components/TodoListView";
+import { TodoMessageView } from "../components/TodoMessageView";
 
 export type Props = {
   id: number;
@@ -9,15 +10,24 @@ export type Props = {
   completed: boolean;
   dueDate: string;
   status: string;
+  setMessage: any;
 };
 
-const baseUrl = "http://localhost:3000/api/";
+const baseUrl = "http://localhost:3000/api";
 const apiUrl = {
   selectAll: `${baseUrl}/todos`,
   create: `${baseUrl}/todo`,
   update: `${baseUrl}/todo`,
   delete: `${baseUrl}/todo`,
   count: `${baseUrl}/todos/count`,
+};
+
+export const useTodoMessage = (message: any) => {
+  const [messageState, setMessageState] = useState(message);
+  useEffect(() => {
+    setMessageState(message);
+  }, []);
+  return [messageState, setMessageState];
 };
 
 const dataFetchReducer = (state: any, action: any) => {
@@ -91,7 +101,7 @@ const useTodoListApi = (initialData: any) => {
   return [state];
 };
 
-export const useTodoSelectAllApi = (initialData: any) => {
+export const useTodoSelectAllApi = (initialData: any, setMessage: any) => {
   const [todoList, setTodoList] = useState(initialData);
   const url = apiUrl.selectAll;
   const getApi = async (url: string) => {
@@ -122,15 +132,16 @@ export const useTodoSelectAllApi = (initialData: any) => {
         dueDate: item.dueDate.value,
       }));
       setTodoList(items);
+      setMessage("Success");
     } catch (error) {
-      console.log(error);
+      setMessage(error);
     }
   };
 
   return [todoList, selectAll];
 };
 
-export const useCreateApi = (item: any) => {
+export const useCreateApi = (item: any, setMessage: any) => {
   const url = apiUrl.create;
   const [todo, setTodo] = useState(item);
 
@@ -155,12 +166,19 @@ export const useCreateApi = (item: any) => {
     return new Promise(service);
   };
 
-  const create = async () => postApi(url, todo);
+  const create = async () => {
+    try {
+      postApi(url, todo);
+      setMessage("Success");
+    } catch (error) {
+      setMessage(error);
+    }
+  };
 
   return [todo, setTodo, create];
 };
 
-export const useTodoUpdateApi = (item: any) => {
+export const useTodoUpdateApi = (item: any, setMessage: any) => {
   const url = apiUrl.update;
   const [todo, setTodo] = useState(item);
 
@@ -186,14 +204,19 @@ export const useTodoUpdateApi = (item: any) => {
       return new Promise(service);
     };
     (async () => {
-      if (todo.id !== 0) await putApi(url, todo);
+      try {
+        if (todo.id !== 0) await putApi(url, todo);
+        setMessage("Success");
+      } catch (error) {
+        setMessage(error);
+      }
     })();
   }, [todo]);
 
   return [todo, setTodo];
 };
 
-export const useDeleteApi = (id: number) => {
+export const useDeleteApi = (id: number, setMessage: any) => {
   const url = apiUrl.delete;
   const deleteApi = async (url: string, data: number) => {
     const service = (
@@ -215,14 +238,21 @@ export const useDeleteApi = (id: number) => {
     };
     return new Promise(service);
   };
-  (async () => deleteApi(url, id))();
+  (async () => {
+    try {
+      deleteApi(url, id);
+      setMessage("Success");
+    } catch (error) {
+      setMessage(error);
+    }
+  })();
 
   return [];
 };
 
 export const userCountApi = (propsCount: number) => {
   const url = apiUrl.count;
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = useState(0);
   useEffect(() => {
     const getApi = (url: string) => {
       const service = (
@@ -252,8 +282,9 @@ export const userCountApi = (propsCount: number) => {
 };
 
 export const Todo: React.FC = () => {
+  const [message, setMessage] = useTodoMessage("");
   const [state] = useTodoListApi([]);
-  const [todoList, selectAll] = useTodoSelectAllApi(state.data);
+  const [todoList, selectAll] = useTodoSelectAllApi(state.data, setMessage);
   selectAll();
 
   return (
@@ -263,8 +294,9 @@ export const Todo: React.FC = () => {
         <div>Loading...</div>
       ) : (
         <div>
-          <TodoInputView></TodoInputView>
-          <TodoListView data={todoList}></TodoListView>
+          <TodoMessageView message={message}></TodoMessageView>
+          <TodoInputView setMessage={setMessage}></TodoInputView>
+          <TodoListView data={todoList} setMessage={setMessage}></TodoListView>
         </div>
       )}
       <TodoItemCountView count={todoList.length}></TodoItemCountView>

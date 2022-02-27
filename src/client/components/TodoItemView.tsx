@@ -16,8 +16,8 @@ export const TodoItemView: React.FC<Props> = (props) => {
     completed: isCompleted,
     dueDate: dueDate,
   };
-  const [todo, setTodo] = useTodoUpdateApi(item);
-  const [todoList, selectAll] = useTodoSelectAllApi([]);
+  const [todo, setTodo] = useTodoUpdateApi(item, props.setMessage);
+  const [todoList, selectAll] = useTodoSelectAllApi([], props.setMessage);
 
   const dueValue = (value: any) => {
     if (value === null || value === "") {
@@ -41,7 +41,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
   };
 
   const handleClickDelete = async () => {
-    useDeleteApi(props.id);
+    useDeleteApi(props.id, props.setMessage);
     setTodo({ ...todo, id: 0 });
     selectAll();
   };
