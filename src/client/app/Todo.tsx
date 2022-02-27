@@ -153,10 +153,12 @@ export const useTodoSelectAllApi = (initialData: any) => {
 export const useCreateApi = (item: any) => {
   const url = apiUrl.create;
   const [todo, setTodo] = useState(item);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
 
   const postApi = (url: string, data: any) => {
     const service = (
-      resolve: (value?: string) => void,
+      resolve: (value?: any) => void,
       reject: (reason?: any) => void
     ) => {
       fetch(url, {
@@ -177,10 +179,15 @@ export const useCreateApi = (item: any) => {
 
   const create = async () => {
     try {
-      return await postApi(url, todo);
+      const result = await postApi(url, todo);
+      if (result.error) {
+        setError(true);
+        setMessage(result.message);
+      }
+      return result;
     } catch (error) {
       console.log(error);
-      throw error;
+      setError(true);
     }
   };
 

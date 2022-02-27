@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReducerAction, useEffect, useRef, useState } from "react";
 import { MessageType, useCreateApi } from "../app/Todo";
 
 export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
@@ -18,11 +18,12 @@ export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
     setTodo({ ...todo, title: e.target.value });
   };
 
-  const handleCreate = async () => {
+  const handleCreate = async (e: any) => {
+    e.preventDefault();
     try {
       const result = await create();
       if (result.error) {
-        props.setMessage(result.message, MessageType.error);
+        props.setMessage(result.error, MessageType.error);
       } else {
         props.setMessage("Success", MessageType.success);
       }
