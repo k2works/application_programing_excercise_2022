@@ -17,7 +17,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
     dueDate: dueDate,
   };
   const [todo, setTodo] = useTodoUpdateApi(item);
-  const [todoList, setTodoList, selectAll] = useTodoSelectAllApi([]);
+  const [todoList, selectAll] = useTodoSelectAllApi([]);
 
   const dueValue = (value: any) => {
     if (value === null || value === "") {

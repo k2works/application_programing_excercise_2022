@@ -127,7 +127,7 @@ export const useTodoSelectAllApi = (initialData: any) => {
     }
   };
 
-  return [todoList, setTodoList, selectAll];
+  return [todoList, selectAll];
 };
 
 export const useCreateApi = (item: any) => {
@@ -252,11 +252,8 @@ export const userCountApi = (propsCount: number) => {
 };
 
 export const Todo: React.FC = () => {
-  const items = [
-    { title: "", status: "", id: 0, completed: false, dueDate: "" },
-  ];
-  const [state] = useTodoListApi(items);
-  const [todoList, setTodoList, selectAll] = useTodoSelectAllApi(state.data);
+  const [state] = useTodoListApi([]);
+  const [todoList, selectAll] = useTodoSelectAllApi(state.data);
   selectAll();
 
   return (
