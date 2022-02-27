@@ -61,10 +61,20 @@ export const TodoItemView: React.FC<Props> = (props) => {
     }
   };
 
+  const statusClassName = () => {
+    if (isCompleted) {
+      return "status completed";
+    } else if (dueDate !== null) {
+      return "status in-progress";
+    } else {
+      return "status not-started";
+    }
+  };
+
   const element = () => {
     if (isCompleted) {
       return (
-        <li className=" status not-started">
+        <li className={statusClassName()}>
           <input
             type="checkbox"
             placeholder="check"
@@ -73,7 +83,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
             onChange={handleChangeCheck}
           />
           <s>{props.title}</s>
-          <s className="due">{props.dueDate}</s>
+          <s className="due">{dueValue(props.dueDate)}</s>
           {props.status}
           <button className="delete" onClick={handleClickDelete}>
             x
@@ -82,7 +92,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
       );
     } else {
       return (
-        <li className=" status not-started">
+        <li className={statusClassName()}>
           <input
             type="checkbox"
             placeholder="check"
