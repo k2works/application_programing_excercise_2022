@@ -17,7 +17,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
     completed: isCompleted,
     dueDate: dueDate,
   };
-  const [todo, setTodo] = useTodoUpdateApi(item);
+  const [todo, setTodo, error, message, update] = useTodoUpdateApi(item);
   const [todoList, selectAll] = useTodoSelectAllApi([]);
 
   const dueValue = (value: any) => {
@@ -29,25 +29,38 @@ export const TodoItemView: React.FC<Props> = (props) => {
     }
   };
 
-  const handleChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeCheck = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setIsCompleted(!isCompleted);
-      setTodo({ ...todo, completed: !isCompleted });
-      selectAll();
-      props.setMessage("Success", MessageType.success);
-    } catch (error) {
-      props.setMessage(error, MessageType.error);
+      const result = await update({ ...todo, completed: !isCompleted });
+      if (result.error) {
+        props.setMessage(result.error, MessageType.error);
+      } else {
+        props.setMessage("Success", MessageType.success);
+        selectAll();
+      }
+    } catch (e) {
+      props.setMessage(e, MessageType.error);
     }
   };
 
-  const handleChangeDueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeDueDate = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     try {
-      const result = setDueDate(e.target.value);
-      setTodo({ ...todo, dueDate: dueValue(e.target.value) });
-      selectAll();
-      props.setMessage("Success", MessageType.success);
-    } catch (error) {
-      props.setMessage(error, MessageType.error);
+      setDueDate(e.target.value);
+      const result = await update({
+        ...todo,
+        dueDate: dueValue(e.target.value),
+      });
+      if (result.error) {
+        props.setMessage(result.error, MessageType.error);
+      } else {
+        props.setMessage("Success", MessageType.success);
+        selectAll();
+      }
+    } catch (e) {
+      props.setMessage(e, MessageType.error);
     }
   };
 

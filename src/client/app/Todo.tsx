@@ -190,42 +190,49 @@ export const useCreateApi = (item: any) => {
 export const useTodoUpdateApi = (item: any) => {
   const url = apiUrl.update;
   const [todo, setTodo] = useState(item);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const putApi = (url: string, data: any) => {
-      const service = (
-        resolve: (value?: any) => void,
-        reject: (reason?: any) => void
-      ) => {
-        fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+  const putApi = (url: string, data: any) => {
+    const service = (
+      resolve: (value?: any) => void,
+      reject: (reason?: any) => void
+    ) => {
+      fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
         })
-          .then((response) => response.json())
-          .then((json) => {
-            return resolve(json);
-          })
-          .catch((error) => {
-            return reject(error);
-          });
-      };
-      return new Promise(service);
+        .catch((error) => {
+          return reject(error);
+        });
     };
-    (async () => {
-      try {
-        if (todo.id !== 0) {
-          const result = await putApi(url, todo);
-          if (result.error) throw result.error;
-        }
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-    })();
-  }, [todo]);
+    return new Promise(service);
+  };
 
-  return [todo, setTodo];
+  const update = async (todo: any) => {
+    try {
+      setTodo(todo);
+      if (todo.id !== 0) {
+        const result = await putApi(url, todo);
+        if (result.error) {
+          console.log(result.error);
+          setError(true);
+          setMessage(result.error);
+        }
+        return result;
+      }
+    } catch (error) {
+      console.log(error);
+      setError(true);
+    }
+  };
+
+  return [todo, setTodo, error, message, update];
 };
 
 export const useDeleteApi = (id: number) => {
