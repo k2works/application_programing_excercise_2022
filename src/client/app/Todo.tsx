@@ -91,6 +91,45 @@ const useTodoListApi = (initialData: any) => {
   return [state];
 };
 
+export const useTodoSelectAllApi = (initialData: any) => {
+  const [todoList, setTodoList] = useState(initialData);
+  const url = apiUrl.selectAll;
+  const getApi = async (url: string) => {
+    const service = (
+      resolve: (value?: string) => void,
+      reject: (reason?: any) => void
+    ) => {
+      fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          return resolve(json);
+        })
+        .catch((error) => {
+          return reject(error);
+        });
+    };
+    return new Promise(service);
+  };
+
+  const selectAll = async () => {
+    try {
+      const result: any = await getApi(url);
+      const items = result.value.map((item: any) => ({
+        title: item.title.value,
+        status: item.status.value,
+        id: item.id,
+        completed: item.isCompleted,
+        dueDate: item.dueDate.value,
+      }));
+      setTodoList(items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return [todoList, setTodoList, selectAll];
+};
+
 export const useCreateApi = (item: any) => {
   const url = apiUrl.create;
   const [todo, setTodo] = useState(item);
@@ -149,7 +188,7 @@ export const useTodoUpdateApi = (item: any) => {
     (async () => {
       if (todo.id !== 0) await putApi(url, todo);
     })();
-  });
+  }, [todo]);
 
   return [todo, setTodo];
 };
@@ -217,10 +256,8 @@ export const Todo: React.FC = () => {
     { title: "", status: "", id: 0, completed: false, dueDate: "" },
   ];
   const [state] = useTodoListApi(items);
-
-  const handleChange = () => {
-    useTodoListApi(state);
-  };
+  const [todoList, setTodoList, selectAll] = useTodoSelectAllApi(state.data);
+  selectAll();
 
   return (
     <div>
@@ -230,12 +267,10 @@ export const Todo: React.FC = () => {
       ) : (
         <div>
           <TodoInputView></TodoInputView>
-          <form onSubmit={handleChange}>
-            <TodoListView data={state.data}></TodoListView>
-          </form>
+          <TodoListView data={todoList}></TodoListView>
         </div>
       )}
-      <TodoItemCountView count={state.data.length}></TodoItemCountView>
+      <TodoItemCountView count={todoList.length}></TodoItemCountView>
     </div>
   );
 };

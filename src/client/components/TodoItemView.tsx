@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { useTodoUpdateApi, useDeleteApi, Props } from "../app/Todo";
+import {
+  useTodoUpdateApi,
+  useDeleteApi,
+  Props,
+  useTodoSelectAllApi,
+} from "../app/Todo";
 
 export const TodoItemView: React.FC<Props> = (props) => {
   const [isCompleted, setIsCompleted] = useState(props.completed);
@@ -12,6 +17,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
     dueDate: dueDate,
   };
   const [todo, setTodo] = useTodoUpdateApi(item);
+  const [todoList, setTodoList, selectAll] = useTodoSelectAllApi([]);
 
   const dueValue = (value: any) => {
     if (value === null || value === "") {
@@ -25,16 +31,19 @@ export const TodoItemView: React.FC<Props> = (props) => {
   const handleChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsCompleted(!isCompleted);
     setTodo({ ...todo, completed: !isCompleted });
+    selectAll();
   };
 
   const handleChangeDueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDueDate(e.target.value);
     setTodo({ ...todo, dueDate: dueValue(e.target.value) });
+    selectAll();
   };
 
   const handleClickDelete = async () => {
     useDeleteApi(props.id);
     setTodo({ ...todo, id: 0 });
+    selectAll();
   };
 
   const element = () => {
