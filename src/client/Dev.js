@@ -90,8 +90,7 @@ package Api {
   IService -* TodoController
 }
 package Client {
-  class App {
-  }
+  class App {}
   package view{
     App *-- TodoListView
     TodoListView -> TodoItemView
@@ -111,9 +110,16 @@ package Client {
   }
   package app {
     class main {}
+    class TodoComponent {}
   }
   package components {
-    class subcomponent
+    class TodoListComponent{}
+    class TodoItemComponent {}
+    class TodoInputComponent {}
+    class TodoItemCountComponent {}
+    class TodoMessageComponent {}
+
+    TodoListComponent *-- TodoItemComponent
   }
   package features {
     class counter
@@ -121,8 +127,10 @@ package Client {
   package reducers {
     class index
   }
-  main -> subcomponent
-  subcomponent -> counter
+  TodoComponent <- main
+  TodoListComponent --* TodoComponent
+  TodoInputComponent --* TodoComponent
+  TodoMessageComponent --* TodoComponent
   counter -> index  
 }
 TodoApiRepository --> Express
