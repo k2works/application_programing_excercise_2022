@@ -22,9 +22,21 @@ const apiUrl = {
   count: `${baseUrl}/todos/count`,
 };
 
+export enum MessageType {
+  success = "success",
+  error = "error",
+}
+
 export const useTodoMessage = (message: any) => {
   const [messageState, setMessageState] = useState(message);
-  return [messageState, setMessageState];
+  const [messageType, setMessageType] = useState(MessageType.success);
+
+  const setMessage = (message: any, type: MessageType) => {
+    setMessageState(message);
+    setMessageType(type);
+  };
+
+  return [messageState, messageType, setMessage];
 };
 
 const dataFetchReducer = (state: any, action: any) => {
@@ -165,7 +177,7 @@ export const useCreateApi = (item: any) => {
 
   const create = async () => {
     try {
-      postApi(url, todo);
+      return await postApi(url, todo);
     } catch (error) {
       console.log(error);
       throw error;
@@ -182,7 +194,7 @@ export const useTodoUpdateApi = (item: any) => {
   useEffect(() => {
     const putApi = (url: string, data: any) => {
       const service = (
-        resolve: (value?: string) => void,
+        resolve: (value?: any) => void,
         reject: (reason?: any) => void
       ) => {
         fetch(url, {
@@ -202,7 +214,10 @@ export const useTodoUpdateApi = (item: any) => {
     };
     (async () => {
       try {
-        if (todo.id !== 0) await putApi(url, todo);
+        if (todo.id !== 0) {
+          const result = await putApi(url, todo);
+          if (result.error) throw result.error;
+        }
       } catch (error) {
         console.log(error);
         throw error;
@@ -279,7 +294,7 @@ export const userCountApi = (propsCount: number) => {
 };
 
 export const Todo: React.FC = () => {
-  const [message, setMessage] = useTodoMessage("");
+  const [message, messageType, setMessage] = useTodoMessage("");
   const [state] = useTodoListApi([]);
   const [todoList, selectAll] = useTodoSelectAllApi(state.data);
   selectAll();
@@ -291,7 +306,10 @@ export const Todo: React.FC = () => {
         <div>Loading...</div>
       ) : (
         <div>
-          <TodoMessageView message={message}></TodoMessageView>
+          <TodoMessageView
+            message={message}
+            messageType={messageType}
+          ></TodoMessageView>
           <TodoInputView setMessage={setMessage}></TodoInputView>
           <TodoListView data={todoList} setMessage={setMessage}></TodoListView>
         </div>

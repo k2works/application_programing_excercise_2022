@@ -1,6 +1,5 @@
-import { setMaxListeners } from "process";
 import React, { useEffect, useRef, useState } from "react";
-import { useCreateApi } from "../app/Todo";
+import { MessageType, useCreateApi } from "../app/Todo";
 
 export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
   const item = {
@@ -21,10 +20,14 @@ export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
 
   const handleCreate = async () => {
     try {
-      create();
-      props.setMessage("Success");
+      const result = await create();
+      if (result.error) {
+        props.setMessage(result.message, MessageType.error);
+      } else {
+        props.setMessage("Success", MessageType.success);
+      }
     } catch (error) {
-      props.setMessage(error);
+      props.setMessage(error, MessageType.error);
     }
   };
 

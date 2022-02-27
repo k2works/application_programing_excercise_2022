@@ -4,6 +4,7 @@ import {
   useDeleteApi,
   Props,
   useTodoSelectAllApi,
+  MessageType,
 } from "../app/Todo";
 
 export const TodoItemView: React.FC<Props> = (props) => {
@@ -33,20 +34,20 @@ export const TodoItemView: React.FC<Props> = (props) => {
       setIsCompleted(!isCompleted);
       setTodo({ ...todo, completed: !isCompleted });
       selectAll();
-      props.setMessage("Success");
+      props.setMessage("Success", MessageType.success);
     } catch (error) {
-      props.setMessage(error);
+      props.setMessage(error, MessageType.error);
     }
   };
 
   const handleChangeDueDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      setDueDate(e.target.value);
+      const result = setDueDate(e.target.value);
       setTodo({ ...todo, dueDate: dueValue(e.target.value) });
       selectAll();
-      props.setMessage("Success");
+      props.setMessage("Success", MessageType.success);
     } catch (error) {
-      props.setMessage(error);
+      props.setMessage(error, MessageType.error);
     }
   };
 
@@ -55,9 +56,9 @@ export const TodoItemView: React.FC<Props> = (props) => {
       useDeleteApi(props.id);
       setTodo({ ...todo, id: 0 });
       selectAll();
-      props.setMessage("Success");
+      props.setMessage("Success", MessageType.success);
     } catch (error) {
-      props.setMessage(error);
+      props.setMessage(error, MessageType.error);
     }
   };
 
