@@ -90,26 +90,8 @@ package Api {
   IService -* TodoController
 }
 package Client {
-  class App {}
-  package view{
-    App *-- TodoListView
-    TodoListView -> TodoItemView
-    class TodoItemView {}
-    class TodoListView {}
-  }
-  package application {
-    App *-- TodoApiService
-    TodoApiService *-- TodoApiRepository
-  }
-  package model {
-    App *-- TodoListModel
-    App --> TodoItemModel
-    TodoListModel *-- TodoItemModel
-    class TodoItemModel {}
-    class TodoListModel {}
-  }
   package app {
-    class main {}
+    class React {}
     class TodoComponent {}
   }
   package components {
@@ -127,13 +109,13 @@ package Client {
   package reducers {
     class index
   }
-  TodoComponent <- main
+  TodoComponent <- React
   TodoListComponent --* TodoComponent
   TodoInputComponent --* TodoComponent
   TodoMessageComponent --* TodoComponent
   counter -> index  
 }
-TodoApiRepository --> Express
+TodoComponent --> Express
 `;
 
 const erd = `
