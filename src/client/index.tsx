@@ -6,14 +6,11 @@ import App from "./app/main";
 import rootReducer from "./reducers";
 
 import "./style.css";
-const app = require("./App.js");
 const dev = require("./Dev.js");
 let apiUrl = "http://localhost:3000/api";
 if (process.env.NODE_ENV === "production") {
   apiUrl = "https://ape2022.herokuapp.com/api";
 }
-const view = new app.App(apiUrl);
-view.mount();
 dev.setUp();
 
 const store = configureStore({
