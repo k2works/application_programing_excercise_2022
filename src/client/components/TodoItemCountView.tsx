@@ -6,7 +6,7 @@ export const TodoItemCountView: React.FC<{ count: number }> = (props) => {
 
   return (
     <footer className="footer">
-      <span>Todoアイテム数: {count}</span>
+      <span id="js-todo-count">Todoアイテム数: {count}</span>
     </footer>
   );
 };
