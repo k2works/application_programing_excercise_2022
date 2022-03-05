@@ -22,8 +22,8 @@ export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
     e.preventDefault();
     try {
       const result = await create();
-      if (result.error) {
-        props.setMessage(result.error, MessageType.error);
+      if (result.data.error) {
+        props.setMessage(result.data.error, MessageType.error);
       } else {
         props.setMessage("Success", MessageType.success);
       }

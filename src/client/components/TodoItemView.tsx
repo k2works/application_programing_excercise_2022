@@ -17,7 +17,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
     completed: isCompleted,
     dueDate: dueDate,
   };
-  const [todo, setTodo, error, message, update] = useTodoUpdateApi(item);
+  const [todo, setTodo, update] = useTodoUpdateApi(item);
   const [todoList, selectAll] = useTodoSelectAllApi([]);
 
   const dueValue = (value: any) => {
@@ -33,8 +33,8 @@ export const TodoItemView: React.FC<Props> = (props) => {
     try {
       setIsCompleted(!isCompleted);
       const result = await update({ ...todo, completed: !isCompleted });
-      if (result.error) {
-        props.setMessage(result.error, MessageType.error);
+      if (result.data.error) {
+        props.setMessage(result.data.error, MessageType.error);
       } else {
         props.setMessage("Success", MessageType.success);
         selectAll();
@@ -53,8 +53,8 @@ export const TodoItemView: React.FC<Props> = (props) => {
         ...todo,
         dueDate: dueValue(e.target.value),
       });
-      if (result.error) {
-        props.setMessage(result.error, MessageType.error);
+      if (result.data.error) {
+        props.setMessage(result.data.error, MessageType.error);
       } else {
         props.setMessage("Success", MessageType.success);
         selectAll();

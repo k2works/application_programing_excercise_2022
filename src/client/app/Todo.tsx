@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
+import axios from "axios";
 import { TodoInputView } from "../components/TodoInputView";
 import { TodoItemCountView } from "../components/TodoItemCountView";
 import { TodoListView } from "../components/TodoListView";
@@ -70,29 +71,11 @@ const useTodoListApi = (initialData: any) => {
 
   useEffect(() => {
     let didCancel = false;
-
-    const getApi = async (url: string) => {
-      const service = (
-        resolve: (value?: string) => void,
-        reject: (reason?: any) => void
-      ) => {
-        fetch(url)
-          .then((response) => response.json())
-          .then((json) => {
-            return resolve(json);
-          })
-          .catch((error) => {
-            return reject(error);
-          });
-      };
-      return new Promise(service);
-    };
-
     (async () => {
       dispatch({ type: "FETCH_INIT" });
       try {
-        const result: any = await getApi(url);
-        const items = result.value.map((item: any) => ({
+        const result: any = await axios(url);
+        const items = result.data.value.map((item: any) => ({
           title: item.title.value,
           status: item.status.value,
           id: item.id,
@@ -116,27 +99,11 @@ const useTodoListApi = (initialData: any) => {
 export const useTodoSelectAllApi = (initialData: any) => {
   const [todoList, setTodoList] = useState(initialData);
   const url = apiUrl.selectAll;
-  const getApi = async (url: string) => {
-    const service = (
-      resolve: (value?: string) => void,
-      reject: (reason?: any) => void
-    ) => {
-      fetch(url)
-        .then((response) => response.json())
-        .then((json) => {
-          return resolve(json);
-        })
-        .catch((error) => {
-          return reject(error);
-        });
-    };
-    return new Promise(service);
-  };
 
   const selectAll = async () => {
     try {
-      const result: any = await getApi(url);
-      const items = result.value.map((item: any) => ({
+      const result: any = await axios.get(url);
+      const items = result.data.value.map((item: any) => ({
         title: item.title.value,
         status: item.status.value,
         id: item.id,
@@ -156,41 +123,14 @@ export const useTodoSelectAllApi = (initialData: any) => {
 export const useCreateApi = (item: any) => {
   const url = apiUrl.create;
   const [todo, setTodo] = useState(item);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const postApi = (url: string, data: any) => {
-    const service = (
-      resolve: (value?: any) => void,
-      reject: (reason?: any) => void
-    ) => {
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          return resolve(json);
-        })
-        .catch((error) => {
-          return reject(error);
-        });
-    };
-    return new Promise(service);
-  };
 
   const create = async () => {
     try {
-      const result = await postApi(url, todo);
-      if (result.error) {
-        setError(true);
-        setMessage(result.message);
+      return await axios.post(url, todo);
+    } catch (e: any) {
+      if (e.response && e.response.status === 400) {
+        return e.response;
       }
-      return result;
-    } catch (error) {
-      console.log(error);
-      setError(true);
     }
   };
 
@@ -200,79 +140,32 @@ export const useCreateApi = (item: any) => {
 export const useTodoUpdateApi = (item: any) => {
   const url = apiUrl.update;
   const [todo, setTodo] = useState(item);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const putApi = (url: string, data: any) => {
-    const service = (
-      resolve: (value?: any) => void,
-      reject: (reason?: any) => void
-    ) => {
-      fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          return resolve(json);
-        })
-        .catch((error) => {
-          return reject(error);
-        });
-    };
-    return new Promise(service);
-  };
 
   const update = async (todo: any) => {
     try {
       setTodo(todo);
       if (todo.id !== 0) {
-        const result = await putApi(url, todo);
-        if (result.error) {
-          console.log(result.error);
-          setError(true);
-          setMessage(result.error);
-        }
-        return result;
+        return await axios.put(url, todo);
       }
-    } catch (error) {
-      console.log(error);
-      setError(true);
+    } catch (e: any) {
+      if (e.response && e.response.status === 400) {
+        return e.response;
+      }
     }
   };
 
-  return [todo, setTodo, error, message, update];
+  return [todo, setTodo, update];
 };
 
 export const useDeleteApi = (id: number) => {
   const url = apiUrl.delete;
-  const deleteApi = async (url: string, data: number) => {
-    const service = (
-      resolve: (value?: string) => void,
-      reject: (reason?: any) => void
-    ) => {
-      fetch(url, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: data }),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          return resolve(json);
-        })
-        .catch((error) => {
-          return reject(error);
-        });
-    };
-    return new Promise(service);
-  };
   (async () => {
     try {
-      deleteApi(url, id);
-    } catch (error) {
-      console.log(error);
-      throw error;
+      axios.delete(url, { data: { id: id } });
+    } catch (e: any) {
+      if (e.response && e.response.status === 400) {
+        return e.response;
+      }
     }
   })();
 
@@ -283,27 +176,16 @@ export const userCountApi = (propsCount: number) => {
   const url = apiUrl.count;
   const [count, setCount] = useState(0);
   useEffect(() => {
-    const getApi = (url: string) => {
-      const service = (
-        resolve: (value?: string) => void,
-        reject: (reason?: any) => void
-      ) => {
-        fetch(url)
-          .then((response) => response.json())
-          .then((json) => {
-            return resolve(json);
-          })
-          .catch((error) => {
-            return reject(error);
-          });
-      };
-      return new Promise(service);
-    };
-
     (async () => {
-      const result = await getApi(url);
-      if (result) setCount(parseInt(result));
-      if (propsCount === 0) setCount(0);
+      try {
+        const result = await axios.get(url);
+        if (result) setCount(parseInt(result.data));
+        if (propsCount === 0) setCount(0);
+      } catch (e: any) {
+        if (e.response && e.response.status === 400) {
+          return e.response;
+        }
+      }
     })();
   }, [propsCount]);
 

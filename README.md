@@ -54,6 +54,7 @@ npm install better-sqlite3 --save
 npm i -save tsoa swagger-ui-express @types/swagger-ui-express
 npm i -save react react-dom @types/react @types/react-dom
 npm i -save @reduxjs/toolkit react-redux
+npm i -save axios @types/axios
 ```
 
 **[⬆ back to top](#構成)**
