@@ -7,10 +7,6 @@ import rootReducer from "./reducers";
 
 import "./style.css";
 const dev = require("./Dev.js");
-let apiUrl = "http://localhost:3000/api";
-if (process.env.NODE_ENV === "production") {
-  apiUrl = "https://ape2022.herokuapp.com/api";
-}
 dev.setUp();
 
 const store = configureStore({

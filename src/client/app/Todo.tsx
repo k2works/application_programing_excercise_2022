@@ -13,7 +13,10 @@ export type Props = {
   setMessage: any;
 };
 
-const baseUrl = "http://localhost:3000/api";
+let baseUrl = "http://localhost:3000/api";
+if (process.env.NODE_ENV === "production") {
+  baseUrl = "https://ape2022.herokuapp.com/api";
+}
 const apiUrl = {
   selectAll: `${baseUrl}/todos`,
   create: `${baseUrl}/todo`,
