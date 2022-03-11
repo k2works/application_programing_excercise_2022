@@ -25,7 +25,7 @@ const contents = `
 - ~~Todoアイテム数（合計）を表示する~~
 `;
 
-const uml = `
+const arch = `
 package Api {
   package Presentation {
     class Express {}
@@ -45,49 +45,9 @@ package Api {
     TypeORM <- TodoRepository
   }
   IRepository -* TodoService
-  package Domain {
-    package Type {
-      class TodoStatusType {}
-    }
-    
-    package Model {
-      package Status {
-        abstract class TodoStatus {
-          static create()
-        }
-        class NotStarted extends TodoStatus {}
-        class InProgress extends TodoStatus {}
-        class Completed extends TodoStatus {}
-        interface IStatus
-      }
-
-      package Todo {
-        class Todo {
-          isCompleted
-          isOverdue
-        }
-        class TodoList {}
-        class Title {}
-        class CreatedAt {}
-        class CompletedAt {}
-        class DueDate {
-          overDue()
-        }
-      }
-    }
-
-    Todo *-- Title
-    Todo *-- CreatedAt
-    Todo *-- CompletedAt
-    Todo *-- DueDate
-    TodoList *- Todo
-    Todo *- IStatus
-    TodoStatus -> TodoStatusType
-    IStatus <|- TodoStatus
-  }
-  TodoRepository --> Todo
-  TodoRepository --> TodoList
+  package Domain {}
   IService -* TodoController
+  TodoRepository --> Domain
 }
 package Client {
   package app {
@@ -118,6 +78,49 @@ package Client {
 TodoComponent --> Express
 `;
 
+const uml = `
+package Domain {
+  package Type {
+    class TodoStatusType {}
+  }
+  
+  package Model {
+    package Status {
+      abstract class TodoStatus {
+        static create()
+      }
+      class NotStarted extends TodoStatus {}
+      class InProgress extends TodoStatus {}
+      class Completed extends TodoStatus {}
+      interface IStatus
+    }
+
+    package Todo {
+      class Todo {
+        isCompleted
+        isOverdue
+      }
+      class TodoList {}
+      class Title {}
+      class CreatedAt {}
+      class CompletedAt {}
+      class DueDate {
+        overDue()
+      }
+    }
+  }
+
+  Todo *-- Title
+  Todo *-- CreatedAt
+  Todo *-- CompletedAt
+  Todo *-- DueDate
+  TodoList *- Todo
+  Todo *- IStatus
+  TodoStatus -> TodoStatusType
+  IStatus <|- TodoStatus
+}
+`;
+
 const erd = `
 entity Todo {
   * id
@@ -142,7 +145,7 @@ Status ||.o{ Todo
 export const setUp = () => {
   init();
   documents(contents);
-  diagrams(uml, erd);
+  diagrams(arch, uml, erd);
 };
 
 const init = () => {
@@ -158,6 +161,11 @@ const init = () => {
               </div>
               <div class="row p-3">
                 <div id="spec"></div>
+              </div>
+              <h2>アーキテクチャ</h2>
+              <div class="row p-3">
+                <img id="arch-im"
+                src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
               </div>
               <h2>ドメインモデル</h2>
               <div class="row p-3">
@@ -184,7 +192,14 @@ const documents = (contents) => {
   });
 };
 
-const diagrams = (uml, erd) => {
+const diagrams = (arch, uml, erd) => {
+  const archDiagram = ((arch) => {
+    const inputId = "arch-diagram-input";
+    const outputId = "arch-im";
+    const source = arch;
+    compress(source, outputId);
+  })(arch);
+
   const classDiagram = ((uml) => {
     const inputId = "class-diagram-input";
     const outputId = "class-im";
