@@ -1,9 +1,7 @@
 import React from "react";
 import { TodoItemView } from "./TodoItemView";
 
-export const TodoListView: React.FC<{ data: any; setMessage?: () => {} }> = (
-  props: any
-) => {
+export const TodoListView: React.FC<{ data: any }> = (props: any) => {
   return (
     <div id="js-todo-list">
       <ul>
@@ -15,7 +13,6 @@ export const TodoListView: React.FC<{ data: any; setMessage?: () => {} }> = (
             completed={item.completed}
             dueDate={item.dueDate}
             key={item.id}
-            setMessage={props.setMessage}
           ></TodoItemView>
         ))}
       </ul>

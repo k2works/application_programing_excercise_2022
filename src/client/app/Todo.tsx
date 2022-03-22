@@ -11,7 +11,6 @@ export type Props = {
   completed: boolean;
   dueDate: string;
   status: string;
-  setMessage: any;
 };
 
 let baseUrl = "http://localhost:3000/api";
@@ -31,18 +30,6 @@ export enum MessageType {
   error = "error",
 }
 
-export const useTodoMessage = (message: any) => {
-  const [messageState, setMessageState] = useState(message);
-  const [messageType, setMessageType] = useState(MessageType.success);
-
-  const setMessage = (message: any, type: MessageType) => {
-    setMessageState(message);
-    setMessageType(type);
-  };
-
-  return [messageState, messageType, setMessage];
-};
-
 const dataFetchReducer = (state: any, action: any) => {
   switch (action.type) {
     case "FETCH_INIT":
@@ -55,7 +42,28 @@ const dataFetchReducer = (state: any, action: any) => {
         data: action.payload,
       };
     case "FETCH_FAILURE":
-      return { ...state, isLoading: false, isError: true };
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    case "SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        message: action.message,
+        messageType: action.messageType,
+        data: action.payload,
+      };
+    case "FAILURE":
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.message,
+        messageType: action.messageType,
+      };
     default:
       throw new Error();
   }
@@ -197,7 +205,6 @@ export const Todo: React.FC = () => {
     data: [],
   });
   useTodoListApi(state.data, dispatch);
-  const [message, messageType, setMessage] = useTodoMessage("");
 
   return (
     <Context.Provider value={{ state, dispatch }}>
@@ -208,14 +215,11 @@ export const Todo: React.FC = () => {
         ) : (
           <div>
             <TodoMessageView
-              message={message}
-              messageType={messageType}
+              messageType={state.messageType}
+              message={state.message}
             ></TodoMessageView>
-            <TodoInputView setMessage={setMessage}></TodoInputView>
-            <TodoListView
-              data={state.data}
-              setMessage={setMessage}
-            ></TodoListView>
+            <TodoInputView></TodoInputView>
+            <TodoListView data={state.data}></TodoListView>
           </div>
         )}
         <TodoItemCountView count={state.data.length}></TodoItemCountView>

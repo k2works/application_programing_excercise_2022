@@ -36,15 +36,26 @@ export const TodoItemView: React.FC<Props> = (props) => {
       setIsCompleted(!isCompleted);
       const result = await update({ ...todo, completed: !isCompleted });
       if (result.data.error) {
-        dispatch({ type: "FETCH_FAILURE" });
-        props.setMessage(result.data.error, MessageType.error);
+        dispatch({
+          type: "FAILURE",
+          message: result.data.error,
+          messageType: MessageType.error,
+        });
       } else {
-        dispatch({ type: "FETCH_SUCCESS", payload: state.data });
-        props.setMessage("Success", MessageType.success);
+        dispatch({
+          type: "SUCCESS",
+          payload: state.data,
+          message: "Success",
+          messageType: MessageType.success,
+        });
         selectAll();
       }
     } catch (e) {
-      props.setMessage(e, MessageType.error);
+      dispatch({
+        type: "FAILURE",
+        message: e,
+        messageType: MessageType.error,
+      });
     }
   };
 
@@ -59,29 +70,47 @@ export const TodoItemView: React.FC<Props> = (props) => {
         dueDate: dueValue(e.target.value),
       });
       if (result.data.error) {
-        dispatch({ type: "FETCH_FAILURE" });
-        props.setMessage(result.data.error, MessageType.error);
+        dispatch({
+          type: "FAILURE",
+          message: result.data.error,
+          messageType: MessageType.error,
+        });
       } else {
         selectAll();
-        dispatch({ type: "FETCH_SUCCESS", payload: todoList });
-        props.setMessage("Success", MessageType.success);
+        dispatch({
+          type: "SUCCESS",
+          payload: todoList,
+          message: "Success",
+          messageType: MessageType.success,
+        });
       }
     } catch (e) {
-      props.setMessage(e, MessageType.error);
+      dispatch({
+        type: "FAILURE",
+        message: e,
+        messageType: MessageType.error,
+      });
     }
   };
 
   const handleClickDelete = async () => {
     try {
-      dispatch({ type: "FETCH_INIT" });
       useDeleteApi(props.id);
       setTodo({ ...todo, id: 0 });
       selectAll();
-      props.setMessage("Success", MessageType.success);
-      dispatch({ type: "FETCH_SUCCESS", payload: state.data });
+      dispatch({
+        type: "SUCCESS",
+        payload: state.data,
+        message: "Success",
+        messageType: MessageType.success,
+      });
     } catch (error) {
       dispatch({ type: "FETCH_FAILURE" });
-      props.setMessage(error, MessageType.error);
+      dispatch({
+        type: "FAILURE",
+        message: error,
+        messageType: MessageType.error,
+      });
     }
   };
 

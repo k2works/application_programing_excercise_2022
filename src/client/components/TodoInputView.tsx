@@ -6,7 +6,7 @@ import {
   useTodoSelectAllApi,
 } from "../app/Todo";
 
-export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
+export const TodoInputView: React.FC<{}> = (props) => {
   const { state, dispatch } = React.useContext(Context);
   const [todoList, selectAll] = useTodoSelectAllApi([], dispatch);
 
@@ -29,18 +29,28 @@ export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
   const handleCreate = async (e: any) => {
     e.preventDefault();
     try {
-      dispatch({ type: "FETCH_INIT" });
       const result = await create();
       if (result.data.error) {
-        dispatch({ type: "FETCH_FAILURE" });
-        props.setMessage(result.data.error, MessageType.error);
+        dispatch({
+          type: "FAILURE",
+          message: result.data.error,
+          messageType: MessageType.error,
+        });
       } else {
         selectAll();
-        dispatch({ type: "FETCH_SUCCESS", payload: todoList });
-        props.setMessage("Success", MessageType.success);
+        dispatch({
+          type: "SUCCESS",
+          payload: todoList,
+          message: "Success",
+          messageType: MessageType.success,
+        });
       }
     } catch (error) {
-      props.setMessage(error, MessageType.error);
+      dispatch({
+        type: "FAILURE",
+        message: error,
+        messageType: MessageType.error,
+      });
     }
   };
 
