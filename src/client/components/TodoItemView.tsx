@@ -5,9 +5,11 @@ import {
   Props,
   useTodoSelectAllApi,
   MessageType,
+  Context,
 } from "../app/Todo";
 
 export const TodoItemView: React.FC<Props> = (props) => {
+  const { state, dispatch } = React.useContext(Context);
   const [isCompleted, setIsCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
   const item = {
@@ -18,7 +20,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
     dueDate: dueDate,
   };
   const [todo, setTodo, update] = useTodoUpdateApi(item);
-  const [todoList, selectAll] = useTodoSelectAllApi([]);
+  const [todoList, selectAll] = useTodoSelectAllApi([], dispatch);
 
   const dueValue = (value: any) => {
     if (value === null || value === "") {
@@ -34,8 +36,10 @@ export const TodoItemView: React.FC<Props> = (props) => {
       setIsCompleted(!isCompleted);
       const result = await update({ ...todo, completed: !isCompleted });
       if (result.data.error) {
+        dispatch({ type: "FETCH_FAILURE" });
         props.setMessage(result.data.error, MessageType.error);
       } else {
+        dispatch({ type: "FETCH_SUCCESS", payload: state.data });
         props.setMessage("Success", MessageType.success);
         selectAll();
       }
@@ -48,16 +52,19 @@ export const TodoItemView: React.FC<Props> = (props) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     try {
+      dispatch({ type: "FETCH_INIT" });
       setDueDate(e.target.value);
       const result = await update({
         ...todo,
         dueDate: dueValue(e.target.value),
       });
       if (result.data.error) {
+        dispatch({ type: "FETCH_FAILURE" });
         props.setMessage(result.data.error, MessageType.error);
       } else {
-        props.setMessage("Success", MessageType.success);
         selectAll();
+        dispatch({ type: "FETCH_SUCCESS", payload: todoList });
+        props.setMessage("Success", MessageType.success);
       }
     } catch (e) {
       props.setMessage(e, MessageType.error);
@@ -66,11 +73,14 @@ export const TodoItemView: React.FC<Props> = (props) => {
 
   const handleClickDelete = async () => {
     try {
+      dispatch({ type: "FETCH_INIT" });
       useDeleteApi(props.id);
       setTodo({ ...todo, id: 0 });
       selectAll();
       props.setMessage("Success", MessageType.success);
+      dispatch({ type: "FETCH_SUCCESS", payload: state.data });
     } catch (error) {
+      dispatch({ type: "FETCH_FAILURE" });
       props.setMessage(error, MessageType.error);
     }
   };

@@ -61,13 +61,8 @@ const dataFetchReducer = (state: any, action: any) => {
   }
 };
 
-const useTodoListApi = (initialData: any) => {
+const useTodoListApi = (initialData: any, dispatch: any) => {
   const url = apiUrl.selectAll;
-  const [state, dispatch] = useReducer(dataFetchReducer, {
-    isLoading: false,
-    isError: false,
-    data: initialData,
-  });
 
   useEffect(() => {
     let didCancel = false;
@@ -93,10 +88,10 @@ const useTodoListApi = (initialData: any) => {
     };
   }, []);
 
-  return [state];
+  return [initialData];
 };
 
-export const useTodoSelectAllApi = (initialData: any) => {
+export const useTodoSelectAllApi = (initialData: any, dispatch: any) => {
   const [todoList, setTodoList] = useState(initialData);
   const url = apiUrl.selectAll;
 
@@ -110,8 +105,10 @@ export const useTodoSelectAllApi = (initialData: any) => {
         completed: item.isCompleted,
         dueDate: item.dueDate.value,
       }));
+      dispatch({ type: "FETCH_SUCCESS", payload: items });
       setTodoList(items);
     } catch (error) {
+      dispatch({ type: "FETCH_FAILURE" });
       console.log(error);
       throw error;
     }
@@ -192,28 +189,37 @@ export const userCountApi = (propsCount: number) => {
   return [count, setCount];
 };
 
+export const Context = React.createContext({} as { state: any; dispatch: any });
 export const Todo: React.FC = () => {
+  const [state, dispatch] = useReducer(dataFetchReducer, {
+    isLoading: false,
+    isError: false,
+    data: [],
+  });
+  useTodoListApi(state.data, dispatch);
   const [message, messageType, setMessage] = useTodoMessage("");
-  const [state] = useTodoListApi([]);
-  const [todoList, selectAll] = useTodoSelectAllApi(state.data);
-  selectAll();
 
   return (
-    <div>
-      {state.isError && <div>Something went wrong ...</div>}
-      {state.isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <div>
-          <TodoMessageView
-            message={message}
-            messageType={messageType}
-          ></TodoMessageView>
-          <TodoInputView setMessage={setMessage}></TodoInputView>
-          <TodoListView data={todoList} setMessage={setMessage}></TodoListView>
-        </div>
-      )}
-      <TodoItemCountView count={todoList.length}></TodoItemCountView>
-    </div>
+    <Context.Provider value={{ state, dispatch }}>
+      <div>
+        {state.isError && <div>Something went wrong ...</div>}
+        {state.isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <div>
+            <TodoMessageView
+              message={message}
+              messageType={messageType}
+            ></TodoMessageView>
+            <TodoInputView setMessage={setMessage}></TodoInputView>
+            <TodoListView
+              data={state.data}
+              setMessage={setMessage}
+            ></TodoListView>
+          </div>
+        )}
+        <TodoItemCountView count={state.data.length}></TodoItemCountView>
+      </div>
+    </Context.Provider>
   );
 };

@@ -1,7 +1,15 @@
-import React, { ReducerAction, useEffect, useRef, useState } from "react";
-import { MessageType, useCreateApi } from "../app/Todo";
+import React, { useEffect, useRef } from "react";
+import {
+  Context,
+  MessageType,
+  useCreateApi,
+  useTodoSelectAllApi,
+} from "../app/Todo";
 
 export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
+  const { state, dispatch } = React.useContext(Context);
+  const [todoList, selectAll] = useTodoSelectAllApi([], dispatch);
+
   const item = {
     title: "",
     completed: false,
@@ -21,10 +29,14 @@ export const TodoInputView: React.FC<{ setMessage: any }> = (props) => {
   const handleCreate = async (e: any) => {
     e.preventDefault();
     try {
+      dispatch({ type: "FETCH_INIT" });
       const result = await create();
       if (result.data.error) {
+        dispatch({ type: "FETCH_FAILURE" });
         props.setMessage(result.data.error, MessageType.error);
       } else {
+        selectAll();
+        dispatch({ type: "FETCH_SUCCESS", payload: todoList });
         props.setMessage("Success", MessageType.success);
       }
     } catch (error) {
