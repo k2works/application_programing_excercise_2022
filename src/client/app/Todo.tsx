@@ -1,9 +1,12 @@
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllAsync } from "../features/todo/todoSlice";
 import { TodoInputView } from "../components/TodoInputView";
 import { TodoItemCountView } from "../components/TodoItemCountView";
 import { TodoListView } from "../components/TodoListView";
 import { TodoMessageView } from "../components/TodoMessageView";
+import { RootState } from "../reducers";
 
 export type Props = {
   id: number;
@@ -99,104 +102,6 @@ const useTodoListApi = (initialData: any, dispatch: any) => {
   return [initialData];
 };
 
-export const useTodoSelectAllApi = (initialData: any, dispatch: any) => {
-  const [todoList, setTodoList] = useState(initialData);
-  const url = apiUrl.selectAll;
-
-  const selectAll = async () => {
-    try {
-      const result: any = await axios.get(url);
-      const items = result.data.value.map((item: any) => ({
-        title: item.title.value,
-        status: item.status.value,
-        id: item.id,
-        completed: item.isCompleted,
-        dueDate: item.dueDate.value,
-      }));
-      dispatch({ type: "FETCH_SUCCESS", payload: items });
-      setTodoList(items);
-    } catch (error) {
-      dispatch({ type: "FETCH_FAILURE" });
-      console.log(error);
-      throw error;
-    }
-  };
-
-  return [todoList, selectAll];
-};
-
-export const useCreateApi = (item: any) => {
-  const url = apiUrl.create;
-  const [todo, setTodo] = useState(item);
-
-  const create = async () => {
-    try {
-      return await axios.post(url, todo);
-    } catch (e: any) {
-      if (e.response && e.response.status === 400) {
-        return e.response;
-      }
-    }
-  };
-
-  return [todo, setTodo, create];
-};
-
-export const useTodoUpdateApi = (item: any) => {
-  const url = apiUrl.update;
-  const [todo, setTodo] = useState(item);
-
-  const update = async (todo: any) => {
-    try {
-      setTodo(todo);
-      if (todo.id !== 0) {
-        return await axios.put(url, todo);
-      }
-    } catch (e: any) {
-      if (e.response && e.response.status === 400) {
-        return e.response;
-      }
-    }
-  };
-
-  return [todo, setTodo, update];
-};
-
-export const useDeleteApi = (id: number) => {
-  const url = apiUrl.delete;
-  (async () => {
-    try {
-      axios.delete(url, { data: { id: id } });
-    } catch (e: any) {
-      if (e.response && e.response.status === 400) {
-        return e.response;
-      }
-    }
-  })();
-
-  return [];
-};
-
-export const userCountApi = (propsCount: number) => {
-  const url = apiUrl.count;
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await axios.get(url);
-        if (result) setCount(parseInt(result.data));
-        if (propsCount === 0) setCount(0);
-      } catch (e: any) {
-        if (e.response && e.response.status === 400) {
-          return e.response;
-        }
-      }
-    })();
-  }, [propsCount]);
-
-  return [count, setCount];
-};
-
 export const Context = React.createContext({} as { state: any; dispatch: any });
 export const Todo: React.FC = () => {
   const [state, dispatch] = useReducer(dataFetchReducer, {
@@ -205,25 +110,28 @@ export const Todo: React.FC = () => {
     data: [],
   });
   useTodoListApi(state.data, dispatch);
+  const dispatch2 = useDispatch();
+  const { todos, count } = useSelector((state: RootState) => state.todo);
+  useEffect(() => {
+    dispatch2(selectAllAsync());
+  }, [count]);
 
   return (
-    <Context.Provider value={{ state, dispatch }}>
-      <div>
-        {state.isError && <div>Something went wrong ...</div>}
-        {state.isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          <div>
-            <TodoMessageView
-              messageType={state.messageType}
-              message={state.message}
-            ></TodoMessageView>
-            <TodoInputView></TodoInputView>
-            <TodoListView data={state.data}></TodoListView>
-          </div>
-        )}
-        <TodoItemCountView count={state.data.length}></TodoItemCountView>
-      </div>
-    </Context.Provider>
+    <div>
+      {state.isError && <div>Something went wrong ...</div>}
+      {state.isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          <TodoMessageView
+            messageType={state.messageType}
+            message={state.message}
+          ></TodoMessageView>
+          <TodoInputView></TodoInputView>
+          <TodoListView data={todos}></TodoListView>
+        </div>
+      )}
+      <TodoItemCountView count={count}></TodoItemCountView>
+    </div>
   );
 };

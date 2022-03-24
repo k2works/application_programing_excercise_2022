@@ -1,8 +1,14 @@
-import React from "react";
-import { userCountApi } from "../app/Todo";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { countAsync } from "../features/todo/todoSlice";
+import { RootState } from "../reducers";
 
 export const TodoItemCountView: React.FC<{ count: number }> = (props) => {
-  const [count, setCount] = userCountApi(props.count);
+  const dispatch = useDispatch();
+  const count = useSelector((state: RootState) => state.todo.count);
+  useEffect(() => {
+    dispatch(countAsync());
+  }, [count]);
 
   return (
     <footer className="footer">

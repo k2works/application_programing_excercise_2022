@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  useTodoUpdateApi,
-  useDeleteApi,
-  Props,
-  useTodoSelectAllApi,
-  MessageType,
-  Context,
-} from "../app/Todo";
+import { useDispatch } from "react-redux";
+import { updateAsync, deleteAsync } from "../features/todo/todoSlice";
+import { Props } from "../app/Todo";
 
 export const TodoItemView: React.FC<Props> = (props) => {
-  const { state, dispatch } = React.useContext(Context);
   const [isCompleted, setIsCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
   const item = {
@@ -19,11 +13,11 @@ export const TodoItemView: React.FC<Props> = (props) => {
     completed: isCompleted,
     dueDate: dueDate,
   };
-  const [todo, setTodo, update] = useTodoUpdateApi(item);
-  const [todoList, selectAll] = useTodoSelectAllApi([], dispatch);
+  const [todo, setTodo] = useState(item);
+  const dispatch = useDispatch();
 
   const dueValue = (value: any) => {
-    if (value === null || value === "") {
+    if (value === null || value === "" || value === undefined) {
       return "";
     } else {
       const date = new Date(value);
@@ -32,8 +26,11 @@ export const TodoItemView: React.FC<Props> = (props) => {
   };
 
   const handleChangeCheck = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsCompleted(!isCompleted);
+    setTodo({ ...todo, completed: !isCompleted });
+    dispatch(updateAsync({ ...todo, completed: !isCompleted }));
+    /*
     try {
-      setIsCompleted(!isCompleted);
       const result = await update({ ...todo, completed: !isCompleted });
       if (result.data.error) {
         dispatch({
@@ -57,14 +54,19 @@ export const TodoItemView: React.FC<Props> = (props) => {
         messageType: MessageType.error,
       });
     }
+    */
   };
 
   const handleChangeDueDate = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setDueDate(dueValue(e.target.value));
+    const value = dueValue(e.target.value);
+    setTodo({ ...todo, dueDate: value });
+    dispatch(updateAsync({ ...todo, dueDate: value }));
+    /*
     try {
       dispatch({ type: "FETCH_INIT" });
-      setDueDate(e.target.value);
       const result = await update({
         ...todo,
         dueDate: dueValue(e.target.value),
@@ -91,12 +93,15 @@ export const TodoItemView: React.FC<Props> = (props) => {
         messageType: MessageType.error,
       });
     }
+  */
   };
 
   const handleClickDelete = async () => {
+    dispatch(deleteAsync(todo.id));
+    setTodo({ ...todo, id: 0 });
+    /*
     try {
       useDeleteApi(props.id);
-      setTodo({ ...todo, id: 0 });
       selectAll();
       dispatch({
         type: "SUCCESS",
@@ -112,6 +117,7 @@ export const TodoItemView: React.FC<Props> = (props) => {
         messageType: MessageType.error,
       });
     }
+    */
   };
 
   const statusClassName = () => {

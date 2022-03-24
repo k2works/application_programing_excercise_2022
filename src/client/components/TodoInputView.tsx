@@ -1,22 +1,15 @@
-import React, { useEffect, useRef } from "react";
-import {
-  Context,
-  MessageType,
-  useCreateApi,
-  useTodoSelectAllApi,
-} from "../app/Todo";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { createAsync } from "../features/todo/todoSlice";
 
-export const TodoInputView: React.FC<{}> = (props) => {
-  const { state, dispatch } = React.useContext(Context);
-  const [todoList, selectAll] = useTodoSelectAllApi([], dispatch);
-
+export const TodoInputView: React.FC<{}> = () => {
   const item = {
     title: "",
     completed: false,
   };
-
-  const [todo, setTodo, create] = useCreateApi(item);
+  const [todo, setTodo] = useState(item);
   const inputRef: any = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
@@ -28,6 +21,8 @@ export const TodoInputView: React.FC<{}> = (props) => {
 
   const handleCreate = async (e: any) => {
     e.preventDefault();
+    dispatch(createAsync(todo));
+    /*
     try {
       const result = await create();
       if (result.data.error) {
@@ -52,6 +47,7 @@ export const TodoInputView: React.FC<{}> = (props) => {
         messageType: MessageType.error,
       });
     }
+  */
   };
 
   return (
