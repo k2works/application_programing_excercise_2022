@@ -107,4 +107,10 @@ public
 .vercel
 
 cypress/screenshots
-cypress/videos 
+cypress/videos
+
+*.sqlite
+
+.idea
+
+.vscode
