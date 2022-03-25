@@ -135,7 +135,7 @@ export const selectAllAsync = () => async (dispatch: any) => {
   await selectAll();
 };
 
-export const createAsync = (item: any) => async (dispatch: any) => {
+export const createAsync = (item: Todo) => async (dispatch: any) => {
   const url = apiUrl.create;
   const create = async () => {
     try {
@@ -154,9 +154,9 @@ export const createAsync = (item: any) => async (dispatch: any) => {
   await selectAllAsync()(dispatch);
 };
 
-export const updateAsync = (item: any) => async (dispatch: any) => {
+export const updateAsync = (item: Todo) => async (dispatch: any) => {
   const url = apiUrl.update;
-  const update = async (todo: any) => {
+  const update = async (todo: Todo) => {
     try {
       if (todo.id !== 0) {
         await axios.put(url, todo);
@@ -172,6 +172,7 @@ export const updateAsync = (item: any) => async (dispatch: any) => {
   };
 
   await update(item);
+  await selectAllAsync()(dispatch);
 };
 
 export const deleteAsync = (id: number) => async (dispatch: any) => {

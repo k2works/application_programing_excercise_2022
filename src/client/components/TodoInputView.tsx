@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createAsync } from "../features/todo/todoSlice";
+import { createAsync, Todo } from "../features/todo/todoSlice";
 
-export const TodoInputView: React.FC<{}> = () => {
-  const item = {
+export const TodoInputView: React.VFC<{}> = () => {
+  const item: Todo = {
+    id: 0,
     title: "",
     completed: false,
+    dueDate: "",
+    status: "",
   };
   const [todo, setTodo] = useState(item);
   const inputRef: any = useRef();

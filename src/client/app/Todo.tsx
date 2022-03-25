@@ -7,8 +7,7 @@ import { TodoListView } from "../components/TodoListView";
 import { TodoMessageView } from "../components/TodoMessageView";
 import { RootState } from "../reducers";
 
-export const Context = React.createContext({} as { state: any; dispatch: any });
-export const Todo: React.FC = () => {
+export const Todo: React.VFC = () => {
   const { isLoading, isError } = useSelector((state: RootState) => state.todo);
   const dispatch = useDispatch();
   useEffect(() => {

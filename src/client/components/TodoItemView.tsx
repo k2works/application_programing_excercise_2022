@@ -3,20 +3,19 @@ import { useDispatch } from "react-redux";
 import { updateAsync, deleteAsync } from "../features/todo/todoSlice";
 import { Todo } from "../features/todo/todoSlice";
 
-export const TodoItemView: React.FC<Todo> = (props) => {
+export const TodoItemView: React.VFC<Todo> = (props) => {
   const [isCompleted, setIsCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
-  const item = {
+  const item: Todo = {
     title: props.title,
     status: props.status,
     id: props.id,
     completed: isCompleted,
     dueDate: dueDate,
   };
-  const [todo, setTodo] = useState(item);
   const dispatch = useDispatch();
 
-  const dueValue = (value: any) => {
+  const dueValue = (value: string) => {
     if (value === null || value === "" || value === undefined) {
       return "";
     } else {
@@ -27,22 +26,19 @@ export const TodoItemView: React.FC<Todo> = (props) => {
 
   const handleChangeCheck = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsCompleted(!isCompleted);
-    setTodo({ ...todo, completed: !isCompleted });
-    dispatch(updateAsync({ ...todo, completed: !isCompleted }));
+    dispatch(updateAsync({ ...item, completed: !isCompleted }));
   };
 
   const handleChangeDueDate = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setDueDate(dueValue(e.target.value));
     const value = dueValue(e.target.value);
-    setTodo({ ...todo, dueDate: value });
-    dispatch(updateAsync({ ...todo, dueDate: value }));
+    setDueDate(value);
+    dispatch(updateAsync({ ...item, dueDate: value }));
   };
 
   const handleClickDelete = async () => {
-    dispatch(deleteAsync(todo.id));
-    setTodo({ ...todo, id: 0 });
+    dispatch(deleteAsync(item.id));
   };
 
   const statusClassName = () => {
