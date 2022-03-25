@@ -11,11 +11,19 @@ export type Todo = {
 export type State = {
   todos: Todo[];
   count: number;
+  message: {
+    type: string;
+    text: string;
+  };
 };
 
 const initialState: State = {
   todos: [],
   count: 0,
+  message: {
+    type: "",
+    text: "",
+  },
 };
 
 let baseUrl = "http://localhost:3000/api";
@@ -30,6 +38,11 @@ const apiUrl = {
   count: `${baseUrl}/todos/count`,
 };
 
+export enum MessageType {
+  success = "success",
+  error = "error",
+}
+
 const todoSlice = createSlice({
   name: "todos",
   initialState,
@@ -43,12 +56,16 @@ const todoSlice = createSlice({
         title: action.payload.title,
         completed: false,
         dueDate: action.payload.dueDate,
-        status: "todo",
+        status: "",
       };
       return {
         ...state,
         todos: [newTodo, ...state.todos],
         count: state.count + 1,
+        message: {
+          type: MessageType.success,
+          text: "Create Success",
+        },
       };
     },
     updateTodo: (state, action: PayloadAction<Todo>) => {
@@ -58,14 +75,29 @@ const todoSlice = createSlice({
         }
         return todo;
       });
-      return { ...state, todos: newTodos };
+      return {
+        ...state,
+        todos: newTodos,
+        message: { type: MessageType.success, text: "Update Success" },
+      };
     },
     deleteTodo: (state, action: PayloadAction<number>) => {
       const newTodos = state.todos.filter((i) => i.id !== action.payload);
-      return { ...state, todos: newTodos, count: state.count - 1 };
+      return {
+        ...state,
+        todos: newTodos,
+        count: state.count - 1,
+        message: { type: MessageType.success, text: "Delete Success" },
+      };
     },
     countTodo: (state, action: PayloadAction<number>) => {
       return { ...state, todos: state.todos, count: action.payload };
+    },
+    failed: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        message: { type: MessageType.error, text: action.payload },
+      };
     },
   },
 });
@@ -95,16 +127,18 @@ export const createAsync = (item: any) => async (dispatch: any) => {
   const url = apiUrl.create;
   const create = async () => {
     try {
-      return await axios.post(url, item);
+      await axios.post(url, item);
+      dispatch(addTodo(item));
     } catch (e: any) {
       if (e.response && e.response.status === 400) {
-        return e.response;
+        return dispatch(failed(e.response.data.error));
+      } else {
+        dispatch(failed(e));
       }
     }
   };
 
   await create();
-  dispatch(addTodo(item));
 };
 
 export const updateAsync = (item: any) => async (dispatch: any) => {
@@ -112,17 +146,19 @@ export const updateAsync = (item: any) => async (dispatch: any) => {
   const update = async (todo: any) => {
     try {
       if (todo.id !== 0) {
-        return await axios.put(url, todo);
+        await axios.put(url, todo);
+        dispatch(updateTodo(item));
       }
     } catch (e: any) {
       if (e.response && e.response.status === 400) {
-        return e.response;
+        return dispatch(failed(e.response.data.error));
+      } else {
+        dispatch(failed(e));
       }
     }
   };
 
   await update(item);
-  dispatch(updateTodo(item));
 };
 
 export const deleteAsync = (id: number) => async (dispatch: any) => {
@@ -130,14 +166,15 @@ export const deleteAsync = (id: number) => async (dispatch: any) => {
   (async () => {
     try {
       axios.delete(url, { data: { id: id } });
+      dispatch(deleteTodo(id));
     } catch (e: any) {
       if (e.response && e.response.status === 400) {
-        return e.response;
+        return dispatch(failed(e.response.data.error));
+      } else {
+        dispatch(failed(e));
       }
     }
   })();
-
-  dispatch(deleteTodo(id));
 };
 
 export const countAsync = () => async (dispatch: any) => {
@@ -147,12 +184,14 @@ export const countAsync = () => async (dispatch: any) => {
     if (result) dispatch(countTodo(parseInt(result.data)));
   } catch (e: any) {
     if (e.response && e.response.status === 400) {
-      return e.response;
+      return dispatch(failed(e.response.data.error));
+    } else {
+      dispatch(failed(e));
     }
   }
 };
 
-export const { allTodo, addTodo, updateTodo, deleteTodo, countTodo } =
+export const { allTodo, addTodo, updateTodo, deleteTodo, countTodo, failed } =
   todoSlice.actions;
 
 export default todoSlice.reducer;

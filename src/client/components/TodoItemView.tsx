@@ -29,32 +29,6 @@ export const TodoItemView: React.FC<Props> = (props) => {
     setIsCompleted(!isCompleted);
     setTodo({ ...todo, completed: !isCompleted });
     dispatch(updateAsync({ ...todo, completed: !isCompleted }));
-    /*
-    try {
-      const result = await update({ ...todo, completed: !isCompleted });
-      if (result.data.error) {
-        dispatch({
-          type: "FAILURE",
-          message: result.data.error,
-          messageType: MessageType.error,
-        });
-      } else {
-        dispatch({
-          type: "SUCCESS",
-          payload: state.data,
-          message: "Success",
-          messageType: MessageType.success,
-        });
-        selectAll();
-      }
-    } catch (e) {
-      dispatch({
-        type: "FAILURE",
-        message: e,
-        messageType: MessageType.error,
-      });
-    }
-    */
   };
 
   const handleChangeDueDate = async (
@@ -64,60 +38,11 @@ export const TodoItemView: React.FC<Props> = (props) => {
     const value = dueValue(e.target.value);
     setTodo({ ...todo, dueDate: value });
     dispatch(updateAsync({ ...todo, dueDate: value }));
-    /*
-    try {
-      dispatch({ type: "FETCH_INIT" });
-      const result = await update({
-        ...todo,
-        dueDate: dueValue(e.target.value),
-      });
-      if (result.data.error) {
-        dispatch({
-          type: "FAILURE",
-          message: result.data.error,
-          messageType: MessageType.error,
-        });
-      } else {
-        selectAll();
-        dispatch({
-          type: "SUCCESS",
-          payload: todoList,
-          message: "Success",
-          messageType: MessageType.success,
-        });
-      }
-    } catch (e) {
-      dispatch({
-        type: "FAILURE",
-        message: e,
-        messageType: MessageType.error,
-      });
-    }
-  */
   };
 
   const handleClickDelete = async () => {
     dispatch(deleteAsync(todo.id));
     setTodo({ ...todo, id: 0 });
-    /*
-    try {
-      useDeleteApi(props.id);
-      selectAll();
-      dispatch({
-        type: "SUCCESS",
-        payload: state.data,
-        message: "Success",
-        messageType: MessageType.success,
-      });
-    } catch (error) {
-      dispatch({ type: "FETCH_FAILURE" });
-      dispatch({
-        type: "FAILURE",
-        message: error,
-        messageType: MessageType.error,
-      });
-    }
-    */
   };
 
   const statusClassName = () => {

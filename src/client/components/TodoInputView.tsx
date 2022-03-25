@@ -22,32 +22,6 @@ export const TodoInputView: React.FC<{}> = () => {
   const handleCreate = async (e: any) => {
     e.preventDefault();
     dispatch(createAsync(todo));
-    /*
-    try {
-      const result = await create();
-      if (result.data.error) {
-        dispatch({
-          type: "FAILURE",
-          message: result.data.error,
-          messageType: MessageType.error,
-        });
-      } else {
-        selectAll();
-        dispatch({
-          type: "SUCCESS",
-          payload: todoList,
-          message: "Success",
-          messageType: MessageType.success,
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: "FAILURE",
-        message: error,
-        messageType: MessageType.error,
-      });
-    }
-  */
   };
 
   return (

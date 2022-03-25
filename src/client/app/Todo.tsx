@@ -111,7 +111,9 @@ export const Todo: React.FC = () => {
   });
   useTodoListApi(state.data, dispatch);
   const dispatch2 = useDispatch();
-  const { todos, count } = useSelector((state: RootState) => state.todo);
+  const { todos, count, message } = useSelector(
+    (state: RootState) => state.todo
+  );
   useEffect(() => {
     dispatch2(selectAllAsync());
   }, [count]);
@@ -124,8 +126,8 @@ export const Todo: React.FC = () => {
       ) : (
         <div>
           <TodoMessageView
-            messageType={state.messageType}
-            message={state.message}
+            messageType={message.type}
+            message={message.text}
           ></TodoMessageView>
           <TodoInputView></TodoInputView>
           <TodoListView data={todos}></TodoListView>
