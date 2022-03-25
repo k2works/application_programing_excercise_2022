@@ -1,11 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../reducers";
 import { TodoItemView } from "./TodoItemView";
 
-export const TodoListView: React.FC<{ data: any }> = (props: any) => {
+export const TodoListView: React.FC<{}> = () => {
+  const { todos } = useSelector((state: RootState) => state.todo);
   return (
     <div id="js-todo-list">
       <ul>
-        {props.data.map((item: any) => (
+        {todos.map((item: any) => (
           <TodoItemView
             title={item.title}
             status={item.status}

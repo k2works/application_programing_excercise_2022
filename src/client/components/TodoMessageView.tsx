@@ -1,15 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { MessageType } from "../features/todo/todoSlice";
+import { RootState } from "../reducers";
 
-export const TodoMessageView: React.FC<{
-  message: string;
-  messageType: string;
-}> = (props) => {
-  if (props.messageType === MessageType.success) {
-    return <div className="message success">{props.message}</div>;
-  } else if (props.messageType === MessageType.error) {
-    return <div className="message error">{props.message}</div>;
+export const TodoMessageView: React.FC<{}> = () => {
+  const { message } = useSelector((state: RootState) => state.todo);
+  if (message.type === MessageType.success) {
+    return <div className="message success">{message.text}</div>;
+  } else if (message.type === MessageType.error) {
+    return <div className="message error">{message.text}</div>;
   } else {
-    return <div className="message">{props.message}</div>;
+    return <div className="message">{message.text}</div>;
   }
 };

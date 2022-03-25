@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { countAsync } from "../features/todo/todoSlice";
 import { RootState } from "../reducers";
 
-export const TodoItemCountView: React.FC<{ count: number }> = (props) => {
+export const TodoItemCountView: React.FC<{}> = () => {
   const dispatch = useDispatch();
   const count = useSelector((state: RootState) => state.todo.count);
   useEffect(() => {

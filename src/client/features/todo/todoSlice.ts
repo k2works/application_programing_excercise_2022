@@ -131,6 +131,7 @@ export const selectAllAsync = () => async (dispatch: any) => {
       throw error;
     }
   };
+
   await selectAll();
 };
 
@@ -150,6 +151,7 @@ export const createAsync = (item: any) => async (dispatch: any) => {
   };
 
   await create();
+  await selectAllAsync()(dispatch);
 };
 
 export const updateAsync = (item: any) => async (dispatch: any) => {
@@ -174,7 +176,7 @@ export const updateAsync = (item: any) => async (dispatch: any) => {
 
 export const deleteAsync = (id: number) => async (dispatch: any) => {
   const url = apiUrl.delete;
-  (async () => {
+  const dele = async () => {
     try {
       axios.delete(url, { data: { id: id } });
       dispatch(deleteTodo(id));
@@ -185,21 +187,27 @@ export const deleteAsync = (id: number) => async (dispatch: any) => {
         dispatch(failed(e));
       }
     }
-  })();
+  };
+
+  dele();
 };
 
 export const countAsync = () => async (dispatch: any) => {
   const url = apiUrl.count;
-  try {
-    const result = await axios.get(url);
-    if (result) dispatch(countTodo(parseInt(result.data)));
-  } catch (e: any) {
-    if (e.response && e.response.status === 400) {
-      return dispatch(failed(e.response.data.error));
-    } else {
-      dispatch(failed(e));
+  const count = async () => {
+    try {
+      const result = await axios.get(url);
+      if (result) dispatch(countTodo(parseInt(result.data)));
+    } catch (e: any) {
+      if (e.response && e.response.status === 400) {
+        return dispatch(failed(e.response.data.error));
+      } else {
+        dispatch(failed(e));
+      }
     }
-  }
+  };
+
+  count();
 };
 
 export const { allTodo, addTodo, updateTodo, deleteTodo, countTodo, failed } =

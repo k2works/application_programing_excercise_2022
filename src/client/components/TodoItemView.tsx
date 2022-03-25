@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateAsync, deleteAsync } from "../features/todo/todoSlice";
-import { Props } from "../app/Todo";
+import { Todo } from "../features/todo/todoSlice";
 
-export const TodoItemView: React.FC<Props> = (props) => {
+export const TodoItemView: React.FC<Todo> = (props) => {
   const [isCompleted, setIsCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
   const item = {
