@@ -1,5 +1,5 @@
 import React from "react";
-import { MessageType } from "../app/Todo";
+import { MessageType } from "../features/todo/todoSlice";
 
 export const TodoMessageView: React.FC<{
   message: string;

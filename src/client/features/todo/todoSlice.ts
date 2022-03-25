@@ -15,6 +15,8 @@ export type State = {
     type: string;
     text: string;
   };
+  isLoading: boolean;
+  isError: boolean;
 };
 
 const initialState: State = {
@@ -24,6 +26,8 @@ const initialState: State = {
     type: "",
     text: "",
   },
+  isLoading: true,
+  isError: false,
 };
 
 let baseUrl = "http://localhost:3000/api";
@@ -48,7 +52,7 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     allTodo: (state, action: PayloadAction<Todo[]>) => {
-      return { ...state, todos: action.payload };
+      return { ...state, todos: action.payload, isLoading: false };
     },
     addTodo: (state, action: PayloadAction<Todo>) => {
       const newTodo: Todo = {
@@ -66,6 +70,7 @@ const todoSlice = createSlice({
           type: MessageType.success,
           text: "Create Success",
         },
+        isError: false,
       };
     },
     updateTodo: (state, action: PayloadAction<Todo>) => {
@@ -79,6 +84,7 @@ const todoSlice = createSlice({
         ...state,
         todos: newTodos,
         message: { type: MessageType.success, text: "Update Success" },
+        isError: false,
       };
     },
     deleteTodo: (state, action: PayloadAction<number>) => {
@@ -88,6 +94,7 @@ const todoSlice = createSlice({
         todos: newTodos,
         count: state.count - 1,
         message: { type: MessageType.success, text: "Delete Success" },
+        isError: false,
       };
     },
     countTodo: (state, action: PayloadAction<number>) => {
@@ -96,7 +103,11 @@ const todoSlice = createSlice({
     failed: (state, action: PayloadAction<string>) => {
       return {
         ...state,
-        message: { type: MessageType.error, text: action.payload },
+        message: {
+          type: MessageType.error,
+          text: action.payload,
+        },
+        isError: true,
       };
     },
   },
