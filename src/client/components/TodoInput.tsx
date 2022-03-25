@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createAsync, Todo } from "../features/todo/todoSlice";
 
-export const TodoInputView: React.VFC<{}> = () => {
+export const TodoInput: React.VFC<{}> = () => {
   const item: Todo = {
     id: 0,
     title: "",

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { MessageType } from "../features/todo/todoSlice";
 import { RootState } from "../reducers";
 
-export const TodoMessageView: React.VFC<{}> = () => {
+export const TodoMessage: React.VFC<{}> = () => {
   const { message } = useSelector((state: RootState) => state.todo);
 
   if (message.type === MessageType.success) {

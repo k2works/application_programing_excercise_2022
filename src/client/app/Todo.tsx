@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAllAsync } from "../features/todo/todoSlice";
-import { TodoInputView } from "../components/TodoInputView";
-import { TodoItemCountView } from "../components/TodoItemCountView";
-import { TodoListView } from "../components/TodoListView";
-import { TodoMessageView } from "../components/TodoMessageView";
+import { TodoInput } from "../components/TodoInput";
+import { TodoItemCount } from "../components/TodoItemCount";
+import { TodoList } from "../components/TodoListView";
+import { TodoMessage } from "../components/TodoMessage";
 import { RootState } from "../reducers";
 
 export const Todo: React.VFC = () => {
@@ -21,12 +21,12 @@ export const Todo: React.VFC = () => {
         <div>Loading...</div>
       ) : (
         <div>
-          <TodoMessageView></TodoMessageView>
-          <TodoInputView></TodoInputView>
-          <TodoListView></TodoListView>
+          <TodoMessage></TodoMessage>
+          <TodoInput></TodoInput>
+          <TodoList></TodoList>
         </div>
       )}
-      <TodoItemCountView></TodoItemCountView>
+      <TodoItemCount></TodoItemCount>
     </div>
   );
 };

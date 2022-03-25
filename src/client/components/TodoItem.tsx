@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { updateAsync, deleteAsync } from "../features/todo/todoSlice";
 import { Todo } from "../features/todo/todoSlice";
 
-export const TodoItemView: React.VFC<Todo> = (props) => {
+export const TodoItem: React.VFC<Todo> = (props) => {
   const [isCompleted, setIsCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
   const item: Todo = {
