@@ -52,30 +52,33 @@ package Api {
 package Client {
   package app {
     class React {}
-    class TodoComponent {}
+    class Todo {}
   }
   package components {
-    class TodoListComponent{}
-    class TodoItemComponent {}
-    class TodoInputComponent {}
-    class TodoItemCountComponent {}
-    class TodoMessageComponent {}
+    class TodoList{}
+    class TodoItem{}
+    class TodoInput{}
+    class TodoItemCount{}
+    class TodoMessage{}
 
-    TodoListComponent *-- TodoItemComponent
+    TodoList *-- TodoItem
   }
   package features {
-    class counter
+    class todoSlice
   }
   package reducers {
     class index
   }
-  TodoComponent <- React
-  TodoListComponent --* TodoComponent
-  TodoInputComponent --* TodoComponent
-  TodoMessageComponent --* TodoComponent
-  counter -> index  
+  Todo <- React
+  Todo *-- TodoList
+  Todo *-- TodoInput 
+  Todo *-- TodoMessage 
+  Todo *-- TodoItemCount 
+  index <-- Todo
+  todoSlice <-- Todo
+  index *- todoSlice
 }
-TodoComponent --> Express
+Express <-- todoSlice
 `;
 
 const uml = `

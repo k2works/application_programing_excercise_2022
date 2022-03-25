@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectAllAsync } from "../features/todo/todoSlice";
 import { TodoInput } from "../components/TodoInput";
 import { TodoItemCount } from "../components/TodoItemCount";
-import { TodoList } from "../components/TodoListView";
+import { TodoList } from "../components/TodoList";
 import { TodoMessage } from "../components/TodoMessage";
 import { RootState } from "../reducers";
 
