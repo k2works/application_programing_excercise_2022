@@ -28,23 +28,49 @@ const contents = `
 
 const uml = `
 class App {
+  handleAdd()
+  handleUpdate()
+  handleDelete()
   mount()
 }
-class TodoListModel {
-  getTodoItems()
-  getTotalCount()
-  addTodo(todoItem)
-  updateTodo({id, completed})
-  deleteTodo({id})
+class EventEmitter {
+  - _listeners
+  addEventListener(type, listener) 
+  emit(type) 
+  removeEventListener(type, listener) 
 }
-class TodoItemModel {
-  id
-  title
-  completed
+package model {
+  class TodoListModel {
+    onChange(lister)
+    emitChange()
+    getTodoItems()
+    getTotalCount()
+    addTodo(todoItem)
+    updateTodo({id, completed})
+    deleteTodo({id})
+  }
+  class TodoItemModel {
+    id
+    title
+    completed
+  }
 }
 App *- TodoListModel
+App -> TodoItemModel
 EventEmitter <|-- TodoListModel
-TodoListModel -> TodoItemModel
+TodoListModel --> TodoItemModel
+
+package view {
+  class TodoListView {
+    createElement(todoItems, { onUpdateTodo, onDeleteTodo }) 
+  }
+
+  class TodoItemView {
+    createElement(todoItems, { onUpdateTodo, onDeleteTodo }) 
+  }
+}
+App *-- TodoListView
+TodoListView --> TodoItemView
 `;
 
 const erd = `
