@@ -22,7 +22,7 @@ const contents = `
 
 - ~Todoアイテムを追加する~
 - ~Todoアイテムを更新する~
-- Todoアイテムを削除する
+- ~Todoアイテムを削除する~
 - Todoアイテム数（合計）を表示する
 `;
 
@@ -34,6 +34,7 @@ class TodoListModel {
   getTodoItems()
   addTodo(todoItem)
   updateTodo({id, completed})
+  deleteTodo({id})
 }
 class TodoItemModel {
   id
