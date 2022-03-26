@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="utf-8" />
-    <title>App</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDoApp</title>
   </head>
   <body>
     <h1>アプリケーション</h1>
+    <div class="todoapp">
+      <form id="js-form">
+        <input id="js-form-input" type="text" placeholder="What need to be done?" autocomplete="off" />
+      </form>
+      <div id="js-todo-list"></div>
+      <footer class="footer">
+        <span id="js-todo-count">Todoアイテム数: 0</span>
+      </footer>
+    </div>
     <div id="app-dev"></div>
     <script src="public/main.js"></script>
   </body>
