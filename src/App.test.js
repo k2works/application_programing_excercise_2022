@@ -2,6 +2,7 @@ import { EventEmitter } from "./EventEmitter";
 import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListModel } from "./model/TodoListModel";
 import { TodoItemView } from "./view/TodoItemView";
+import { TodoListView } from "./view/TodoListView";
 
 const spyLog = jest.spyOn(console, "log");
 spyLog.mockImplementation((x) => x);
@@ -95,4 +96,23 @@ describe("TodoItemViewを利用するサンプルコード", () => {
 
     expect(todoItemElement.textContent).toMatch(/あたらしいTodo/);
   });
-}); 
+});
+
+describe("TodoListViewを利用するサンプルコード", () => {
+  test("要素が入る", () => {
+    const todoListView = new TodoListView();
+    const todoListModel = new TodoListModel();
+    [...Array(10).keys()]
+      .map((i) => new TodoItemModel({ title: `Todo${i}`, completed: false }))
+      .map((j) => todoListModel.addTodo(j));
+    const todoListElement = todoListView.createElement(
+      todoListModel.getTodoItems(),
+      {
+        onUpdateTodo: () => {},
+        onDeleteTodo: () => {},
+      }
+    );
+
+    expect(todoListElement.textContent).toMatch(/Todo9/);
+  });
+});
