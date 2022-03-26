@@ -19,6 +19,11 @@ const contents = `
 > [ユースケース:Todoアプリ](https://jsprimer.net/use-case/todoapp/)
 
 ## TODOリスト
+
+- Todoアイテムを追加する
+- Todoアイテムを更新する
+- Todoアイテムを削除する
+- Todoアイテム数（合計）を表示する
 `;
 
 const uml = `
