@@ -67,4 +67,15 @@ describe("TodoListModelを利用するサンプルコード", () => {
     const result = todoListModel.getTodoItems()[0];
     expect(result).toBeTruthy();
   });
+
+  test("Todoリストのアイテムを削除する", () => {
+    const todoListModel = new TodoListModel();
+    todoListModel.onChange(() => {
+      console.log("TodoListの状態が変わりました");
+    });
+    todoListModel.deleteTodo({ id: 0 });
+
+    expect(console.log).toBeCalled();
+    expect(todoListModel.getTotalCount()).toEqual(0);
+  });
 });
