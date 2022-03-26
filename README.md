@@ -40,6 +40,7 @@ npm install --save-dev jest
 npm install cypress
 npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
+npm install --save-dev style-loader css-loader
 ```
 
 **[⬆ back to top](#構成)**
