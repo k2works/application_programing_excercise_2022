@@ -1,11 +1,25 @@
 import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListModel } from "./model/TodoListModel";
-import { element, render } from "./view/html-util";
+import { render } from "./view/html-util";
 import { TodoListView } from "./view/TodoListView";
 export class App {
   constructor() {
+    this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
   }
+
+  handleAdd(title) {
+    this.todoListModel.addTodo(new TodoItemModel({ title, completed: false }));
+  }
+
+  handleUpdate({ id, completed }) {
+    this.todoListModel.updateTodo({ id, completed });
+  }
+
+  handleDelete({ id }) {
+    this.todoListModel.deleteTodo({ id });
+  }
+
   mount() {
     const formElement = document.querySelector("#js-form");
     const inputElement = document.querySelector("#js-form-input");
@@ -14,13 +28,12 @@ export class App {
 
     this.todoListModel.onChange(() => {
       const todoItems = this.todoListModel.getTodoItems();
-      const todoListView = new TodoListView();
-      const todoListElement = todoListView.createElement(todoItems, {
+      const todoListElement = this.todoListView.createElement(todoItems, {
         onUpdateTodo: ({ id, completed }) => {
-          this.todoListModel.updateTodo({ id, completed });
+          this.handleUpdate({ id, completed });
         },
         onDeleteTodo: ({ id }) => {
-          this.todoListModel.deleteTodo({ id });
+          this.handleDelete({ id });
         },
       });
       render(todoListElement, containerElement);
@@ -29,12 +42,7 @@ export class App {
 
     formElement.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.todoListModel.addTodo(
-        new TodoItemModel({
-          title: inputElement.value,
-          completed: false,
-        })
-      );
+      this.handleAdd(inputElement.value);
       inputElement.value = "";
     });
   }
