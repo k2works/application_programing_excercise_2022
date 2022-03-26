@@ -21,8 +21,8 @@ export class TodoItemView {
     });
 
     const deleteButtonElement = todoItemElement.querySelector(".delete");
-    onDeleteTodo("click", () => {
-      this.todoListModel.deleteTodo({
+    deleteButtonElement.addEventListener("click", () => {
+      onDeleteTodo({
         id: todoItem.id,
       });
     });
