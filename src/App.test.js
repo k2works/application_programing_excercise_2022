@@ -49,4 +49,22 @@ describe("TodoListModelを利用するサンプルコード", () => {
     expect(console.log).toBeCalled();
     expect(todoListModel.getTotalCount()).toEqual(1);
   });
+
+  test("Todoリストのアイテムを更新する", () => {
+    const todoListModel = new TodoListModel();
+    todoListModel.onChange(() => {
+      console.log("TodoListの状態が変わりました");
+    });
+    todoListModel.addTodo(
+      new TodoItemModel({
+        title: "新しいTodoアイテム",
+        completed: false,
+      })
+    );
+    todoListModel.updateTodo({ id: 0, completed: true });
+
+    expect(console.log).toBeCalled();
+    const result = todoListModel.getTodoItems()[0];
+    expect(result).toBeTruthy();
+  });
 });
