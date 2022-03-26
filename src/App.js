@@ -40,7 +40,7 @@ export class App {
         });
       });
       render(todoListElement, containerElement);
-      todoItemCountElement.innerText = `Todoアイテム数: ${this.todoListModel.getTodoItemCount()}`;
+      todoItemCountElement.innerText = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
     });
 
     formElement.addEventListener("submit", (event) => {
