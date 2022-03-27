@@ -41,7 +41,7 @@ class EventEmitter {
 }
 package model {
   class TodoListModel {
-    onChange(lister)
+    onChange(listener)
     emitChange()
     getTodoItems()
     getTotalCount()
