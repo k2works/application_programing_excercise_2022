@@ -41,6 +41,7 @@ npm install cypress
 npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
 npm install --save-dev style-loader css-loader
+npm install --save-dev fake-indexeddb
 ```
 
 **[⬆ back to top](#構成)**
