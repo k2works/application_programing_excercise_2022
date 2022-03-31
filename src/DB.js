@@ -1,15 +1,22 @@
 export class DB {
   constructor() {
     this.db = null;
+    this.dbNamespace = null;
   }
 
-  open(callback) {
+  open(namespace, callback) {
+    if (namespace != this.dbNamespace) {
+      this.db = null;
+    }
+    this.dbNamespace = namespace;
+
     if (this.db) {
       callback();
       return;
     }
 
-    let dbReq = indexedDB.open("myDatabase", 1);
+    let dbName = namespace == "" ? "myDatabase" : `myDatabase_${namespace}`;
+    let dbReq = indexedDB.open(dbName, 2);
 
     dbReq.onupgradeneeded = (event) => {
       this.db = event.target.result;
