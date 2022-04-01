@@ -1,42 +1,33 @@
-import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListModel } from "./model/TodoListModel";
 import { render } from "./view/html-util";
 import { TodoListView } from "./view/TodoListView";
+import { TodoService, Type } from "./application/Service";
 export class App {
   constructor(db) {
     this.db = db;
+    this.service = new TodoService(db);
     this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
   }
 
   handleAdd(title) {
-    const todo = new TodoItemModel({ title, completed: false });
-    this.db.addTodo(new TodoItemModel(todo)).then(() => {
-      this.db.getTodos().then((todos) => {
-        this.todoListModel.items = todos;
-        this.render();
-      });
+    this.service.execute(Type.CREATE, { title }).then((todos) => {
+      this.todoListModel.items = todos;
+      this.render();
     });
   }
 
   handleUpdate({ id, completed }) {
-    this.db.getTodo(id).then((todo) => {
-      todo.completed = completed;
-      this.db.updateTodo(todo).then(() => {
-        this.db.getTodos().then((todos) => {
-          this.todoListModel.items = todos;
-          this.render();
-        });
-      });
+    this.service.execute(Type.UPDATE, { id, completed }).then((todos) => {
+      this.todoListModel.items = todos;
+      this.render();
     });
   }
 
   handleDelete({ id }) {
-    this.db.deleteTodo(id).then(() => {
-      this.db.getTodos().then((todos) => {
-        this.todoListModel.items = todos;
-        this.render();
-      });
+    this.service.execute(Type.DELETE, { id }).then((todos) => {
+      this.todoListModel.items = todos;
+      this.render();
     });
   }
 
@@ -61,7 +52,7 @@ export class App {
     const formElement = document.querySelector("#js-form");
     const inputElement = document.querySelector("#js-form-input");
 
-    this.db.getTodos().then((todos) => {
+    this.service.execute(Type.READ, {}).then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });
