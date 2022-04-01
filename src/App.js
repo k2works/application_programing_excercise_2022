@@ -1,7 +1,8 @@
 import { TodoListModel } from "./model/TodoListModel";
+import { TodoItemModel } from "./model/TodoItemModel";
 import { render } from "./view/html-util";
 import { TodoListView } from "./view/TodoListView";
-import { TodoService, Type } from "./application/Service";
+import { TodoService, Type } from "./Service";
 export class App {
   constructor(db) {
     this.db = db;
@@ -11,7 +12,8 @@ export class App {
   }
 
   handleAdd(title) {
-    this.service.execute(Type.CREATE, { title }).then((todos) => {
+    const todo = new TodoItemModel({ title, completed: false });
+    this.service.execute(Type.CREATE, todo).then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });

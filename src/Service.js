@@ -1,5 +1,3 @@
-import { TodoItemModel } from "../model/TodoItemModel";
-
 export const Type = {
   CREATE: 1,
   READ: 2,
@@ -15,10 +13,9 @@ export class TodoService {
   execute(type, params) {
     return new Promise((resolve, reject) => {
       if (type === Type.CREATE) {
-        const title = params.title;
-        const todo = new TodoItemModel({ title, completed: false });
+        const todo = params;
         this.db
-          .addTodo(new TodoItemModel(todo))
+          .addTodo(todo)
           .then(() => {
             this.db.getTodos().then((todos) => {
               resolve(todos);

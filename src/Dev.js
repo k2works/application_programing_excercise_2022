@@ -73,17 +73,23 @@ package view {
 App *-- TodoListView
 TodoListView --> TodoItemView
 
-class DB {
+class TodoService {
   - db
-  - dbNamespace
-  open(namespace, callback)
-  getTodos(callback)
-  getTodo(id, callback)
-  addTodo(todo, callback)
-  updateTodo(todo, callback)
-  deleteTodo(id, callback)
+  execute(type, params)
 }
-App *- DB
+App *- TodoService
+
+class DB {
+  setup()
+  getTodos()
+  getTodo(id)
+  addTodo(todo)
+  updateTodo(todo)
+  deleteTodo(id)
+}
+Dexie <|-- DB
+TodoService *- DB
+
 `;
 
 const erd = `
