@@ -4,115 +4,125 @@ export class DB {
     this.dbNamespace = null;
   }
 
-  open(namespace, callback) {
-    if (namespace != this.dbNamespace) {
-      this.db = null;
-    }
-    this.dbNamespace = namespace;
-
-    if (this.db) {
-      callback();
-      return;
-    }
-
-    let dbName = namespace == "" ? "myDatabase" : `myDatabase_${namespace}`;
-    let dbReq = indexedDB.open(dbName, 2);
-
-    dbReq.onupgradeneeded = (event) => {
-      this.db = event.target.result;
-      let todos;
-      if (!this.db.objectStoreNames.contains("todos")) {
-        this.db.createObjectStore("todos", { keyPath: "id" });
+  open(namespace) {
+    return new Promise((resolve, reject) => {
+      if (namespace != this.dbNamespace) {
+        this.db = null;
       }
-    };
+      this.dbNamespace = namespace;
 
-    dbReq.onsuccess = (event) => {
-      this.db = event.target.result;
-      callback();
-    };
-    dbReq.onerror = (event) => {
-      alert("error opening database" + event.target.errorCode);
-    };
-  }
-
-  addTodo(todo, callback) {
-    let transaction = this.db.transaction(["todos"], "readwrite");
-    let store = transaction.objectStore("todos");
-
-    store.add(todo);
-
-    transaction.oncomplete = () => {
-      console.log("stored todo");
-      this.getTodos(callback);
-    };
-    transaction.onerror = (event) => {
-      alert("error storing todo " + event.target.error);
-    };
-  }
-
-  getTodos(callback) {
-    let transaction = this.db.transaction(["todos"]);
-    let store = transaction.objectStore("todos");
-
-    let todos = [];
-    let request = store.openCursor();
-
-    request.onsuccess = (event) => {
-      let cursor = event.target.result;
-      if (cursor) {
-        todos.push(cursor.value);
-        cursor.continue();
+      if (this.db) {
+        resolve();
+        return;
       }
-      callback(todos);
-    };
-    request.onerror = (event) => {
-      alert("error getting todos " + event.target.error);
-    };
-    return todos;
+
+      let dbName = namespace == "" ? "myDatabase" : `myDatabase_${namespace}`;
+      let dbReq = indexedDB.open(dbName, 2);
+
+      dbReq.onupgradeneeded = (event) => {
+        this.db = event.target.result;
+        if (!this.db.objectStoreNames.contains("todos")) {
+          this.db.createObjectStore("todos", { keyPath: "id" });
+        }
+      };
+
+      dbReq.onsuccess = (event) => {
+        this.db = event.target.result;
+        resolve();
+      };
+      dbReq.onerror = (event) => {
+        reject("error opening database" + event.target.errorCode);
+      };
+    });
   }
 
-  getTodo(id, callback) {
-    let transaction = this.db.transaction(["todos"]);
-    let store = transaction.objectStore("todos");
+  addTodo(todo) {
+    return new Promise((resolve, reject) => {
+      let transaction = this.db.transaction(["todos"], "readwrite");
+      let store = transaction.objectStore("todos");
 
-    let todo = store.get(id);
+      store.add(todo);
 
-    transaction.oncomplete = () => {
-      callback(todo.result);
-    };
-    transaction.onerror = (event) => {
-      alert("error getting todos " + event.target.error);
-    };
-    return todo;
+      transaction.oncomplete = () => {
+        console.log("stored todo");
+        resolve();
+      };
+      transaction.onerror = (event) => {
+        reject("error storing todo " + event.target.error);
+      };
+    });
   }
 
-  updateTodo(todo, callback) {
-    let transaction = this.db.transaction(["todos"], "readwrite");
-    let store = transaction.objectStore("todos");
+  getTodos() {
+    return new Promise((resolve, reject) => {
+      let transaction = this.db.transaction(["todos"]);
+      let store = transaction.objectStore("todos");
 
-    store.put(todo);
+      let todos = [];
+      let request = store.openCursor();
 
-    transaction.oncomplete = () => {
-      console.log("stored todo");
-      this.getTodos(callback);
-    };
-    transaction.onerror = (event) => {
-      alert("error storing todo " + event.target.error);
-    };
+      request.onsuccess = (event) => {
+        let cursor = event.target.result;
+        if (cursor) {
+          todos.push(cursor.value);
+          cursor.continue();
+        } else {
+          resolve(todos);
+        }
+      };
+      request.onerror = (event) => {
+        reject("error getting todos " + event.target.error);
+      };
+    });
   }
 
-  deleteTodo(id, callback) {
-    let transaction = this.db.transaction(["todos"], "readwrite");
-    let store = transaction.objectStore("todos");
+  getTodo(id) {
+    return new Promise((resolve, reject) => {
+      let transaction = this.db.transaction(["todos"]);
+      let store = transaction.objectStore("todos");
 
-    store.delete(id);
+      let todo = store.get(id);
 
-    transaction.oncomplete = () => {
-      console.log("deleted todo");
-      this.getTodos(callback);
-    };
-    transaction.onerror = (event) => {
-      alert("error deleting todo " + event.target.error);
-    };
+      transaction.oncomplete = () => {
+        resolve(todo.result);
+      };
+      transaction.onerror = (event) => {
+        reject("error getting todos " + event.target.error);
+      };
+    });
+  }
+
+  updateTodo(todo) {
+    return new Promise((resolve, reject) => {
+      let transaction = this.db.transaction(["todos"], "readwrite");
+      let store = transaction.objectStore("todos");
+
+      store.put(todo);
+
+      transaction.oncomplete = () => {
+        console.log("stored todo");
+        resolve();
+      };
+      transaction.onerror = (event) => {
+        reject("error storing todo " + event.target.error);
+      };
+    });
+  }
+
+  deleteTodo(id) {
+    return new Promise((resolve, reject) => {
+      let transaction = this.db.transaction(["todos"], "readwrite");
+      let store = transaction.objectStore("todos");
+
+      store.delete(id);
+
+      transaction.oncomplete = () => {
+        console.log("deleted todo");
+        resolve();
+      };
+      transaction.onerror = (event) => {
+        reject("error deleting todo " + event.target.error);
+      };
+    });
   }
 }

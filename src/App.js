@@ -11,29 +11,32 @@ export class App {
 
   handleAdd(title) {
     const todo = new TodoItemModel({ title, completed: false });
-    this.todoListModel.addTodo(todo);
-    this.db.addTodo(new TodoItemModel(todo), (todos) => {
-      this.todoListModel.items = todos;
-      this.render();
-    });
-  }
-
-  handleUpdate({ id, completed }) {
-    this.todoListModel.updateTodo({ id, completed });
-    this.db.getTodo(id, (todo) => {
-      todo.completed = completed;
-      this.db.updateTodo(todo, (todos) => {
+    this.db.addTodo(new TodoItemModel(todo)).then(() => {
+      this.db.getTodos().then((todos) => {
         this.todoListModel.items = todos;
         this.render();
       });
     });
   }
 
+  handleUpdate({ id, completed }) {
+    this.db.getTodo(id).then((todo) => {
+      todo.completed = completed;
+      this.db.updateTodo(todo).then(() => {
+        this.db.getTodos().then((todos) => {
+          this.todoListModel.items = todos;
+          this.render();
+        });
+      });
+    });
+  }
+
   handleDelete({ id }) {
-    this.todoListModel.deleteTodo({ id });
-    this.db.deleteTodo(id, (todos) => {
-      this.todoListModel.items = todos;
-      this.render();
+    this.db.deleteTodo(id).then(() => {
+      this.db.getTodos().then((todos) => {
+        this.todoListModel.items = todos;
+        this.render();
+      });
     });
   }
 
@@ -58,7 +61,7 @@ export class App {
     const formElement = document.querySelector("#js-form");
     const inputElement = document.querySelector("#js-form-input");
 
-    this.db.getTodos((todos) => {
+    this.db.getTodos().then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });
