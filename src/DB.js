@@ -1,128 +1,41 @@
-export class DB {
-  constructor() {
-    this.db = null;
-    this.dbNamespace = null;
+import Dexie from "dexie";
+
+export class DB extends Dexie {
+  constructor(namespace) {
+    super(DB.dbName(namespace));
   }
 
-  open(namespace) {
+  setup() {
     return new Promise((resolve, reject) => {
-      if (namespace != this.dbNamespace) {
-        this.db = null;
-      }
-      this.dbNamespace = namespace;
-
-      if (this.db) {
-        resolve();
-        return;
-      }
-
-      let dbName = namespace == "" ? "myDatabase" : `myDatabase_${namespace}`;
-      let dbReq = indexedDB.open(dbName, 2);
-
-      dbReq.onupgradeneeded = (event) => {
-        this.db = event.target.result;
-        if (!this.db.objectStoreNames.contains("todos")) {
-          this.db.createObjectStore("todos", { keyPath: "id" });
-        }
-      };
-
-      dbReq.onsuccess = (event) => {
-        this.db = event.target.result;
-        resolve();
-      };
-      dbReq.onerror = (event) => {
-        reject("error opening database" + event.target.errorCode);
-      };
+      this.version(1).stores({
+        todos: "++id,title,completed",
+      });
+      this.todos = this.table("todos");
+      resolve();
     });
   }
 
   addTodo(todo) {
-    return new Promise((resolve, reject) => {
-      let transaction = this.db.transaction(["todos"], "readwrite");
-      let store = transaction.objectStore("todos");
-
-      store.add(todo);
-
-      transaction.oncomplete = () => {
-        console.log("stored todo");
-        resolve();
-      };
-      transaction.onerror = (event) => {
-        reject("error storing todo " + event.target.error);
-      };
-    });
+    return this.todos.add(todo);
   }
 
   getTodos() {
-    return new Promise((resolve, reject) => {
-      let transaction = this.db.transaction(["todos"]);
-      let store = transaction.objectStore("todos");
-
-      let todos = [];
-      let request = store.openCursor();
-
-      request.onsuccess = (event) => {
-        let cursor = event.target.result;
-        if (cursor) {
-          todos.push(cursor.value);
-          cursor.continue();
-        } else {
-          resolve(todos);
-        }
-      };
-      request.onerror = (event) => {
-        reject("error getting todos " + event.target.error);
-      };
-    });
+    return this.todos.orderBy("id").toArray();
   }
 
   getTodo(id) {
-    return new Promise((resolve, reject) => {
-      let transaction = this.db.transaction(["todos"]);
-      let store = transaction.objectStore("todos");
-
-      let todo = store.get(id);
-
-      transaction.oncomplete = () => {
-        resolve(todo.result);
-      };
-      transaction.onerror = (event) => {
-        reject("error getting todos " + event.target.error);
-      };
-    });
+    return this.todos.get(id);
   }
 
   updateTodo(todo) {
-    return new Promise((resolve, reject) => {
-      let transaction = this.db.transaction(["todos"], "readwrite");
-      let store = transaction.objectStore("todos");
-
-      store.put(todo);
-
-      transaction.oncomplete = () => {
-        console.log("stored todo");
-        resolve();
-      };
-      transaction.onerror = (event) => {
-        reject("error storing todo " + event.target.error);
-      };
-    });
+    return this.todos.put(todo);
   }
 
   deleteTodo(id) {
-    return new Promise((resolve, reject) => {
-      let transaction = this.db.transaction(["todos"], "readwrite");
-      let store = transaction.objectStore("todos");
+    return this.todos.delete(id);
+  }
 
-      store.delete(id);
-
-      transaction.oncomplete = () => {
-        console.log("deleted todo");
-        resolve();
-      };
-      transaction.onerror = (event) => {
-        reject("error deleting todo " + event.target.error);
-      };
-    });
+  static dbName(namespace) {
+    return namespace != undefined ? `my_db_${namespace}` : "my_db";
   }
 }
