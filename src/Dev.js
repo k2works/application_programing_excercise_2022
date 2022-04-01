@@ -87,7 +87,7 @@ App *- DB
 `;
 
 const erd = `
-package myDatabase {
+package my_db_todo {
   entity Todos {
     id : Integer
     --
