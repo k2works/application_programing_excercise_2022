@@ -49,7 +49,8 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "cypress": "^9.4.1"
+    "cypress": "^9.4.1",
+    "dexie": "^3.2.1"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/",

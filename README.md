@@ -42,6 +42,7 @@ npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
 npm install --save-dev style-loader css-loader
 npm install --save-dev fake-indexeddb
+npm install dexie
 ```
 
 **[⬆ back to top](#構成)**
@@ -79,3 +80,4 @@ npm start
 - [cypress](https://www.cypress.io/)
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
 - [IndexedDB tutorial example code](https://github.com/andyhaskell/indexeddb-tutorial)
+- [Dexie.js](https://dexie.org/)
