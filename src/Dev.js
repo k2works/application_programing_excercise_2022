@@ -59,6 +59,7 @@ package model {
     id
     title
     completed
+    dueDate
   }
 }
 App *- TodoListModel
@@ -104,6 +105,7 @@ package my_db_todo {
     --
     title : String
     completed : Boolean
+    dueDate: Date
   }
 }
 `;
