@@ -15,7 +15,7 @@ export class App {
     const messageElement = document.querySelector("#js-message");
 
     if (title === "") {
-      return messageElement.innerHTML = "タイトルが未入力です";
+      return (messageElement.innerHTML = "タイトルが未入力です");
     }
     const todo = new TodoItemModel({ title, completed: false });
     this.service.execute(Type.CREATE, todo).then((todos) => {
@@ -24,8 +24,8 @@ export class App {
     });
   }
 
-  handleUpdate({ id, completed }) {
-    this.service.execute(Type.UPDATE, { id, completed }).then((todos) => {
+  handleUpdate({ id, completed, dueDate }) {
+    this.service.execute(Type.UPDATE, { id, completed, dueDate }).then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });
@@ -45,8 +45,8 @@ export class App {
 
     const todoItems = this.todoListModel.getTodoItems();
     const todoListElement = this.todoListView.createElement(todoItems, {
-      onUpdateTodo: ({ id, completed }) => {
-        this.handleUpdate({ id, completed });
+      onUpdateTodo: ({ id, completed, dueDate }) => {
+        this.handleUpdate({ id, completed, dueDate });
       },
       onDeleteTodo: ({ id }) => {
         this.handleDelete({ id });
