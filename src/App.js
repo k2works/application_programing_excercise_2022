@@ -12,6 +12,11 @@ export class App {
   }
 
   handleAdd(title) {
+    const messageElement = document.querySelector("#js-message");
+
+    if (title === "") {
+      return messageElement.innerHTML = "タイトルが未入力です";
+    }
     const todo = new TodoItemModel({ title, completed: false });
     this.service.execute(Type.CREATE, todo).then((todos) => {
       this.todoListModel.items = todos;
@@ -36,6 +41,7 @@ export class App {
   render() {
     const containerElement = document.querySelector("#js-todo-list");
     const todoItemCountElement = document.querySelector("#js-todo-count");
+    const messageElement = document.querySelector("#js-message");
 
     const todoItems = this.todoListModel.getTodoItems();
     const todoListElement = this.todoListView.createElement(todoItems, {
@@ -48,6 +54,7 @@ export class App {
     });
     render(todoListElement, containerElement);
     todoItemCountElement.innerText = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+    messageElement.innerHTML = "";
   }
 
   mount() {
