@@ -13,7 +13,11 @@ export class TodoService {
   execute(type, params) {
     return new Promise((resolve, reject) => {
       if (type === Type.CREATE) {
-        const todo = params;
+        const todo = {
+          title: params.title,
+          completed: false,
+          dueDate: params.dueDate,
+        };
         this.db
           .addTodo(todo)
           .then(() => {
