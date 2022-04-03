@@ -6,23 +6,27 @@ export class TodoItemView {
       ? element`<li><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title}</s>
               <s>${todoItem.dueDate}</s>
+              <s>${todoItem.status}</s>
               <button class="delete">x</button>
           </li>`
       : element`<li><input type="checkbox" class="checkbox">
              ${todoItem.title}
              <input class="dueDate" type="date" value=${todoItem.dueDate}>
+             ${todoItem.status}
              <button class="delete">x</button>
           </li>`;
 
     const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
     inputCheckboxElement.addEventListener("change", () => {
       const completedAt = todoItem.completed ? null : new Date();
+      const status = todoItem.completed ? "着手" : "完了";
 
       onUpdateTodo({
         id: todoItem.id,
         completed: !todoItem.completed,
         dueDate: todoItem.dueDate,
         completedAt: completedAt,
+        status: status,
       });
     });
 
@@ -33,6 +37,7 @@ export class TodoItemView {
           id: todoItem.id,
           completed: todoItem.completed,
           dueDate: e.target.value,
+          status: "着手",
         });
       });
     }

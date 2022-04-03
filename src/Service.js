@@ -15,9 +15,10 @@ export class TodoService {
       if (type === Type.CREATE) {
         const todo = {
           title: params.title,
-          completed: false,
+          completed: params.completed,
           dueDate: params.dueDate,
           createdAt: params.createdAt,
+          status: params.status,
         };
         this.db
           .addTodo(todo)
@@ -45,6 +46,7 @@ export class TodoService {
             todo.completed = params.completed;
             todo.dueDate = params.dueDate;
             todo.completedAt = params.completedAt;
+            todo.status = params.status;
             this.db.updateTodo(todo).then(() => {
               this.db.getTodos().then((todos) => {
                 resolve(todos);

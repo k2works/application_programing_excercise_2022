@@ -17,16 +17,20 @@ export class App {
     if (title === "") {
       return (messageElement.innerHTML = "タイトルが未入力です");
     }
-    const todo = new TodoItemModel({ title, completed: false });
+    const todo = new TodoItemModel({
+      title,
+      completed: false,
+      status: "未着手",
+    });
     this.service.execute(Type.CREATE, todo).then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });
   }
 
-  handleUpdate({ id, completed, dueDate, completedAt }) {
+  handleUpdate({ id, completed, dueDate, completedAt, status }) {
     this.service
-      .execute(Type.UPDATE, { id, completed, dueDate, completedAt })
+      .execute(Type.UPDATE, { id, completed, dueDate, completedAt, status })
       .then((todos) => {
         this.todoListModel.items = todos;
         this.render();
@@ -47,8 +51,8 @@ export class App {
 
     const todoItems = this.todoListModel.getTodoItems();
     const todoListElement = this.todoListView.createElement(todoItems, {
-      onUpdateTodo: ({ id, completed, dueDate, completedAt }) => {
-        this.handleUpdate({ id, completed, dueDate, completedAt });
+      onUpdateTodo: ({ id, completed, dueDate, completedAt, status }) => {
+        this.handleUpdate({ id, completed, dueDate, completedAt, status });
       },
       onDeleteTodo: ({ id }) => {
         this.handleDelete({ id });
