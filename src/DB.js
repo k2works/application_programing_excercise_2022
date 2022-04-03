@@ -8,7 +8,7 @@ export class DB extends Dexie {
   setup() {
     return new Promise((resolve, reject) => {
       this.version(1).stores({
-        todos: "++id,title,completed,dueDate",
+        todos: "++id,title,completed,dueDate,createdAt",
       });
       this.todos = this.table("todos");
       resolve();

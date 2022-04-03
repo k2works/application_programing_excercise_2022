@@ -17,6 +17,7 @@ export class TodoService {
           title: params.title,
           completed: false,
           dueDate: params.dueDate,
+          createdAt: params.createdAt,
         };
         this.db
           .addTodo(todo)

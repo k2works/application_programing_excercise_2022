@@ -4,5 +4,6 @@ export class TodoItemModel {
     this.title = title;
     this.completed = completed;
     this.dueDate = dueDate;
+    this.createdAt = new Date();
   }
 }
