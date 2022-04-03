@@ -60,6 +60,9 @@ package model {
     title
     completed
     dueDate
+    createdAt
+    completedAt
+    status
   }
 }
 App *- TodoListModel
@@ -106,6 +109,9 @@ package my_db_todo {
     title : String
     completed : Boolean
     dueDate: Date
+    createdAt: Date
+    completedAt: Date
+    status: String
   }
 }
 `;
