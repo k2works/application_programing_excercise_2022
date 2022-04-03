@@ -3,9 +3,9 @@ import { TodoItemModel } from "./model/TodoItemModel";
 import { render } from "./view/html-util";
 import { TodoListView } from "./view/TodoListView";
 import { TodoService, Type } from "./Service";
+
 export class App {
   constructor(db) {
-    this.db = db;
     this.service = new TodoService(db);
     this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
@@ -73,7 +73,9 @@ export class App {
     const inputElement = document.querySelector("#js-form-input");
 
     this.service.execute(Type.READ, {}).then((todos) => {
-      this.todoListModel.items = todos;
+      for (const todo of todos) {
+        this.todoListModel.addTodo(todo);
+      }
       this.render();
     });
 
