@@ -23,10 +23,12 @@ describe("EvenEmitterの実行サンプル", () => {
 describe("TodoItemModelを利用するサンプルコード", () => {
   test("それぞれIDは異なる", () => {
     const item = new TodoItemModel({
+      id: 1,
       title: "未完了のTodoアイテム",
       completed: false,
     });
     const completedItem = new TodoItemModel({
+      id: 2,
       title: "完了済みのTodoアイテム",
       completed: true,
     });
