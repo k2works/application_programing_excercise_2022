@@ -1,17 +1,28 @@
 import { element } from "./html-util.js";
 
 export class TodoItemView {
+  dueValue(value) {
+    if (value) {
+      const date = new Date(value);
+      return date.toISOString().slice(0, 10);
+    } else {
+      return "";
+    }
+  }
+
   createElement(todoItem, { onUpdateTodo, onDeleteTodo }) {
     const todoItemElement = todoItem.completed
       ? element`<li><input type="checkbox" class="checkbox" checked>
               <s>${todoItem.title}</s>
-              <s>${todoItem.dueDate}</s>
+              <s>${this.dueValue(todoItem.dueDate)}</s>
               <s>${todoItem.status}</s>
               <button class="delete">x</button>
           </li>`
       : element`<li><input type="checkbox" class="checkbox">
              ${todoItem.title}
-             <input class="dueDate" type="date" value=${todoItem.dueDate}>
+             <input class="dueDate" type="date" value=${this.dueValue(
+               todoItem.dueDate
+             )}>
              ${todoItem.status}
              <button class="delete">x</button>
           </li>`;

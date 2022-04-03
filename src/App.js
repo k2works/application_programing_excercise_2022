@@ -29,12 +29,17 @@ export class App {
   }
 
   handleUpdate({ id, completed, dueDate, completedAt, status }) {
-    this.service
-      .execute(Type.UPDATE, { id, completed, dueDate, completedAt, status })
-      .then((todos) => {
-        this.todoListModel.items = todos;
-        this.render();
-      });
+    const todo = new TodoItemModel({
+      id,
+      completed,
+      dueDate: new Date(dueDate),
+      completedAt,
+      status,
+    });
+    this.service.execute(Type.UPDATE, todo).then((todos) => {
+      this.todoListModel.items = todos;
+      this.render();
+    });
   }
 
   handleDelete({ id }) {
