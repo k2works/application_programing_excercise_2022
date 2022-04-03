@@ -16,10 +16,13 @@ export class TodoItemView {
 
     const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
     inputCheckboxElement.addEventListener("change", () => {
+      const completedAt = todoItem.completed ? null : new Date();
+
       onUpdateTodo({
         id: todoItem.id,
         completed: !todoItem.completed,
         dueDate: todoItem.dueDate,
+        completedAt: completedAt,
       });
     });
 

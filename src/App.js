@@ -24,11 +24,13 @@ export class App {
     });
   }
 
-  handleUpdate({ id, completed, dueDate }) {
-    this.service.execute(Type.UPDATE, { id, completed, dueDate }).then((todos) => {
-      this.todoListModel.items = todos;
-      this.render();
-    });
+  handleUpdate({ id, completed, dueDate, completedAt }) {
+    this.service
+      .execute(Type.UPDATE, { id, completed, dueDate, completedAt })
+      .then((todos) => {
+        this.todoListModel.items = todos;
+        this.render();
+      });
   }
 
   handleDelete({ id }) {
@@ -45,8 +47,8 @@ export class App {
 
     const todoItems = this.todoListModel.getTodoItems();
     const todoListElement = this.todoListView.createElement(todoItems, {
-      onUpdateTodo: ({ id, completed, dueDate }) => {
-        this.handleUpdate({ id, completed, dueDate });
+      onUpdateTodo: ({ id, completed, dueDate, completedAt }) => {
+        this.handleUpdate({ id, completed, dueDate, completedAt });
       },
       onDeleteTodo: ({ id }) => {
         this.handleDelete({ id });

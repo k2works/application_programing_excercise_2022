@@ -44,6 +44,7 @@ export class TodoService {
           .then((todo) => {
             todo.completed = params.completed;
             todo.dueDate = params.dueDate;
+            todo.completedAt = params.completedAt;
             this.db.updateTodo(todo).then(() => {
               this.db.getTodos().then((todos) => {
                 resolve(todos);
