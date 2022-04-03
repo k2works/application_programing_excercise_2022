@@ -2,11 +2,11 @@ import { element } from "./html-util.js";
 
 export class TodoItemView {
   dueValue(value) {
-    if (value) {
-      const date = new Date(value);
-      return date.toISOString().slice(0, 10);
-    } else {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
       return "";
+    } else {
+      return date.toISOString().slice(0, 10);
     }
   }
 
