@@ -47,10 +47,12 @@ export class App {
   }
 
   handleDelete({ id }) {
+    /*
     this.service.execute(Type.DELETE, { id }).then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });
+    */
   }
 
   render() {

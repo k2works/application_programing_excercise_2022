@@ -18,6 +18,12 @@ export const TodoItemComponent = (props) => {
     });
   };
 
+  const handleDelete = ({ id }) => {
+    props.service.execute(Type.DELETE, { id }).then((todos) => {
+      props.setItems(todos);
+    });
+  };
+
   const handleCompletedChange = (e) => {
     setCompleted(!completed);
     const completedAt = completed ? null : new Date();
@@ -41,6 +47,10 @@ export const TodoItemComponent = (props) => {
     }
   };
 
+  const handleDeleteClick = () => {
+    handleDelete({ id: props.id });
+  };
+
   const element = () => {
     if (completed) {
       return (
@@ -55,7 +65,7 @@ export const TodoItemComponent = (props) => {
           <s>{props.title}</s>
           <s className="due">{props.dueDate}</s>
           {props.status}
-          <button className="delete">x</button>
+          <button className="delete" onClick={handleDeleteClick}>x</button>
         </li>
       );
     } else {
@@ -71,7 +81,7 @@ export const TodoItemComponent = (props) => {
           {props.title} By
           <input className="due" type="date" value="" placeholder="check" />
           {props.status}
-          <button className="delete">x</button>
+          <button className="delete" onClick={handleDeleteClick}>x</button>
         </li>
       );
     }
