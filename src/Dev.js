@@ -23,7 +23,7 @@ const contents = `
 - Todoアイテムを追加する
 - Todoアイテムを更新する
 - Todoアイテムを削除する
-- Todoアイテム数（合計）を表示する
+- ~Todoアイテム数（合計）を表示する~
 - 未入力の場合はTodoアイテムを追加できないようにする
 - 期限を入力できるようにする
 - Todoアイテムを追加したら作成日を自動的に設定する
@@ -96,6 +96,7 @@ package application {
   }
 }
 LegacyApp *- TodoService
+App --> TodoService
 
 package infrastructure {
   class EventEmitter {

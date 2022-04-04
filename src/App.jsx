@@ -1,15 +1,19 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TodoInputComponent } from "./component/TodoInputComponent";
 import { TodoItemCountComponent } from "./component/TodoItemCountComponent";
 import { TodoListComponent } from "./component/TodoListComponent";
+import { TodoService, Type } from "./application/TodoService";
 
-const App = () => {
-  const items = [
-    { title: "a", status: "完了", id: 1, completed: true, duDate: "" },
-    { title: "b", status: "未着手", id: 2, completed: false, duDate: "" },
-    { title: "a", status: "未着手", id: 3, completed: false, duDate: "" },
-  ];
+const App = (props) => {
+  const [items, setItems] = useState([]);
+  const service = new TodoService(props.db);
+
+  useEffect(() => {
+    service.execute(Type.READ, {}).then((todos) => {
+      setItems(todos);
+    });
+  }, []);
 
   return (
     <div>
