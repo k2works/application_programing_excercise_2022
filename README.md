@@ -40,6 +40,7 @@ npm install --save-dev jest
 npm install cypress
 npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
+npm install --save-dev cucumber-html-reporter
 npm install --save-dev style-loader css-loader
 npm install --save-dev fake-indexeddb
 npm install dexie
