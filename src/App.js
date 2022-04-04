@@ -22,10 +22,12 @@ export class App {
       completed: false,
       status: "未着手",
     });
+    /*
     this.service.execute(Type.CREATE, todo).then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });
+    */
   }
 
   handleUpdate({ id, completed, dueDate, completedAt, status }) {

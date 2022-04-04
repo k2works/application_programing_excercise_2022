@@ -20,7 +20,7 @@ const contents = `
 
 ## TODOリスト
 
-- Todoアイテムを追加する
+- ~Todoアイテムを追加する~
 - Todoアイテムを更新する
 - Todoアイテムを削除する
 - ~Todoアイテム数（合計）を表示する~
