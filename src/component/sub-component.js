@@ -1,27 +1,18 @@
 import React from "react";
+import { useState } from "react";
 
-export class SubComponent extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      count: 0,
-    };
-  }
+export const SubComponent = (props) => {
+  const [count, setCount] = React.useState(0);
 
-  handleClick() {
-    console.log("クリックされました");
-    this.setState({
-      count: this.state.count + 1,
-    });
-  }
+  const handleClick = () => {
+    setCount(count + 1);
+  };
 
-  render() {
-    return (
-      <div>
-        <h2>{this.props.name}</h2>
-        <div>{this.state.count}</div>
-        <button onClick={this.handleClick.bind(this)}>Add +1</button>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h2>{props.name}</h2>
+      <div>{count}</div>
+      <button onClick={handleClick}>Add +1</button>
+    </div>
+  );
+};
