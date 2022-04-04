@@ -33,63 +33,39 @@ const contents = `
 
 const uml = `
 class React {}
-class App {}
+class App {
+  props
+}
 package component {
-  class TodoListComponent {}
-  class TodoItemComponent {}
-  class TodoMessageComponent {}
-  class TodoInputComponent {}
-  class TodoItemCountComponent {}
+  class TodoListComponent {
+    props
+  }
+  class TodoItemComponent {
+    props
+    handleUpdate()
+    handleDelete()
+    handleCompletedChange()
+    handleDueDateCahnge()
+    handleDeleteClick()
+  }
+  class TodoMessageComponent {
+    props
+  }
+  class TodoInputComponent {
+    props
+    handleChange()
+    handleSubmit()
+  }
+  class TodoItemCountComponent {
+    props
+  }
 }
 React <- App
-TodoMessageComponent --* App
-TodoInputComponent --* App
-TodoItemCountComponent --* App
-TodoListComponent --* App 
+App *-- TodoMessageComponent
+App *-- TodoInputComponent
+App *-- TodoItemCountComponent 
+App *-- TodoListComponent 
 TodoListComponent *- TodoItemComponent
-
-class LegacyApp {
-  handleAdd()
-  handleUpdate()
-  handleDelete()
-  render()
-  mount()
-}
-package model {
-  class TodoListModel {
-    onChange(listener)
-    emitChange()
-    getTodoItems()
-    getTotalCount()
-    addTodo(todoItem)
-    updateTodo({id, completed})
-    deleteTodo({id})
-  }
-  class TodoItemModel {
-    id
-    title
-    completed
-    dueDate
-    createdAt
-    completedAt
-    status
-  }
-}
-LegacyApp *- TodoListModel
-LegacyApp -> TodoItemModel
-TodoListModel --> TodoItemModel
-
-package view {
-  class TodoListView {
-    createElement(todoItems, { onUpdateTodo, onDeleteTodo }) 
-  }
-
-  class TodoItemView {
-    createElement(todoItems, { onUpdateTodo, onDeleteTodo }) 
-  }
-}
-LegacyApp *-- TodoListView
-TodoListView --> TodoItemView
 
 package application {
   class TodoService {
@@ -97,16 +73,9 @@ package application {
     execute(type, params)
   }
 }
-LegacyApp *- TodoService
-App --> TodoService
+TodoService <-- App
 
 package infrastructure {
-  class EventEmitter {
-    - _listeners
-    addEventListener(type, listener) 
-    emit(type) 
-    removeEventListener(type, listener) 
-  }
   class DB {
     setup()
     getTodos()
@@ -117,8 +86,7 @@ package infrastructure {
   }
 }
 Dexie <|-- DB
-DB --* TodoService
-EventEmitter <|-- TodoListModel
+App *- DB
 `;
 
 const erd = `
