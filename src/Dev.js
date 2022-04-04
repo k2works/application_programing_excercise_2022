@@ -4,7 +4,7 @@ const contents = `
 ## Todoアプリ
 [JavaScript Primer](https://jsprimer.net/) ユースーケース実装
 
-## 仕様
+## [仕様](./report)
 
 > Todoアプリでは、ユーザーが次のような操作した場合に、Todoアイテムを追加します。
 

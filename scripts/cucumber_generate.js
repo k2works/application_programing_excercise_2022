@@ -9,16 +9,19 @@ fs.readdir('cypress/cucumber-json/', function (err, files) {
     result.push(jsonObject[0])
   })
 
-  if (!fs.existsSync('cypress/report')) {
-    fs.mkdirSync('cypress/report', (err, folder) => {
-      if (err) throw err;
-      console.log(folder);
-    });
-    fs.mkdirSync('cypress/report/cucumber', (err, folder) => {
+  if (!fs.existsSync("public")) {
+    fs.mkdirSync("public", (err, folder) => {
       if (err) throw err;
       console.log(folder);
     });
   }
 
-  fs.writeFileSync('cypress/report/cucumber/cucumber.json', JSON.stringify(result))
+  if (!fs.existsSync("public/report")) {
+    fs.mkdirSync("public/report", (err, folder) => {
+      if (err) throw err;
+      console.log(folder);
+    });
+  }
+
+  fs.writeFileSync("public/report/cucumber.json", JSON.stringify(result));
 });
