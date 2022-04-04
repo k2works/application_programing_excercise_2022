@@ -39,12 +39,6 @@ class App {
   render()
   mount()
 }
-class EventEmitter {
-  - _listeners
-  addEventListener(type, listener) 
-  emit(type) 
-  removeEventListener(type, listener) 
-}
 package model {
   class TodoListModel {
     onChange(listener)
@@ -67,7 +61,6 @@ package model {
 }
 App *- TodoListModel
 App -> TodoItemModel
-EventEmitter <|-- TodoListModel
 TodoListModel --> TodoItemModel
 
 package view {
@@ -82,23 +75,33 @@ package view {
 App *-- TodoListView
 TodoListView --> TodoItemView
 
-class TodoService {
-  - db
-  execute(type, params)
+package application {
+  class TodoService {
+    - db
+    execute(type, params)
+  }
 }
 App *- TodoService
 
-class DB {
-  setup()
-  getTodos()
-  getTodo(id)
-  addTodo(todo)
-  updateTodo(todo)
-  deleteTodo(id)
+package infrastructure {
+  class EventEmitter {
+    - _listeners
+    addEventListener(type, listener) 
+    emit(type) 
+    removeEventListener(type, listener) 
+  }
+  class DB {
+    setup()
+    getTodos()
+    getTodo(id)
+    addTodo(todo)
+    updateTodo(todo)
+    deleteTodo(id)
+  }
 }
 Dexie <|-- DB
-TodoService *- DB
-
+DB --* TodoService
+EventEmitter <|-- TodoListModel
 `;
 
 const erd = `
