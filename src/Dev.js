@@ -2,33 +2,12 @@ import marked from "marked";
 
 const contents = `
 ## Todoアプリ
-[JavaScript Primer](https://jsprimer.net/) ユースーケース実装
 
 ## [仕様](./report)
 
-> Todoアプリでは、ユーザーが次のような操作した場合に、Todoアイテムを追加します。
-
->
-
-> 入力欄にTodoアイテムのタイトルを入力する
-
-> 入力欄でEnterキーを押して送信する
-
-> TodoリストにTodoアイテムが追加される
-
-> [ユースケース:Todoアプリ](https://jsprimer.net/use-case/todoapp/)
-
-## TODOリスト
-
-- ~Todoアイテムを追加する~
-- ~Todoアイテムを更新する~
-- ~Todoアイテムを削除する~
-- ~Todoアイテム数（合計）を表示する~
-- ~未入力の場合はTodoアイテムを追加できないようにする~
-- ~期限を入力できるようにする~
-- ~Todoアイテムを追加したら作成日を自動的に設定する~
-- ~Todoアイテムを完了したら完了日を自動的に設定する~
-- ~ステータスを追加する~
+- やることを追加できる
+- やることを編集できる
+- やることを削除できる
 `;
 
 const uml = `
