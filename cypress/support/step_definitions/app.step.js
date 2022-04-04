@@ -18,7 +18,13 @@ Given(`{string} を追加する`, (value) => {
   cy.get("#js-form-input").type(`${value}{enter}`);
 });
 
-Given(`{string} を更新する`, (value) => {
+Given(`期限を設定する`, () => {
+  const tomory = new Date();
+  tomory.setDate(tomory.getDate() + parseInt(1));
+  cy.get(".dueDate").type(`${tomory.toISOString().slice(0, 10)}`);
+});
+
+Given(`{string} を完了する`, (value) => {
   cy.get(".checkbox").click();
 });
 
@@ -32,6 +38,19 @@ Then(`{string} が表示される`, (value) => {
 
 Then(`{string} が更新される`, (value) => {
   cy.get("s").should("contain", `${value}`);
+});
+
+Then(`期限が設定される`, () => {
+  const tomory = new Date();
+  tomory.setDate(tomory.getDate() + parseInt(1));
+  cy.get(".dueDate").should(
+    "have.value",
+    `${tomory.toISOString().slice(0, 10)}`
+  );
+});
+
+Then(`ステータスが {string} になる`, (value) => {
+  cy.get("#js-todo-list > ul > li").should("contain", `${value}`);
 });
 
 Then(`{string} が削除される`, (value) => {
