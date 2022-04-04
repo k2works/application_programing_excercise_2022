@@ -13,6 +13,7 @@ export const TodoInputComponent = (props) => {
       title,
       completed: false,
       status: "未着手",
+      createdAt: new Date(),
     };
     props.service.execute(Type.CREATE, todo).then((todos) => {
       props.setItems(todos);

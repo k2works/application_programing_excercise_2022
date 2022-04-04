@@ -4,12 +4,22 @@ import { Type } from "../application/TodoService";
 export const TodoItemComponent = (props) => {
   const [completed, setCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
+  const dueDateValue = (value) => {
+    if (value === null || value === undefined) return "";
+    const date = new Date(value);
+    const dueDate = date.toISOString().substring(0, 10);
+    if (Number.isNaN(date.getTime())) {
+      return "";
+    } else {
+      return dueDate;
+    }
+  };
 
   const handleUpdate = ({ id, completed, dueDate, completedAt, status }) => {
     const todo = {
       id,
       completed,
-      dueDate: new Date(dueDate),
+      dueDate,
       completedAt,
       status,
     };
@@ -32,7 +42,7 @@ export const TodoItemComponent = (props) => {
     handleUpdate({
       id: props.id,
       completed: !completed,
-      dueDate: props.dueDate,
+      dueDate: new Date(dueDate),
       completedAt: completedAt,
       status: status,
     });
@@ -40,11 +50,16 @@ export const TodoItemComponent = (props) => {
 
   const handleDueDateCahnge = (e) => {
     const date = new Date(e.target.value);
-    if (Number.isNaN(date.getTime())) {
-      setDueDate("");
-    } else {
-      setDueDate(data.toISOString().slice(0, 10));
-    }
+    const dueDate = dueDateValue(e.target.value);
+    setDueDate(dueDate);
+
+    handleUpdate({
+      id: props.id,
+      completed: props.completed,
+      dueDate: date,
+      completedAt: props.completedAt,
+      status: props.status,
+    });
   };
 
   const handleDeleteClick = () => {
@@ -63,9 +78,11 @@ export const TodoItemComponent = (props) => {
             checked={completed}
           />
           <s>{props.title}</s>
-          <s className="due">{props.dueDate}</s>
+          <s className="due">{dueDateValue(props.dueDate)}</s>
           {props.status}
-          <button className="delete" onClick={handleDeleteClick}>x</button>
+          <button className="delete" onClick={handleDeleteClick}>
+            x
+          </button>
         </li>
       );
     } else {
@@ -79,9 +96,17 @@ export const TodoItemComponent = (props) => {
             checked={completed}
           />
           {props.title} By
-          <input className="due" type="date" value="" placeholder="check" />
+          <input
+            className="due"
+            type="date"
+            value={dueDateValue(dueDate)}
+            placeholder="check"
+            onChange={handleDueDateCahnge}
+          />
           {props.status}
-          <button className="delete" onClick={handleDeleteClick}>x</button>
+          <button className="delete" onClick={handleDeleteClick}>
+            x
+          </button>
         </li>
       );
     }

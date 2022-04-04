@@ -11,7 +11,7 @@ export const TodoListComponent = (props) => {
           status={item.status}
           id={item.id}
           completed={item.completed}
-          dueDate={item.duDate}
+          dueDate={item.dueDate}
           service={props.service}
           setItems={props.setItems}
         ></TodoItemComponent>
