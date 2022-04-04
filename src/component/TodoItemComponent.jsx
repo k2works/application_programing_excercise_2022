@@ -1,7 +1,7 @@
 import React from "react";
 
 export const TodoItemComponent = (props) => {
-  const result = () => {
+  const element = () => {
     if (props.completed) {
       return (
         <li className=" status not-started">
@@ -25,5 +25,5 @@ export const TodoItemComponent = (props) => {
     }
   };
 
-  return result();
+  return element();
 };
