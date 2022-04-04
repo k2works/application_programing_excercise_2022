@@ -33,12 +33,20 @@ const contents = `
 
 const uml = `
 class React {}
+class App {}
 package component {
-  class subcomponent {}
+  class TodoListComponent {}
+  class TodoItemComponent {}
+  class TodoInputComponent {}
+  class TodoItemCountComponent {}
 }
-React -> subcomponent
+React <- App
+TodoInputComponent --* App
+TodoItemCountComponent --* App
+TodoListComponent --* App 
+TodoListComponent *- TodoItemComponent
 
-class App {
+class LegacyApp {
   handleAdd()
   handleUpdate()
   handleDelete()
@@ -65,8 +73,8 @@ package model {
     status
   }
 }
-App *- TodoListModel
-App -> TodoItemModel
+LegacyApp *- TodoListModel
+LegacyApp -> TodoItemModel
 TodoListModel --> TodoItemModel
 
 package view {
@@ -78,7 +86,7 @@ package view {
     createElement(todoItems, { onUpdateTodo, onDeleteTodo }) 
   }
 }
-App *-- TodoListView
+LegacyApp *-- TodoListView
 TodoListView --> TodoItemView
 
 package application {
@@ -87,7 +95,7 @@ package application {
     execute(type, params)
   }
 }
-App *- TodoService
+LegacyApp *- TodoService
 
 package infrastructure {
   class EventEmitter {
