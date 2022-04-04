@@ -112,6 +112,3 @@ cypress/videos
 *.sqlite
 .idea
 .vscode
-
-cypress/cucumber-json
-cypress/report
