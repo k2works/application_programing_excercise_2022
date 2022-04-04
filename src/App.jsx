@@ -14,7 +14,7 @@ const App = () => {
     <div>
       <TodoInputComponent />
       <TodoListComponent items={items} />
-      <TodoItemCountComponent />
+      <TodoItemCountComponent count={items.length} />
     </div>
   );
 };
