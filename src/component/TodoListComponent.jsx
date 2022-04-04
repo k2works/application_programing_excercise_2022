@@ -6,6 +6,7 @@ export const TodoListComponent = (props) => {
     <ul>
       {props.items.map((item) => (
         <TodoItemComponent
+          key={item.id}
           title={item.title}
           status={item.status}
           id={item.id}
