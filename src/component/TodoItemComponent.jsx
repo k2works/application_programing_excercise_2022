@@ -7,10 +7,10 @@ export const TodoItemComponent = (props) => {
   const dueDateValue = (value) => {
     if (value === null || value === undefined) return "";
     const date = new Date(value);
-    const dueDate = date.toISOString().substring(0, 10);
     if (Number.isNaN(date.getTime())) {
       return "";
     } else {
+      const dueDate = date.toISOString().substring(0, 10);
       return dueDate;
     }
   };
