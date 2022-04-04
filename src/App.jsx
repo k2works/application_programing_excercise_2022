@@ -1,10 +1,9 @@
 import * as React from "react";
-import { SubComponent } from "./component/sub-component";
+import { TodoListComponent } from "./component/TodoListComponent";
 
 const App = () => (
   <div>
-    <h1>Hello React!</h1>
-    <SubComponent name="My Counter for TypeScript" />
+    <TodoListComponent />
   </div>
 );
 
