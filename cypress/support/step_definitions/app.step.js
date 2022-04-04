@@ -11,7 +11,7 @@ import { AppPage } from "../pages/appPage";
 let page;
 Before(() => {
   page = new AppPage();
-  cy.wait(1000);
+  cy.wait(3000);
 });
 
 Given(`{string} を追加する`, (value) => {
