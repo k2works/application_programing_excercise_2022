@@ -20,18 +20,24 @@ const contents = `
 
 ## TODOリスト
 
-- ~Todoアイテムを追加する~
-- ~Todoアイテムを更新する~
-- ~Todoアイテムを削除する~
-- ~Todoアイテム数（合計）を表示する~
-- ~未入力の場合はTodoアイテムを追加できないようにする~
-- ~期限を入力できるようにする~
-- ~Todoアイテムを追加したら作成日を自動的に設定する~
-- ~Todoアイテムを完了したら完了日を自動的に設定する~
-- ~ステータスを追加する~
+- Todoアイテムを追加する
+- Todoアイテムを更新する
+- Todoアイテムを削除する
+- Todoアイテム数（合計）を表示する
+- 未入力の場合はTodoアイテムを追加できないようにする
+- 期限を入力できるようにする
+- Todoアイテムを追加したら作成日を自動的に設定する
+- Todoアイテムを完了したら完了日を自動的に設定する
+- ステータスを追加する
 `;
 
 const uml = `
+class React {}
+package component {
+  class subcomponent {}
+}
+React -> subcomponent
+
 class App {
   handleAdd()
   handleUpdate()

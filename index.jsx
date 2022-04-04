@@ -16,3 +16,13 @@ class App extends React.Component {
   }
 }
 ReactDOM.render(<App />, document.querySelector("#app"));
+
+import "./src/style.css";
+import { App as LegacyApp } from "./src/App.js";
+import { DB } from "./src/infrastructure/DB.js";
+
+const db = new DB("todo");
+db.setup().then(() => {
+  const app = new LegacyApp(db);
+  app.mount();
+});
