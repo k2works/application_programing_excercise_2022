@@ -25,13 +25,17 @@ const App = (props) => {
         setItems={setItems}
         setMessage={setMessage}
       />
-      <TodoListComponent
-        items={items}
-        service={service}
-        setItems={setItems}
-        setMessage={setMessage}
-      />
-      <TodoItemCountComponent count={items.length} />
+      <div id="js-todo-list">
+        <TodoListComponent
+          items={items}
+          service={service}
+          setItems={setItems}
+          setMessage={setMessage}
+        />
+      </div>
+      <footer class="footer">
+        <TodoItemCountComponent count={items.length} />
+      </footer>
     </div>
   );
 };
