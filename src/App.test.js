@@ -1,4 +1,4 @@
-import { EventEmitter } from "./EventEmitter";
+import { EventEmitter } from "./infrastructure/EventEmitter";
 import { TodoItemModel } from "./model/TodoItemModel";
 import { TodoListModel } from "./model/TodoListModel";
 import { TodoItemView } from "./view/TodoItemView";

@@ -2,7 +2,7 @@ import { TodoListModel } from "./model/TodoListModel";
 import { TodoItemModel } from "./model/TodoItemModel";
 import { render } from "./view/html-util";
 import { TodoListView } from "./view/TodoListView";
-import { TodoService, Type } from "./Service";
+import { TodoService, Type } from "./application/TodoService";
 
 export class App {
   constructor(db) {

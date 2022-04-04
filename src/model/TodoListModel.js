@@ -1,4 +1,4 @@
-import { EventEmitter } from "../EventEmitter";
+import { EventEmitter } from "../infrastructure/EventEmitter";
 
 export class TodoListModel extends EventEmitter {
   constructor(items = []) {
