@@ -12,6 +12,8 @@ export const TodoListComponent = (props) => {
           id={item.id}
           completed={item.completed}
           dueDate={item.duDate}
+          service={props.service}
+          setItems={props.setItems}
         ></TodoItemComponent>
       ))}
     </ul>

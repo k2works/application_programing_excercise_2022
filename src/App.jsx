@@ -18,7 +18,7 @@ const App = (props) => {
   return (
     <div>
       <TodoInputComponent service={service} setItems={setItems} />
-      <TodoListComponent items={items} />
+      <TodoListComponent items={items} service={service} setItems={setItems} />
       <TodoItemCountComponent count={items.length} />
     </div>
   );

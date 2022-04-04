@@ -38,10 +38,12 @@ export class App {
       completedAt,
       status,
     });
+    /*
     this.service.execute(Type.UPDATE, todo).then((todos) => {
       this.todoListModel.items = todos;
       this.render();
     });
+    */
   }
 
   handleDelete({ id }) {
