@@ -44,6 +44,8 @@ npm install --save-dev cucumber-html-reporter
 npm install --save-dev style-loader css-loader
 npm install --save-dev fake-indexeddb
 npm install dexie
+npm install react react-dom
+npm install --save-dev babel-loader @babel/preset-react
 ```
 
 **[⬆ back to top](#構成)**
@@ -82,3 +84,4 @@ npm start
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
 - [IndexedDB tutorial example code](https://github.com/andyhaskell/indexeddb-tutorial)
 - [Dexie.js](https://dexie.org/)
+- [最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築](https://ics.media/entry/16028/)
