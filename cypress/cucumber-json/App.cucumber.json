@@ -22,9 +22,8 @@
             "line": 8,
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
-              "status": "failed",
-              "duration": 2406000000,
-              "error_message": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot set properties of null (setting 'innerText')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n    at App.render (http://localhost:8080/main.js:359:38)\n    at http://localhost:8080/main.js:385:16\nFrom previous event:\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:186462:21)\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:172159:15)\n    at $Cy.cy.<computed> [as then] (http://localhost:8080/__cypress/runner/cypress_runner.js:173155:18)\n    at __stackReplacementMarker (http://localhost:8080/__cypress/runner/cypress_runner.js:172640:13)\n    at Context.runnable.fn (http://localhost:8080/__cypress/runner/cypress_runner.js:173373:19)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125727:21)\n    at Test.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Test.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at Runner.../driver/node_modules/mocha/lib/runner.js.Runner.runTest (http://localhost:8080/__cypress/runner/cypress_runner.js:126386:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126512:12\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126295:14)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126305:7\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126207:14)\n    at Hook.<anonymous> (http://localhost:8080/__cypress/runner/cypress_runner.js:126268:7)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:180148:24)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180177:13\nFrom previous event:\n    at onNext (http://localhost:8080/__cypress/runner/cypress_runner.js:180174:59)\n    at done (http://localhost:8080/__cypress/runner/cypress_runner.js:125667:5)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125750:7)\n    at Hook.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Hook.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126229:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126273:5\n    at timeslice (http://localhost:8080/__cypress/runner/cypress_runner.js:120199:27)"
+              "status": "passed",
+              "duration": 4605000000
             }
           },
           {
@@ -33,7 +32,8 @@
             "line": 9,
             "name": "\"やること\" を追加する",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 392000000
             }
           },
           {
@@ -42,7 +42,8 @@
             "line": 10,
             "name": "\"やること\" が表示される",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 84000000
             }
           },
           {
@@ -51,7 +52,8 @@
             "line": 11,
             "name": "ステータスが \"未着手\" になる",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 23000000
             }
           },
           {
@@ -60,7 +62,8 @@
             "line": 12,
             "name": "アイテム数が \"1\" 件になる",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 29000000
             }
           }
         ]
@@ -80,7 +83,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 3834000000
+              "duration": 2213000000
             }
           },
           {
@@ -89,8 +92,8 @@
             "line": 16,
             "name": "期限を設定する",
             "result": {
-              "status": "failed",
-              "error_message": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot set properties of null (setting 'innerText')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n    at App.render (http://localhost:8080/main.js:359:38)\n    at http://localhost:8080/main.js:385:16\nFrom previous event:\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:186462:21)\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:172159:15)\n    at $Cy.cy.<computed> [as then] (http://localhost:8080/__cypress/runner/cypress_runner.js:173155:18)\n    at __stackReplacementMarker (http://localhost:8080/__cypress/runner/cypress_runner.js:172640:13)\n    at Context.runnable.fn (http://localhost:8080/__cypress/runner/cypress_runner.js:173373:19)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125727:21)\n    at Test.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Test.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at Runner.../driver/node_modules/mocha/lib/runner.js.Runner.runTest (http://localhost:8080/__cypress/runner/cypress_runner.js:126386:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126512:12\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126295:14)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126305:7\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126207:14)\n    at Hook.<anonymous> (http://localhost:8080/__cypress/runner/cypress_runner.js:126268:7)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:180148:24)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180177:13\nFrom previous event:\n    at onNext (http://localhost:8080/__cypress/runner/cypress_runner.js:180174:59)\n    at done (http://localhost:8080/__cypress/runner/cypress_runner.js:125667:5)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125750:7)\n    at Hook.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Hook.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126229:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126273:5\n    at timeslice (http://localhost:8080/__cypress/runner/cypress_runner.js:120199:27)"
+              "status": "passed",
+              "duration": 337000000
             }
           },
           {
@@ -99,7 +102,8 @@
             "line": 17,
             "name": "期限が設定される",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 14000000
             }
           },
           {
@@ -108,7 +112,8 @@
             "line": 18,
             "name": "ステータスが \"着手\" になる",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 14000000
             }
           },
           {
@@ -117,7 +122,8 @@
             "line": 19,
             "name": "アイテム数が \"1\" 件になる",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 14000000
             }
           }
         ]
@@ -137,7 +143,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 2117000000
+              "duration": 2176000000
             }
           },
           {
@@ -146,8 +152,8 @@
             "line": 23,
             "name": "\"やること\" を完了する",
             "result": {
-              "status": "failed",
-              "error_message": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot set properties of null (setting 'innerText')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n    at App.render (http://localhost:8080/main.js:359:38)\n    at http://localhost:8080/main.js:385:16\nFrom previous event:\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:186462:21)\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:172159:15)\n    at $Cy.cy.<computed> [as then] (http://localhost:8080/__cypress/runner/cypress_runner.js:173155:18)\n    at __stackReplacementMarker (http://localhost:8080/__cypress/runner/cypress_runner.js:172640:13)\n    at Context.runnable.fn (http://localhost:8080/__cypress/runner/cypress_runner.js:173373:19)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125727:21)\n    at Test.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Test.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at Runner.../driver/node_modules/mocha/lib/runner.js.Runner.runTest (http://localhost:8080/__cypress/runner/cypress_runner.js:126386:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126512:12\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126295:14)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126305:7\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126207:14)\n    at Hook.<anonymous> (http://localhost:8080/__cypress/runner/cypress_runner.js:126268:7)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:180148:24)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180177:13\nFrom previous event:\n    at onNext (http://localhost:8080/__cypress/runner/cypress_runner.js:180174:59)\n    at done (http://localhost:8080/__cypress/runner/cypress_runner.js:125667:5)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125750:7)\n    at Hook.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Hook.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126229:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126273:5\n    at timeslice (http://localhost:8080/__cypress/runner/cypress_runner.js:120199:27)"
+              "status": "passed",
+              "duration": 134000000
             }
           },
           {
@@ -156,7 +162,8 @@
             "line": 24,
             "name": "\"やること\" が更新される",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 22000000
             }
           },
           {
@@ -165,7 +172,8 @@
             "line": 25,
             "name": "ステータスが \"完了\" になる",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 17000000
             }
           },
           {
@@ -174,7 +182,8 @@
             "line": 26,
             "name": "アイテム数が \"1\" 件になる",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 15000000
             }
           }
         ]
@@ -194,7 +203,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 2087000000
+              "duration": 2210000000
             }
           },
           {
@@ -203,8 +212,8 @@
             "line": 30,
             "name": "\"やること\" を削除する",
             "result": {
-              "status": "failed",
-              "error_message": "TypeError: The following error originated from your application code, not from Cypress. It was caused by an unhandled promise rejection.\n\n  > Cannot set properties of null (setting 'innerText')\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n    at App.render (http://localhost:8080/main.js:359:38)\n    at http://localhost:8080/main.js:385:16\nFrom previous event:\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:186462:21)\n    at CommandQueue.run (http://localhost:8080/__cypress/runner/cypress_runner.js:172159:15)\n    at $Cy.cy.<computed> [as then] (http://localhost:8080/__cypress/runner/cypress_runner.js:173155:18)\n    at __stackReplacementMarker (http://localhost:8080/__cypress/runner/cypress_runner.js:172640:13)\n    at Context.runnable.fn (http://localhost:8080/__cypress/runner/cypress_runner.js:173373:19)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125727:21)\n    at Test.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Test.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at Runner.../driver/node_modules/mocha/lib/runner.js.Runner.runTest (http://localhost:8080/__cypress/runner/cypress_runner.js:126386:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126512:12\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126295:14)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126305:7\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126207:14)\n    at Hook.<anonymous> (http://localhost:8080/__cypress/runner/cypress_runner.js:126268:7)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:180148:24)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180177:13\nFrom previous event:\n    at onNext (http://localhost:8080/__cypress/runner/cypress_runner.js:180174:59)\n    at done (http://localhost:8080/__cypress/runner/cypress_runner.js:125667:5)\n    at callFn (http://localhost:8080/__cypress/runner/cypress_runner.js:125750:7)\n    at Hook.../driver/node_modules/mocha/lib/runnable.js.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:125714:7)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:180250:30\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:8080/__cypress/runner/cypress_runner.js:180235:19)\n    at $Cypress.action (http://localhost:8080/__cypress/runner/cypress_runner.js:169613:28)\n    at Hook.Runnable.run (http://localhost:8080/__cypress/runner/cypress_runner.js:177931:13)\n    at next (http://localhost:8080/__cypress/runner/cypress_runner.js:126229:10)\n    at http://localhost:8080/__cypress/runner/cypress_runner.js:126273:5\n    at timeslice (http://localhost:8080/__cypress/runner/cypress_runner.js:120199:27)"
+              "status": "passed",
+              "duration": 145000000
             }
           },
           {
@@ -213,7 +222,8 @@
             "line": 31,
             "name": "\"やること\" が削除される",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 14000000
             }
           },
           {
@@ -222,7 +232,8 @@
             "line": 32,
             "name": "アイテム数が \"0\" 件になる",
             "result": {
-              "status": "skipped"
+              "status": "passed",
+              "duration": 17000000
             }
           }
         ]

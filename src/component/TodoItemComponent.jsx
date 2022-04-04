@@ -78,7 +78,7 @@ export const TodoItemComponent = (props) => {
             checked={completed}
           />
           <s>{props.title}</s>
-          <s className="due">{dueDateValue(props.dueDate)}</s>
+          <s className="dueDate">{dueDateValue(props.dueDate)}</s>
           {props.status}
           <button className="delete" onClick={handleDeleteClick}>
             x
@@ -97,7 +97,7 @@ export const TodoItemComponent = (props) => {
           />
           {props.title} By
           <input
-            className="due"
+            className="dueDate"
             type="date"
             value={dueDateValue(dueDate)}
             placeholder="check"
