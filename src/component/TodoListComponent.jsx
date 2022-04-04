@@ -6,9 +6,9 @@ export const TodoListComponent = () => {
     <ul>
       <TodoItemComponent
         title={"a"}
-        status={"未着手"}
+        status={"完了"}
         id={0}
-        completed={false}
+        completed={true}
         dueDate={""}
       ></TodoItemComponent>
       <TodoItemComponent
