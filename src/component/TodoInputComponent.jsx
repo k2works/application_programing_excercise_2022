@@ -9,6 +9,11 @@ export const TodoInputComponent = (props) => {
   };
 
   const handleSubmit = () => {
+    if (title === "") {
+      props.setMessage("タイトルが未入力です");
+      return;
+    }
+
     const todo = {
       title,
       completed: false,

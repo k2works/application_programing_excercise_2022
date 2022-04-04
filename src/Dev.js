@@ -24,7 +24,7 @@ const contents = `
 - ~Todoアイテムを更新する~
 - ~Todoアイテムを削除する~
 - ~Todoアイテム数（合計）を表示する~
-- 未入力の場合はTodoアイテムを追加できないようにする
+- ~未入力の場合はTodoアイテムを追加できないようにする~
 - ~期限を入力できるようにする~
 - ~Todoアイテムを追加したら作成日を自動的に設定する~
 - ~Todoアイテムを完了したら完了日を自動的に設定する~
@@ -37,10 +37,12 @@ class App {}
 package component {
   class TodoListComponent {}
   class TodoItemComponent {}
+  class TodoMessageComponent {}
   class TodoInputComponent {}
   class TodoItemCountComponent {}
 }
 React <- App
+TodoMessageComponent --* App
 TodoInputComponent --* App
 TodoItemCountComponent --* App
 TodoListComponent --* App 
