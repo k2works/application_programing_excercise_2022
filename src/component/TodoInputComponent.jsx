@@ -6,25 +6,20 @@ export const TodoInputComponent = (props) => {
 
   const handleChange = (e) => {
     setTitle(e.target.value);
+    props.dispatch({ type: "CREATE", payload: { title: e.target.value } });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (title === "") {
-      props.setMessage("タイトルが未入力です");
-      return;
+    props.dispatch({ type: "CREATE", payload: { title } });
+    if (title !== "") {
+      props.state.service
+        .execute(Type.CREATE, props.state.todo)
+        .then((todos) => {
+          props.setItems(todos);
+          props.dispatch({ type: "READ", payload: { todos } });
+        });
     }
-
-    const todo = {
-      title,
-      completed: false,
-      status: "未着手",
-      createdAt: new Date(),
-    };
-    props.service.execute(Type.CREATE, todo).then((todos) => {
-      props.setItems(todos);
-    });
   };
 
   return (
