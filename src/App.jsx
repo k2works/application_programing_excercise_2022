@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, createContext } from "react";
 import { TodoMessageComponent } from "./component/TodoMessageComponent";
 import { TodoInputComponent } from "./component/TodoInputComponent";
 import { TodoItemCountComponent } from "./component/TodoItemCountComponent";
@@ -68,28 +68,31 @@ const reducer = (state, action) => {
   }
 };
 
+export const AppContext = createContext();
+
 const App = (props) => {
-  const service = new TodoService(props.db);
-  initialState.service = service;
+  initialState.service = new TodoService(props.db);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    service.execute(Type.READ, {}).then((todos) => {
+    state.service.execute(Type.READ, {}).then((todos) => {
       dispatch({ type: "READ", payload: { todo: {}, todos } });
     });
   }, []);
 
   return (
-    <div>
-      <TodoMessageComponent state={state} />
-      <TodoInputComponent state={state} dispatch={dispatch} />
-      <div id="js-todo-list">
-        <TodoListComponent state={state} dispatch={dispatch} />
+    <AppContext.Provider value={{ state, dispatch }}>
+      <div>
+        <TodoMessageComponent />
+        <TodoInputComponent />
+        <div id="js-todo-list">
+          <TodoListComponent />
+        </div>
+        <footer className="footer">
+          <TodoItemCountComponent />
+        </footer>
       </div>
-      <footer className="footer">
-        <TodoItemCountComponent state={state} />
-      </footer>
-    </div>
+    </AppContext.Provider>
   );
 };
 

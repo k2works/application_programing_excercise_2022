@@ -1,10 +1,13 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
+import { AppContext } from "../App";
 import { TodoItemComponent } from "./TodoItemComponent";
 
-export const TodoListComponent = memo((props) => {
+export const TodoListComponent = memo(() => {
+  const { state, dispatch } = useContext(AppContext);
+
   return (
     <ul>
-      {props.state.todos.map((item) => (
+      {state.todos.map((item) => (
         <TodoItemComponent
           key={item.id}
           id={item.id}
@@ -12,8 +15,6 @@ export const TodoListComponent = memo((props) => {
           completed={item.completed}
           dueDate={item.dueDate}
           status={item.status}
-          state={props.state}
-          dispatch={props.dispatch}
         ></TodoItemComponent>
       ))}
     </ul>

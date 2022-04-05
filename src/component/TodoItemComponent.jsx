@@ -1,7 +1,9 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useContext } from "react";
+import { AppContext } from "../App";
 import { Type } from "../application/TodoService";
 
 export const TodoItemComponent = memo((props) => {
+  const { state, dispatch } = useContext(AppContext);
   const [completed, setCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
   const dueDateValue = (value) => {
@@ -26,12 +28,12 @@ export const TodoItemComponent = memo((props) => {
       status: status,
       completedAt: completedAt,
     };
-    props.dispatch({
+    dispatch({
       type: "UPDATE",
       payload: { todo },
     });
-    props.state.service.execute(Type.UPDATE, todo).then((todos) => {
-      props.dispatch({ type: "READ", payload: { todo, todos } });
+    state.service.execute(Type.UPDATE, todo).then((todos) => {
+      dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
 
@@ -46,23 +48,23 @@ export const TodoItemComponent = memo((props) => {
       completedAt: props.completedAt,
       status: props.status,
     };
-    props.dispatch({
+    dispatch({
       type: "UPDATE",
       payload: { todo },
     });
-    props.state.service.execute(Type.UPDATE, todo).then((todos) => {
-      props.dispatch({ type: "READ", payload: { todo, todos } });
+    state.service.execute(Type.UPDATE, todo).then((todos) => {
+      dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
 
   const handleDeleteClick = () => {
     const id = props.id;
-    props.dispatch({
+    dispatch({
       type: "DELETE",
       payload: { id },
     });
-    props.state.service.execute(Type.DELETE, { id }).then((todos) => {
-      props.dispatch({ type: "READ", payload: { todo: {}, todos } });
+    state.service.execute(Type.DELETE, { id }).then((todos) => {
+      dispatch({ type: "READ", payload: { todo: {}, todos } });
     });
   };
 

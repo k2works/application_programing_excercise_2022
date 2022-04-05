@@ -1,5 +1,8 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
+import { AppContext } from "../App";
 
-export const TodoMessageComponent = memo((props) => {
-  return <div className="js-message">{props.state.message}</div>;
+export const TodoMessageComponent = memo(() => {
+  const { state, dispatch } = useContext(AppContext);
+
+  return <div className="js-message">{state.message}</div>;
 });

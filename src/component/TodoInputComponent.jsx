@@ -1,26 +1,26 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useContext } from "react";
 import { Type } from "../application/TodoService";
+import { AppContext } from "../App";
 
-export const TodoInputComponent = memo((props) => {
+export const TodoInputComponent = memo(() => {
+  const { state, dispatch } = useContext(AppContext);
   const [title, setTitle] = useState("");
 
   const handleChange = (e) => {
     setTitle(e.target.value);
-    props.dispatch({ type: "CREATE", payload: { title: e.target.value } });
+    dispatch({ type: "CREATE", payload: { title: e.target.value } });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.dispatch({ type: "CREATE", payload: { title } });
+    dispatch({ type: "CREATE", payload: { title } });
     if (title !== "") {
-      props.state.service
-        .execute(Type.CREATE, props.state.todo)
-        .then((todos) => {
-          props.dispatch({
-            type: "READ",
-            payload: { todo: props.state.todo, todos },
-          });
+      state.service.execute(Type.CREATE, state.todo).then((todos) => {
+        dispatch({
+          type: "READ",
+          payload: { todo: state.todo, todos },
         });
+      });
     }
   };
 
