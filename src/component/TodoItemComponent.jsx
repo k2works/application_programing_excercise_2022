@@ -4,8 +4,8 @@ import { Type } from "../application/TodoService";
 
 export const TodoItemComponent = memo((props) => {
   const { state, dispatch } = useContext(AppContext);
-  const [completed, setCompleted] = useState(props.completed);
-  const [dueDate, setDueDate] = useState(props.dueDate);
+  const [completed, setCompleted] = useState(props.item.completed);
+  const [dueDate, setDueDate] = useState(props.item.dueDate);
   const dueDateValue = (value) => {
     if (value === null || value === undefined) return "";
     const date = new Date(value);
@@ -22,9 +22,9 @@ export const TodoItemComponent = memo((props) => {
     const completedAt = completed ? null : new Date();
     const status = completed ? "着手" : "完了";
     const todo = {
-      id: props.id,
+      id: props.item.id,
       completed: !completed,
-      dueDate: props.dueDate,
+      dueDate: props.item.dueDate,
       status: status,
       completedAt: completedAt,
     };
@@ -42,11 +42,11 @@ export const TodoItemComponent = memo((props) => {
     const dueDate = dueDateValue(e.target.value);
     setDueDate(dueDate);
     const todo = {
-      id: props.id,
-      completed: props.completed,
+      id: props.item.id,
+      completed: props.item.completed,
       dueDate: date,
-      completedAt: props.completedAt,
-      status: props.status,
+      completedAt: props.item.completedAt,
+      status: props.item.status,
     };
     dispatch({
       type: "UPDATE",
@@ -58,7 +58,7 @@ export const TodoItemComponent = memo((props) => {
   };
 
   const handleDeleteClick = () => {
-    const id = props.id;
+    const id = props.item.id;
     dispatch({
       type: "DELETE",
       payload: { id },
@@ -79,9 +79,9 @@ export const TodoItemComponent = memo((props) => {
             onChange={handleCompletedChange}
             checked={completed}
           />
-          <s>{props.title}</s>
-          <s className="dueDate">{dueDateValue(props.dueDate)}</s>
-          {props.status}
+          <s>{props.item.title}</s>
+          <s className="dueDate">{dueDateValue(props.item.dueDate)}</s>
+          {props.item.status}
           <button className="delete" onClick={handleDeleteClick}>
             x
           </button>
@@ -97,7 +97,7 @@ export const TodoItemComponent = memo((props) => {
             onChange={handleCompletedChange}
             checked={completed}
           />
-          {props.title} By
+          {props.item.title} By
           <input
             className="dueDate"
             type="date"
@@ -105,7 +105,7 @@ export const TodoItemComponent = memo((props) => {
             placeholder="check"
             onChange={handleDueDateCahnge}
           />
-          {props.status}
+          {props.item.status}
           <button className="delete" onClick={handleDeleteClick}>
             x
           </button>

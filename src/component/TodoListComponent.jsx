@@ -10,10 +10,7 @@ export const TodoListComponent = memo(() => {
       {state.todos.map((item) => (
         <TodoItemComponent
           key={item.id}
-          id={item.id}
-          title={item.title}
-          completed={item.completed}
-          dueDate={item.dueDate}
+          item={item}
           status={item.status}
         ></TodoItemComponent>
       ))}
