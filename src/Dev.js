@@ -12,34 +12,50 @@ const contents = `
 
 const uml = `
 class React {}
+class AppContext {
+  state
+  dispatch
+}
+class reducer {}
 class App {
   props
+  state
+  dispatch
 }
 package component {
   class TodoListComponent {
-    props
+    state
   }
   class TodoItemComponent {
-    props
-    handleUpdate()
-    handleDelete()
+    state
+    dispatch
+    completed
+    dueDate
+    setCompleted()
+    setDueDate()
     handleCompletedChange()
     handleDueDateCahnge()
     handleDeleteClick()
   }
   class TodoMessageComponent {
-    props
+    state
   }
   class TodoInputComponent {
-    props
+    state
+    dispatch
+    title
+    setTitle()
     handleChange()
     handleSubmit()
   }
   class TodoItemCountComponent {
-    props
+    state
   }
 }
+React <- AppContext
 React <- App
+AppContext <-- App
+reducer <- App
 App *-- TodoMessageComponent
 App *-- TodoInputComponent
 App *-- TodoItemCountComponent 
