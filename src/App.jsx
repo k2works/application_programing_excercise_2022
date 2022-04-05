@@ -16,6 +16,7 @@ const initialState = {
     completedAt: null,
   },
   todos: [],
+  count: 0,
   message: "",
   isError: false,
   service: () => {},
@@ -45,6 +46,7 @@ const reducer = (state, action) => {
         ...state,
         todo: action.payload.todo,
         todos: action.payload.todos,
+        count: action.payload.todos.length,
       };
     case "UPDATE":
       return {
@@ -57,7 +59,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         todo: initialState.todo,
-        todos: action.payload.todos,
+        todos: initialState.todos,
         message: "",
         isError: false,
       };
@@ -67,41 +69,25 @@ const reducer = (state, action) => {
 };
 
 const App = (props) => {
-  const [items, setItems] = useState([]);
-  const [message, setMessage] = useState("");
   const service = new TodoService(props.db);
-
-  useEffect(() => {
-    service.execute(Type.READ, {}).then((todos) => {
-      setItems(todos);
-    });
-  }, []);
-
   initialState.service = service;
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+    service.execute(Type.READ, {}).then((todos) => {
+      dispatch({ type: "READ", payload: { todo: {}, todos } });
+    });
+  }, []);
+
   return (
     <div>
-      <TodoMessageComponent message={message} state={state} />
-      <TodoInputComponent
-        service={service}
-        setItems={setItems}
-        setMessage={setMessage}
-        state={state}
-        dispatch={dispatch}
-      />
+      <TodoMessageComponent state={state} />
+      <TodoInputComponent state={state} dispatch={dispatch} />
       <div id="js-todo-list">
-        <TodoListComponent
-          items={items}
-          service={service}
-          setItems={setItems}
-          setMessage={setMessage}
-          state={state}
-          dispatch={dispatch}
-        />
+        <TodoListComponent state={state} dispatch={dispatch} />
       </div>
       <footer class="footer">
-        <TodoItemCountComponent count={items.length} />
+        <TodoItemCountComponent state={state} />
       </footer>
     </div>
   );

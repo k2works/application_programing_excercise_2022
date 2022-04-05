@@ -31,7 +31,6 @@ export const TodoItemComponent = (props) => {
       payload: { todo },
     });
     props.state.service.execute(Type.UPDATE, todo).then((todos) => {
-      props.setItems(todos);
       props.dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
@@ -52,7 +51,6 @@ export const TodoItemComponent = (props) => {
       payload: { todo },
     });
     props.state.service.execute(Type.UPDATE, todo).then((todos) => {
-      props.setItems(todos);
       props.dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
@@ -64,7 +62,6 @@ export const TodoItemComponent = (props) => {
       payload: { id },
     });
     props.state.service.execute(Type.DELETE, { id }).then((todos) => {
-      props.setItems(todos);
       props.dispatch({ type: "READ", payload: { todo: {}, todos } });
     });
   };
