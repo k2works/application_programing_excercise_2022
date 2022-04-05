@@ -53,6 +53,16 @@ const reducer = (state, action) => {
         message: "",
         isError: false,
       };
+    case "DELETE":
+      return {
+        ...state,
+        todo: initialState.todo,
+        todos: action.payload.todos,
+        message: "",
+        isError: false,
+      };
+    default:
+      return new Error("Unknown action type");
   }
 };
 

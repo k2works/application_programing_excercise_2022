@@ -15,13 +15,7 @@ export const TodoItemComponent = (props) => {
     }
   };
 
-  const handleDelete = ({ id }) => {
-    props.service.execute(Type.DELETE, { id }).then((todos) => {
-      props.setItems(todos);
-    });
-  };
-
-  const handleCompletedChange = (e) => {
+  const handleCompletedChange = () => {
     setCompleted(!completed);
     const completedAt = completed ? null : new Date();
     const status = completed ? "着手" : "完了";
@@ -64,7 +58,15 @@ export const TodoItemComponent = (props) => {
   };
 
   const handleDeleteClick = () => {
-    handleDelete({ id: props.id });
+    const id = props.id;
+    props.dispatch({
+      type: "DELETE",
+      payload: { id },
+    });
+    props.state.service.execute(Type.DELETE, { id }).then((todos) => {
+      props.setItems(todos);
+      props.dispatch({ type: "READ", payload: { todo: {}, todos } });
+    });
   };
 
   const element = () => {
@@ -114,4 +116,4 @@ export const TodoItemComponent = (props) => {
   };
 
   return element();
-};;
+};;;
