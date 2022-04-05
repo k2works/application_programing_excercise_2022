@@ -8,7 +8,7 @@ module.exports = {
   mode: env,
   target: ["web", "es5"],
   devtool: isDevelopment ? "source-map" : false,
-  entry: "./index.js",
+  entry: "./index.jsx",
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "public"),
@@ -19,4 +19,27 @@ module.exports = {
       filename: "index.html",
     }),
   ],
+  resolve: {
+    extensions: [".js", ".jsx", ".json"],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+        options: { presets: ["@babel/env", "@babel/preset-react"] },
+      },
+      {
+        test: /\.css/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: { url: false },
+          },
+        ],
+      },
+    ],
+  },
 };

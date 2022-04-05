@@ -1,70 +1,102 @@
 import marked from "marked";
 
 const contents = `
-## 機能名
+## Todoアプリ
 
-## 仕様
+## [仕様](./report)
 
-## TODOリスト
+- やることを追加できる
+- やることを編集できる
+- やることを削除できる
 `;
 
 const uml = `
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-  Object[] elementData
-  size()
+class React {}
+class AppContext {
+  state
+  dispatch
 }
-
-enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
+class reducer {}
+class App {
+  props
+  state
+  dispatch
 }
+package component {
+  class TodoListComponent {
+    state
+  }
+  class TodoItemComponent {
+    state
+    dispatch
+    completed
+    dueDate
+    setCompleted()
+    setDueDate()
+    handleCompletedChange()
+    handleDueDateCahnge()
+    handleDeleteClick()
+  }
+  class TodoMessageComponent {
+    state
+  }
+  class TodoInputComponent {
+    state
+    dispatch
+    title
+    setTitle()
+    handleChange()
+    handleSubmit()
+  }
+  class TodoItemCountComponent {
+    state
+  }
+}
+React <- AppContext
+React <- App
+AppContext <-- App
+reducer <- App
+App *-- TodoMessageComponent
+App *-- TodoInputComponent
+App *-- TodoItemCountComponent 
+App *-- TodoListComponent 
+TodoListComponent *- TodoItemComponent
 
-annotation SuppressWarnings
+package application {
+  class TodoService {
+    - db
+    execute(type, params)
+  }
+}
+TodoService <-- App
+
+package infrastructure {
+  class DB {
+    setup()
+    getTodos()
+    getTodo(id)
+    addTodo(todo)
+    updateTodo(todo)
+    deleteTodo(id)
+  }
+}
+Dexie <|-- DB
+App *- DB
 `;
 
 const erd = `
-' hide the spot
-hide circle
-
-' avoid problems with angled crows feet
-skinparam linetype ortho
-
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
-  --
-  *name : text
-  description : text
+package my_db_todo {
+  entity Todos {
+    id : Integer
+    --
+    title : String
+    completed : Boolean
+    dueDate: Date
+    createdAt: Date
+    completedAt: Date
+    status: String
+  }
 }
-
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
-  --
-  *e1_id : number <<FK>>
-  other_details : text
-}
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
 `;
 
 export const setUp = () => {
