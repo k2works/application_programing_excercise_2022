@@ -8,7 +8,9 @@ export const TodoInputComponent = (props) => {
     setTitle(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     if (title === "") {
       props.setMessage("タイトルが未入力です");
       return;
