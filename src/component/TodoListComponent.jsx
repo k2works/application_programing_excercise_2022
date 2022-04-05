@@ -7,14 +7,16 @@ export const TodoListComponent = (props) => {
       {props.items.map((item) => (
         <TodoItemComponent
           key={item.id}
-          title={item.title}
-          status={item.status}
           id={item.id}
+          title={item.title}
           completed={item.completed}
           dueDate={item.dueDate}
+          status={item.status}
           service={props.service}
           setItems={props.setItems}
           setMessage={props.setMessage}
+          state={props.state}
+          dispatch={props.dispatch}
         ></TodoItemComponent>
       ))}
     </ul>

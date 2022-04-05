@@ -15,19 +15,6 @@ export const TodoItemComponent = (props) => {
     }
   };
 
-  const handleUpdate = ({ id, completed, dueDate, completedAt, status }) => {
-    const todo = {
-      id,
-      completed,
-      dueDate,
-      completedAt,
-      status,
-    };
-    props.service.execute(Type.UPDATE, todo).then((todos) => {
-      props.setItems(todos);
-    });
-  };
-
   const handleDelete = ({ id }) => {
     props.service.execute(Type.DELETE, { id }).then((todos) => {
       props.setItems(todos);
@@ -38,13 +25,20 @@ export const TodoItemComponent = (props) => {
     setCompleted(!completed);
     const completedAt = completed ? null : new Date();
     const status = completed ? "着手" : "完了";
-
-    handleUpdate({
+    const todo = {
       id: props.id,
       completed: !completed,
-      dueDate: new Date(dueDate),
-      completedAt: completedAt,
+      dueDate: props.dueDate,
       status: status,
+      completedAt: completedAt,
+    };
+    props.dispatch({
+      type: "UPDATE",
+      payload: { todo },
+    });
+    props.state.service.execute(Type.UPDATE, todo).then((todos) => {
+      props.setItems(todos);
+      props.dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
 
@@ -52,13 +46,20 @@ export const TodoItemComponent = (props) => {
     const date = new Date(e.target.value);
     const dueDate = dueDateValue(e.target.value);
     setDueDate(dueDate);
-
-    handleUpdate({
+    const todo = {
       id: props.id,
       completed: props.completed,
       dueDate: date,
       completedAt: props.completedAt,
       status: props.status,
+    };
+    props.dispatch({
+      type: "UPDATE",
+      payload: { todo },
+    });
+    props.state.service.execute(Type.UPDATE, todo).then((todos) => {
+      props.setItems(todos);
+      props.dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
 
@@ -113,4 +114,4 @@ export const TodoItemComponent = (props) => {
   };
 
   return element();
-};
+};;

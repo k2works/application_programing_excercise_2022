@@ -17,7 +17,10 @@ export const TodoInputComponent = (props) => {
         .execute(Type.CREATE, props.state.todo)
         .then((todos) => {
           props.setItems(todos);
-          props.dispatch({ type: "READ", payload: { todos } });
+          props.dispatch({
+            type: "READ",
+            payload: { todo: props.state.todo, todos },
+          });
         });
     }
   };

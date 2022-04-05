@@ -7,6 +7,7 @@ import { TodoService, Type } from "./application/TodoService";
 
 const initialState = {
   todo: {
+    id: 0,
     title: "",
     completed: false,
     dueDate: null,
@@ -31,16 +32,27 @@ const reducer = (state, action) => {
           todo: initialState.todo,
         };
       }
-      const todo = {
+      const newTodo = {
         title: action.payload.title,
         completed: false,
         dueDate: state.dueDate,
         status: "未着手",
         createdAt: new Date(),
       };
-      return { ...state, todo, message: "", isError: false };
+      return { ...state, todo: newTodo, message: "", isError: false };
     case "READ":
-      return { ...state, todos: action.payload.todos };
+      return {
+        ...state,
+        todo: action.payload.todo,
+        todos: action.payload.todos,
+      };
+    case "UPDATE":
+      return {
+        ...state,
+        todo: action.payload.todo,
+        message: "",
+        isError: false,
+      };
   }
 };
 
@@ -74,6 +86,8 @@ const App = (props) => {
           service={service}
           setItems={setItems}
           setMessage={setMessage}
+          state={state}
+          dispatch={dispatch}
         />
       </div>
       <footer class="footer">
