@@ -1,5 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
 
-export const TodoItemCountComponent = (props) => {
+export const TodoItemCountComponent = memo((props) => {
   return <span id="js-todo-count">Todoアイテム数: {props.state.count}</span>;
-};
+});

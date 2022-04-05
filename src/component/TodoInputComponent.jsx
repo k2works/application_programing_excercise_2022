@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { Type } from "../application/TodoService";
 
-export const TodoInputComponent = (props) => {
+export const TodoInputComponent = memo((props) => {
   const [title, setTitle] = useState("");
 
   const handleChange = (e) => {
@@ -36,4 +36,4 @@ export const TodoInputComponent = (props) => {
       />
     </form>
   );
-};
+});

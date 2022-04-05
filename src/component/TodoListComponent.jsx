@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { TodoItemComponent } from "./TodoItemComponent";
 
-export const TodoListComponent = (props) => {
+export const TodoListComponent = memo((props) => {
   return (
     <ul>
       {props.state.todos.map((item) => (
@@ -18,4 +18,4 @@ export const TodoListComponent = (props) => {
       ))}
     </ul>
   );
-};
+});

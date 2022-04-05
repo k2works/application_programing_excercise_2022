@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { Type } from "../application/TodoService";
 
-export const TodoItemComponent = (props) => {
+export const TodoItemComponent = memo((props) => {
   const [completed, setCompleted] = useState(props.completed);
   const [dueDate, setDueDate] = useState(props.dueDate);
   const dueDateValue = (value) => {
@@ -113,4 +113,4 @@ export const TodoItemComponent = (props) => {
   };
 
   return element();
-};;;
+});
