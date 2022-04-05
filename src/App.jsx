@@ -86,7 +86,7 @@ const App = (props) => {
       <div id="js-todo-list">
         <TodoListComponent state={state} dispatch={dispatch} />
       </div>
-      <footer class="footer">
+      <footer className="footer">
         <TodoItemCountComponent state={state} />
       </footer>
     </div>
