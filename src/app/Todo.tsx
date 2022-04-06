@@ -3,8 +3,6 @@ import { TodoMessageComponent } from "../components/TodoMessageComponent";
 import { TodoInputComponent } from "../components/TodoInputComponent";
 import { TodoItemCountComponent } from "../components/TodoItemCountComponent";
 import { TodoListComponent } from "../components/TodoListComponent";
-import { TodoService } from "../application/TodoService";
-import { DB } from "../infrastructure/DB";
 import { useDispatch } from "react-redux";
 import { readTodoAsync } from "../features/todoSlice";
 
@@ -24,10 +22,9 @@ export type State = {
   count: number;
   message: string;
   isError: boolean;
-  service: TodoService;
 };
 
-export const Todo: React.VFC<{ db: DB }> = () => {
+export const Todo: React.VFC<{}> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {

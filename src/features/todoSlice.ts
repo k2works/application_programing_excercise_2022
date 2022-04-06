@@ -24,21 +24,20 @@ const initialState: State = {
   count: 0,
   message: "",
   isError: false,
-  service: new TodoService(new DB("todo")),
 };
 
 const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    readTodo(state: any, action: PayloadAction<Todo[]>) {
+    readTodo(state: State, action: PayloadAction<Todo[]>) {
       return {
         ...state,
         todos: action.payload,
         count: action.payload.length,
       };
     },
-    createTodo(state: any, action: PayloadAction<string>) {
+    createTodo(state: State, action: PayloadAction<string>) {
       if (action.payload === "") {
         return {
           ...state,
@@ -58,7 +57,7 @@ const todoSlice = createSlice({
       };
       return { ...state, todo: newTodo, message: "", isError: false };
     },
-    updateTodo(state: any, action: PayloadAction<Todo>) {
+    updateTodo(state: State, action: PayloadAction<Todo>) {
       return {
         ...state,
         todo: action.payload,
@@ -66,7 +65,7 @@ const todoSlice = createSlice({
         isError: false,
       };
     },
-    deleteTodo(state: any, action: PayloadAction<Todo>) {
+    deleteTodo(state: State, action: PayloadAction<Todo>) {
       return {
         ...state,
         todo: action.payload,
@@ -82,25 +81,23 @@ export const selectTodo = (state: RootState) => state.todo.todo;
 export const selectTodos = (state: RootState) => state.todo.todos;
 export const selectTodoCount = (state: RootState) => state.todo.count;
 export const selectTodoMessage = (state: RootState) => state.todo.message;
+export const selectIsError = (state: RootState) => state.todo.isError;
 
 export const readTodoAsync = () => async (dispatch: any) => {
   service.execute(Type.READ, {}).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
-
 export const createTodoAsync = (todo: Todo) => async (dispatch: any) => {
   service.execute(Type.CREATE, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
-
 export const updateTodoAsync = (todo: Todo) => async (dispatch: any) => {
   service.execute(Type.UPDATE, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
-
 export const deleteTodoAsync = (todo: Todo) => async (dispatch: any) => {
   service.execute(Type.DELETE, todo).then((todos: any) => {
     dispatch(readTodo(todos));
