@@ -1,12 +1,22 @@
 import React, { useState, memo, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AppContext, Todo } from "../app/Todo";
 import { Type } from "../application/TodoService";
+import {
+  deleteTodo,
+  deleteTodoAsync,
+  selectTodo,
+  updateTodo,
+  updateTodoAsync,
+} from "../features/todoSlice";
 
 export const TodoItemComponent: React.VFC<{
   key: number;
   item: Todo;
 }> = memo((props) => {
   const { state, dispatch } = useContext(AppContext);
+  const dispatch2 = useDispatch();
+  const todo = useSelector(selectTodo);
   const [completed, setCompleted] = useState(props.item.completed);
   const [dueDate, setDueDate] = useState(props.item.dueDate);
   const dueDateValue = (value: any) => {
@@ -40,6 +50,8 @@ export const TodoItemComponent: React.VFC<{
     state.service.execute(Type.UPDATE, todo).then((todos: any) => {
       dispatch({ type: "READ", payload: { todo, todos } });
     });
+    dispatch2(updateTodo(todo));
+    dispatch2(updateTodoAsync(todo));
   };
 
   const handleDueDateCahnge = (e: any) => {
@@ -61,6 +73,8 @@ export const TodoItemComponent: React.VFC<{
     state.service.execute(Type.UPDATE, todo).then((todos: any) => {
       dispatch({ type: "READ", payload: { todo, todos } });
     });
+    dispatch2(updateTodo(todo));
+    dispatch2(updateTodoAsync(todo));
   };
 
   const handleDeleteClick = () => {
@@ -70,22 +84,26 @@ export const TodoItemComponent: React.VFC<{
       payload: { id },
     });
     state.service.execute(Type.DELETE, { id }).then((todos: any) => {
+      const todo = {
+        id: 0,
+        title: "",
+        completed: false,
+        dueDate: null,
+        status: "",
+        createdAt: null,
+        completedAt: null,
+      };
+
       dispatch({
         type: "READ",
         payload: {
-          todo: {
-            id: 0,
-            title: "",
-            completed: false,
-            dueDate: null,
-            status: "",
-            createdAt: null,
-            completedAt: null,
-          },
+          todo,
           todos,
         },
       });
     });
+    dispatch2(deleteTodo(todo));
+    dispatch2(deleteTodoAsync(todo));
   };
 
   const element = () => {

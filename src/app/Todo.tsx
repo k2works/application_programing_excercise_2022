@@ -5,8 +5,10 @@ import { TodoItemCountComponent } from "../components/TodoItemCountComponent";
 import { TodoListComponent } from "../components/TodoListComponent";
 import { TodoService, Type } from "../application/TodoService";
 import { DB } from "../infrastructure/DB";
+import { useDispatch, useSelector } from "react-redux";
+import { readTodo, readTodoAsync } from "../features/todoSlice";
 
-export interface Todo {
+export type Todo = {
   id: number;
   title: string;
   completed: boolean;
@@ -14,16 +16,16 @@ export interface Todo {
   status: string;
   createdAt: Date | null;
   completedAt: Date | null;
-}
+};
 
-export interface State {
+export type State = {
   todo: Todo;
   todos: Todo[];
   count: number;
   message: string;
   isError: boolean;
   service: TodoService;
-}
+};
 
 const initialState: State = {
   todo: {
@@ -103,6 +105,7 @@ export const AppContext = createContext(
 export const Todo: React.VFC<{ db: DB }> = (props) => {
   initialState.service = new TodoService(props.db);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const dispatch2 = useDispatch();
 
   useEffect(() => {
     const todo = {
@@ -123,6 +126,7 @@ export const Todo: React.VFC<{ db: DB }> = (props) => {
         },
       });
     });
+    dispatch2(readTodoAsync());
   }, []);
 
   return (
