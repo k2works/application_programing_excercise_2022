@@ -1,18 +1,14 @@
 import React, { memo, useContext } from "react";
-import { AppContext } from "../App";
+import { AppContext, Todo } from "../App";
 import { TodoItemComponent } from "./TodoItemComponent";
 
-export const TodoListComponent = memo(() => {
+export const TodoListComponent: React.VFC<{}> = memo(() => {
   const { state, dispatch } = useContext(AppContext);
 
   return (
     <ul>
-      {state.todos.map((item: any) => (
-        <TodoItemComponent
-          key={item.id}
-          item={item}
-          status={item.status}
-        ></TodoItemComponent>
+      {state.todos.map((item: Todo) => (
+        <TodoItemComponent key={item.id} item={item}></TodoItemComponent>
       ))}
     </ul>
   );

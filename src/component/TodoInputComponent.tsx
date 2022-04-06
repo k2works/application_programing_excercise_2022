@@ -2,7 +2,7 @@ import React, { useState, memo, useContext } from "react";
 import { Type } from "../application/TodoService";
 import { AppContext } from "../App";
 
-export const TodoInputComponent = memo(() => {
+export const TodoInputComponent: React.VFC<{}> = memo(() => {
   const { state, dispatch } = useContext(AppContext);
   const [title, setTitle] = useState("");
 

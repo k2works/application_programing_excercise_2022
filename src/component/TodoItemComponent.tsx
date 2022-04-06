@@ -1,8 +1,11 @@
 import React, { useState, memo, useContext } from "react";
-import { AppContext } from "../App";
+import { AppContext, Todo } from "../App";
 import { Type } from "../application/TodoService";
 
-export const TodoItemComponent = memo((props: any) => {
+export const TodoItemComponent: React.VFC<{
+  key: number;
+  item: Todo;
+}> = memo((props) => {
   const { state, dispatch } = useContext(AppContext);
   const [completed, setCompleted] = useState(props.item.completed);
   const [dueDate, setDueDate] = useState(props.item.dueDate);
@@ -23,9 +26,11 @@ export const TodoItemComponent = memo((props: any) => {
     const status = completed ? "着手" : "完了";
     const todo = {
       id: props.item.id,
+      title: props.item.title,
       completed: !completed,
       dueDate: props.item.dueDate,
       status: status,
+      createdAt: props.item.createdAt,
       completedAt: completedAt,
     };
     dispatch({
@@ -39,13 +44,14 @@ export const TodoItemComponent = memo((props: any) => {
 
   const handleDueDateCahnge = (e: any) => {
     const date = new Date(e.target.value);
-    const dueDate = dueDateValue(e.target.value);
-    setDueDate(dueDate);
+    setDueDate(date);
     const todo = {
       id: props.item.id,
+      title: props.item.title,
       completed: props.item.completed,
       dueDate: date,
       completedAt: props.item.completedAt,
+      createdAt: props.item.createdAt,
       status: props.item.status,
     };
     dispatch({
@@ -64,7 +70,21 @@ export const TodoItemComponent = memo((props: any) => {
       payload: { id },
     });
     state.service.execute(Type.DELETE, { id }).then((todos: any) => {
-      dispatch({ type: "READ", payload: { todo: {}, todos } });
+      dispatch({
+        type: "READ",
+        payload: {
+          todo: {
+            id: 0,
+            title: "",
+            completed: false,
+            dueDate: null,
+            status: "",
+            createdAt: null,
+            completedAt: null,
+          },
+          todos,
+        },
+      });
     });
   };
 
