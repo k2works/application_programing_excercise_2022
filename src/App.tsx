@@ -39,7 +39,7 @@ const initialState: State = {
   count: 0,
   message: "",
   isError: false,
-  service: new TodoService(null),
+  service: new TodoService(new DB("todo")),
 };
 
 type Action =
@@ -105,19 +105,20 @@ const App: React.VFC<{ db: DB }> = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    state.service.execute(Type.READ, {}).then((todos: any) => {
+    const todo = {
+      id: 0,
+      title: "",
+      completed: false,
+      dueDate: null,
+      status: "",
+      createdAt: null,
+      completedAt: null,
+    };
+    state.service.execute(Type.READ, todo).then((todos: any) => {
       dispatch({
         type: "READ",
         payload: {
-          todo: {
-            id: 0,
-            title: "",
-            completed: false,
-            dueDate: null,
-            status: "",
-            createdAt: null,
-            completedAt: null,
-          },
+          todo,
           todos,
         },
       });

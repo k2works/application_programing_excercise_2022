@@ -1,4 +1,4 @@
-import Dexie from "dexie";
+import Dexie, { Table } from "dexie";
 
 export class DB extends Dexie {
   private todos: any;
@@ -8,13 +8,15 @@ export class DB extends Dexie {
   }
 
   setup() {
-    return new Promise((resolve: any, reject: any) => {
-      this.version(1).stores({
-        todos: "++id,title,completed,dueDate,createdAt, completedAt, status",
-      });
-      this.todos = this.table("todos");
-      resolve();
-    });
+    return new Promise(
+      (resolve: (value?: any) => void, reject: (reason?: any) => void) => {
+        this.version(1).stores({
+          todos: "++id,title,completed,dueDate,createdAt, completedAt, status",
+        });
+        this.todos = this.table("todos");
+        resolve();
+      }
+    );
   }
 
   addTodo(todo: any) {
