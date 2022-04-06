@@ -68,9 +68,10 @@ Todo *-- TodoList
 Todo *-- TodoInput 
 Todo *-- TodoMessage 
 Todo *-- TodoItemCount 
-index <-- Todo
 todoSlice <-- Todo
-index *- todoSlice
+index *-- todoSlice
+todoSlice -> Redux
+Redux <- index
 
 package application {
   class TodoService {
