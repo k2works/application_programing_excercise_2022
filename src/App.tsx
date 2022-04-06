@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer, createContext, Dispatch } from "react";
-import { TodoMessageComponent } from "./component/TodoMessageComponent";
-import { TodoInputComponent } from "./component/TodoInputComponent";
-import { TodoItemCountComponent } from "./component/TodoItemCountComponent";
-import { TodoListComponent } from "./component/TodoListComponent";
+import { TodoMessageComponent } from "./components/TodoMessageComponent";
+import { TodoInputComponent } from "./components/TodoInputComponent";
+import { TodoItemCountComponent } from "./components/TodoItemCountComponent";
+import { TodoListComponent } from "./components/TodoListComponent";
 import { TodoService, Type } from "./application/TodoService";
 import { DB } from "./infrastructure/DB";
 
