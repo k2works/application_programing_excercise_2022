@@ -7,7 +7,7 @@ export const TodoListComponent = memo(() => {
 
   return (
     <ul>
-      {state.todos.map((item) => (
+      {state.todos.map((item: any) => (
         <TodoItemComponent
           key={item.id}
           item={item}

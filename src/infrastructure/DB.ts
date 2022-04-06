@@ -1,12 +1,14 @@
 import Dexie from "dexie";
 
 export class DB extends Dexie {
-  constructor(namespace) {
+  private todos: any;
+
+  constructor(namespace: string) {
     super(DB.dbName(namespace));
   }
 
   setup() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve: any, reject: any) => {
       this.version(1).stores({
         todos: "++id,title,completed,dueDate,createdAt, completedAt, status",
       });
@@ -15,7 +17,7 @@ export class DB extends Dexie {
     });
   }
 
-  addTodo(todo) {
+  addTodo(todo: any) {
     return this.todos.add(todo);
   }
 
@@ -23,19 +25,19 @@ export class DB extends Dexie {
     return this.todos.orderBy("id").toArray();
   }
 
-  getTodo(id) {
+  getTodo(id: number) {
     return this.todos.get(id);
   }
 
-  updateTodo(todo) {
+  updateTodo(todo: any) {
     return this.todos.put(todo);
   }
 
-  deleteTodo(id) {
+  deleteTodo(id: number) {
     return this.todos.delete(id);
   }
 
-  static dbName(namespace) {
+  static dbName(namespace: string) {
     return namespace != undefined ? `my_db_${namespace}` : "my_db";
   }
 }

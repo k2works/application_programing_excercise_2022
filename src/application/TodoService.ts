@@ -6,12 +6,14 @@ export const Type = {
 };
 
 export class TodoService {
-  constructor(db) {
+  private db: any;
+
+  constructor(db: any) {
     this.db = db;
   }
 
-  execute(type, params) {
-    return new Promise((resolve, reject) => {
+  execute(type: number, params: any) {
+    return new Promise((resolve: any, reject: any) => {
       if (type === Type.CREATE) {
         const todo = {
           title: params.title,
@@ -23,48 +25,48 @@ export class TodoService {
         this.db
           .addTodo(todo)
           .then(() => {
-            this.db.getTodos().then((todos) => {
+            this.db.getTodos().then((todos: any) => {
               resolve(todos);
             });
           })
-          .catch((error) => {
+          .catch((error: any) => {
             reject(error);
           });
       } else if (type === Type.READ) {
         this.db
           .getTodos()
-          .then((todos) => {
+          .then((todos: any) => {
             resolve(todos);
           })
-          .catch((error) => {
+          .catch((error: any) => {
             reject(error);
           });
       } else if (type === Type.UPDATE) {
         this.db
           .getTodo(params.id)
-          .then((todo) => {
+          .then((todo: any) => {
             todo.completed = params.completed;
             todo.dueDate = params.dueDate;
             todo.completedAt = params.completedAt;
             todo.status = params.status;
             this.db.updateTodo(todo).then(() => {
-              this.db.getTodos().then((todos) => {
+              this.db.getTodos().then((todos: any) => {
                 resolve(todos);
               });
             });
           })
-          .catch((error) => {
+          .catch((error: any) => {
             reject(error);
           });
       } else if (type === Type.DELETE) {
         this.db
           .deleteTodo(params.id)
           .then(() => {
-            this.db.getTodos().then((todos) => {
+            this.db.getTodos().then((todos: any) => {
               resolve(todos);
             });
           })
-          .catch((error) => {
+          .catch((error: any) => {
             reject(error);
           });
       } else {

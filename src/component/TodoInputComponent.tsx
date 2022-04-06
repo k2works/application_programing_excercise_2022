@@ -6,16 +6,16 @@ export const TodoInputComponent = memo(() => {
   const { state, dispatch } = useContext(AppContext);
   const [title, setTitle] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setTitle(e.target.value);
     dispatch({ type: "CREATE", payload: { title: e.target.value } });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch({ type: "CREATE", payload: { title } });
     if (title !== "") {
-      state.service.execute(Type.CREATE, state.todo).then((todos) => {
+      state.service.execute(Type.CREATE, state.todo).then((todos: any) => {
         dispatch({
           type: "READ",
           payload: { todo: state.todo, todos },

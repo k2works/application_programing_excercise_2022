@@ -19,10 +19,10 @@ const initialState = {
   count: 0,
   message: "",
   isError: false,
-  service: () => {},
+  service: new TodoService(null),
 };
 
-const reducer = (state, action) => {
+const reducer = (state: any, action: any) => {
   switch (action.type) {
     case "CREATE":
       if (action.payload.title === "") {
@@ -68,14 +68,14 @@ const reducer = (state, action) => {
   }
 };
 
-export const AppContext = createContext();
+export const AppContext = createContext({} as { state: any; dispatch: any });
 
-const App = (props) => {
+const App = (props: any) => {
   initialState.service = new TodoService(props.db);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    state.service.execute(Type.READ, {}).then((todos) => {
+    state.service.execute(Type.READ, {}).then((todos: any) => {
       dispatch({ type: "READ", payload: { todo: {}, todos } });
     });
   }, []);

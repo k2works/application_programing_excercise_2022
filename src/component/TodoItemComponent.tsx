@@ -2,11 +2,11 @@ import React, { useState, memo, useContext } from "react";
 import { AppContext } from "../App";
 import { Type } from "../application/TodoService";
 
-export const TodoItemComponent = memo((props) => {
+export const TodoItemComponent = memo((props: any) => {
   const { state, dispatch } = useContext(AppContext);
   const [completed, setCompleted] = useState(props.item.completed);
   const [dueDate, setDueDate] = useState(props.item.dueDate);
-  const dueDateValue = (value) => {
+  const dueDateValue = (value: any) => {
     if (value === null || value === undefined) return "";
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) {
@@ -32,12 +32,12 @@ export const TodoItemComponent = memo((props) => {
       type: "UPDATE",
       payload: { todo },
     });
-    state.service.execute(Type.UPDATE, todo).then((todos) => {
+    state.service.execute(Type.UPDATE, todo).then((todos: any) => {
       dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
 
-  const handleDueDateCahnge = (e) => {
+  const handleDueDateCahnge = (e: any) => {
     const date = new Date(e.target.value);
     const dueDate = dueDateValue(e.target.value);
     setDueDate(dueDate);
@@ -52,7 +52,7 @@ export const TodoItemComponent = memo((props) => {
       type: "UPDATE",
       payload: { todo },
     });
-    state.service.execute(Type.UPDATE, todo).then((todos) => {
+    state.service.execute(Type.UPDATE, todo).then((todos: any) => {
       dispatch({ type: "READ", payload: { todo, todos } });
     });
   };
@@ -63,7 +63,7 @@ export const TodoItemComponent = memo((props) => {
       type: "DELETE",
       payload: { id },
     });
-    state.service.execute(Type.DELETE, { id }).then((todos) => {
+    state.service.execute(Type.DELETE, { id }).then((todos: any) => {
       dispatch({ type: "READ", payload: { todo: {}, todos } });
     });
   };

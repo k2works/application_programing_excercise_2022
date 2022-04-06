@@ -1,21 +1,16 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Hello React!</h1>
-      </div>
-    );
+import "./src/style.css";
+import App from "./src/App";
+import { DB } from "./src/infrastructure/DB";
+const db = new DB("todo");
+db.setup().then(() => {
+  const container = document.getElementById("root");
+  if (container) {
+    const root = createRoot(container);
+    root.render(<App db={db} />);
   }
-}
-
-const container = document.getElementById("root");
-if (container) {
-  const root = createRoot(container);
-  root.render(<App />);
-}
+});
 
 const Dev = require("./src/Dev.js");
 Dev.setUp();

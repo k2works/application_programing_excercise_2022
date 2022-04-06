@@ -7,7 +7,7 @@ describe("IndexDBを利用するサンプルコード", () => {
     const db = new DB("test1");
     await db.setup("test1");
     db.addTodo({ id: 1, title: "todo1", completed: false }).then(() => {
-      db.getTodos().then((todos) => {
+      db.getTodos().then((todos: any) => {
         expect(todos).toHaveLength(1);
         expect(todos[0].title).toBe("todo1");
         expect(todos[0].completed).toBe(false);
@@ -20,7 +20,7 @@ describe("IndexDBを利用するサンプルコード", () => {
     await db.setup();
     db.addTodo({ id: 1, title: "todo1", completed: false }).then(() => {
       db.addTodo({ id: 2, title: "todo2", completed: false }).then(() => {
-        db.getTodos().then((todos) => {
+        db.getTodos().then((todos: any) => {
           expect(todos).toHaveLength(2);
           expect(todos[0].title).toBe("todo1");
           expect(todos[0].completed).toBe(false);
@@ -35,7 +35,7 @@ describe("IndexDBを利用するサンプルコード", () => {
     db.addTodo({ id: 1, title: "todo1", completed: false }).then(() => {
       db.updateTodo({ id: 1, title: "todoUpdate", completed: true }).then(
         () => {
-          db.getTodos().then((todos) => {
+          db.getTodos().then((todos: any) => {
             expect(todos).toHaveLength(1);
             expect(todos[0].title).toBe("todoUpdate");
             expect(todos[0].completed).toBe(true);
@@ -50,7 +50,7 @@ describe("IndexDBを利用するサンプルコード", () => {
     await db.setup();
     db.addTodo({ id: 1, title: "todo1", completed: false }).then(() => {
       db.deleteTodo(1).then(() => {
-        db.getTodos().then((todos) => {
+        db.getTodos().then((todos: any) => {
           expect(todos).toHaveLength(0);
         });
       });
