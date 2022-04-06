@@ -11,56 +11,66 @@ const contents = `
 `;
 
 const uml = `
-class React {}
-class AppContext {
-  state
-  dispatch
-}
-class reducer {}
-class App {
-  props
-  state
-  dispatch
-}
-package component {
-  class TodoListComponent {
-    state
-  }
-  class TodoItemComponent {
-    state
+package app {
+  class React {}
+  class App {}
+  class Todo {
     dispatch
+  }
+}
+package components {
+  class TodoList{
+    todos
+  }
+  class TodoItem{
+    dispatch
+    todo
     completed
     dueDate
     setCompleted()
     setDueDate()
-    handleCompletedChange()
-    handleDueDateCahnge()
-    handleDeleteClick()
   }
-  class TodoMessageComponent {
-    state
-  }
-  class TodoInputComponent {
-    state
+  class TodoInput{
     dispatch
-    title
-    setTitle()
-    handleChange()
-    handleSubmit()
+    todo
+    isError
   }
-  class TodoItemCountComponent {
-    state
+  class TodoItemCount{
+    count
+  }
+  class TodoMessage{
+    message
+  }
+  TodoList *-- TodoItem
+}
+package features {
+  class todoSlice {
+    initialState
+    selectTodo()
+    selectTodos()
+    selectTodoCount()
+    selectTodoMessage()
+    selectIsError()
+    readTodoAsync()
+    createTodoAsync()
+    updateTodoAsync()
+    deleteTodoAsync()
   }
 }
-React <- AppContext
-React <- App
-AppContext <-- App
-reducer <- App
-App *-- TodoMessageComponent
-App *-- TodoInputComponent
-App *-- TodoItemCountComponent 
-App *-- TodoListComponent 
-TodoListComponent *- TodoItemComponent
+package reducers {
+  class index {
+    rootReducer
+  }
+}
+App -> React
+Todo <- App
+Todo *-- TodoList
+Todo *-- TodoInput 
+Todo *-- TodoMessage 
+Todo *-- TodoItemCount 
+index <-- Todo
+todoSlice <-- Todo
+index *- todoSlice
 
 package application {
   class TodoService {
@@ -68,7 +78,7 @@ package application {
     execute(type, params)
   }
 }
-TodoService <-- App
+todoSlice -> TodoService
 
 package infrastructure {
   class DB {
@@ -81,7 +91,7 @@ package infrastructure {
   }
 }
 Dexie <|-- DB
-App *- DB
+TodoService *- DB
 `;
 
 const erd = `

@@ -10,7 +10,6 @@ import {
 } from "../features/todoSlice";
 
 export const TodoItemComponent: React.VFC<{
-  key: number;
   item: Todo;
 }> = memo((props) => {
   const dispatch = useDispatch();
