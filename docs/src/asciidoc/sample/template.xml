@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc maxdepth="5"?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>AppTemplate</title>
+<date>2020-05-19</date>
+</info>
+<section xml:id="_仕様">
+<title>仕様</title>
+
+</section>
+<section xml:id="_設計">
+<title>設計</title>
+<section xml:id="_todoリスト">
+<title>TODOリスト</title>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10063; TODO</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; <phrase role="line-through">TODO DONE</phrase></simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_ユースケース図">
+<title>ユースケース図</title>
+<screen>left to right direction
+skinparam packageStyle rectangle
+actor customer
+actor clerk
+rectangle checkout {
+  customer -- (checkout)
+  (checkout) .&gt; (payment) : include
+  (help) .&gt; (checkout) : extends
+  (checkout) -- clerk
+}</screen>
+</section>
+<section xml:id="_クラス図">
+<title>クラス図</title>
+<screen>class Car
+Driver - Car : drives &gt;
+Car *- Wheel : have 4 &gt;
+Car -- Person : &lt; owns</screen>
+</section>
+<section xml:id="_シーケンス図">
+<title>シーケンス図</title>
+<screen>participant User
+User -&gt; A: DoWork
+activate A
+A -&gt; B: &lt;&lt; createRequest &gt;&gt;
+activate B
+B -&gt; C: DoWork
+activate C
+C --&gt; B: WorkDone
+destroy C
+B --&gt; A: RequestCreated
+deactivate B
+A -&gt; User: Done
+deactivate A</screen>
+</section>
+<section xml:id="_数式">
+<title>数式</title>
+<simpara><link xl:href="https://asciidoctor.org/docs/user-manual/#activating-stem-support">Using Multiple Stem Interpreters</link></simpara>
+<simpara><inlineequation><mathphrase><![CDATA[sqrt(4) = 2]]></mathphrase></inlineequation></simpara>
+<simpara>Water (<inlineequation><mathphrase><![CDATA[H_2O]]></mathphrase></inlineequation>) is a critical component.</simpara>
+<informalequation>
+<mathphrase><![CDATA[sqrt(4) = 2]]></mathphrase>
+</informalequation>
+<simpara><inlineequation><alt><![CDATA[C = \alpha + \beta Y^{\gamma} + \epsilon]]></alt><mathphrase><![CDATA[C = \alpha + \beta Y^{\gamma} + \epsilon]]></mathphrase></inlineequation></simpara>
+</section>
+</section>
+<section xml:id="_開発">
+<title>開発</title>
+
+</section>
+<section xml:id="_参照">
+<title>参照</title>
+
+</section>
+</article>
