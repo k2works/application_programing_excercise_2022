@@ -32,33 +32,22 @@ export const TodoItemComponent: React.VFC<{
     setCompleted(!completed);
     const completedAt = completed ? null : new Date();
     const status = completed ? "着手" : "完了";
-    const todo = {
-      id: props.item.id,
-      title: props.item.title,
+    const todoUpdate = {
+      ...props.item,
       completed: !completed,
-      dueDate: props.item.dueDate,
-      status: status,
-      createdAt: props.item.createdAt,
-      completedAt: completedAt,
+      completedAt,
+      status,
     };
-    dispatch(updateTodo(todo));
-    dispatch(updateTodoAsync(todo));
+    dispatch(updateTodo(todoUpdate));
+    dispatch(updateTodoAsync(todoUpdate));
   };
 
   const handleDueDateCahnge = (e: any) => {
     const date = new Date(e.target.value);
     setDueDate(date);
-    const todo = {
-      id: props.item.id,
-      title: props.item.title,
-      completed: props.item.completed,
-      dueDate: date,
-      completedAt: props.item.completedAt,
-      createdAt: props.item.createdAt,
-      status: props.item.status,
-    };
-    dispatch(updateTodo(todo));
-    dispatch(updateTodoAsync(todo));
+    const todoUpdate = { ...props.item, dueDate: date };
+    dispatch(updateTodo(todoUpdate));
+    dispatch(updateTodoAsync(todoUpdate));
   };
 
   const handleDeleteClick = () => {
