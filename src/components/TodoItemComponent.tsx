@@ -29,13 +29,9 @@ export const TodoItemComponent: React.VFC<{
 
   const handleCompletedChange = () => {
     setCompleted(!completed);
-    const completedAt = completed ? null : new Date();
-    const status = completed ? "着手" : "完了";
     const todoUpdate = {
       ...props.item,
       completed: !completed,
-      completedAt,
-      status,
     };
     dispatch(updateTodo(todoUpdate));
     dispatch(updateTodoAsync(todoUpdate));

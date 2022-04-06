@@ -1,3 +1,5 @@
+import { DB } from "../infrastructure/DB";
+
 export const Type = {
   CREATE: 1,
   READ: 2,
@@ -6,9 +8,9 @@ export const Type = {
 };
 
 export class TodoService {
-  private db: any;
+  private db: DB;
 
-  constructor(db: any) {
+  constructor(db: DB) {
     this.db = db;
   }
 
@@ -45,11 +47,11 @@ export class TodoService {
         this.db
           .getTodo(params.id)
           .then((todo: any) => {
-            todo.completed = params.completed;
-            todo.dueDate = params.dueDate;
-            todo.completedAt = params.completedAt;
-            todo.status = params.status;
-            this.db.updateTodo(todo).then(() => {
+            const dueDate = params.dueDate;
+            const completedAt = params.completed ? null : new Date();
+            const status = params.completed ? "着手" : "完了";
+            const updateTodo = { ...todo, dueDate, completedAt, status };
+            this.db.updateTodo(updateTodo).then(() => {
               this.db.getTodos().then((todos: any) => {
                 resolve(todos);
               });
