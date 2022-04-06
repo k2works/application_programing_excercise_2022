@@ -1,10 +1,10 @@
 import React, { useEffect, useReducer, createContext, Dispatch } from "react";
-import { TodoMessageComponent } from "./components/TodoMessageComponent";
-import { TodoInputComponent } from "./components/TodoInputComponent";
-import { TodoItemCountComponent } from "./components/TodoItemCountComponent";
-import { TodoListComponent } from "./components/TodoListComponent";
-import { TodoService, Type } from "./application/TodoService";
-import { DB } from "./infrastructure/DB";
+import { TodoMessageComponent } from "../components/TodoMessageComponent";
+import { TodoInputComponent } from "../components/TodoInputComponent";
+import { TodoItemCountComponent } from "../components/TodoItemCountComponent";
+import { TodoListComponent } from "../components/TodoListComponent";
+import { TodoService, Type } from "../application/TodoService";
+import { DB } from "../infrastructure/DB";
 
 export interface Todo {
   id: number;
@@ -100,7 +100,7 @@ export const AppContext = createContext(
   {} as { state: State; dispatch: Dispatch<Action> }
 );
 
-const App: React.VFC<{ db: DB }> = (props) => {
+export const Todo: React.VFC<{ db: DB }> = (props) => {
   initialState.service = new TodoService(props.db);
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -140,5 +140,3 @@ const App: React.VFC<{ db: DB }> = (props) => {
     </AppContext.Provider>
   );
 };
-
-export default App;

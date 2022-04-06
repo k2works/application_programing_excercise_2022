@@ -18,7 +18,7 @@ db.setup().then(() => {
     const root = createRoot(container);
     root.render(
       <Provider store={store}>
-        <App />
+        <App db={db} />
       </Provider>
     );
   }

@@ -1,5 +1,5 @@
 import React, { memo, useContext } from "react";
-import { AppContext } from "../App";
+import { AppContext } from "../app/Todo";
 
 export const TodoMessageComponent: React.VFC<{}> = memo(() => {
   const { state, dispatch } = useContext(AppContext);

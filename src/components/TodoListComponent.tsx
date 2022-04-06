@@ -1,5 +1,5 @@
 import React, { memo, useContext } from "react";
-import { AppContext, Todo } from "../App";
+import { AppContext, Todo } from "../app/Todo";
 import { TodoItemComponent } from "./TodoItemComponent";
 
 export const TodoListComponent: React.VFC<{}> = memo(() => {

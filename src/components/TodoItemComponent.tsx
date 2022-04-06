@@ -1,5 +1,5 @@
 import React, { useState, memo, useContext } from "react";
-import { AppContext, Todo } from "../App";
+import { AppContext, Todo } from "../app/Todo";
 import { Type } from "../application/TodoService";
 
 export const TodoItemComponent: React.VFC<{
