@@ -69,7 +69,7 @@ const todoSlice = createSlice({
     deleteTodo(state: any, action: PayloadAction<Todo>) {
       return {
         ...state,
-        todo: initialState.todo,
+        todo: action.payload,
         todos: initialState.todos,
         message: "",
         isError: false,

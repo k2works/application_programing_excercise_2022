@@ -1,7 +1,6 @@
-import React, { useState, memo, useContext } from "react";
+import React, { useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppContext, Todo } from "../app/Todo";
-import { Type } from "../application/TodoService";
+import { Todo } from "../app/Todo";
 import {
   deleteTodo,
   deleteTodoAsync,
@@ -14,8 +13,7 @@ export const TodoItemComponent: React.VFC<{
   key: number;
   item: Todo;
 }> = memo((props) => {
-  const { state, dispatch } = useContext(AppContext);
-  const dispatch2 = useDispatch();
+  const dispatch = useDispatch();
   const todo = useSelector(selectTodo);
   const [completed, setCompleted] = useState(props.item.completed);
   const [dueDate, setDueDate] = useState(props.item.dueDate);
@@ -43,15 +41,8 @@ export const TodoItemComponent: React.VFC<{
       createdAt: props.item.createdAt,
       completedAt: completedAt,
     };
-    dispatch({
-      type: "UPDATE",
-      payload: { todo },
-    });
-    state.service.execute(Type.UPDATE, todo).then((todos: any) => {
-      dispatch({ type: "READ", payload: { todo, todos } });
-    });
-    dispatch2(updateTodo(todo));
-    dispatch2(updateTodoAsync(todo));
+    dispatch(updateTodo(todo));
+    dispatch(updateTodoAsync(todo));
   };
 
   const handleDueDateCahnge = (e: any) => {
@@ -66,44 +57,14 @@ export const TodoItemComponent: React.VFC<{
       createdAt: props.item.createdAt,
       status: props.item.status,
     };
-    dispatch({
-      type: "UPDATE",
-      payload: { todo },
-    });
-    state.service.execute(Type.UPDATE, todo).then((todos: any) => {
-      dispatch({ type: "READ", payload: { todo, todos } });
-    });
-    dispatch2(updateTodo(todo));
-    dispatch2(updateTodoAsync(todo));
+    dispatch(updateTodo(todo));
+    dispatch(updateTodoAsync(todo));
   };
 
   const handleDeleteClick = () => {
-    const id = props.item.id;
-    dispatch({
-      type: "DELETE",
-      payload: { id },
-    });
-    state.service.execute(Type.DELETE, { id }).then((todos: any) => {
-      const todo = {
-        id: 0,
-        title: "",
-        completed: false,
-        dueDate: null,
-        status: "",
-        createdAt: null,
-        completedAt: null,
-      };
-
-      dispatch({
-        type: "READ",
-        payload: {
-          todo,
-          todos,
-        },
-      });
-    });
-    dispatch2(deleteTodo(todo));
-    dispatch2(deleteTodoAsync(todo));
+    const todoDelte = { ...todo, id: props.item.id };
+    dispatch(deleteTodo(todoDelte));
+    dispatch(deleteTodoAsync(todoDelte));
   };
 
   const element = () => {
