@@ -9,6 +9,7 @@
   "scripts": {
     "start": "nf start -j Procfile",
     "app": "webpack server --config ./webpack.config.js --open",
+    "api": "node ./src/server.js",
     "test": "jest --coverage",
     "test:e2e": "cypress run",
     "test:e2e:ci": "cypress run --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
@@ -73,7 +74,9 @@
     "@reduxjs/toolkit": "^1.8.1",
     "cypress": "^9.4.1",
     "dexie": "^3.2.1",
-    "react-redux": "^7.2.8"
+    "express": "^4.17.3",
+    "react-redux": "^7.2.8",
+    "uuid": "^8.3.2"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/",
