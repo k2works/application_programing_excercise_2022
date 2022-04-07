@@ -8,14 +8,14 @@ module.exports = {
   mode: env,
   target: ["web", "es5"],
   devtool: isDevelopment ? "source-map" : false,
-  entry: "./index.tsx",
+  entry: "./src/index.tsx",
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "public"),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: "./src/index.html",
       filename: "index.html",
     }),
   ],

@@ -2,9 +2,9 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import App from "./src/app/App";
-import rootReducer from "./src/reducers";
-import "./src/style.css";
+import App from "./app/App";
+import rootReducer from "./reducers";
+import "./style.css";
 
 const store = configureStore({
   reducer: rootReducer,
@@ -20,5 +20,5 @@ if (container) {
   );
 }
 
-const Dev = require("./src/Dev.js");
+const Dev = require("./Dev.js");
 Dev.setUp();
