@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nf start -j Procfile",
     "app": "webpack server --config ./webpack.config.js --open",
-    "api": "node ./src/server.js",
+    "api": "ts-node ./src/server.ts",
     "test": "jest --coverage",
     "test:e2e": "cypress run",
     "test:e2e:ci": "cypress run --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
@@ -42,6 +42,8 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.16.7",
     "@babel/register": "^7.12.1",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
@@ -72,6 +74,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
+    "cors": "^2.8.5",
     "cypress": "^9.4.1",
     "dexie": "^3.2.1",
     "express": "^4.17.3",

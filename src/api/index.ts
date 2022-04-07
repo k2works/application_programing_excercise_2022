@@ -1,6 +1,7 @@
-const app = require("express")();
+import express from "express";
 const { v4 } = require("uuid");
 
+const app = express();
 app.get("/api", (req, res) => {
   const path = `/api/item/${v4()}`;
   res.setHeader("Content-Type", "text/html");
@@ -13,4 +14,4 @@ app.get("/api/item/:slug", (req, res) => {
   res.end(`Item: ${slug}`);
 });
 
-module.exports = app;
+export default app;
