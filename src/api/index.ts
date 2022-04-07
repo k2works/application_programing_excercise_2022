@@ -13,5 +13,6 @@ app.get("/api/item/:slug", (req, res) => {
   const { slug } = req.params;
   res.end(`Item: ${slug}`);
 });
+app.use(express.static("public"));
 
 export default app;

@@ -52,7 +52,8 @@ npm i -save-dev @types/react @types/react-dom
 npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node@10.5.0 ts-node-dev@1.1.8 @types/jest
 npm i -save @reduxjs/toolkit react-redux
 npm install --save express uuid cors
-npm install --save-dev ts-node@10.5.0 ts-node-dev@1.1.8 @types/express @types/cors
+npm install --save ts-node@10.5.0 @types/express @types/cors
+npm install --save-dev ts-node-dev@1.1.8 
 npm install --save cross-env
 ```
 
