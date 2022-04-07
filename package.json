@@ -7,9 +7,10 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "nf start -j Procfile",
+    "start": "nf start -j Procfile.dev",
     "app": "webpack server --config ./webpack.config.js --open",
     "api": "ts-node ./src/server.ts",
+    "api:dev": "cross-env node_env=development PORT=3000 ts-node-dev ./src/server.ts",
     "test": "jest --coverage",
     "test:e2e": "cypress run",
     "test:e2e:ci": "cypress run --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
@@ -75,6 +76,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "cypress": "^9.4.1",
     "dexie": "^3.2.1",
     "express": "^4.17.3",
