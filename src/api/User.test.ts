@@ -24,17 +24,22 @@ it("ユーザーを作成する", async () => {
   await manager.save(user);
   expect(user.id).toBeDefined();
   let result = await manager.findOneBy(User, { id: 1 });
-  expect(result?.firstName).toBe("Timber");
-  expect(result?.lastName).toBe("Saw");
-  expect(result?.age).toBe(25);
+  if (result) {
+    expect(result.firstName).toBe("Timber");
+    expect(result.lastName).toBe("Saw");
+    expect(result.age).toBe(25);
+  }
 
   let repository = getRepository(User);
   await repository.save(user);
   expect(user.id).toBeDefined();
   result = await manager.findOneBy(User, { id: 1 });
-  expect(result?.firstName).toBe("Timber");
-  expect(result?.lastName).toBe("Saw");
-  expect(result?.age).toBe(25);
+
+  if (result) {
+    expect(result.firstName).toBe("Timber");
+    expect(result.lastName).toBe("Saw");
+    expect(result.age).toBe(25);
+  }
 });
 
 it("ユーザーを更新する", async () => {
