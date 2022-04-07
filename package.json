@@ -11,6 +11,7 @@
     "app": "webpack server --config ./webpack.config.js --open",
     "test": "jest --coverage",
     "test:e2e": "cypress run",
+    "test:e2e:ci": "cypress run --record --key cfde91db-07b4-4384-b1c6-c3aed07749c9",
     "test:cypress": "cypress open",
     "watch": "webpack --watch --config webpack.config.js",
     "build": "npm-run-all clean build:*",
