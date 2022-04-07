@@ -1,17 +1,18 @@
 import express from "express";
-const { v4 } = require("uuid");
-
+import cors from "cors";
+import { Todo } from "./Todo";
 const app = express();
-app.get("/api", (req, res) => {
-  const path = `/api/item/${v4()}`;
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
-  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
-});
+app.use(cors({ origin: true, credentials: true }));
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(express.text());
 
-app.get("/api/item/:slug", (req, res) => {
-  const { slug } = req.params;
-  res.end(`Item: ${slug}`);
+app.get("/api", (req, res) => {
+  const todo = new Todo();
+  res.send(todo.greeting());
 });
 app.use(express.static("public"));
 
