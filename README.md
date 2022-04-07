@@ -49,12 +49,14 @@ npm install --save-dev babel-loader @babel/preset-react
 npm install --save-dev typescript ts-loader
 npx tsc --init
 npm i -save-dev @types/react @types/react-dom
-npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node@10.5.0 ts-node-dev@1.1.8 @types/jest
+npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node-dev@1.1.8 @types/jest
 npm i -save @reduxjs/toolkit react-redux
 npm install --save express uuid cors
-npm install --save ts-node@10.5.0 @types/express @types/cors
+npm install --save ts-node@10.5.0 @types/express @types/cors @types/node
 npm install --save-dev ts-node-dev@1.1.8 
 npm install --save cross-env
+npm install --save typeorm reflect-metadata 
+npm install --save better-sqlite3 
 ```
 
 **[⬆ back to top](#構成)**
@@ -96,3 +98,4 @@ npm start
 - [最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築](https://ics.media/entry/16028/)
 - [おんなじTODOアプリをuseState / useReducer / useContext / Redux / Recoil を使って実装してみた](https://qiita.com/gakinchoy7/items/30d37bf912b21359ac3c#usecontext%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E5%AE%9F%E8%A3%85)
 - [最新版TypeScript+webpack 5の環境構築まとめ](https://ics.media/entry/16329/)
+- [TypeORM](https://typeorm.io/)
