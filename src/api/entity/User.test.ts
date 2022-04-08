@@ -1,5 +1,5 @@
-import { User } from "./entity/User";
-import { AppDataSource } from "./data-source";
+import { User } from "./User";
+import { AppDataSource } from "../data-source";
 
 beforeAll(async () => {
   await AppDataSource.initialize();
