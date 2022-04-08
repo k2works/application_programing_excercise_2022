@@ -1,17 +1,16 @@
-import { getManager, getRepository } from "typeorm";
-import connection from "./utils/connection";
 import { User } from "./entity/User";
+import { AppDataSource } from "./data-source";
 
 beforeAll(async () => {
-  await connection.create();
+  await AppDataSource.initialize();
 });
 
 afterAll(async () => {
-  await connection.close();
+  await AppDataSource.destroy();
 });
 
 beforeEach(async () => {
-  await connection.clear();
+  await AppDataSource.manager.clear(User);
 });
 
 it("ユーザーを作成する", async () => {
@@ -20,7 +19,7 @@ it("ユーザーを作成する", async () => {
   user.lastName = "Saw";
   user.age = 25;
 
-  let manager = getManager();
+  let manager = AppDataSource.manager;
   await manager.save(user);
   expect(user.id).toBeDefined();
   let result = await manager.findOneBy(User, { id: 1 });
@@ -30,7 +29,7 @@ it("ユーザーを作成する", async () => {
     expect(result.age).toBe(25);
   }
 
-  let repository = getRepository(User);
+  let repository = AppDataSource.getRepository(User);
   await repository.save(user);
   expect(user.id).toBeDefined();
   result = await manager.findOneBy(User, { id: 1 });
@@ -48,7 +47,7 @@ it("ユーザーを更新する", async () => {
   user.lastName = "Saw";
   user.age = 25;
 
-  let manager = getManager();
+  let manager = AppDataSource.manager;
   await manager.save(user);
   let result = await manager.find(User);
   result[0].firstName = "Timber2";
@@ -56,7 +55,7 @@ it("ユーザーを更新する", async () => {
   result = await manager.find(User);
   expect(result[0].firstName).toBe("Timber2");
 
-  let repository = getRepository(User);
+  let repository = AppDataSource.getRepository(User);
   await repository.save(user);
   result = await repository.find();
   result[0].firstName = "Timber2";
@@ -71,14 +70,14 @@ it("ユーザーを削除する", async () => {
   user.lastName = "Saw";
   user.age = 25;
 
-  let manager = getManager();
+  let manager = AppDataSource.manager;
   await manager.save(user);
   let result = await manager.find(User);
   await manager.remove(result[0]);
   result = await manager.find(User);
   expect(result.length).toBe(0);
 
-  let repository = getRepository(User);
+  let repository = AppDataSource.getRepository(User);
   await repository.save(user);
   result = await repository.find();
   await repository.remove(result[0]);
