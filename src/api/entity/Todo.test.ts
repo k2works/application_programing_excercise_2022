@@ -24,8 +24,10 @@ describe("TodoEntity", () => {
     await todo.save();
     expect(todo.id).toBeDefined();
     let result = await Todo.findOneBy({ id: 1 });
-    expect(result?.title).toBe("タイトル");
-    expect(result?.completed).toBe(false);
+    if (result) {
+      expect(result.title).toBe("タイトル");
+      expect(result.completed).toBe(false);
+    }
   });
 
   it("やることを更新する", async () => {
@@ -41,7 +43,7 @@ describe("TodoEntity", () => {
       todo2.title = "タイトル2";
       await todo2.save();
       const result = await Todo.findOneBy({ id: 1 });
-      expect(result?.title).toBe("タイトル2");
+      if (result) expect(result.title).toBe("タイトル2");
     }
   });
 
