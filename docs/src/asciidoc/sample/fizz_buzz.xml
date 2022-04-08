@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc maxdepth="5"?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>FizzBuzz</title>
+<date>2020-05-19</date>
+</info>
+<section xml:id="_仕様">
+<title>仕様</title>
+<simpara>1 から 100 までの数をプリントするプログラムを書け。</simpara>
+<simpara>ただし 3 の倍数のときは数の代わりに｢Fizz｣と、5 の倍数のときは｢Buzz｣とプリントし、</simpara>
+<simpara>3 と 5 両方の倍数の場合には｢FizzBuzz｣とプリントすること</simpara>
+<simpara>タイプごとに出力を切り替えることができる。</simpara>
+<simpara>タイプ１は通常、タイプ２は数字のみ、タイプ３は FizzBuzzの場合のみをプリントする。
+== 設計</simpara>
+<section xml:id="_todoリスト">
+<title>TODOリスト</title>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; 数を文字列にして返す</simpara>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; 1を渡したら文字列"1"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 2を渡したら文字列"2"を返す</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>&#10003; 3の倍数の時は数の変わりに「Fizz」と返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5の倍数の時は数の変わりに「Buzz」と返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3と5両方の倍数の場合には「FizzBuzz」と返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 1から100までの数を返す</simpara>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; 配列の始めは文字列の1を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 配列の最後は文字列の100を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 配列の2番目は文字列のFizzを返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 配列の4番目は文字列のBuzzを返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 配列の14番目は文字列のBuzzを返す</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>&#10003; プリントする</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; タイプ 1 の場合</simpara>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; 3の倍数のときは数の代わりに｢Fizz｣をプリントできるようにする。</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5 の倍数のときは｢Buzz｣とプリントできるようにする。</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 と 5両方の倍数の場合には｢FizzBuzz｣とプリントできるようにする。</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>&#10003; タイプ 2 の場合</simpara>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; 3 の倍数のときは数をプリントできるようにする。</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5 の倍数のときは数をプリントできるようにする。</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 と 5 両方の倍数の場合には値をプリントできるようにする。</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>&#10003; タイプ 3 の場合</simpara>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; 3 の倍数のときは数をプリントできるようにする。</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5 の倍数のときは数をプリントできるようにする。</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 と 5両方の倍数の場合には｢FizzBuzz｣とプリントできるようにする。</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_ユースケース図">
+<title>ユースケース図</title>
+
+</section>
+<section xml:id="_クラス図">
+<title>クラス図</title>
+<section xml:id="_パッケージ構成">
+<title>パッケージ構成</title>
+<screen>package Presentaion {
+    package View {
+    }
+}
+
+
+package Application {
+    package Service {
+    }
+}
+
+package Domain {
+    package Model {
+    }
+
+    package Type {
+    }
+}
+
+Presentaion -&gt; Application
+Application --&gt; Domain</screen>
+</section>
+<section xml:id="_presentaion">
+<title>Presentaion</title>
+<section xml:id="_view">
+<title>View</title>
+<screen>class View {
+  props: FizzBuzzProps
+  render(): String
+}
+class Container {
+  props: FizzBuzzProps
+  render(): String
+}
+class MessageComponent {
+  props: FizzBuzzProps
+  rendert(): String
+}
+class CounterComponent {
+  props: FizzBuzzProps
+  render(): String
+}
+class TableComponent {
+  props: FizzBuzzProps
+  render(): String
+}
+View -&gt; Container
+View *-l FizzBuzzService
+Container *-- MessageComponent
+Container *-- CounterComponent
+Container *-- TableComponent</screen>
+</section>
+</section>
+<section xml:id="_application">
+<title>Application</title>
+<section xml:id="_service">
+<title>Service</title>
+<screen>class FizzBuzzCommand
+class FizzBuzzListCommand
+class FizzBuzzValueCommand
+class FizzBuzzService
+
+FizzBuzzCommand &lt;|-- FizzBuzzValueCommand
+FizzBuzzCommand &lt;|-- FizzBuzzListCommand
+FizzBuzzService -&gt; FizzBuzzCommand</screen>
+</section>
+</section>
+<section xml:id="_domain">
+<title>Domain</title>
+<section xml:id="_model">
+<title>Model</title>
+<screen>class FizzBuzzEntity
+class FizzBuzzList
+class FizzBuzzValue</screen>
+</section>
+<section xml:id="_type">
+<title>Type</title>
+<screen>class FizzBuzzType
+class FizzBuzzType01
+class FizzBuzzType02
+class FizzBuzzType03
+class FizzBuzzTypeEnum
+
+FizzBuzzType &lt;|-- FizzBuzzType01
+FizzBuzzType &lt;|-- FizzBuzzType02
+FizzBuzzType &lt;|-- FizzBuzzType03
+FizzBuzzTypeEnum -&gt; FizzBuzzType</screen>
+</section>
+</section>
+</section>
+<section xml:id="_シーケンス図">
+<title>シーケンス図</title>
+
+</section>
+</section>
+<section xml:id="_開発">
+<title>開発</title>
+<section xml:id="_application_2">
+<title>Application</title>
+<section xml:id="_service_2">
+<title>Service</title>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/application/service/fizz_buzz/FizzBuzzCommand.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/application/service/fizz_buzz/FizzBuzzListCommand.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/application/service/fizz_buzz/FizzBuzzService.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/application/service/fizz_buzz/FizzBuzzValueCommand.ts[]</programlisting>
+</section>
+</section>
+<section xml:id="_domain_2">
+<title>Domain</title>
+<section xml:id="_model_2">
+<title>Model</title>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/domain/model/fizz_buzz/FizzBuzzValue.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/domain/model/fizz_buzz/FizzBuzzList.ts[]</programlisting>
+</section>
+<section xml:id="_type_2">
+<title>Type</title>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/domain/type/fizz_buzz/FizzBuzzType.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/domain/type/fizz_buzz/FizzBuzzType01.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/domain/type/fizz_buzz/FizzBuzzType02.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/domain/type/fizz_buzz/FizzBuzzType03.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/domain/type/fizz_buzz/fizzBuzzTypeEnum.ts[]</programlisting>
+</section>
+</section>
+<section xml:id="_presentation">
+<title>Presentation</title>
+<section xml:id="_view_2">
+<title>View</title>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/presentation/view/fizz_buzz/View.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/presentation/view/fizz_buzz/Container.ts[]</programlisting>
+</section>
+<section xml:id="_component">
+<title>Component</title>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/presentation/view/fizz_buzz/component/CounterComponent.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/presentation/view/fizz_buzz/component/MessageComponent.ts[]</programlisting>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../../src/presentation/view/fizz_buzz/component/TableComponent.ts[]</programlisting>
+</section>
+</section>
+</section>
+<section xml:id="_参照">
+<title>参照</title>
+
+</section>
+</article>

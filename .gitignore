@@ -109,6 +109,6 @@ public
 cypress/screenshots
 cypress/videos 
 
-db.*
+*.sqlite
 .idea
 .vscode

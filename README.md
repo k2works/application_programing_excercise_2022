@@ -1,5 +1,5 @@
 [![Node.js CI](https://github.com/k2works/application_programing_excercise_2022/actions/workflows/node.js.yml/badge.svg)](https://github.com/k2works/application_programing_excercise_2022/actions/workflows/node.js.yml)
-
+[![Todo](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/4uqmc1&style=plastic&logo=cypress)](https://dashboard.cypress.io/projects/4uqmc1/runs)
 # アプリケーション開発のための練習プログラミング
 
 ## 概要
@@ -40,6 +40,23 @@ npm install --save-dev jest
 npm install cypress
 npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
+npm install --save-dev cucumber-html-reporter
+npm install --save-dev style-loader css-loader
+npm install --save-dev fake-indexeddb
+npm install dexie
+npm install react react-dom
+npm install --save-dev babel-loader @babel/preset-react
+npm install --save-dev typescript ts-loader
+npx tsc --init
+npm i -save-dev @types/react @types/react-dom
+npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node-dev@1.1.8 @types/jest
+npm i -save @reduxjs/toolkit react-redux
+npm install --save express uuid cors
+npm install --save ts-node@10.5.0 @types/express @types/cors @types/node
+npm install --save-dev ts-node-dev@1.1.8 
+npm install --save cross-env
+npm install --save typeorm reflect-metadata 
+npm install --save better-sqlite3 
 ```
 
 **[⬆ back to top](#構成)**
@@ -76,3 +93,9 @@ npm start
 - [GitHub Actions でステータスバッジを表示する](https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8)
 - [cypress](https://www.cypress.io/)
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
+- [IndexedDB tutorial example code](https://github.com/andyhaskell/indexeddb-tutorial)
+- [Dexie.js](https://dexie.org/)
+- [最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築](https://ics.media/entry/16028/)
+- [おんなじTODOアプリをuseState / useReducer / useContext / Redux / Recoil を使って実装してみた](https://qiita.com/gakinchoy7/items/30d37bf912b21359ac3c#usecontext%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E5%AE%9F%E8%A3%85)
+- [最新版TypeScript+webpack 5の環境構築まとめ](https://ics.media/entry/16329/)
+- [TypeORM](https://typeorm.io/)

@@ -1,70 +1,45 @@
 import marked from "marked";
 
 const contents = `
-## 機能名
+## Todoアプリ
 
-## 仕様
+## [仕様](./report)
+
+- やることを追加できる
+- やることを編集できる
+- やることを削除できる
 
 ## TODOリスト
+
+- Todoアイテムを追加する
+- Todoアイテムを更新する
+- Todoアイテムを削除する
+- Todoアイテム数（合計）を表示する
+- 未入力の場合はTodoアイテムを追加できないようにする
+- 期限を入力できるようにする
+- Todoアイテムを追加したら作成日を自動的に設定する
+- Todoアイテムを完了したら完了日を自動的に設定する
+- ステータスを追加する
+- 当日より前に期限を設定できないようにする
 `;
 
 const uml = `
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+class Todo {
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-  Object[] elementData
-  size()
 }
-
-enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
-}
-
-annotation SuppressWarnings
 `;
 
 const erd = `
-' hide the spot
-hide circle
-
-' avoid problems with angled crows feet
-skinparam linetype ortho
-
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
+entity Todo {
+  * id : number <<generated>>
   --
-  *name : text
-  description : text
+  title : varchar
+  completed : boolean
+  dueDate : datetime
+  createdAt : datetime
+  completedAt : datetime
+  state : varchar
 }
-
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
-  --
-  *e1_id : number <<FK>>
-  other_details : text
-}
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
 `;
 
 export const setUp = () => {

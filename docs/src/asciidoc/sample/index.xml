@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc maxdepth="5"?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>仕様</title>
+<date>2020-05-19</date>
+</info>
+<section xml:id="__link_xl_href_fizz_buzz_html_fizzbuzz_link">
+<title><link xl:href="./fizz_buzz.html">FizzBuzz</link></title>
+
+</section>
+<section xml:id="__link_xl_href_template_html_テンプレート_link">
+<title><link xl:href="./template.html">テンプレート</link></title>
+
+</section>
+</article>

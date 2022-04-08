@@ -1,0 +1,5 @@
+number,name,fib_test,fib_prod,fib_other
+1,本田,1,2,1
+2,川崎,1,1,0
+3,鈴木,1,0,0
+4,山波,1,1,1
