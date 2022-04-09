@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nf start -j Procfile.dev",
     "app": "webpack server --config ./webpack.config.js --open",
-    "api": "ts-node ./src/server.ts",
+    "api": "cross-env node_env=production ts-node ./src/server.ts",
     "api:dev": "cross-env node_env=development PORT=3000 ts-node-dev ./src/server.ts",
     "test": "jest --coverage",
     "test:e2e": "cypress run",
@@ -17,7 +17,7 @@
     "test:cypress": "cypress open",
     "watch": "webpack --watch --config webpack.config.js",
     "build": "npm-run-all clean build:*",
-    "build:webpack": "webpack --config webpack.config.js",
+    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "build:report": "npm-run-all report:cucumber:generate report:cucumber:report",
     "deploy:local": "vercel dev",
     "deploy:vercel": "vercel",

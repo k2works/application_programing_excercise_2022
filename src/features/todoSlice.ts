@@ -26,6 +26,17 @@ const initialState: State = {
   isError: false,
 };
 
+let baseUrl = "http://localhost:3000/api";
+if (process.env.NODE_ENV === "production") {
+  baseUrl = "https://ape2022-take8.herokuapp.com/api";
+}
+const apiUrl = {
+  read: `${baseUrl}/todos`,
+  create: `${baseUrl}/todo`,
+  update: `${baseUrl}/todo`,
+  delete: `${baseUrl}/todo`,
+};
+
 const getApi = async (url: string) => {
   const service = (
     resolve: (value?: string) => void,
@@ -170,29 +181,22 @@ export const selectTodoMessage = (state: RootState) => state.todo.message;
 export const selectIsError = (state: RootState) => state.todo.isError;
 
 export const readTodoAsync = () => async (dispatch: any) => {
-  const url = "http://localhost:3000/api/todos";
-  getApi(url).then((todos: any) => {
+  getApi(apiUrl.read).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
 export const createTodoAsync = (todo: Todo) => async (dispatch: any) => {
-  const url = "http://localhost:3000/api/todo";
-  postApi(url, todo).then((todos: any) => {
+  postApi(apiUrl.create, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
 export const updateTodoAsync = (todo: Todo) => async (dispatch: any) => {
-  const url = `http://localhost:3000/api/todo`;
-  putApi(url, todo).then((todos: any) => {
+  putApi(apiUrl.update, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
 export const deleteTodoAsync = (todo: Todo) => async (dispatch: any) => {
-  service.execute(Type.DELETE, todo).then((todos: any) => {
-    dispatch(readTodo(todos));
-  });
-  const url = `http://localhost:3000/api/todo/`;
-  deleteApi(url, todo).then((todos: any) => {
+  deleteApi(apiUrl.delete, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
