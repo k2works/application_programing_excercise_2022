@@ -26,6 +26,92 @@ const initialState: State = {
   isError: false,
 };
 
+const getApi = async (url: string) => {
+  const service = (
+    resolve: (value?: string) => void,
+    reject: (reason?: string) => void
+  ) => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        return resolve(json);
+      })
+      .catch((error) => {
+        return reject(error);
+      });
+  };
+  return new Promise(service);
+};
+
+const postApi = async (url: string, data: any) => {
+  const service = (
+    resolve: (value?: string) => void,
+    reject: (reason?: string) => void
+  ) => {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        return resolve(json);
+      })
+      .catch((error) => {
+        return reject(error);
+      });
+  };
+  return new Promise(service);
+};
+
+const putApi = async (url: string, data: any) => {
+  const service = (
+    resolve: (value?: string) => void,
+    reject: (reason?: string) => void
+  ) => {
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        return resolve(json);
+      })
+      .catch((error) => {
+        return reject(error);
+      });
+  };
+  return new Promise(service);
+};
+
+const deleteApi = async (url: string, data: any) => {
+  const service = (
+    resolve: (value?: string) => void,
+    reject: (reason?: string) => void
+  ) => {
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        return resolve(json);
+      })
+      .catch((error) => {
+        return reject(error);
+      });
+  };
+  return new Promise(service);
+};
+
 const todoSlice = createSlice({
   name: "todos",
   initialState,
@@ -84,22 +170,29 @@ export const selectTodoMessage = (state: RootState) => state.todo.message;
 export const selectIsError = (state: RootState) => state.todo.isError;
 
 export const readTodoAsync = () => async (dispatch: any) => {
-  service.execute(Type.READ, {}).then((todos: any) => {
+  const url = "http://localhost:3000/api/todos";
+  getApi(url).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
 export const createTodoAsync = (todo: Todo) => async (dispatch: any) => {
-  service.execute(Type.CREATE, todo).then((todos: any) => {
+  const url = "http://localhost:3000/api/todo";
+  postApi(url, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
 export const updateTodoAsync = (todo: Todo) => async (dispatch: any) => {
-  service.execute(Type.UPDATE, todo).then((todos: any) => {
+  const url = `http://localhost:3000/api/todo`;
+  putApi(url, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
 export const deleteTodoAsync = (todo: Todo) => async (dispatch: any) => {
   service.execute(Type.DELETE, todo).then((todos: any) => {
+    dispatch(readTodo(todos));
+  });
+  const url = `http://localhost:3000/api/todo/`;
+  deleteApi(url, todo).then((todos: any) => {
     dispatch(readTodo(todos));
   });
 };
