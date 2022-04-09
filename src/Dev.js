@@ -23,10 +23,22 @@ const contents = `
 - 当日より前に期限を設定できないようにする
 `;
 
-const uml = `
-class Todo {
-
+const archUml = `
+package Api {
+  class index
 }
+package Client {
+  class App
+}
+index <-- App
+`;
+
+const classUml = `
+class TodoService {
+  execute(type, params) 
+}
+Express <|-- index
+index -> TodoService
 `;
 
 const erd = `
@@ -38,14 +50,14 @@ entity Todo {
   dueDate : datetime
   createdAt : datetime
   completedAt : datetime
-  state : varchar
+  status : varchar
 }
 `;
 
 export const setUp = () => {
   init();
   documents(contents);
-  diagrams(uml, erd);
+  diagrams(archUml, classUml, erd);
 };
 
 const init = () => {
@@ -61,6 +73,11 @@ const init = () => {
               </div>
               <div class="row p-3">
                 <div id="spec"></div>
+              </div>
+              <h2>アーキテクチャ</h2>
+              <div class="row p-3">
+                <img id="arch-im"
+                src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
               </div>
               <h2>オブジェクトモデル</h2>
               <div class="row p-3">
@@ -87,13 +104,20 @@ const documents = (contents) => {
   });
 };
 
-const diagrams = (uml, erd) => {
+const diagrams = (archUml, classUml, erd) => {
+  const archDiagram = ((uml) => {
+    const inputId = "class-diagram-input";
+    const outputId = "arch-im";
+    const source = uml;
+    compress(source, outputId);
+  })(archUml);
+
   const classDiagram = ((uml) => {
     const inputId = "class-diagram-input";
     const outputId = "class-im";
     const source = uml;
     compress(source, outputId);
-  })(uml);
+  })(classUml);
 
   const erDiagram = ((erd) => {
     const inputId = "er-diagram-input";
