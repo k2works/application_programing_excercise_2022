@@ -18,8 +18,8 @@ describe("TodoServie", () => {
 
     it("やることを追加する", async () => {
       const params: Params = { title: "test", completed: false };
-      const todoService = new TodoService();
-      await todoService.execute(Type.CREATE, params);
+      const todoService = new TodoService(Type.CREATE);
+      await todoService.execute(params);
       const todos = await Todo.find();
       expect(todos[0].title).toEqual("test");
     });
@@ -52,8 +52,8 @@ describe("TodoServie", () => {
         completed: true,
         dueDate,
       };
-      const todoService = new TodoService();
-      await todoService.execute(Type.UPDATE, params);
+      const todoService = new TodoService(Type.UPDATE);
+      await todoService.execute(params);
       const todos = await Todo.find();
       expect(todos[0].title).toEqual("test");
       expect(todos[0].completed).toEqual(true);
@@ -86,8 +86,8 @@ describe("TodoServie", () => {
         title: "test",
         completed: true,
       };
-      const todoService = new TodoService();
-      await todoService.execute(Type.UPDATE, params);
+      const todoService = new TodoService(Type.UPDATE);
+      await todoService.execute(params);
       const todos = await Todo.find();
       expect(todos[0].title).toEqual("test");
       expect(todos[0].completed).toEqual(true);
@@ -122,8 +122,8 @@ describe("TodoServie", () => {
         completed: true,
         dueDate,
       };
-      const todoService = new TodoService();
-      await todoService.execute(Type.DELETE, params);
+      const todoService = new TodoService(Type.DELETE);
+      await todoService.execute(params);
       const todos = await Todo.find();
       expect(todos.length).toEqual(0);
     });
