@@ -67,6 +67,10 @@ npm install --save-dev typedoc typedoc-plantuml tplant
 
 ```bash
 npm i -g vercel
+heroku create ape2022-take8
+heroku buildpacks:clear
+heroku buildpacks:add heroku/jvm
+heroku buildpacks:add heroku/nodejs
 npm run deploy
 ```
 
