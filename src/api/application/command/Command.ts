@@ -1,4 +1,4 @@
-import { Todo } from "../../entity/Todo";
+import { Todo } from "../../infrastructure/entity/Todo";
 import { Params } from "../TodoService";
 
 export interface Command {

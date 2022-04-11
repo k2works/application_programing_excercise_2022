@@ -1,6 +1,6 @@
-import { Todo } from "../entity/Todo";
+import { Todo } from "../infrastructure/entity/Todo";
 import { Params, TodoService, Type } from "./TodoService";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../infrastructure/data-source";
 
 describe("TodoServie", () => {
   describe("Case1", () => {
