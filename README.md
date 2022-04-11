@@ -58,7 +58,7 @@ npm install --save cross-env
 npm install --save typeorm reflect-metadata 
 npm install --save better-sqlite3 
 npm install --save-dev typedoc typedoc-plantuml tplant
-
+npm install --save-dev asciidoctor asciidoctor-kroki
 ```
 
 **[⬆ back to top](#構成)**
@@ -91,7 +91,7 @@ npm start
 ```
 
 #### クラス図
-![](./docs/uml.svg)
+![](./docs/images/uml.svg)
 
 **[⬆ back to top](#構成)**
 

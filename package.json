@@ -31,7 +31,8 @@
     "report:cucumber:clean": "rimraf public/report && rimraf cypress/cucumber-json",
     "docs:spec": "typedoc --tsconfig ./scripts/tsconfig.json  --out ./public/spec ./src/api/Todo.ts",
     "docs:uml": "tplant --input ./src/api/**/*.ts --output ./docs/uml.svg",
-    "docs:copy": "cpx ./docs/* ./public/spec/docs"
+    "docs:copy": "cpx ./docs/images/* ./public/spec/docs/images",
+    "docs:generate": "node scripts/asciidoctor.js"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,8 @@
     "@types/jest": "^27.4.1",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
+    "asciidoctor": "^2.2.6",
+    "asciidoctor-kroki": "^0.15.4",
     "babel-loader": "^8.2.4",
     "cpx": "^1.5.0",
     "css-loader": "^6.7.1",

@@ -70,6 +70,7 @@ const init = () => {
               <ul>
                 <li><a href="./spec/index.html" target="_blank">README</a></li>
                 <li><a href="./report" target="_blank">Cumberjs Report</a></li>
+                <li><a href="./docs/index.html" target="_blank">サンプル</a></li>
               </ul>              
               <h1>開発</h1>
               <div class="py-3">
