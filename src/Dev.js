@@ -88,7 +88,7 @@ package infrastructure {
       status
       save()
       find()
-      findOnBy(id)
+      findOneBy(id)
     }
   }
 BaseEntity <|-- Todo
