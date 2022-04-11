@@ -57,6 +57,8 @@ npm install --save-dev ts-node-dev@1.1.8
 npm install --save cross-env
 npm install --save typeorm reflect-metadata 
 npm install --save better-sqlite3 
+npm install --save-dev typedoc typedoc-plantuml tplant
+
 ```
 
 **[⬆ back to top](#構成)**
@@ -99,3 +101,5 @@ npm start
 - [おんなじTODOアプリをuseState / useReducer / useContext / Redux / Recoil を使って実装してみた](https://qiita.com/gakinchoy7/items/30d37bf912b21359ac3c#usecontext%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E5%AE%9F%E8%A3%85)
 - [最新版TypeScript+webpack 5の環境構築まとめ](https://ics.media/entry/16329/)
 - [TypeORM](https://typeorm.io/)
+- [TYPE DOC](http://typedoc.org/)
+- [tplant](https://github.com/bafolts/tplant)
