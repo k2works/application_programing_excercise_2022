@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { Todo } from "./Todo";
-import { Params, TodoService, Type } from "./TodoService";
+import { Params, TodoService, Type } from "./application/TodoService";
 import { AppDataSource } from "./data-source";
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
