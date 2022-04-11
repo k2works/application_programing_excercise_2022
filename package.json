@@ -30,7 +30,8 @@
     "report:cucumber:report": "node scripts/cucumber_report.js",
     "report:cucumber:clean": "rimraf public/report && rimraf cypress/cucumber-json",
     "docs:spec": "typedoc --tsconfig ./scripts/tsconfig.json  --out ./public/spec ./src/api/Todo.ts",
-    "docs:uml": "tplant --input ./src/api/**/*.ts --output ./public/spec/uml.svg"
+    "docs:uml": "tplant --input ./src/api/**/*.ts --output ./docs/uml.svg",
+    "docs:copy": "cpx ./docs/* ./public/spec/docs"
   },
   "repository": {
     "type": "git",

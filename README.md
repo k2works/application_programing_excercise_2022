@@ -90,6 +90,9 @@ npm run deploy
 npm start
 ```
 
+#### クラス図
+![](./docs/uml.svg)
+
 **[⬆ back to top](#構成)**
 
 ## 参照
