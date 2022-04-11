@@ -34,11 +34,35 @@ index <-- App
 `;
 
 const classUml = `
-class TodoService {
-  execute(type, params) 
+package application {
+  package command {
+    interface Command {
+      execute(params)
+    }
+    class CreateCommand implements Command {
+      type
+      execute(params) {}
+    }
+    class ReadCommand implements Command {
+      type
+      execute(params) {}
+    }
+    class UpdateCommand implements Command {
+      type
+      execute(params) {}
+    }
+    class DeleteCommand implements Command {
+      type
+      execute(params) {}
+    }
+  }
+  class TodoService {
+    execute(params) 
+  }
 }
-Express <|-- index
+Express <-- index
 index -> TodoService
+TodoService *- Command
 `;
 
 const erd = `
