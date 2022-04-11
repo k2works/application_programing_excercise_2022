@@ -68,7 +68,7 @@ const init = () => {
             <div class="container">
               <h1 id="docs">ドキュメント</h1>
               <ul>
-                <li><a href="./spec" target="_blank">README</a></li>
+                <li><a href="./spec/index.html" target="_blank">README</a></li>
                 <li><a href="./report" target="_blank">Cumberjs Report</a></li>
               </ul>              
               <h1>開発</h1>
