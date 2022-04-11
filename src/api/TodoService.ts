@@ -121,6 +121,6 @@ export class TodoService {
   }
 
   async execute(params: Params) {
-    await this.command.execute(params);
+    return await this.command.execute(params);
   }
 }
