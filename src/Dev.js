@@ -24,16 +24,31 @@ const contents = `
 `;
 
 const archUml = `
-package Api {
-  class index
-}
 package Client {
-  class App
+  class React {}
 }
-index <-- App
+package Api {
+  class Express {
+  }
+  package infrastracture {
+    package entity {}
+  }
+  package application {
+    package command {}
+  }
+  Express -> application
+  command -> entity
+}
+Express <-- React
 `;
 
 const classUml = `
+class index {
+  get()
+  post()
+  put()
+  delete()
+}
 package application {
   package command {
     interface Command {
@@ -60,9 +75,28 @@ package application {
     execute(params) 
   }
 }
+package infrastructure {
+  package entity {
+    class BaseEntity {}
+    class Todo {
+      id
+      title
+      completed
+      dueDate
+      createdAt
+      completedAt
+      status
+      save()
+      find()
+      findOnBy(id)
+    }
+  }
+BaseEntity <|-- Todo
+}
 Express <-- index
 index -> TodoService
 TodoService *- Command
+Command -> Todo
 `;
 
 const erd = `
