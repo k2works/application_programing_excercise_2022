@@ -9,8 +9,8 @@ export enum Type {
 
 export type Params = {
   id?: number;
-  title: string;
-  completed: boolean;
+  title?: string;
+  completed?: boolean;
   dueDate?: Date;
   completedAt?: Date;
   status?: string;
@@ -21,7 +21,7 @@ export class TodoService {
     return new Promise((resolve: any, reject: any) => {
       if (type === Type.CREATE) {
         const todo = new Todo();
-        todo.title = params.title;
+        todo.title = params.title ? params.title : "";
         todo.completed = false;
         todo.createdAt = new Date();
         todo.status = "未着手";
@@ -50,7 +50,7 @@ export class TodoService {
               if (dueDate) {
                 const completedAt = params.completed ? null : new Date();
                 const status = params.completed ? "完了" : "着手";
-                result.completed = params.completed;
+                result.completed = params.completed ? true : false;
                 result.dueDate = dueDate;
                 result.completedAt = completedAt;
                 result.status = status;
@@ -65,7 +65,7 @@ export class TodoService {
               } else {
                 const completedAt = params.completed ? null : new Date();
                 const status = params.completed ? "完了" : "着手";
-                result.completed = params.completed;
+                result.completed = params.completed ? true : false;
                 result.completedAt = completedAt;
                 result.status = status;
                 result

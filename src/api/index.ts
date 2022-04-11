@@ -22,10 +22,7 @@ AppDataSource.initialize()
 
     app.get("/api/todos", async (req, res) => {
       const service = new TodoService();
-      const result = await service.execute(Type.READ, {
-        title: "",
-        completed: false,
-      });
+      const result = await service.execute(Type.READ, {});
       res.send(result);
     });
 
@@ -33,10 +30,7 @@ AppDataSource.initialize()
       const request: Params = req.body;
       const service = new TodoService();
       await service.execute(Type.CREATE, request);
-      const result = await service.execute(Type.READ, {
-        title: "",
-        completed: false,
-      });
+      const result = await service.execute(Type.READ, {});
       res.send(result);
     });
 
@@ -44,10 +38,7 @@ AppDataSource.initialize()
       const request: Params = req.body;
       const service = new TodoService();
       await service.execute(Type.UPDATE, request);
-      const result = await service.execute(Type.READ, {
-        title: "",
-        completed: false,
-      });
+      const result = await service.execute(Type.READ, {});
       res.send(result);
     });
 
@@ -55,10 +46,7 @@ AppDataSource.initialize()
       const request: Params = req.body;
       const service = new TodoService();
       await service.execute(Type.DELETE, request);
-      const result = await service.execute(Type.READ, {
-        title: "",
-        completed: false,
-      });
+      const result = await service.execute(Type.READ, {});
       res.send(result);
     });
   })

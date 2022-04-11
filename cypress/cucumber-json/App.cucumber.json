@@ -23,7 +23,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 7588000000
+              "duration": 6771000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "\"やること\" を追加する",
             "result": {
               "status": "passed",
-              "duration": 444000000
+              "duration": 422000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "\"やること\" が表示される",
             "result": {
               "status": "passed",
-              "duration": 320000000
+              "duration": 182000000
             }
           },
           {
@@ -53,7 +53,7 @@
             "name": "ステータスが \"未着手\" になる",
             "result": {
               "status": "passed",
-              "duration": 63000000
+              "duration": 50000000
             }
           },
           {
@@ -63,7 +63,7 @@
             "name": "アイテム数が \"1\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 60000000
+              "duration": 47000000
             }
           }
         ]
@@ -83,7 +83,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 4828000000
+              "duration": 4753000000
             }
           },
           {
@@ -93,7 +93,7 @@
             "name": "期限を設定する",
             "result": {
               "status": "passed",
-              "duration": 624000000
+              "duration": 426000000
             }
           },
           {
@@ -103,7 +103,7 @@
             "name": "期限が設定される",
             "result": {
               "status": "passed",
-              "duration": 43000000
+              "duration": 25000000
             }
           },
           {
@@ -113,7 +113,7 @@
             "name": "ステータスが \"着手\" になる",
             "result": {
               "status": "passed",
-              "duration": 46000000
+              "duration": 38000000
             }
           },
           {
@@ -123,7 +123,7 @@
             "name": "アイテム数が \"1\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 77000000
+              "duration": 30000000
             }
           }
         ]
@@ -143,7 +143,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 4397000000
+              "duration": 4272000000
             }
           },
           {
@@ -153,7 +153,7 @@
             "name": "\"やること\" を完了する",
             "result": {
               "status": "passed",
-              "duration": 296000000
+              "duration": 221000000
             }
           },
           {
@@ -163,7 +163,7 @@
             "name": "\"やること\" が更新される",
             "result": {
               "status": "passed",
-              "duration": 50000000
+              "duration": 44000000
             }
           },
           {
@@ -173,7 +173,7 @@
             "name": "ステータスが \"完了\" になる",
             "result": {
               "status": "passed",
-              "duration": 193000000
+              "duration": 45000000
             }
           },
           {
@@ -183,7 +183,7 @@
             "name": "アイテム数が \"1\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 52000000
+              "duration": 30000000
             }
           }
         ]
@@ -203,7 +203,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 4563000000
+              "duration": 4331000000
             }
           },
           {
@@ -213,7 +213,7 @@
             "name": "\"やること\" を削除する",
             "result": {
               "status": "passed",
-              "duration": 334000000
+              "duration": 181000000
             }
           },
           {
@@ -223,7 +223,7 @@
             "name": "\"やること\" が削除される",
             "result": {
               "status": "passed",
-              "duration": 54000000
+              "duration": 19000000
             }
           },
           {
@@ -233,7 +233,7 @@
             "name": "アイテム数が \"0\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 277000000
+              "duration": 20000000
             }
           }
         ]
