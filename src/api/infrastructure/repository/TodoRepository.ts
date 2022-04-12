@@ -23,6 +23,7 @@ export class TodoRepository {
           new CreatedAt(entity.createdAt),
           new CompletedAt(entity.completedAt),
           new DueDate(entity.dueDate),
+          entity.status,
           entity.id
         )
     );
@@ -35,6 +36,7 @@ export class TodoRepository {
     entity.createdAt = todo.CreatedAt;
     entity.completedAt = todo.CompletedAt;
     entity.dueDate = todo.DueDate;
+    entity.status = todo.Status;
 
     await this.repository.save(entity);
   }
@@ -46,6 +48,8 @@ export class TodoRepository {
     entity.createdAt = todo.CreatedAt;
     entity.completedAt = todo.CompletedAt;
     entity.dueDate = todo.DueDate;
+    entity.status = todo.Status;
+
     const id = todo.Id;
     if (id !== null) {
       entity.id = id;
@@ -60,6 +64,8 @@ export class TodoRepository {
     entity.createdAt = todo.CreatedAt;
     entity.completedAt = todo.CompletedAt;
     entity.dueDate = todo.DueDate;
+    entity.status = todo.Status;
+
     const id = todo.Id;
     if (id !== null) {
       entity.id = id;

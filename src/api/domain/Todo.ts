@@ -12,6 +12,7 @@ export class Todo {
   private createdAt: CreatedAt;
   private completedAt: CompletedAt;
   private dueDate: DueDate;
+  private status: string;
   private id: number | null = null;
 
   get Title(): string {
@@ -34,6 +35,10 @@ export class Todo {
     return this.dueDate.Value;
   }
 
+  get Status(): string {
+    return this.status;
+  }
+
   get Id(): number | null {
     return this.id;
   }
@@ -44,6 +49,7 @@ export class Todo {
     createdAt: CreatedAt = new CreatedAt(new Date()),
     completedAt: CompletedAt = new CompletedAt(null),
     dueDate: DueDate = new DueDate(null),
+    status: string = "着手",
     id: number | null = null
   ) {
     this.title = new Title(title);
@@ -51,6 +57,7 @@ export class Todo {
     this.createdAt = createdAt;
     this.completedAt = completedAt;
     this.dueDate = dueDate;
+    this.status = status;
     this.id = id;
   }
 

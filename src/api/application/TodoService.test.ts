@@ -1,6 +1,11 @@
 import { Todo } from "../infrastructure/entity/Todo";
+import { Todo as DomainObject } from "../domain/Todo";
 import { Params, TodoService, Type } from "./TodoService";
 import { AppDataSource } from "../infrastructure/data-source";
+import { TodoEntity } from "../infrastructure/entity/TodoEntity";
+import { CompletedAt } from "../domain/CompletedAt";
+import { CreatedAt } from "../domain/CreatedAt";
+import { DueDate } from "../domain/DueDate";
 
 describe("TodoServie", () => {
   describe("Case1", () => {
@@ -126,6 +131,62 @@ describe("TodoServie", () => {
       await todoService.execute(params);
       const todos = await Todo.find();
       expect(todos.length).toEqual(0);
+    });
+  });
+
+  describe("Case5", () => {
+    beforeAll(async () => {
+      await AppDataSource.initialize();
+    });
+
+    afterAll(async () => {
+      await AppDataSource.destroy();
+    });
+
+    beforeEach(async () => {
+      await AppDataSource.manager.clear(TodoEntity);
+    });
+
+    it("やることを作成する", async () => {
+      const servce = new TodoService(Type.CREATE);
+      const todo = new DomainObject("タイトル");
+      await servce.create(todo);
+      const result = await servce.selectAll();
+      expect(result[0].Title).toBe("タイトル");
+    });
+
+    it("やることを更新する", async () => {
+      const servce = new TodoService(Type.UPDATE);
+      const todo = new DomainObject("タイトル");
+      await servce.create(todo);
+      let result = await servce.selectAll();
+
+      const id = result[0].Id;
+      if (id !== null) {
+        const todo2 = new DomainObject(
+          "タイトル2",
+          true,
+          new CreatedAt(new Date()),
+          new CompletedAt(null),
+          new DueDate(null),
+          "着手",
+          id
+        );
+
+        await servce.update(todo2);
+        result = await servce.selectAll();
+      }
+      expect(result[0].Title).toBe("タイトル2");
+    });
+
+    it("やることを削除する", async () => {
+      const servce = new TodoService(Type.DELETE);
+      const todo = new DomainObject("タイトル");
+      await servce.create(todo);
+      let result = await servce.selectAll();
+      await servce.delete(result[0]);
+      result = await servce.selectAll();
+      expect(result.length).toBe(0);
     });
   });
 });
