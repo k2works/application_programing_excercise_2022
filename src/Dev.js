@@ -29,19 +29,6 @@ package Client {
 }
 package Api {
   package domain {
-    class Todo {
-      completed
-    }
-    class Title {}
-    class CreatedAt {}
-    class CompletedAt {}
-    class DueDate {
-      overDue()
-    }
-    Todo *-- Title
-    Todo *-- CreatedAt
-    Todo *-- CompletedAt
-    Todo *-- DueDate
   }
   class Express {
   }
@@ -58,6 +45,21 @@ Express <-- React
 `;
 
 const classUml = `
+package domain {
+  class Todo {
+    completed
+  }
+  class Title {}
+  class CreatedAt {}
+  class CompletedAt {}
+  class DueDate {
+    overDue()
+  }
+  Todo *-- Title
+  Todo *-- CreatedAt
+  Todo *-- CompletedAt
+  Todo *-- DueDate
+}
 class index {
   get()
   post()
@@ -93,7 +95,7 @@ package application {
 package infrastructure {
   package entity {
     class BaseEntity {}
-    class Todo {
+    class TodoEntity {
       id
       title
       completed
@@ -106,12 +108,12 @@ package infrastructure {
       findOneBy(id)
     }
   }
-BaseEntity <|-- Todo
+BaseEntity <|-- TodoEntity
 }
 Express <-- index
 index -> TodoService
 TodoService *- Command
-Command -> Todo
+Command -> TodoEntity
 `;
 
 const erd = `
