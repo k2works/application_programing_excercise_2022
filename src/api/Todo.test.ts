@@ -1,4 +1,4 @@
-import { DueDate, Todo } from "./Todo";
+import { CompletedAt, CreatedAt, DueDate, Todo } from "./Todo";
 
 describe("Todo", () => {
   test("やることを生成する", () => {
@@ -38,10 +38,19 @@ describe("Todo", () => {
   });
 
   test("期限が過ぎている", () => {
-    const todo = new Todo("タイトル");
-    const due = new Date();
-    due.setDate(due.getDate() - 1);
-    const todo2 = todo.setDueDate(new DueDate(due));
+    const today = new Date();
+    let oneBeforeDay = new Date();
+    let twoBeforeDay = new Date();
+    oneBeforeDay.setDate(today.getDate() - 1);
+    twoBeforeDay.setDate(today.getDate() - 2);
+    const todo = new Todo(
+      "タイトル",
+      false,
+      new CreatedAt(twoBeforeDay),
+      new CompletedAt(null),
+      new DueDate(null)
+    );
+    const todo2 = todo.setDueDate(new DueDate(oneBeforeDay));
     expect(todo2.overDue()).toBe(true);
   });
 
@@ -51,5 +60,12 @@ describe("Todo", () => {
     due.setDate(due.getDate() + 1);
     const todo2 = todo.setDueDate(new DueDate(due));
     expect(todo2.overDue()).toBe(false);
+  });
+
+  it("開始日より前に期限を設定できない", () => {
+    const todo = new Todo("タイトル");
+    const due = new Date();
+    due.setDate(due.getDate() - 1);
+    expect(() => todo.setDueDate(new DueDate(due))).toThrow();
   });
 });
