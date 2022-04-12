@@ -28,6 +28,21 @@ package Client {
   class React {}
 }
 package Api {
+  package domain {
+    class Todo {
+      completed
+    }
+    class Title {}
+    class CreatedAt {}
+    class CompletedAt {}
+    class DueDate {
+      overDue()
+    }
+    Todo *-- Title
+    Todo *-- CreatedAt
+    Todo *-- CompletedAt
+    Todo *-- DueDate
+  }
   class Express {
   }
   package infrastracture {
