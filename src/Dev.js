@@ -127,8 +127,9 @@ const init = () => {
               <h1 id="docs">ドキュメント</h1>
               <ul>
                 <li><a href="./spec/index.html" target="_blank">README</a></li>
-                <li><a href="./report" target="_blank">Cumberjs Report</a></li>
                 <li><a href="./docs/index.html" target="_blank">サンプル</a></li>
+                <li><a href="./report/lcov-report" target="_blank">Code coverage Report</a></li>
+                <li><a href="./report" target="_blank">Cumberjs Report</a></li>
               </ul>              
               <h1>開発</h1>
               <div class="py-3">

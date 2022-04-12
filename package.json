@@ -31,7 +31,7 @@
     "report:cucumber:clean": "rimraf public/report && rimraf cypress/cucumber-json",
     "docs:spec": "typedoc --tsconfig ./scripts/tsconfig.json  --out ./public/spec ./src/api/Todo.ts",
     "docs:uml": "tplant --input ./src/api/**/*.ts --output ./docs/images/uml.svg",
-    "docs:copy": "cpx ./docs/images/* ./public/spec/docs/images",
+    "docs:copy": "cpx ./docs/images/* ./public/spec/docs/images && cpx ./coverage/lcov-report/** ./public/report/lcov-report",
     "docs:generate": "node scripts/asciidoctor.js"
   },
   "repository": {
