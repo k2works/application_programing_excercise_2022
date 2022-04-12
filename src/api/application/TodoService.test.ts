@@ -149,16 +149,16 @@ describe("TodoServie", () => {
 
     it("やることを作成する", async () => {
       const servce = new TodoService(Type.CREATE);
-      const todo = new DomainObject("タイトル");
-      await servce.create(todo);
+      const params = { title: "タイトル" };
+      await servce.create(params);
       const result = await servce.selectAll();
       expect(result[0].Title).toBe("タイトル");
     });
 
     it("やることを更新する", async () => {
       const servce = new TodoService(Type.UPDATE);
-      const todo = new DomainObject("タイトル");
-      await servce.create(todo);
+      const params = { title: "タイトル" };
+      await servce.create(params);
       let result = await servce.selectAll();
 
       const id = result[0].Id;
@@ -181,8 +181,8 @@ describe("TodoServie", () => {
 
     it("やることを削除する", async () => {
       const servce = new TodoService(Type.DELETE);
-      const todo = new DomainObject("タイトル");
-      await servce.create(todo);
+      const params = { title: "タイトル" };
+      await servce.create(params);
       let result = await servce.selectAll();
       await servce.delete(result[0]);
       result = await servce.selectAll();

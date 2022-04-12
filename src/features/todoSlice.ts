@@ -180,24 +180,33 @@ export const selectTodoCount = (state: RootState) => state.todo.count;
 export const selectTodoMessage = (state: RootState) => state.todo.message;
 export const selectIsError = (state: RootState) => state.todo.isError;
 
+const expand = (todos: any) =>
+  todos.map((item: any) => ({
+    title: item.title.value,
+    status: item.status,
+    id: item.id,
+    completed: item.isCompleted,
+    dueDate: item.dueDate.value,
+  }));
+
 export const readTodoAsync = () => async (dispatch: any) => {
   getApi(apiUrl.read).then((todos: any) => {
-    dispatch(readTodo(todos));
+    dispatch(readTodo(expand(todos)));
   });
 };
 export const createTodoAsync = (todo: Todo) => async (dispatch: any) => {
   postApi(apiUrl.create, todo).then((todos: any) => {
-    dispatch(readTodo(todos));
+    dispatch(readTodo(expand(todos)));
   });
 };
 export const updateTodoAsync = (todo: Todo) => async (dispatch: any) => {
   putApi(apiUrl.update, todo).then((todos: any) => {
-    dispatch(readTodo(todos));
+    dispatch(readTodo(expand(todos)));
   });
 };
 export const deleteTodoAsync = (todo: Todo) => async (dispatch: any) => {
   deleteApi(apiUrl.delete, todo).then((todos: any) => {
-    dispatch(readTodo(todos));
+    dispatch(readTodo(expand(todos)));
   });
 };
 

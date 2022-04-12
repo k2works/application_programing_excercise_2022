@@ -29,6 +29,23 @@ export class TodoRepository {
     );
   }
 
+  async getTodo(id: number): Promise<DomainObject | null> {
+    const entity = await this.repository.findOneBy({ id });
+    if (entity) {
+      return new DomainObject(
+        entity.title,
+        entity.completed,
+        new CreatedAt(entity.createdAt),
+        new CompletedAt(entity.completedAt),
+        new DueDate(entity.dueDate),
+        entity.status,
+        entity.id
+      );
+    } else {
+      return null;
+    }
+  }
+
   async addTodo(todo: DomainObject): Promise<void> {
     const entity = new Entity();
     entity.title = todo.Title;
