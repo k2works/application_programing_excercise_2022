@@ -15,11 +15,6 @@ app.use(express.static("public"));
 
 AppDataSource.initialize()
   .then(() => {
-    app.get("/api", (req, res) => {
-      const todo = new Todo();
-      res.send(todo.greeting());
-    });
-
     app.get("/api/todos", async (req, res) => {
       const read = new TodoService(Type.READ);
       const result = await read.execute({});

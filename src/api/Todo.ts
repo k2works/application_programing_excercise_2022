@@ -1,12 +1,24 @@
 /**
- * Some class in a project.
- *
- * <uml>
- *     Bob->Alice : hello
- * </uml>
+ * やること
  */
-export class Todo {
-  greeting(): string {
-    return "hello world";
-  }
-}
+ export class Todo {
+   private title: string;
+   private completed: boolean;
+
+   get Title(): string {
+     return this.title;
+   }
+
+   get Completed(): boolean {
+     return this.completed;
+   }
+
+   constructor(title: string) {
+     this.title = title;
+     this.completed = false;
+   }
+
+   public complete(): void {
+     this.completed = true;
+   }
+ }
