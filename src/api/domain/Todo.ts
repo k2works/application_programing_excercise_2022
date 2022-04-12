@@ -1,3 +1,8 @@
+import { CompletedAt } from "./CompletedAt";
+import { CreatedAt } from "./CreatedAt";
+import { DueDate } from "./DueDate";
+import { Title } from "./Title";
+
 /**
  * やること
  */
@@ -75,87 +80,5 @@ export class Todo {
       this.completedAt.equals(other.completedAt) &&
       this.dueDate.equals(other.dueDate)
     );
-  }
-}
-
-/**
- * タイトル
- */
-export class Title {
-  private value: string;
-
-  get Value(): string {
-    return this.value;
-  }
-
-  constructor(value: string) {
-    this.value = value;
-  }
-
-  public equals(other: Title): boolean {
-    return this.Value === other.Value;
-  }
-}
-/**
- * 作成日
- */
-export class CreatedAt {
-  private value: Date;
-
-  get Value(): Date {
-    return this.value;
-  }
-
-  constructor(value: Date) {
-    this.value = value;
-  }
-
-  public equals(createdAt: CreatedAt): boolean {
-    return this.value.getTime() === createdAt.Value.getTime();
-  }
-}
-/**
- * 完了日
- */
-export class CompletedAt {
-  private value: Date | null;
-
-  get Value(): Date | null {
-    return this.value;
-  }
-
-  constructor(value: Date | null) {
-    this.value = value;
-  }
-
-  public equals(completedAt: CompletedAt): boolean {
-    return this.value?.getTime() === completedAt.Value?.getTime();
-  }
-}
-/**
- * 期限
- */
-export class DueDate {
-  private value: Date | null;
-
-  get Value(): Date | null {
-    return this.value;
-  }
-
-  constructor(value: Date | null) {
-    this.value = value;
-  }
-
-  public equals(dueDate: DueDate): boolean {
-    return this.value?.getTime() === dueDate.Value?.getTime();
-  }
-
-  public overDue(): boolean {
-    const due = this.Value;
-    const today = new Date();
-    if (due === null) {
-      return false;
-    }
-    return today.getTime() > due.getTime();
   }
 }
