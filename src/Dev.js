@@ -34,6 +34,7 @@ package Api {
   }
   package infrastracture {
     package entity {}
+    package repository {}
   }
   package application {
     package command {}
@@ -47,6 +48,7 @@ Express <-- React
 const classUml = `
 package domain {
   class Todo {
+    id
     completed
   }
   class Title {}
@@ -106,6 +108,14 @@ package infrastructure {
       save()
       find()
       findOneBy(id)
+    }
+  }
+  package repository {
+    class TodoRepository {
+      getTodos()
+      addTodo(todo)
+      deleteTodo(todo)
+      updateTodo(todo)
     }
   }
 BaseEntity <|-- TodoEntity
