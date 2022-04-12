@@ -32,12 +32,18 @@ export class Todo {
     this.dueDate = new DueDate(date);
   }
 
-  constructor(title: string) {
+  constructor(
+    title: string,
+    completed: boolean = false,
+    createdAt: CreatedAt = new CreatedAt(new Date()),
+    completedAt: CompletedAt = new CompletedAt(null),
+    dueDate: DueDate = new DueDate(null)
+  ) {
     this.title = new Title(title);
-    this.completed = false;
-    this.createdAt = new CreatedAt(new Date());
-    this.completedAt = new CompletedAt(null);
-    this.dueDate = new DueDate(null);
+    this.completed = completed;
+    this.createdAt = createdAt;
+    this.completedAt = completedAt;
+    this.dueDate = dueDate;
   }
 
   public complete(): void {
