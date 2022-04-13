@@ -60,7 +60,7 @@ npm install --save better-sqlite3
 npm install --save-dev typedoc tplant
 npm install --save-dev asciidoctor asciidoctor-kroki
 npm install -save tsoa swagger-ui-express
-npm install -save-dev @types/swagger-ui-express
+npm install -save @types/swagger-ui-express
 ```
 
 **[⬆ back to top](#構成)**
