@@ -35,7 +35,7 @@ export class TodoRepository {
   }
 
   async getTodos(): Promise<FirstClassCollection> {
-    const result = await this.repository.find({ relations: ["status2"] });
+    const result = await this.repository.find({ relations: ["status"] });
     return new FirstClassCollection(
       result.map(
         (entity) =>
@@ -74,9 +74,8 @@ export class TodoRepository {
     entity.createdAt = todo.CreatedAt;
     entity.completedAt = todo.CompletedAt;
     entity.dueDate = todo.DueDate;
-    entity.status = todo.Status;
     const result = await this.createUpdateStatus(todo);
-    if (result) entity.status2 = result;
+    if (result) entity.status = result;
 
     await this.repository.save(entity);
   }
@@ -88,7 +87,6 @@ export class TodoRepository {
     entity.createdAt = todo.CreatedAt;
     entity.completedAt = todo.CompletedAt;
     entity.dueDate = todo.DueDate;
-    entity.status = todo.Status;
 
     const id = todo.Id;
     if (id !== null) {
@@ -104,9 +102,8 @@ export class TodoRepository {
     entity.createdAt = todo.CreatedAt;
     entity.completedAt = todo.CompletedAt;
     entity.dueDate = todo.DueDate;
-    entity.status = todo.Status;
     const result = await this.createUpdateStatus(todo);
-    if (result) entity.status2 = result;
+    if (result) entity.status = result;
 
     const id = todo.Id;
     if (id !== null) {

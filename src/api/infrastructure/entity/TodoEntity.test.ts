@@ -19,7 +19,6 @@ describe("TodoEntity", () => {
     todo.title = "タイトル";
     todo.completed = false;
     todo.createdAt = new Date();
-    todo.status = "未着手";
     return todo;
   };
   const todoRepository = AppDataSource.manager.getRepository(TodoEntity);

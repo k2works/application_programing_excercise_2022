@@ -21,9 +21,6 @@ export class TodoEntity {
   @Column({ type: "datetime", nullable: true })
   completedAt!: Date | null;
 
-  @Column("varchar")
-  status!: string;
-
   @ManyToOne(() => StatusEntity, (status) => status.todos)
-  status2!: StatusEntity;
+  status!: StatusEntity;
 }
