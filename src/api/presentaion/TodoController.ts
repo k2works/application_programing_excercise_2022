@@ -5,8 +5,12 @@ const service = new TodoService();
 const router = express.Router();
 
 router.get("/todos", async (req, res) => {
-  const result = await service.selectAll();
-  res.send(result);
+  try {
+    const result = await service.selectAll();
+    res.send(result);
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.post("/todo", async (req, res) => {
@@ -32,10 +36,14 @@ router.put("/todo", async (req, res) => {
 });
 
 router.delete("/todo", async (req, res) => {
-  const request: Params = req.body;
-  await service.delete(request);
-  const result = await service.selectAll();
-  res.send(result);
+  try {
+    const request: Params = req.body;
+    await service.delete(request);
+    const result = await service.selectAll();
+    res.send(result);
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 export default router;
