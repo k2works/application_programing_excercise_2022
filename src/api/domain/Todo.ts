@@ -49,7 +49,7 @@ export class Todo {
     createdAt: CreatedAt = new CreatedAt(new Date()),
     completedAt: CompletedAt = new CompletedAt(null),
     dueDate: DueDate = new DueDate(null),
-    status: string = "着手",
+    status: string = "未着手",
     id: number | null = null
   ) {
     this.title = new Title(title);
