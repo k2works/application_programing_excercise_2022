@@ -30,6 +30,8 @@ package Client {
 package Api {
   package domain {
     package model {}
+    package type {}
+    type <- model
   }
   package presentation {
   }
@@ -40,6 +42,7 @@ package Api {
     package repository {}
   }
   presentation -> application
+  application -> model
   application -> repository
   model <-- repository
   repository -> entity
@@ -75,10 +78,11 @@ package domain {
     Todo *-- CompletedAt
     Todo *-- DueDate
     TodoList *-- Todo
-    TodoStatus *- Todo
+    TodoStatus -* Todo
   }
   package type {
     enum TodoStatusType {
+      UNDEFINED = 0,
       NOT_STARTED = 1,
       IN_PROGRESS = 2,
       COMPLETED = 3,
@@ -90,12 +94,17 @@ package presentation {
   class Express {}
   class index {
   }
-
-  class TodoController {
+  class Route {
     get()
     post()
     put()
     delete()
+  }
+  class TodoController {
+    selectAll()
+    create()
+    delete()
+    update()
   }
 }
 package application {
@@ -129,9 +138,12 @@ package infrastructure {
   }
 }
 Express <- index
-index -> TodoController
-TodoController -> TodoService
-TodoService *- TodoRepository
+index -> Route
+Route -> TodoController
+TodoController *-- TodoService
+TodoService *-- TodoRepository
+Todo <-- TodoService
+TodoList <-- TodoService
 Todo <--- TodoRepository
 TodoList <--- TodoRepository
 TodoRepository -> TodoEntity
@@ -148,11 +160,11 @@ entity Todo {
   completedAt : datetime
 }
 entity Status {
-  *id
+  *id : number <<generated>>
   --
-  type
-  code
-  name
+  type : varchar
+  code : varchar
+  name : varchar
 }
 Status ||.o{ Todo
 `;
@@ -175,7 +187,7 @@ const init = () => {
                 <li><a href="./docs/index.html" target="_blank">サンプル</a></li>
                 <li><a href="./report/lcov-report" target="_blank">Code coverage Report</a></li>
                 <li><a href="./report" target="_blank">Cumberjs Report</a></li>
-                <li><a href="http://localhost:3000/swagger" target="_blank">Swagger</a></li>
+                <li><a href="http://localhost:3000/api-docs" target="_blank">Swagger</a></li>
               </ul>              
               <h1>開発</h1>
               <div class="py-3">
