@@ -1,10 +1,10 @@
 import { Repository } from "typeorm";
-import { CompletedAt } from "../../domain/CompletedAt";
-import { CreatedAt } from "../../domain/CreatedAt";
-import { DueDate } from "../../domain/DueDate";
+import { CompletedAt } from "../../domain/model/CompletedAt";
+import { CreatedAt } from "../../domain/model/CreatedAt";
+import { DueDate } from "../../domain/model/DueDate";
 import { AppDataSource } from "../data-source";
 import { TodoEntity as Entity } from "../entity/TodoEntity";
-import { Todo as DomainObject } from "../../domain/Todo";
+import { Todo as DomainObject } from "../../domain/model/Todo";
 
 export class TodoRepository {
   private repository: Repository<Entity>;

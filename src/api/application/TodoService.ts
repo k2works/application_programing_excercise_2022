@@ -1,8 +1,8 @@
-import { Todo } from "../domain/Todo";
+import { Todo } from "../domain/model/Todo";
 import { TodoRepository } from "../infrastructure/repository/TodoRepository";
-import { CreatedAt } from "../domain/CreatedAt";
-import { CompletedAt } from "../domain/CompletedAt";
-import { DueDate } from "../domain/DueDate";
+import { CreatedAt } from "../domain/model/CreatedAt";
+import { CompletedAt } from "../domain/model/CompletedAt";
+import { DueDate } from "../domain/model/DueDate";
 
 export type Params = {
   id?: number | undefined;
