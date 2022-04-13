@@ -185,7 +185,7 @@ const expand = (todos: any) =>
     title: item.title.value,
     status: item.status,
     id: item.id,
-    completed: item.isCompleted,
+    completed: item.completed,
     dueDate: item.dueDate.value,
   }));
 
