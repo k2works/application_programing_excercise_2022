@@ -53,7 +53,7 @@ package domain {
     class TodoList {}
     class Todo {
       id
-      completed
+      isCompleted
       completed()
     }
     class Title {}
