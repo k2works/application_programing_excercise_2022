@@ -64,12 +64,27 @@ package domain {
     class DueDate {
       overDue()
     }
+    abstract class TodoStatus {
+      static create()
+    }
+    class NotStarted extends TodoStatus {}
+    class InProgress extends TodoStatus {}
+    class Completed extends TodoStatus {}
     Todo *-- Title
     Todo *-- CreatedAt
     Todo *-- CompletedAt
     Todo *-- DueDate
     TodoList *-- Todo
+    TodoStatus *- Todo
   }
+  package type {
+    enum TodoStatusType {
+      NOT_STARTED = 1,
+      IN_PROGRESS = 2,
+      COMPLETED = 3,
+    }
+  }
+  TodoStatusType -* TodoStatus
 }
 package presentation {
   class Express {}
