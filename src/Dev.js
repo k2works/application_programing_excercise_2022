@@ -31,20 +31,20 @@ package Api {
   package domain {
     package model {}
   }
-  class Express {
+  package presentation {
+  }
+  package application {
   }
   package infrastracture {
     package entity {}
     package repository {}
   }
-  package application {
-  }
-  Express -> application
+  presentation -> application
   application -> repository
   model <-- repository
   repository -> entity
 }
-Express <-- React
+presentation <-- Client
 `;
 
 const classUml = `
@@ -69,11 +69,17 @@ package domain {
     TodoList *-- Todo
   }
 }
-class index {
-  get()
-  post()
-  put()
-  delete()
+package presentation {
+  class Express {}
+  class index {
+  }
+
+  class TodoController {
+    get()
+    post()
+    put()
+    delete()
+  }
 }
 package application {
   class TodoService {
@@ -106,7 +112,8 @@ package infrastructure {
   }
 }
 Express <- index
-index -> TodoService
+index -> TodoController
+TodoController -> TodoService
 TodoService *- TodoRepository
 Todo <--- TodoRepository
 TodoList <--- TodoRepository
