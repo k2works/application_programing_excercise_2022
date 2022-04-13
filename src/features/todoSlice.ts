@@ -127,12 +127,21 @@ const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    readTodo(state: State, action: PayloadAction<Todo[]>) {
-      return {
-        ...state,
-        todos: action.payload,
-        count: action.payload.length,
-      };
+    readTodo(state: State, action: PayloadAction<Todo[] | any>) {
+      if (action.payload.error) {
+        return {
+          ...state,
+          message: action.payload.error,
+          isError: true,
+          todo: initialState.todo,
+        };
+      } else {
+        return {
+          ...state,
+          todos: action.payload,
+          count: action.payload.length,
+        };
+      }
     },
     createTodo(state: State, action: PayloadAction<string>) {
       if (action.payload === "") {
@@ -201,7 +210,8 @@ export const createTodoAsync = (todo: Todo) => async (dispatch: any) => {
 };
 export const updateTodoAsync = (todo: Todo) => async (dispatch: any) => {
   putApi(apiUrl.update, todo).then((todos: any) => {
-    dispatch(readTodo(expand(todos)));
+    const result = todos.error ? todos : expand(todos);
+    dispatch(readTodo(result));
   });
 };
 export const deleteTodoAsync = (todo: Todo) => async (dispatch: any) => {

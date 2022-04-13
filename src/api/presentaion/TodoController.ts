@@ -17,10 +17,14 @@ router.post("/todo", async (req, res) => {
 });
 
 router.put("/todo", async (req, res) => {
-  const request: Params = req.body;
-  await service.update(request);
-  const result = await service.selectAll();
-  res.send(result);
+  try {
+    const request: Params = req.body;
+    await service.update(request);
+    const result = await service.selectAll();
+    res.send(result);
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.delete("/todo", async (req, res) => {

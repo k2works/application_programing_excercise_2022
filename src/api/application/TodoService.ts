@@ -48,27 +48,20 @@ export class TodoService {
         const completed = params.completed;
         const dueDate = params.dueDate;
         const status = params.completed ? "完了" : "着手";
+        const todo = new Todo(
+          result.Title,
+          completed,
+          new CreatedAt(result.CreatedAt),
+          new CompletedAt(result.CompletedAt),
+          new DueDate(result.DueDate),
+          status,
+          result.Id
+        );
         if (dueDate) {
-          const todo = new Todo(
-            result.Title,
-            completed,
-            new CreatedAt(result.CreatedAt),
-            new CompletedAt(result.CompletedAt),
-            new DueDate(dueDate),
-            status,
-            result.Id
-          );
-          await this.repository.updateTodo(todo);
+          const parsedDate = new Date(dueDate);
+          const update = todo.setDueDate(new DueDate(parsedDate));
+          await this.repository.updateTodo(update);
         } else {
-          const todo = new Todo(
-            result.Title,
-            completed,
-            new CreatedAt(result.CreatedAt),
-            new CompletedAt(result.CompletedAt),
-            new DueDate(result.DueDate),
-            status,
-            result.Id
-          );
           await this.repository.updateTodo(todo);
         }
       }
