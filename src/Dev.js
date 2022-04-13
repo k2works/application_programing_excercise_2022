@@ -53,6 +53,7 @@ package domain {
     class Todo {
       id
       completed
+      completed()
     }
     class Title {}
     class CreatedAt {}
@@ -95,6 +96,7 @@ package infrastructure {
   package repository {
     class TodoRepository {
       getTodos()
+      getTodo()
       addTodo(todo)
       deleteTodo(todo)
       updateTodo(todo)
