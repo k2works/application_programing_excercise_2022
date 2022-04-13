@@ -181,7 +181,7 @@ export const selectTodoMessage = (state: RootState) => state.todo.message;
 export const selectIsError = (state: RootState) => state.todo.isError;
 
 const expand = (todos: any) =>
-  todos.map((item: any) => ({
+  todos.value.map((item: any) => ({
     title: item.title.value,
     status: item.status,
     id: item.id,
