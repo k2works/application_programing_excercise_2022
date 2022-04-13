@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { AppDataSource } from "./infrastructure/data-source";
-import router from "./presentaion/TodoController";
+import router from "./Route";
 import swaggerUi from "swagger-ui-express";
 const app = express();
 app.use(cors({ origin: true, credentials: true }));

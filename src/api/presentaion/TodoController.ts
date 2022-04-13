@@ -1,6 +1,5 @@
-import express from "express";
 import { Route, Get, Tags, Body, Delete, Post, Put } from "tsoa";
-import { Params, TodoService } from "../application/TodoService";
+import { TodoService } from "../application/TodoService";
 import { TodoList } from "../domain/model/TodoList";
 
 export type TodoRequest = {
@@ -14,7 +13,7 @@ export type TodoRequest = {
 
 @Route("api")
 @Tags("todo")
-class TodoController {
+export class TodoController {
   private service: TodoService;
 
   constructor() {
@@ -40,50 +39,3 @@ class TodoController {
     return this.service.update(todo);
   }
 }
-
-const router = express.Router();
-const controller = new TodoController();
-
-router.get("/todos", async (req, res) => {
-  try {
-    const result = await controller.selectAll();
-    res.send(result);
-  } catch (err: any) {
-    res.status(400).send({ error: err.message });
-  }
-});
-
-router.post("/todo", async (req, res) => {
-  try {
-    const request: Params = req.body;
-    await controller.create(request);
-    const result = await controller.selectAll();
-    res.send(result);
-  } catch (err: any) {
-    res.status(400).send({ error: err.message });
-  }
-});
-
-router.put("/todo", async (req, res) => {
-  try {
-    const request: Params = req.body;
-    await controller.update(request);
-    const result = await controller.selectAll();
-    res.send(result);
-  } catch (err: any) {
-    res.status(400).send({ error: err.message });
-  }
-});
-
-router.delete("/todo", async (req, res) => {
-  try {
-    const request: Params = req.body;
-    await controller.delete(request);
-    const result = await controller.selectAll();
-    res.send(result);
-  } catch (err: any) {
-    res.status(400).send({ error: err.message });
-  }
-});
-
-export default router;
