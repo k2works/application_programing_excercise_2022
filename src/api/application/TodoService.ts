@@ -4,13 +4,6 @@ import { CreatedAt } from "../domain/CreatedAt";
 import { CompletedAt } from "../domain/CompletedAt";
 import { DueDate } from "../domain/DueDate";
 
-export enum Type {
-  CREATE,
-  READ,
-  UPDATE,
-  DELETE,
-}
-
 export type Params = {
   id?: number | undefined;
   title?: string | undefined;
