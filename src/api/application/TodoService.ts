@@ -47,14 +47,12 @@ export class TodoService {
       if (result) {
         const completed = params.completed;
         const dueDate = params.dueDate;
-        const status = params.completed ? "完了" : "着手";
         const todo = new Todo(
           result.Title,
           completed,
           new CreatedAt(result.CreatedAt),
           new CompletedAt(result.CompletedAt),
           new DueDate(result.DueDate),
-          status,
           result.Id
         );
         if (dueDate) {

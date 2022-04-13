@@ -55,7 +55,6 @@ export class Todo {
     createdAt: CreatedAt = new CreatedAt(new Date()),
     completedAt: CompletedAt = new CompletedAt(null),
     dueDate: DueDate = new DueDate(null),
-    status: string = "未着手",
     id: number | null = null
   ) {
     this.title = new Title(title);
@@ -63,8 +62,8 @@ export class Todo {
     this.createdAt = createdAt;
     this.completedAt = completedAt;
     this.dueDate = dueDate;
-    this.status = TodoStatus.create(this);
     this.id = id;
+    this.status = TodoStatus.create(this);
     this.isOverDue = dueDate.overDue();
   }
 
@@ -75,7 +74,6 @@ export class Todo {
       this.createdAt,
       new CompletedAt(new Date()),
       this.dueDate,
-      this.Status,
       this.Id
     );
   }
@@ -90,7 +88,6 @@ export class Todo {
       this.createdAt,
       this.completedAt,
       due,
-      this.Status,
       this.id
     );
   }

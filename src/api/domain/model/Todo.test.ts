@@ -26,7 +26,6 @@ describe("Todo", () => {
         new CreatedAt(today),
         new CompletedAt(null),
         new DueDate(null),
-        "着手",
         1
       );
       const todo2 = new Todo(
@@ -35,7 +34,6 @@ describe("Todo", () => {
         new CreatedAt(today),
         new CompletedAt(null),
         new DueDate(null),
-        "着手",
         1
       );
       expect(todo1.equals(todo2)).toBe(true);

@@ -25,7 +25,6 @@ export class TodoRepository {
             new CreatedAt(entity.createdAt),
             new CompletedAt(entity.completedAt),
             new DueDate(entity.dueDate),
-            entity.status,
             entity.id
           )
       )
@@ -41,7 +40,6 @@ export class TodoRepository {
         new CreatedAt(entity.createdAt),
         new CompletedAt(entity.completedAt),
         new DueDate(entity.dueDate),
-        entity.status,
         entity.id
       );
     } else {
