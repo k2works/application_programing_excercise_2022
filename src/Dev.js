@@ -29,6 +29,7 @@ package Client {
 }
 package Api {
   package domain {
+    package model {}
   }
   class Express {
   }
@@ -37,30 +38,33 @@ package Api {
     package repository {}
   }
   package application {
-    package command {}
   }
   Express -> application
-  command -> entity
+  application -> repository
+  model <-- repository
+  repository -> entity
 }
 Express <-- React
 `;
 
 const classUml = `
 package domain {
-  class Todo {
-    id
-    completed
+  package model {
+    class Todo {
+      id
+      completed
+    }
+    class Title {}
+    class CreatedAt {}
+    class CompletedAt {}
+    class DueDate {
+      overDue()
+    }
+    Todo *-- Title
+    Todo *-- CreatedAt
+    Todo *-- CompletedAt
+    Todo *-- DueDate
   }
-  class Title {}
-  class CreatedAt {}
-  class CompletedAt {}
-  class DueDate {
-    overDue()
-  }
-  Todo *-- Title
-  Todo *-- CreatedAt
-  Todo *-- CompletedAt
-  Todo *-- DueDate
 }
 class index {
   get()
@@ -69,34 +73,15 @@ class index {
   delete()
 }
 package application {
-  package command {
-    interface Command {
-      execute(params)
-    }
-    class CreateCommand implements Command {
-      type
-      execute(params) {}
-    }
-    class ReadCommand implements Command {
-      type
-      execute(params) {}
-    }
-    class UpdateCommand implements Command {
-      type
-      execute(params) {}
-    }
-    class DeleteCommand implements Command {
-      type
-      execute(params) {}
-    }
-  }
   class TodoService {
-    execute(params) 
+    create(params)
+    selectAll()
+    update(params)
+    delete(params)
   }
 }
 package infrastructure {
   package entity {
-    class BaseEntity {}
     class TodoEntity {
       id
       title
@@ -105,9 +90,6 @@ package infrastructure {
       createdAt
       completedAt
       status
-      save()
-      find()
-      findOneBy(id)
     }
   }
   package repository {
@@ -118,12 +100,12 @@ package infrastructure {
       updateTodo(todo)
     }
   }
-BaseEntity <|-- TodoEntity
 }
-Express <-- index
+Express <- index
 index -> TodoService
-TodoService *- Command
-Command -> TodoEntity
+TodoService *- TodoRepository
+Todo <--- TodoRepository
+TodoRepository -> TodoEntity
 `;
 
 const erd = `
