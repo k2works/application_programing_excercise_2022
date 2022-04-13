@@ -49,6 +49,14 @@ export class Todo {
     return this.id;
   }
 
+  get StatusCode(): string {
+    return this.status.Code;
+  }
+
+  get StatusType(): string {
+    return this.status.Type;
+  }
+
   constructor(
     title: string,
     completed: boolean = false,

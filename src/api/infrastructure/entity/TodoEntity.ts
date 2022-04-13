@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { StatusEntity } from "./StatusEntity";
 
 @Entity("todo")
 export class TodoEntity {
@@ -22,4 +23,7 @@ export class TodoEntity {
 
   @Column("varchar")
   status!: string;
+
+  @ManyToOne(() => StatusEntity, (status) => status.todos)
+  status2!: StatusEntity;
 }

@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { StatusEntity } from "./entity/StatusEntity";
 import { TodoEntity } from "./entity/TodoEntity";
 
 export const AppDataSource = new DataSource({
@@ -6,7 +7,7 @@ export const AppDataSource = new DataSource({
   database: ":memory:",
   synchronize: true,
   logging: false,
-  entities: [TodoEntity],
+  entities: [TodoEntity, StatusEntity],
   subscribers: [],
   migrations: [],
 });

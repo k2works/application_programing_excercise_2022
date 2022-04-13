@@ -1,7 +1,13 @@
+import { CompletedAt } from "../../domain/model/CompletedAt";
+import { CreatedAt } from "../../domain/model/CreatedAt";
+import { DueDate } from "../../domain/model/DueDate";
+import { Todo } from "../../domain/model/Todo";
+import { TodoStatusType } from "../../domain/type/TodoStatusType";
 import { AppDataSource } from "../data-source";
 import { TodoEntity } from "../entity/TodoEntity";
+import { TodoRepository } from "./TodoRepository";
 
-describe("TodoEntity", () => {
+describe("TodoRepository", () => {
   beforeAll(async () => {
     await AppDataSource.initialize();
   });
@@ -15,49 +21,55 @@ describe("TodoEntity", () => {
   });
 
   describe("正常系", () => {
-    const createTodo = () => {
-      const todo = new TodoEntity();
-      todo.title = "タイトル";
-      todo.completed = false;
-      todo.createdAt = new Date();
-      todo.status = "未着手";
-      return todo;
-    };
-    const todoRepository = AppDataSource.manager.getRepository(TodoEntity);
-
-    it("やることを作成する", async () => {
-      const todo = createTodo();
-      await todoRepository.save(todo);
-      expect(todo.id).toBeDefined();
-      let result = await todoRepository.findOneBy({ id: 1 });
-      if (result) {
-        expect(result.title).toBe("タイトル");
-        expect(result.completed).toBe(false);
-      }
+    test("やることを作成する", async () => {
+      const repository = new TodoRepository();
+      const todo = new Todo("タイトル");
+      await repository.addTodo(todo);
+      const result = await repository.getTodos();
+      expect(result.Value[0].Title).toBe("タイトル");
+      expect(result.Value[0].Status).toBe("未着手");
+      expect(result.Value[0].StatusCode).toBe(
+        TodoStatusType.NOT_STARTED.toString()
+      );
+      expect(result.Value[0].StatusType).toBe("TODO");
     });
 
-    it("やることを更新する", async () => {
-      const todo = createTodo();
-      await todoRepository.save(todo);
+    test("やることを更新する", async () => {
+      const repository = new TodoRepository();
+      const todo = new Todo("タイトル");
+      await repository.addTodo(todo);
+      let result = await repository.getTodos();
 
-      let todo2 = await todoRepository.findOneBy({ id: 1 });
-      if (todo2) {
-        todo2.title = "タイトル2";
-        await todoRepository.save(todo2);
-        const result = await todoRepository.findOneBy({ id: 1 });
-        if (result) expect(result.title).toBe("タイトル2");
+      const id = result.Value[0].Id;
+      if (id !== null) {
+        const todo2 = new Todo(
+          "タイトル2",
+          true,
+          new CreatedAt(new Date()),
+          new CompletedAt(null),
+          new DueDate(null),
+          id
+        );
+
+        await repository.updateTodo(todo2);
+        result = await repository.getTodos();
       }
+      expect(result.Value[0].Title).toBe("タイトル2");
+      expect(result.Value[0].Status).toBe("完了");
+      expect(result.Value[0].StatusCode).toBe(
+        TodoStatusType.COMPLETED.toString()
+      );
+      expect(result.Value[0].StatusType).toBe("TODO");
     });
 
-    it("やることを削除する", async () => {
-      const todo = createTodo();
-      await todoRepository.save(todo);
-      await todoRepository.remove(todo);
-      let result = await todoRepository.find();
-      if (result) {
-        result = await todoRepository.find();
-        expect(result.length).toBe(0);
-      }
+    test("やることを削除する", async () => {
+      const repository = new TodoRepository();
+      const todo = new Todo("タイトル");
+      await repository.addTodo(todo);
+      let result = await repository.getTodos();
+      await repository.deleteTodo(result.Value[0]);
+      result = await repository.getTodos();
+      expect(result.Value.length).toBe(0);
     });
   });
 
