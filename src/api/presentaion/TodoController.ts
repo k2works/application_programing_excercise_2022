@@ -10,10 +10,14 @@ router.get("/todos", async (req, res) => {
 });
 
 router.post("/todo", async (req, res) => {
-  const request: Params = req.body;
-  await service.create(request);
-  const result = await service.selectAll();
-  res.send(result);
+  try {
+    const request: Params = req.body;
+    await service.create(request);
+    const result = await service.selectAll();
+    res.send(result);
+  } catch (err: any) {
+    res.status(400).send({ error: err.message });
+  }
 });
 
 router.put("/todo", async (req, res) => {

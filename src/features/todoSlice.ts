@@ -144,14 +144,6 @@ const todoSlice = createSlice({
       }
     },
     createTodo(state: State, action: PayloadAction<string>) {
-      if (action.payload === "") {
-        return {
-          ...state,
-          message: "タイトルが未入力です",
-          isError: true,
-          todo: initialState.todo,
-        };
-      }
       const newTodo = {
         id: 0,
         title: action.payload,
@@ -190,13 +182,15 @@ export const selectTodoMessage = (state: RootState) => state.todo.message;
 export const selectIsError = (state: RootState) => state.todo.isError;
 
 const expand = (todos: any) =>
-  todos.value.map((item: any) => ({
-    title: item.title.value,
-    status: item.status,
-    id: item.id,
-    completed: item.completed,
-    dueDate: item.dueDate.value,
-  }));
+  todos.error
+    ? todos
+    : todos.value.map((item: any) => ({
+        title: item.title.value,
+        status: item.status,
+        id: item.id,
+        completed: item.completed,
+        dueDate: item.dueDate.value,
+      }));
 
 export const readTodoAsync = () => async (dispatch: any) => {
   getApi(apiUrl.read).then((todos: any) => {
@@ -210,8 +204,7 @@ export const createTodoAsync = (todo: Todo) => async (dispatch: any) => {
 };
 export const updateTodoAsync = (todo: Todo) => async (dispatch: any) => {
   putApi(apiUrl.update, todo).then((todos: any) => {
-    const result = todos.error ? todos : expand(todos);
-    dispatch(readTodo(result));
+    dispatch(readTodo(expand(todos)));
   });
 };
 export const deleteTodoAsync = (todo: Todo) => async (dispatch: any) => {

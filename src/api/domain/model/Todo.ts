@@ -52,6 +52,7 @@ export class Todo {
     status: string = "未着手",
     id: number | null = null
   ) {
+    if (title === "") throw new Error("タイトルが未入力です");
     this.title = new Title(title);
     this.completed = completed;
     this.createdAt = createdAt;

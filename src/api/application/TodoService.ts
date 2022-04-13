@@ -27,7 +27,7 @@ export class TodoService {
 
   async create(params: Params): Promise<void> {
     const title = params.title;
-    if (title) {
+    if (title !== undefined) {
       const todo = new Todo(title);
       await this.repository.addTodo(todo);
     }
