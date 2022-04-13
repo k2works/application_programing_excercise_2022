@@ -4,16 +4,7 @@ import { CreatedAt } from "../domain/model/CreatedAt";
 import { CompletedAt } from "../domain/model/CompletedAt";
 import { DueDate } from "../domain/model/DueDate";
 import { TodoList } from "../domain/model/TodoList";
-
-export type Params = {
-  title: string;
-  completed: boolean;
-  createdAt: Date | null;
-  completedAt: Date | null;
-  dueDate: Date | null;
-  id: number | null;
-};
-
+import { TodoRequest } from "../presentaion/TodoController";
 export class TodoService {
   private repository: TodoRepository;
 
@@ -25,7 +16,7 @@ export class TodoService {
     return this.repository.getTodos();
   }
 
-  async create(params: Params): Promise<void> {
+  async create(params: TodoRequest): Promise<void> {
     const title = params.title;
     if (title !== undefined) {
       const todo = new Todo(title);
@@ -33,7 +24,7 @@ export class TodoService {
     }
   }
 
-  async delete(params: Params): Promise<void> {
+  async delete(params: TodoRequest): Promise<void> {
     const id = params.id;
     if (id) {
       const todo = await this.repository.getTodo(id);
@@ -41,7 +32,7 @@ export class TodoService {
     }
   }
 
-  async update(params: Params): Promise<void> {
+  async update(params: TodoRequest): Promise<void> {
     if (params.id) {
       const result = await this.repository.getTodo(params.id);
       if (result) {

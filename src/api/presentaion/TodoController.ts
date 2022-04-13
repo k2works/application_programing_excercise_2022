@@ -12,7 +12,6 @@ export type TodoRequest = {
   id: number | null;
 };
 
-const service = new TodoService();
 @Route("api")
 @Tags("todo")
 class TodoController {
@@ -32,9 +31,8 @@ class TodoController {
   }
 
   @Delete("/todo")
-  public async delete(@Body() req: any): Promise<void> {
-    const request = JSON.parse(JSON.stringify(req.body));
-    if (request.id !== null) await this.service.delete(request.id);
+  public async delete(@Body() todo: TodoRequest): Promise<void> {
+    await this.service.delete(todo);
   }
 
   @Put("/todo")
@@ -44,10 +42,11 @@ class TodoController {
 }
 
 const router = express.Router();
+const controller = new TodoController();
 
 router.get("/todos", async (req, res) => {
   try {
-    const result = await service.selectAll();
+    const result = await controller.selectAll();
     res.send(result);
   } catch (err: any) {
     res.status(400).send({ error: err.message });
@@ -57,8 +56,8 @@ router.get("/todos", async (req, res) => {
 router.post("/todo", async (req, res) => {
   try {
     const request: Params = req.body;
-    await service.create(request);
-    const result = await service.selectAll();
+    await controller.create(request);
+    const result = await controller.selectAll();
     res.send(result);
   } catch (err: any) {
     res.status(400).send({ error: err.message });
@@ -68,8 +67,8 @@ router.post("/todo", async (req, res) => {
 router.put("/todo", async (req, res) => {
   try {
     const request: Params = req.body;
-    await service.update(request);
-    const result = await service.selectAll();
+    await controller.update(request);
+    const result = await controller.selectAll();
     res.send(result);
   } catch (err: any) {
     res.status(400).send({ error: err.message });
@@ -79,8 +78,8 @@ router.put("/todo", async (req, res) => {
 router.delete("/todo", async (req, res) => {
   try {
     const request: Params = req.body;
-    await service.delete(request);
-    const result = await service.selectAll();
+    await controller.delete(request);
+    const result = await controller.selectAll();
     res.send(result);
   } catch (err: any) {
     res.status(400).send({ error: err.message });
