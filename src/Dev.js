@@ -146,8 +146,15 @@ entity Todo {
   dueDate : datetime
   createdAt : datetime
   completedAt : datetime
-  status : varchar
 }
+entity Status {
+  *id
+  --
+  type
+  code
+  name
+}
+Status ||.o{ Todo
 `;
 
 export const setUp = () => {
