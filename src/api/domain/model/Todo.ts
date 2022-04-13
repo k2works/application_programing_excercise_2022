@@ -12,6 +12,7 @@ export class Todo {
   private createdAt: CreatedAt;
   private completedAt: CompletedAt;
   private dueDate: DueDate;
+  private isOverDue: boolean;
   private status: string;
   private id: number | null = null;
 
@@ -33,6 +34,10 @@ export class Todo {
 
   get DueDate(): Date | null {
     return this.dueDate.Value;
+  }
+
+  get OverDue(): boolean {
+    return this.isOverDue;
   }
 
   get Status(): string {
@@ -59,6 +64,7 @@ export class Todo {
     this.dueDate = dueDate;
     this.status = status;
     this.id = id;
+    this.isOverDue = dueDate.overDue();
   }
 
   public complete(): Todo {
@@ -71,10 +77,6 @@ export class Todo {
       this.Status,
       this.Id
     );
-  }
-
-  public overDue(): boolean {
-    return this.dueDate.overDue();
   }
 
   public setDueDate(due: DueDate): Todo {

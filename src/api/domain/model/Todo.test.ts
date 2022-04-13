@@ -72,7 +72,7 @@ describe("Todo", () => {
         new DueDate(null)
       );
       const todo2 = todo.setDueDate(new DueDate(oneBeforeDay));
-      expect(todo2.overDue()).toBe(true);
+      expect(todo2.OverDue).toBe(true);
     });
 
     test("期限が過ぎていない", () => {
@@ -80,7 +80,7 @@ describe("Todo", () => {
       const due = new Date();
       due.setDate(due.getDate() + 1);
       const todo2 = todo.setDueDate(new DueDate(due));
-      expect(todo2.overDue()).toBe(false);
+      expect(todo2.OverDue).toBe(false);
     });
 
     it("開始日より前に期限を設定できない", () => {
