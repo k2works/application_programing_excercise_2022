@@ -1,7 +1,17 @@
 import express from "express";
+import { Route, Get } from "tsoa";
 import { Params, TodoService } from "../application/TodoService";
+import { TodoList } from "../domain/model/TodoList";
 
 const service = new TodoService();
+@Route("api")
+class TodoController {
+  @Get("/todos")
+  public async selectAll(): Promise<TodoList> {
+    return service.selectAll();
+  }
+}
+
 const router = express.Router();
 
 router.get("/todos", async (req, res) => {

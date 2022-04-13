@@ -48,9 +48,9 @@ npm install react react-dom
 npm install --save-dev babel-loader @babel/preset-react
 npm install --save-dev typescript ts-loader
 npx tsc --init
-npm i -save-dev @types/react @types/react-dom
+npm install -save-dev @types/react @types/react-dom
 npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node-dev@1.1.8 @types/jest
-npm i -save @reduxjs/toolkit react-redux
+npm install -save @reduxjs/toolkit react-redux
 npm install --save express uuid cors
 npm install --save ts-node@10.5.0 @types/express @types/cors @types/node
 npm install --save-dev ts-node-dev@1.1.8 
@@ -59,6 +59,8 @@ npm install --save typeorm reflect-metadata
 npm install --save better-sqlite3 
 npm install --save-dev typedoc tplant
 npm install --save-dev asciidoctor asciidoctor-kroki
+npm install -save tsoa swagger-ui-express
+npm install -save-dev @types/swagger-ui-express
 ```
 
 **[⬆ back to top](#構成)**
@@ -110,3 +112,6 @@ npm start
 - [TypeORM](https://typeorm.io/)
 - [TYPE DOC](http://typedoc.org/)
 - [tplant](https://github.com/bafolts/tplant)
+ [TypeScript Deep Dive 日本語版](https://typescript-jp.gitbook.io/deep-dive/)
+- [Building REST API with Express, TypeScript and Swagger](https://dev.to/rsbh/building-rest-api-with-express-typescript-and-swagger-2dma)
+- [tsoa](https://tsoa-community.github.io/docs/)
