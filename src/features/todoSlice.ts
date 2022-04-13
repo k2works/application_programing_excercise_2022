@@ -144,16 +144,12 @@ const todoSlice = createSlice({
       }
     },
     createTodo(state: State, action: PayloadAction<string>) {
-      const newTodo = {
-        id: 0,
-        title: action.payload,
-        completed: false,
-        dueDate: state.todo.dueDate,
-        status: "未着手",
-        createdAt: new Date(),
-        completedAt: null,
+      return {
+        ...state,
+        todo: { ...state.todo, id: 0, title: action.payload },
+        message: "",
+        isError: false,
       };
-      return { ...state, todo: newTodo, message: "", isError: false };
     },
     updateTodo(state: State, action: PayloadAction<Todo>) {
       return {
