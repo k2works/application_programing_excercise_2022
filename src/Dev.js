@@ -91,15 +91,6 @@ package domain {
   TodoStatusType -* TodoStatus
 }
 package presentation {
-  class Express {}
-  class index {
-  }
-  class Route {
-    get()
-    post()
-    put()
-    delete()
-  }
   class TodoController {
     selectAll()
     create()
@@ -136,10 +127,16 @@ package infrastructure {
       updateTodo(todo)
     }
   }
+  class router {
+    get()
+    post()
+    put()
+    delete()
+  }
+  class Express {}
 }
-Express <- index
-index -> Route
-Route -> TodoController
+Express <- router
+TodoController <-- router
 TodoController *-- TodoService
 TodoService *-- TodoRepository
 Todo <-- TodoService

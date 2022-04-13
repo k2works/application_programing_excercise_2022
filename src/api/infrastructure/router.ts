@@ -1,5 +1,5 @@
 import express from "express";
-import { TodoController, TodoRequest } from "./presentaion/TodoController";
+import { TodoController, TodoRequest } from "../presentaion/TodoController";
 
 const router = express.Router();
 const controller = new TodoController();
