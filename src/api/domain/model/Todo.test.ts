@@ -113,5 +113,16 @@ describe("TodoList", () => {
     });
   });
 
-  describe("異常系", () => {});
+  describe("異常系", () => {
+    it("タイトルが未入力", () => {
+      expect(() => new Todo("")).toThrow();
+    });
+
+    it("開始日より前に期限を設定できない", () => {
+      const todo = new Todo("タイトル");
+      const due = new Date();
+      due.setDate(due.getDate() - 1);
+      expect(() => todo.setDueDate(new DueDate(due))).toThrow();
+    });
+  });
 });
