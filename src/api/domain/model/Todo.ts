@@ -8,7 +8,7 @@ import { Title } from "./Title";
  */
 export class Todo {
   private title: Title;
-  private completed: boolean;
+  private isCompleted: boolean;
   private createdAt: CreatedAt;
   private completedAt: CompletedAt;
   private dueDate: DueDate;
@@ -20,7 +20,7 @@ export class Todo {
   }
 
   get Completed(): boolean {
-    return this.completed;
+    return this.isCompleted;
   }
 
   get CreatedAt(): Date {
@@ -54,7 +54,7 @@ export class Todo {
   ) {
     if (title === "") throw new Error("タイトルが未入力です");
     this.title = new Title(title);
-    this.completed = completed;
+    this.isCompleted = completed;
     this.createdAt = createdAt;
     this.completedAt = completedAt;
     this.dueDate = dueDate;
@@ -88,7 +88,7 @@ export class Todo {
 
     return new Todo(
       this.title.Value,
-      this.completed,
+      this.isCompleted,
       this.createdAt,
       this.completedAt,
       due,
@@ -100,7 +100,7 @@ export class Todo {
   public equals(other: Todo): boolean {
     return (
       this.title.equals(other.title) &&
-      this.completed === other.completed &&
+      this.isCompleted === other.isCompleted &&
       this.createdAt.equals(other.createdAt) &&
       this.completedAt.equals(other.completedAt) &&
       this.dueDate.equals(other.dueDate) &&
