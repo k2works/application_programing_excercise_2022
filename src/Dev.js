@@ -50,6 +50,7 @@ Express <-- React
 const classUml = `
 package domain {
   package model {
+    class TodoList {}
     class Todo {
       id
       completed
@@ -65,6 +66,7 @@ package domain {
     Todo *-- CreatedAt
     Todo *-- CompletedAt
     Todo *-- DueDate
+    TodoList *-- Todo
   }
 }
 class index {
@@ -107,6 +109,7 @@ Express <- index
 index -> TodoService
 TodoService *- TodoRepository
 Todo <--- TodoRepository
+TodoList <--- TodoRepository
 TodoRepository -> TodoEntity
 `;
 
