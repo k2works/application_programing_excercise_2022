@@ -3,6 +3,7 @@ import { TodoRepository } from "../infrastructure/repository/TodoRepository";
 import { CreatedAt } from "../domain/model/CreatedAt";
 import { CompletedAt } from "../domain/model/CompletedAt";
 import { DueDate } from "../domain/model/DueDate";
+import { TodoList } from "../domain/model/TodoList";
 
 export type Params = {
   id?: number | undefined;
@@ -20,7 +21,7 @@ export class TodoService {
     this.repository = new TodoRepository();
   }
 
-  async selectAll(): Promise<Todo[]> {
+  async selectAll(): Promise<TodoList> {
     return this.repository.getTodos();
   }
 

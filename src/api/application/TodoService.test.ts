@@ -20,7 +20,7 @@ describe("TodoServie", () => {
     const params = { title: "タイトル" };
     await servce.create(params);
     const result = await servce.selectAll();
-    expect(result[0].Title).toBe("タイトル");
+    expect(result.Value[0].Title).toBe("タイトル");
   });
 
   test("やることを更新する", async () => {
@@ -29,7 +29,7 @@ describe("TodoServie", () => {
     await servce.create(params);
     let result = await servce.selectAll();
 
-    const id = result[0].Id;
+    const id = result.Value[0].Id;
     const dueDate = new Date();
     if (id !== null) {
       const todo2 = {
@@ -42,9 +42,9 @@ describe("TodoServie", () => {
       await servce.update(todo2);
       result = await servce.selectAll();
     }
-    expect(result[0].Completed).toBe(true);
-    expect(result[0].DueDate).toEqual(dueDate);
-    expect(result[0].Status).toBe("完了");
+    expect(result.Value[0].Completed).toBe(true);
+    expect(result.Value[0].DueDate).toEqual(dueDate);
+    expect(result.Value[0].Status).toBe("完了");
   });
 
   test("やることを削除する", async () => {
@@ -52,8 +52,8 @@ describe("TodoServie", () => {
     const params = { title: "タイトル" };
     await servce.create(params);
     let result = await servce.selectAll();
-    if (result[0].Id !== null) await servce.delete({ id: result[0].Id });
+    if (result.Value[0].Id !== null) await servce.delete({ id: result.Value[0].Id });
     result = await servce.selectAll();
-    expect(result.length).toBe(0);
+    expect(result.Value.length).toBe(0);
   });
 });

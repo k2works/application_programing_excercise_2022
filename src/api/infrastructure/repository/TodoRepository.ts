@@ -5,6 +5,7 @@ import { DueDate } from "../../domain/model/DueDate";
 import { AppDataSource } from "../data-source";
 import { TodoEntity as Entity } from "../entity/TodoEntity";
 import { Todo as DomainObject } from "../../domain/model/Todo";
+import { TodoList as FirstClassCollection } from "../../domain/model/TodoList";
 
 export class TodoRepository {
   private repository: Repository<Entity>;
@@ -13,19 +14,21 @@ export class TodoRepository {
     this.repository = AppDataSource.manager.getRepository(Entity);
   }
 
-  async getTodos(): Promise<DomainObject[]> {
+  async getTodos(): Promise<FirstClassCollection> {
     const result = await this.repository.find();
-    return result.map(
-      (entity) =>
-        new DomainObject(
-          entity.title,
-          entity.completed,
-          new CreatedAt(entity.createdAt),
-          new CompletedAt(entity.completedAt),
-          new DueDate(entity.dueDate),
-          entity.status,
-          entity.id
-        )
+    return new FirstClassCollection(
+      result.map(
+        (entity) =>
+          new DomainObject(
+            entity.title,
+            entity.completed,
+            new CreatedAt(entity.createdAt),
+            new CompletedAt(entity.completedAt),
+            new DueDate(entity.dueDate),
+            entity.status,
+            entity.id
+          )
+      )
     );
   }
 
