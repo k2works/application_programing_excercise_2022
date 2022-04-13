@@ -62,8 +62,16 @@ export class Todo {
     this.id = id;
   }
 
-  public complete(): void {
-    this.completed = true;
+  public complete(): Todo {
+    return new Todo(
+      this.title.Value,
+      true,
+      this.createdAt,
+      new CompletedAt(new Date()),
+      this.dueDate,
+      this.Status,
+      this.Id
+    );
   }
 
   public overDue(): boolean {

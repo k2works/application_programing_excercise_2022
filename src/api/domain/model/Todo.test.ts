@@ -13,8 +13,8 @@ describe("Todo", () => {
 
   test("やることを完了する", () => {
     const todo = new Todo("タイトル");
-    todo.complete();
-    expect(todo.Completed).toBe(true);
+    const result = todo.complete();
+    expect(result.Completed).toBe(true);
   });
 
   test("内容が同じであれば同じTodo", () => {
