@@ -6,12 +6,12 @@ import { DueDate } from "../domain/model/DueDate";
 import { TodoList } from "../domain/model/TodoList";
 
 export type Params = {
-  id?: number | undefined;
-  title?: string | undefined;
-  completed?: boolean;
-  dueDate?: Date;
-  completedAt?: Date;
-  status?: string;
+  title: string;
+  completed: boolean;
+  createdAt: Date | null;
+  completedAt: Date | null;
+  dueDate: Date | null;
+  id: number | null;
 };
 
 export class TodoService {
