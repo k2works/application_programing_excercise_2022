@@ -17,10 +17,26 @@ describe("Todo", () => {
     expect(todo.Completed).toBe(true);
   });
 
-  //TODO: エンティティとして実装する
-  test.skip("内容が同じであれば同じTodo", () => {
-    const todo1 = new Todo("タイトル");
-    const todo2 = new Todo("タイトル");
+  test("内容が同じであれば同じTodo", () => {
+    const today = new Date();
+    const todo1 = new Todo(
+      "タイトル",
+      false,
+      new CreatedAt(today),
+      new CompletedAt(null),
+      new DueDate(null),
+      "着手",
+      1
+    );
+    const todo2 = new Todo(
+      "タイトル",
+      false,
+      new CreatedAt(today),
+      new CompletedAt(null),
+      new DueDate(null),
+      "着手",
+      1
+    );
     expect(todo1.equals(todo2)).toBe(true);
   });
 

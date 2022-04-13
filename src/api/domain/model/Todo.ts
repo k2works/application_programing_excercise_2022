@@ -92,7 +92,9 @@ export class Todo {
       this.completed === other.completed &&
       this.createdAt.equals(other.createdAt) &&
       this.completedAt.equals(other.completedAt) &&
-      this.dueDate.equals(other.dueDate)
+      this.dueDate.equals(other.dueDate) &&
+      this.status === other.status &&
+      this.id === other.id
     );
   }
 }
