@@ -54,7 +54,9 @@ package domain {
     class Todo {
       id
       isCompleted
+      isOverDue
       completed()
+      setDueDate(dueDate)
     }
     class Title {}
     class CreatedAt {}
