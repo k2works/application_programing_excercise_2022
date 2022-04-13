@@ -182,7 +182,7 @@ const expand = (todos: any) =>
     ? todos
     : todos.value.map((item: any) => ({
         title: item.title.value,
-        status: item.status,
+        status: item.status.value,
         id: item.id,
         completed: item.isCompleted,
         dueDate: item.dueDate.value,

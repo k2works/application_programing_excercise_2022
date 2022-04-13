@@ -13,7 +13,7 @@ export class Todo {
   private completedAt: CompletedAt;
   private dueDate: DueDate;
   private isOverDue: boolean;
-  private status: string;
+  private status: TodoStatus;
   private id: number | null = null;
 
   get Title(): string {
@@ -41,7 +41,7 @@ export class Todo {
   }
 
   get Status(): string {
-    return this.status;
+    return this.status.Value;
   }
 
   get Id(): number | null {
@@ -62,7 +62,7 @@ export class Todo {
     this.createdAt = createdAt;
     this.completedAt = completedAt;
     this.dueDate = dueDate;
-    this.status = status;
+    this.status = TodoStatus.create(this);
     this.id = id;
     this.isOverDue = dueDate.overDue();
   }
@@ -89,7 +89,7 @@ export class Todo {
       this.createdAt,
       this.completedAt,
       due,
-      this.status,
+      this.Status,
       this.id
     );
   }
@@ -104,5 +104,81 @@ export class Todo {
       this.status === other.status &&
       this.id === other.id
     );
+  }
+}
+
+export abstract class TodoStatus {
+  protected value: string;
+  protected type: string;
+
+  constructor() {
+    this.value = "";
+    this.type = "TODO";
+  }
+
+  get Value(): string {
+    return this.value;
+  }
+
+  get Type(): string {
+    return this.type;
+  }
+
+  public static create(todo: Todo) {
+    if (todo.Completed) {
+      return TodoStatusTypeEnum.valueOf(TodoStatusType.COMPLETED);
+    } else if (todo.DueDate) {
+      return TodoStatusTypeEnum.valueOf(TodoStatusType.IN_PROGRESS);
+    } else {
+      return TodoStatusTypeEnum.valueOf(TodoStatusType.NOT_STARTED);
+    }
+  }
+}
+
+export class NotStarted extends TodoStatus {
+  constructor() {
+    super();
+    this.value = "未着手";
+  }
+}
+
+export class InProgress extends TodoStatus {
+  constructor() {
+    super();
+    this.value = "着手";
+  }
+}
+
+export class Completed extends TodoStatus {
+  constructor() {
+    super();
+    this.value = "完了";
+  }
+}
+
+export class Undefined extends TodoStatus {
+  constructor() {
+    super();
+    this.value = "未定義";
+  }
+}
+
+export enum TodoStatusType {
+  NOT_STARTED = 1,
+  IN_PROGRESS = 2,
+  COMPLETED = 3,
+}
+export namespace TodoStatusTypeEnum {
+  export function valueOf(value: TodoStatusType): TodoStatus {
+    switch (value) {
+      case TodoStatusType.NOT_STARTED:
+        return new NotStarted();
+      case TodoStatusType.IN_PROGRESS:
+        return new InProgress();
+      case TodoStatusType.COMPLETED:
+        return new Completed();
+      default:
+        return new Undefined();
+    }
   }
 }
