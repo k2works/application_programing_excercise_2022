@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { State, Todo } from "../app/Todo";
-import { TodoService, Type } from "../application/TodoService";
-import { DB } from "../infrastructure/DB";
 import { RootState } from "../reducers";
-
-let service: TodoService;
-const db = new DB("todo");
-db.setup().then(() => {
-  service = new TodoService(db);
-});
 
 const initialState: State = {
   todo: {
