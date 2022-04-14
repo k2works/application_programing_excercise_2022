@@ -5,7 +5,8 @@ import { CompletedAt } from "../domain/model/CompletedAt";
 import { DueDate } from "../domain/model/DueDate";
 import { TodoList } from "../domain/model/TodoList";
 import { TodoRequest } from "../presentaion/TodoController";
-export class TodoService {
+import { Service } from "./Service";
+export class TodoService implements Service {
   private repository: TodoRepository;
 
   constructor() {

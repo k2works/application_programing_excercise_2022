@@ -1,4 +1,5 @@
 import { Route, Get, Tags, Body, Delete, Post, Put } from "tsoa";
+import { Service } from "../application/Service";
 import { TodoService } from "../application/TodoService";
 import { TodoList } from "../domain/model/TodoList";
 
@@ -14,7 +15,7 @@ export type TodoRequest = {
 @Route("api")
 @Tags("todo")
 export class TodoController {
-  private service: TodoService;
+  private service: Service;
 
   constructor() {
     this.service = new TodoService();
