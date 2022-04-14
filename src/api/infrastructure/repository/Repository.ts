@@ -1,10 +1,7 @@
-import { Todo } from "../../domain/model/Todo";
-import { TodoList } from "../../domain/model/TodoList";
-
-export interface Repository<T> {
-  getTodos(): Promise<TodoList>;
-  getTodo(id: number): Promise<Todo>;
-  updateTodo(updatedTodo: Todo): Promise<void>;
-  deleteTodo(todo: Todo): Promise<void>;
-  addTodo: any;
+export interface Repository<T1, T2> {
+  getTodos(): Promise<T2>;
+  getTodo(id: number): Promise<T1>;
+  updateTodo(updatedTodo: T1): Promise<void>;
+  deleteTodo(todo: T1): Promise<void>;
+  addTodo(todo: T1): Promise<void>;
 }

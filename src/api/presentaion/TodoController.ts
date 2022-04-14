@@ -15,7 +15,7 @@ export type TodoRequest = {
 @Route("api")
 @Tags("todo")
 export class TodoController {
-  private service: Service;
+  private service: Service<TodoRequest, TodoList>;
 
   constructor() {
     this.service = new TodoService();

@@ -1,9 +1,6 @@
-import { TodoList } from "../domain/model/TodoList";
-import { TodoRequest } from "../presentaion/TodoController";
-
-export interface Service {
-  create(params: TodoRequest): PromiseLike<void>;
-  selectAll(): PromiseLike<TodoList>;
-  update(params: TodoRequest): PromiseLike<void>;
-  delete(params: TodoRequest): PromiseLike<void>;
+export interface Service<T1, T2> {
+  create(params: T1): PromiseLike<void>;
+  selectAll(): PromiseLike<T2>;
+  update(params: T1): PromiseLike<void>;
+  delete(params: T1): PromiseLike<void>;
 }

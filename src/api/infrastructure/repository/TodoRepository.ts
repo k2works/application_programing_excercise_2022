@@ -9,7 +9,9 @@ import { TodoList as FirstClassCollection } from "../../domain/model/TodoList";
 import { StatusEntity } from "../entity/StatusEntity";
 import { Repository } from "./Repository";
 
-export class TodoRepository implements Repository<DomainObject> {
+export class TodoRepository
+  implements Repository<DomainObject, FirstClassCollection>
+{
   private repository: ORMRepository<Entity>;
 
   constructor() {

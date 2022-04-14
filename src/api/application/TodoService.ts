@@ -7,8 +7,8 @@ import { TodoList } from "../domain/model/TodoList";
 import { TodoRequest } from "../presentaion/TodoController";
 import { Service } from "./Service";
 import { Repository } from "../infrastructure/repository/Repository";
-export class TodoService implements Service {
-  private repository: Repository<Todo>;
+export class TodoService implements Service<TodoRequest, TodoList> {
+  private repository: Repository<Todo, TodoList>;
 
   constructor() {
     this.repository = new TodoRepository();
