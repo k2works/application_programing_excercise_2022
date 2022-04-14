@@ -218,25 +218,6 @@ todoSlice <-- Todo
 index *-- todoSlice
 todoSlice -> Redux
 Redux <- index
-package application {
-  class TodoService {
-    - db
-    execute(type, params)
-  }
-}
-todoSlice -> TodoService
-package infrastructure {
-  class DB {
-    setup()
-    getTodos()
-    getTodo(id)
-    addTodo(todo)
-    updateTodo(todo)
-    deleteTodo(id)
-  }
-}
-Dexie <|-- DB
-TodoService *- DB
 `;
 
 const erd = `
