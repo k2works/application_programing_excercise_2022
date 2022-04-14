@@ -53,27 +53,31 @@ presentation <-- Client
 const classUml = `
 package domain {
   package model {
-    class TodoList {}
-    class Todo {
-      id
-      isCompleted
-      isOverDue
-      completed()
-      setDueDate(dueDate)
+    package todo {
+      class TodoList {}
+      class Todo {
+        id
+        isCompleted
+        isOverDue
+        completed()
+        setDueDate(dueDate)
+      }
+      class Title {}
+      class CreatedAt {}
+      class CompletedAt {}
+      class DueDate {
+        overDue()
+      }
     }
-    class Title {}
-    class CreatedAt {}
-    class CompletedAt {}
-    class DueDate {
-      overDue()
+    package status {
+      abstract class TodoStatus {
+        static create()
+      }
+      interface Status {}
+      class NotStarted extends TodoStatus {}
+      class InProgress extends TodoStatus {}
+      class Completed extends TodoStatus {}
     }
-    abstract class TodoStatus {
-      static create()
-    }
-    interface Status {}
-    class NotStarted extends TodoStatus {}
-    class InProgress extends TodoStatus {}
-    class Completed extends TodoStatus {}
     Todo *-- Title
     Todo *-- CreatedAt
     Todo *-- CompletedAt
