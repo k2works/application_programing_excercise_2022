@@ -50,7 +50,7 @@ package Api {
 presentation <-- Client
 `;
 
-const classUml = `
+const classApiUml = `
 package domain {
   package model {
     package todo {
@@ -156,6 +156,89 @@ TodoList <--- TodoRepository
 TodoRepository -> TodoEntity
 `;
 
+const classClientUml = `
+package app {
+  class React {}
+  class App {}
+  class Todo {
+    dispatch
+  }
+}
+package components {
+  class TodoList{
+    todos
+  }
+  class TodoItem{
+    dispatch
+    todo
+    completed
+    dueDate
+    setCompleted()
+    setDueDate()
+  }
+  class TodoInput{
+    dispatch
+    todo
+    isError
+  }
+  class TodoItemCount{
+    count
+  }
+  class TodoMessage{
+    message
+  }
+  TodoList *-- TodoItem
+}
+package features {
+  class todoSlice {
+    initialState
+    selectTodo()
+    selectTodos()
+    selectTodoCount()
+    selectTodoMessage()
+    selectIsError()
+    readTodoAsync()
+    createTodoAsync()
+    updateTodoAsync()
+    deleteTodoAsync()
+  }
+}
+package reducers {
+  class index {
+    rootReducer
+  }
+}
+App -> React
+Todo <- App
+Todo *-- TodoList
+Todo *-- TodoInput 
+Todo *-- TodoMessage 
+Todo *-- TodoItemCount 
+todoSlice <-- Todo
+index *-- todoSlice
+todoSlice -> Redux
+Redux <- index
+package application {
+  class TodoService {
+    - db
+    execute(type, params)
+  }
+}
+todoSlice -> TodoService
+package infrastructure {
+  class DB {
+    setup()
+    getTodos()
+    getTodo(id)
+    addTodo(todo)
+    updateTodo(todo)
+    deleteTodo(id)
+  }
+}
+Dexie <|-- DB
+TodoService *- DB
+`;
+
 const erd = `
 entity Todo {
   * id : number <<generated>>
@@ -179,7 +262,7 @@ Status ||.o{ Todo
 export const setUp = () => {
   init();
   documents(contents);
-  diagrams(archUml, classUml, erd);
+  diagrams(archUml, classApiUml, classClientUml, erd);
 };
 
 const init = () => {
@@ -209,9 +292,14 @@ const init = () => {
                 <img id="arch-im"
                 src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
               </div>
-              <h2>オブジェクトモデル</h2>
+              <h2>オブジェクトモデル(API)</h2>
               <div class="row p-3">
-                <img id="class-im"
+                <img id="class-api-im"
+                src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
+              </div>
+              <h2>オブジェクトモデル(クライアント)</h2>
+              <div class="row p-3">
+                <img id="class-client-im"
                 src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
               </div>
               <h2>データモデル</h2>
@@ -234,7 +322,7 @@ const documents = (contents) => {
   });
 };
 
-const diagrams = (archUml, classUml, erd) => {
+const diagrams = (archUml, classApiUml, classClientUml, erd) => {
   const archDiagram = ((uml) => {
     const inputId = "class-diagram-input";
     const outputId = "arch-im";
@@ -242,12 +330,19 @@ const diagrams = (archUml, classUml, erd) => {
     compress(source, outputId);
   })(archUml);
 
-  const classDiagram = ((uml) => {
+  const classApiDiagram = ((uml) => {
     const inputId = "class-diagram-input";
-    const outputId = "class-im";
+    const outputId = "class-api-im";
     const source = uml;
     compress(source, outputId);
-  })(classUml);
+  })(classApiUml);
+
+  const classClientDiagram = ((uml) => {
+    const inputId = "class-diagram-input";
+    const outputId = "class-client-im";
+    const source = uml;
+    compress(source, outputId);
+  })(classClientUml);
 
   const erDiagram = ((erd) => {
     const inputId = "er-diagram-input";
