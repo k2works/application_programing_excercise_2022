@@ -70,6 +70,7 @@ package domain {
     abstract class TodoStatus {
       static create()
     }
+    interface Status {}
     class NotStarted extends TodoStatus {}
     class InProgress extends TodoStatus {}
     class Completed extends TodoStatus {}
@@ -78,7 +79,8 @@ package domain {
     Todo *-- CompletedAt
     Todo *-- DueDate
     TodoList *-- Todo
-    TodoStatus -* Todo
+    TodoStatus -|> Status
+    Status -* Todo
   }
   package type {
     enum TodoStatusType {
@@ -99,12 +101,14 @@ package presentation {
   }
 }
 package application {
+  interface Service {}
   class TodoService {
     create(params)
     selectAll()
     update(params)
     delete(params)
   }
+  Service <|- TodoService
 }
 package infrastructure {
   package entity {
@@ -119,6 +123,7 @@ package infrastructure {
     }
   }
   package repository {
+    interface Repository {}
     class TodoRepository {
       getTodos()
       getTodo()
@@ -126,6 +131,7 @@ package infrastructure {
       deleteTodo(todo)
       updateTodo(todo)
     }
+    Repository <|- TodoRepository
   }
   class router {
     get()
@@ -137,8 +143,8 @@ package infrastructure {
 }
 Express <- router
 TodoController <-- router
-TodoController *-- TodoService
-TodoService *-- TodoRepository
+TodoController *-- Service
+TodoService *-- Repository
 Todo <-- TodoService
 TodoList <-- TodoService
 Todo <--- TodoRepository
