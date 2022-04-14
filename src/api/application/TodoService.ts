@@ -15,7 +15,7 @@ export class TodoService implements Service<TodoRequest, TodoList> {
   }
 
   async selectAll(): Promise<TodoList> {
-    return this.repository.getTodos();
+    return this.repository.getAll();
   }
 
   async create(params: TodoRequest): Promise<void> {
@@ -29,21 +29,21 @@ export class TodoService implements Service<TodoRequest, TodoList> {
         dueDate: new DueDate(null),
         id: null,
       });
-      await this.repository.addTodo(todo);
+      await this.repository.add(todo);
     }
   }
 
   async delete(params: TodoRequest): Promise<void> {
     const id = params.id;
     if (id) {
-      const todo = await this.repository.getTodo(id);
-      if (todo) await this.repository.deleteTodo(todo);
+      const todo = await this.repository.get(id);
+      if (todo) await this.repository.delete(todo);
     }
   }
 
   async update(params: TodoRequest): Promise<void> {
     if (params.id) {
-      const result = await this.repository.getTodo(params.id);
+      const result = await this.repository.get(params.id);
       if (result) {
         const completed = params.completed;
         const dueDate = params.dueDate;
@@ -58,9 +58,9 @@ export class TodoService implements Service<TodoRequest, TodoList> {
         if (dueDate) {
           const parsedDate = new Date(dueDate);
           const update = todo.setDueDate(new DueDate(parsedDate));
-          await this.repository.updateTodo(update);
+          await this.repository.update(update);
         } else {
-          await this.repository.updateTodo(todo);
+          await this.repository.update(todo);
         }
       }
     }

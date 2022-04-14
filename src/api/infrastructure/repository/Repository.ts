@@ -1,7 +1,7 @@
 export interface Repository<T1, T2> {
-  getTodos(): Promise<T2>;
-  getTodo(id: number): Promise<T1>;
-  updateTodo(updatedTodo: T1): Promise<void>;
-  deleteTodo(todo: T1): Promise<void>;
-  addTodo(todo: T1): Promise<void>;
+  getAll(): Promise<T2>;
+  get(id: number): Promise<T1>;
+  update(updatedTodo: T1): Promise<void>;
+  delete(todo: T1): Promise<void>;
+  add(todo: T1): Promise<void>;
 }

@@ -9,9 +9,7 @@ import { TodoList as FirstClassCollection } from "../../domain/model/TodoList";
 import { StatusEntity } from "../entity/StatusEntity";
 import { Repository } from "./Repository";
 
-export class TodoRepository
-  implements Repository<DomainObject, FirstClassCollection>
-{
+export class TodoRepository implements Repository<DomainObject, FirstClassCollection> {
   private repository: ORMRepository<Entity>;
 
   constructor() {
@@ -37,7 +35,7 @@ export class TodoRepository
     }
   }
 
-  async getTodos(): Promise<FirstClassCollection> {
+  async getAll(): Promise<FirstClassCollection> {
     const result = await this.repository.find({ relations: ["status"] });
     return new FirstClassCollection(
       result.map((entity) =>
@@ -53,7 +51,7 @@ export class TodoRepository
     );
   }
 
-  async getTodo(id: number): Promise<DomainObject> {
+  async get(id: number): Promise<DomainObject> {
     const entity = await this.repository.findOneBy({ id });
     if (entity === undefined || entity === null) throw new Error("Not found");
     return DomainObject.create({
@@ -66,7 +64,7 @@ export class TodoRepository
     });
   }
 
-  async addTodo(todo: DomainObject): Promise<void> {
+  async add(todo: DomainObject): Promise<void> {
     const entity = new Entity();
     entity.title = todo.Title;
     entity.completed = todo.Completed;
@@ -79,7 +77,7 @@ export class TodoRepository
     await this.repository.save(entity);
   }
 
-  async deleteTodo(todo: DomainObject): Promise<void> {
+  async delete(todo: DomainObject): Promise<void> {
     const entity = new Entity();
     entity.title = todo.Title;
     entity.completed = todo.Completed;
@@ -94,7 +92,7 @@ export class TodoRepository
     }
   }
 
-  async updateTodo(todo: DomainObject): Promise<void> {
+  async update(todo: DomainObject): Promise<void> {
     const entity = new Entity();
     entity.title = todo.Title;
     entity.completed = todo.Completed;
