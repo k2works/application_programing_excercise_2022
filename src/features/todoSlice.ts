@@ -17,6 +17,7 @@ const initialState: State = {
   count: 0,
   message: "",
   isError: false,
+  isLoading: true,
 };
 
 let baseUrl = "http://localhost:3000/api";
@@ -99,6 +100,7 @@ const todoSlice = createSlice({
           ...state,
           todos: action.payload,
           count: action.payload.length,
+          isLoading: false,
         };
       }
     },
@@ -108,6 +110,7 @@ const todoSlice = createSlice({
         todo: { ...state.todo, id: 0, title: action.payload },
         message: "",
         isError: false,
+        isLoading: false,
       };
     },
     updateTodo(state: State, action: PayloadAction<Todo>) {
@@ -116,6 +119,7 @@ const todoSlice = createSlice({
         todo: action.payload,
         message: "",
         isError: false,
+        isLoading: false,
       };
     },
     deleteTodo(state: State, action: PayloadAction<Todo>) {
@@ -125,6 +129,7 @@ const todoSlice = createSlice({
         todos: initialState.todos,
         message: "",
         isError: false,
+        isLoading: false,
       };
     },
   },
@@ -135,6 +140,7 @@ export const selectTodos = (state: RootState) => state.todo.todos;
 export const selectTodoCount = (state: RootState) => state.todo.count;
 export const selectTodoMessage = (state: RootState) => state.todo.message;
 export const selectIsError = (state: RootState) => state.todo.isError;
+export const selectIsLoading = (state: RootState) => state.todo.isLoading;
 
 const expand = (todos: any) =>
   todos.error
