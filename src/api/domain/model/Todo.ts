@@ -1,6 +1,7 @@
 import { CompletedAt } from "./CompletedAt";
 import { CreatedAt } from "./CreatedAt";
 import { DueDate } from "./DueDate";
+import { Status } from "./Status";
 import { Title } from "./Title";
 import { TodoStatus } from "./TodoStatus";
 
@@ -14,7 +15,7 @@ export class Todo {
   private completedAt: CompletedAt;
   private dueDate: DueDate;
   private isOverDue: boolean;
-  private status: TodoStatus;
+  private status: Status;
   private id: number | null = null;
 
   get Title(): string {

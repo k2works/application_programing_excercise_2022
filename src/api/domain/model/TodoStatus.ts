@@ -1,7 +1,8 @@
 import { Todo } from "./Todo";
 import { TodoStatusTypeEnum, TodoStatusType } from "../type/TodoStatusType";
+import { Status } from "./Status";
 
-export abstract class TodoStatus {
+export abstract class TodoStatus implements Status {
   protected value: string;
   protected type: string;
   protected code: string;
