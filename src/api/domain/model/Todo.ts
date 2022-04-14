@@ -57,47 +57,51 @@ export class Todo {
     return this.status.Type;
   }
 
-  constructor(
-    title: string,
-    completed: boolean = false,
-    createdAt: CreatedAt = new CreatedAt(new Date()),
-    completedAt: CompletedAt = new CompletedAt(null),
-    dueDate: DueDate = new DueDate(null),
-    id: number | null = null
-  ) {
-    this.title = new Title(title);
-    this.isCompleted = completed;
-    this.createdAt = createdAt;
-    this.completedAt = completedAt;
-    this.dueDate = dueDate;
-    this.id = id;
+  constructor(params: {
+    title: string;
+    completed: boolean;
+    createdAt: CreatedAt;
+    completedAt: CompletedAt;
+    dueDate: DueDate;
+    id: number | null;
+  }) {
+    this.title = new Title(params.title);
+    this.isCompleted = params.completed;
+    this.createdAt = params.createdAt
+      ? params.createdAt
+      : new CreatedAt(new Date());
+    this.completedAt = params.completedAt
+      ? params.completedAt
+      : new CompletedAt(null);
+    this.dueDate = params.dueDate ? params.dueDate : new DueDate(null);
+    this.id = params.id ? params.id : null;
     this.status = TodoStatus.create(this);
-    this.isOverDue = dueDate.overDue();
+    this.isOverDue = params.dueDate.overDue();
   }
 
   public complete(): Todo {
-    return new Todo(
-      this.title.Value,
-      true,
-      this.createdAt,
-      new CompletedAt(new Date()),
-      this.dueDate,
-      this.Id
-    );
+    return new Todo({
+      title: this.title.Value,
+      completed: true,
+      createdAt: this.createdAt,
+      completedAt: new CompletedAt(new Date()),
+      dueDate: this.dueDate,
+      id: this.id,
+    });
   }
 
   public setDueDate(due: DueDate): Todo {
     if (due.overDue(this.createdAt.Value))
       throw new Error("開始日より前に期限を設定できません");
 
-    return new Todo(
-      this.title.Value,
-      this.isCompleted,
-      this.createdAt,
-      this.completedAt,
-      due,
-      this.id
-    );
+    return new Todo({
+      title: this.title.Value,
+      completed: this.isCompleted,
+      createdAt: this.createdAt,
+      completedAt: this.completedAt,
+      dueDate: due,
+      id: this.id,
+    });
   }
 
   public equals(other: Todo): boolean {

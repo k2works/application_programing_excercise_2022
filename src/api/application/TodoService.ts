@@ -19,7 +19,14 @@ export class TodoService {
   async create(params: TodoRequest): Promise<void> {
     const title = params.title;
     if (title !== undefined) {
-      const todo = new Todo(title);
+      const todo = new Todo({
+        title,
+        completed: false,
+        createdAt: new CreatedAt(new Date()),
+        completedAt: new CompletedAt(null),
+        dueDate: new DueDate(null),
+        id: null,
+      });
       await this.repository.addTodo(todo);
     }
   }
@@ -38,14 +45,14 @@ export class TodoService {
       if (result) {
         const completed = params.completed;
         const dueDate = params.dueDate;
-        const todo = new Todo(
-          result.Title,
-          completed,
-          new CreatedAt(result.CreatedAt),
-          new CompletedAt(result.CompletedAt),
-          new DueDate(result.DueDate),
-          result.Id
-        );
+        const todo = new Todo({
+          title: result.Title,
+          completed: completed,
+          createdAt: new CreatedAt(result.CreatedAt),
+          completedAt: new CompletedAt(result.CompletedAt),
+          dueDate: new DueDate(dueDate),
+          id: result.Id,
+        });
         if (dueDate) {
           const parsedDate = new Date(dueDate);
           const update = todo.setDueDate(new DueDate(parsedDate));

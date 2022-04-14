@@ -40,12 +40,14 @@ export class TodoRepository {
       result.map(
         (entity) =>
           new DomainObject(
-            entity.title,
-            entity.completed,
-            new CreatedAt(entity.createdAt),
-            new CompletedAt(entity.completedAt),
-            new DueDate(entity.dueDate),
-            entity.id
+            {
+              title: entity.title,
+              completed: entity.completed,
+              createdAt: new CreatedAt(entity.createdAt),
+              completedAt: new CompletedAt(entity.completedAt),
+              dueDate: new DueDate(entity.dueDate),
+              id: entity.id,
+            }
           )
       )
     );
@@ -54,13 +56,14 @@ export class TodoRepository {
   async getTodo(id: number): Promise<DomainObject | null> {
     const entity = await this.repository.findOneBy({ id });
     if (entity) {
-      return new DomainObject(
-        entity.title,
-        entity.completed,
-        new CreatedAt(entity.createdAt),
-        new CompletedAt(entity.completedAt),
-        new DueDate(entity.dueDate),
-        entity.id
+      return new DomainObject({
+        title: entity.title,
+        completed: entity.completed,
+        createdAt: new CreatedAt(entity.createdAt),
+        completedAt: new CompletedAt(entity.completedAt),
+        dueDate: new DueDate(entity.dueDate),
+        id: entity.id,
+      }
       );
     } else {
       return null;
