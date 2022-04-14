@@ -51,20 +51,17 @@ export class TodoRepository implements Repository<DomainObject> {
     );
   }
 
-  async getTodo(id: number): Promise<DomainObject | null> {
+  async getTodo(id: number): Promise<DomainObject> {
     const entity = await this.repository.findOneBy({ id });
-    if (entity) {
-      return DomainObject.create({
-        title: entity.title,
-        completed: entity.completed,
-        createdAt: new CreatedAt(entity.createdAt),
-        completedAt: new CompletedAt(entity.completedAt),
-        dueDate: new DueDate(entity.dueDate),
-        id: entity.id,
-      });
-    } else {
-      return null;
-    }
+    if (entity === undefined || entity === null) throw new Error("Not found");
+    return DomainObject.create({
+      title: entity.title,
+      completed: entity.completed,
+      createdAt: new CreatedAt(entity.createdAt),
+      completedAt: new CompletedAt(entity.completedAt),
+      dueDate: new DueDate(entity.dueDate),
+      id: entity.id,
+    });
   }
 
   async addTodo(todo: DomainObject): Promise<void> {

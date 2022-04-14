@@ -6,8 +6,9 @@ import { DueDate } from "../domain/model/DueDate";
 import { TodoList } from "../domain/model/TodoList";
 import { TodoRequest } from "../presentaion/TodoController";
 import { Service } from "./Service";
+import { Repository } from "../infrastructure/repository/Repository";
 export class TodoService implements Service {
-  private repository: TodoRepository;
+  private repository: Repository<Todo>;
 
   constructor() {
     this.repository = new TodoRepository();
