@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository as ORMRepository } from "typeorm";
 import { CompletedAt } from "../../domain/model/CompletedAt";
 import { CreatedAt } from "../../domain/model/CreatedAt";
 import { DueDate } from "../../domain/model/DueDate";
@@ -7,9 +7,10 @@ import { TodoEntity as Entity } from "../entity/TodoEntity";
 import { Todo as DomainObject } from "../../domain/model/Todo";
 import { TodoList as FirstClassCollection } from "../../domain/model/TodoList";
 import { StatusEntity } from "../entity/StatusEntity";
+import { Repository } from "./Repository";
 
-export class TodoRepository {
-  private repository: Repository<Entity>;
+export class TodoRepository implements Repository<DomainObject> {
+  private repository: ORMRepository<Entity>;
 
   constructor() {
     this.repository = AppDataSource.manager.getRepository(Entity);
@@ -37,18 +38,15 @@ export class TodoRepository {
   async getTodos(): Promise<FirstClassCollection> {
     const result = await this.repository.find({ relations: ["status"] });
     return new FirstClassCollection(
-      result.map(
-        (entity) =>
-          DomainObject.create(
-            {
-              title: entity.title,
-              completed: entity.completed,
-              createdAt: new CreatedAt(entity.createdAt),
-              completedAt: new CompletedAt(entity.completedAt),
-              dueDate: new DueDate(entity.dueDate),
-              id: entity.id,
-            }
-          )
+      result.map((entity) =>
+        DomainObject.create({
+          title: entity.title,
+          completed: entity.completed,
+          createdAt: new CreatedAt(entity.createdAt),
+          completedAt: new CompletedAt(entity.completedAt),
+          dueDate: new DueDate(entity.dueDate),
+          id: entity.id,
+        })
       )
     );
   }
@@ -63,8 +61,7 @@ export class TodoRepository {
         completedAt: new CompletedAt(entity.completedAt),
         dueDate: new DueDate(entity.dueDate),
         id: entity.id,
-      }
-      );
+      });
     } else {
       return null;
     }
