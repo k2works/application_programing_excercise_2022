@@ -39,7 +39,7 @@ export class TodoRepository {
     return new FirstClassCollection(
       result.map(
         (entity) =>
-          new DomainObject(
+          DomainObject.create(
             {
               title: entity.title,
               completed: entity.completed,
@@ -56,7 +56,7 @@ export class TodoRepository {
   async getTodo(id: number): Promise<DomainObject | null> {
     const entity = await this.repository.findOneBy({ id });
     if (entity) {
-      return new DomainObject({
+      return DomainObject.create({
         title: entity.title,
         completed: entity.completed,
         createdAt: new CreatedAt(entity.createdAt),

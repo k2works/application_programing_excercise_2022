@@ -19,7 +19,7 @@ export class TodoService {
   async create(params: TodoRequest): Promise<void> {
     const title = params.title;
     if (title !== undefined) {
-      const todo = new Todo({
+      const todo = Todo.create({
         title,
         completed: false,
         createdAt: new CreatedAt(new Date()),
@@ -45,7 +45,7 @@ export class TodoService {
       if (result) {
         const completed = params.completed;
         const dueDate = params.dueDate;
-        const todo = new Todo({
+        const todo = Todo.create({
           title: result.Title,
           completed: completed,
           createdAt: new CreatedAt(result.CreatedAt),

@@ -32,7 +32,7 @@ describe("TodoRepository", () => {
 
     test("やることを作成する", async () => {
       const repository = new TodoRepository();
-      const todo = new Todo(params);
+      const todo = Todo.create(params);
       await repository.addTodo(todo);
       const result = await repository.getTodos();
       expect(result.Value[0].Title).toBe("タイトル");
@@ -45,7 +45,7 @@ describe("TodoRepository", () => {
 
     test("やることを更新する", async () => {
       const repository = new TodoRepository();
-      const todo = new Todo(params);
+      const todo = Todo.create(params);
       await repository.addTodo(todo);
       let result = await repository.getTodos();
 
@@ -71,7 +71,7 @@ describe("TodoRepository", () => {
 
     test("やることを削除する", async () => {
       const repository = new TodoRepository();
-      const todo = new Todo(params);
+      const todo = Todo.create(params);
       await repository.addTodo(todo);
       let result = await repository.getTodos();
       await repository.deleteTodo(result.Value[0]);

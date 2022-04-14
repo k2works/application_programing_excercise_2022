@@ -67,20 +67,44 @@ export class Todo {
   }) {
     this.title = new Title(params.title);
     this.isCompleted = params.completed;
-    this.createdAt = params.createdAt
-      ? params.createdAt
-      : new CreatedAt(new Date());
-    this.completedAt = params.completedAt
-      ? params.completedAt
-      : new CompletedAt(null);
-    this.dueDate = params.dueDate ? params.dueDate : new DueDate(null);
+    this.createdAt = params.createdAt;
+    this.completedAt = params.completedAt;
+    this.dueDate = params.dueDate;
     this.id = params.id ? params.id : null;
     this.status = TodoStatus.create(this);
     this.isOverDue = params.dueDate.overDue();
   }
 
-  public complete(): Todo {
+  public static create(params: {
+    title: string;
+    completed?: boolean;
+    createdAt?: CreatedAt;
+    completedAt?: CompletedAt;
+    dueDate?: DueDate;
+    id?: number | null;
+  }): Todo {
+    const completed = params.completed ? params.completed : false;
+    const createdAt = params.createdAt
+      ? params.createdAt
+      : new CreatedAt(new Date());
+    const completedAt = params.completedAt
+      ? params.completedAt
+      : new CompletedAt(null);
+    const dueDate = params.dueDate ? params.dueDate : new DueDate(null);
+    const id = params.id ? params.id : null;
+
     return new Todo({
+      ...params,
+      completed,
+      createdAt,
+      completedAt,
+      dueDate,
+      id,
+    });
+  }
+
+  public complete(): Todo {
+    return Todo.create({
       title: this.title.Value,
       completed: true,
       createdAt: this.createdAt,
@@ -94,7 +118,7 @@ export class Todo {
     if (due.overDue(this.createdAt.Value))
       throw new Error("開始日より前に期限を設定できません");
 
-    return new Todo({
+    return Todo.create({
       title: this.title.Value,
       completed: this.isCompleted,
       createdAt: this.createdAt,
