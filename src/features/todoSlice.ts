@@ -34,9 +34,12 @@ const getApi = async (url: string) => {
   try {
     const response = await axios.get(url);
     return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
+  } catch (e: any) {
+    if (e.response && e.response.status === 400) {
+      return e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -44,9 +47,12 @@ const postApi = async (url: string, data: any) => {
   try {
     const response = await axios.post(url, data);
     return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
+  } catch (e: any) {
+    if (e.response && e.response.status === 400) {
+      return e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -54,9 +60,12 @@ const putApi = async (url: string, data: any) => {
   try {
     const response = await axios.put(url, data);
     return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
+  } catch (e: any) {
+    if (e.response && e.response.status === 400) {
+      return e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -64,9 +73,12 @@ const deleteApi = async (url: string, data: any) => {
   try {
     const response = await axios.delete(url, { data });
     return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
+  } catch (e: any) {
+    if (e.response && e.response.status === 400) {
+      return e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
