@@ -1,7 +1,7 @@
-import { CompletedAt } from "../../domain/model/CompletedAt";
-import { CreatedAt } from "../../domain/model/CreatedAt";
-import { DueDate } from "../../domain/model/DueDate";
-import { Todo } from "../../domain/model/Todo";
+import { CompletedAt } from "../../domain/model/todo/CompletedAt";
+import { CreatedAt } from "../../domain/model/todo/CreatedAt";
+import { DueDate } from "../../domain/model/todo/DueDate";
+import { Todo } from "../../domain/model/todo/Todo";
 import { TodoStatusType } from "../../domain/type/TodoStatusType";
 import { AppDataSource } from "../data-source";
 import { TodoEntity } from "../entity/TodoEntity";

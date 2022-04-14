@@ -1,15 +1,17 @@
 import { Repository as ORMRepository } from "typeorm";
-import { CompletedAt } from "../../domain/model/CompletedAt";
-import { CreatedAt } from "../../domain/model/CreatedAt";
-import { DueDate } from "../../domain/model/DueDate";
+import { CompletedAt } from "../../domain/model/todo/CompletedAt";
+import { CreatedAt } from "../../domain/model/todo/CreatedAt";
+import { DueDate } from "../../domain/model/todo/DueDate";
 import { AppDataSource } from "../data-source";
 import { TodoEntity as Entity } from "../entity/TodoEntity";
-import { Todo as DomainObject } from "../../domain/model/Todo";
-import { TodoList as FirstClassCollection } from "../../domain/model/TodoList";
+import { Todo as DomainObject } from "../../domain/model/todo/Todo";
+import { TodoList as FirstClassCollection } from "../../domain/model/todo/TodoList";
 import { StatusEntity } from "../entity/StatusEntity";
 import { Repository } from "./Repository";
 
-export class TodoRepository implements Repository<DomainObject, FirstClassCollection> {
+export class TodoRepository
+  implements Repository<DomainObject, FirstClassCollection>
+{
   private repository: ORMRepository<Entity>;
 
   constructor() {

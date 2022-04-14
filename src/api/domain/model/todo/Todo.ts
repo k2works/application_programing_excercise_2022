@@ -1,9 +1,9 @@
 import { CompletedAt } from "./CompletedAt";
 import { CreatedAt } from "./CreatedAt";
 import { DueDate } from "./DueDate";
-import { Status } from "./Status";
+import { Status } from "./../status/Status";
 import { Title } from "./Title";
-import { TodoStatus } from "./TodoStatus";
+import { TodoStatus } from "../status/TodoStatus";
 
 /**
  * やること

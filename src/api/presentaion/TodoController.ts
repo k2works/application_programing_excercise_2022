@@ -1,7 +1,7 @@
 import { Route, Get, Tags, Body, Delete, Post, Put } from "tsoa";
 import { Service } from "../application/Service";
 import { TodoService } from "../application/TodoService";
-import { TodoList } from "../domain/model/TodoList";
+import { TodoList } from "../domain/model/todo/TodoList";
 
 export type TodoRequest = {
   title: string;

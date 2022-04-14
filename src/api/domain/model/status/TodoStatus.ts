@@ -1,5 +1,5 @@
-import { Todo } from "./Todo";
-import { TodoStatusTypeEnum, TodoStatusType } from "../type/TodoStatusType";
+import { Todo } from "../todo/Todo";
+import { TodoStatusTypeEnum, TodoStatusType } from "../../type/TodoStatusType";
 import { Status } from "./Status";
 
 export abstract class TodoStatus implements Status {
