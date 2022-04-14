@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { State, Todo } from "../app/Todo";
 import { RootState } from "../reducers";
@@ -30,89 +31,43 @@ const apiUrl = {
 };
 
 const getApi = async (url: string) => {
-  const service = (
-    resolve: (value?: string) => void,
-    reject: (reason?: string) => void
-  ) => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => {
-        return resolve(json);
-      })
-      .catch((error) => {
-        return reject(error);
-      });
-  };
-  return new Promise(service);
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 const postApi = async (url: string, data: any) => {
-  const service = (
-    resolve: (value?: string) => void,
-    reject: (reason?: string) => void
-  ) => {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        return resolve(json);
-      })
-      .catch((error) => {
-        return reject(error);
-      });
-  };
-  return new Promise(service);
+  try {
+    const response = await axios.post(url, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 const putApi = async (url: string, data: any) => {
-  const service = (
-    resolve: (value?: string) => void,
-    reject: (reason?: string) => void
-  ) => {
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        return resolve(json);
-      })
-      .catch((error) => {
-        return reject(error);
-      });
-  };
-  return new Promise(service);
+  try {
+    const response = await axios.put(url, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 const deleteApi = async (url: string, data: any) => {
-  const service = (
-    resolve: (value?: string) => void,
-    reject: (reason?: string) => void
-  ) => {
-    fetch(url, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        return resolve(json);
-      })
-      .catch((error) => {
-        return reject(error);
-      });
-  };
-  return new Promise(service);
+  try {
+    const response = await axios.delete(url, { data });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 const todoSlice = createSlice({
