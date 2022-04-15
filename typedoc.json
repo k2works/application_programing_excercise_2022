@@ -10,5 +10,6 @@
 	],
 	"excludeExternals": true,
 	"hideGenerator": true,
-	"readme": "./README.md"
+	"readme": "./README.md",
+	"includes": "./docs"
 }

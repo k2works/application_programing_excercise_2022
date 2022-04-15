@@ -1,0 +1,23 @@
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="341px" height="53px" viewBox="-0.5 -0.5 341 53" content="&lt;mxfile&gt;&lt;diagram id=&quot;nHeN7crnC20mGKosfUs1&quot; name=&quot;ページ1&quot;&gt;7VVNb9swDP01vg7+aJzt2KTpdmiBAS6w7chaii1UNgOZbuz++kk2FdvNsg0o0FNzCMzHR4nkI+0g2VbdVwOH8h6F1EEcii5IboI4XidX9t8B/Qh8TtcjUBglRiiagEy9SAZDRlslZLMgEqImdViCOda1zGmBgTF4XNL2qJe3HqCQZ0CWgz5HfyhBJVcRryf8m1RF6W+O0i+jpwJP5kqaEgQeZ1CyC5KtQaTxqeq2Urve+b6McbcXvKfEjKzpvwLiMeIZdMvFZQTUNpwe9b7m5qgqDbW1NnusKWNPaO28VFrcQY+tu7MhyJ+8tSnRqBfLB21dkQWs2xBLGqfuNKX1FjWa4Z4keoRIxovIzJ3IdxnZ2NjvvsDoFXQP3YJ4Bw35LFFrODTqccjbBVZgClVvkAgrJrnSZsnsh9+QtcEnOfOEYbq7tl3dcP+kIdldFCE6SWtXQmIlyfSWwgEJDwNvQ7Ri+zjNVnTFWDmbqxWLBzzOxenkSXH7wKJfGID1mdJS2GFns8ZB8ZIqr5+tyfQ/58Yv17tPK2/eeAVGqz9Z4tqt3nSoRW6VS2zwD3PhGUJBhbV4KFXtXTPqpYn5l0iusL9LZPuArck9K+V3i50T6Wnxn6U0UgOp5+X5bxImPdvMBxT4sZfvt5fvuZjWnN76g2/26Ux2vwE=&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs/>
+    <g>
+        <path d="M 0 26 L 0 0 L 140 0 L 140 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 0 26 L 0 52 L 140 52 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 26 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="69.5" y="17.5">
+                Status
+            </text>
+        </g>
+        <path d="M 192.01 26 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 199.01 26 L 195.51 28.06 L 192.01 26 L 195.51 23.94 Z" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 200 26 L 200 0 L 340 0 L 340 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 200 26 L 200 52 L 340 52 L 340 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 200 26 L 340 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="269.5" y="17.5">
+                Todo
+            </text>
+        </g>
+    </g>
+</svg>
