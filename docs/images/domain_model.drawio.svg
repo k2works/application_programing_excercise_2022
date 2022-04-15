@@ -1,22 +1,22 @@
-<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="341px" height="53px" viewBox="-0.5 -0.5 341 53" content="&lt;mxfile&gt;&lt;diagram id=&quot;nHeN7crnC20mGKosfUs1&quot; name=&quot;ページ1&quot;&gt;7VVNb9swDP01vg7+aJzt2KTpdmiBAS6w7chaii1UNgOZbuz++kk2FdvNsg0o0FNzCMzHR4nkI+0g2VbdVwOH8h6F1EEcii5IboI4XidX9t8B/Qh8TtcjUBglRiiagEy9SAZDRlslZLMgEqImdViCOda1zGmBgTF4XNL2qJe3HqCQZ0CWgz5HfyhBJVcRryf8m1RF6W+O0i+jpwJP5kqaEgQeZ1CyC5KtQaTxqeq2Urve+b6McbcXvKfEjKzpvwLiMeIZdMvFZQTUNpwe9b7m5qgqDbW1NnusKWNPaO28VFrcQY+tu7MhyJ+8tSnRqBfLB21dkQWs2xBLGqfuNKX1FjWa4Z4keoRIxovIzJ3IdxnZ2NjvvsDoFXQP3YJ4Bw35LFFrODTqccjbBVZgClVvkAgrJrnSZsnsh9+QtcEnOfOEYbq7tl3dcP+kIdldFCE6SWtXQmIlyfSWwgEJDwNvQ7Ri+zjNVnTFWDmbqxWLBzzOxenkSXH7wKJfGID1mdJS2GFns8ZB8ZIqr5+tyfQ/58Yv17tPK2/eeAVGqz9Z4tqt3nSoRW6VS2zwD3PhGUJBhbV4KFXtXTPqpYn5l0iusL9LZPuArck9K+V3i50T6Wnxn6U0UgOp5+X5bxImPdvMBxT4sZfvt5fvuZjWnN76g2/26Ux2vwE=&lt;/diagram&gt;&lt;/mxfile&gt;">
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="361px" height="53px" viewBox="-0.5 -0.5 361 53" content="&lt;mxfile&gt;&lt;diagram id=&quot;nHeN7crnC20mGKosfUs1&quot; name=&quot;ページ1&quot;&gt;7VVNj5swEP013MGkLDkGmmwPu1KlHHr24glYa5jIOAnZX1/bjAM0jbRS1Z6KIjTz5tnzTaK0bIdnzY/NKwpQEYvFEKVfI8ZW+dq+HXAdgTx7GoFaSzFCyQTs5QcQGBN6kgL6BdEgKiOPS7DCroPKLDCuNV6WtAOqpdcjr+EO2Fdc3aM/pDANZcGeJvwbyLoJnpOMEm55IFMmfcMFXmZQuo3SUiOaUWqHEpSrXajLeG73wHoLTENnPnWAjSfOXJ0ouWibRjmLirUX7C8joSiDaTdxxizMNZSmv8hW8c5qxQE7sydLbPWqkUq88CueXGi94dV70IoGtfywfK6sKbGANWtDnWeZu00qVaJC7f2kyRtPgC1O7t2N5EtDb89+D3VIfoFe+bAgvvDehChRKX7s5ZuP2x1sua5lV6Ax2BLJpTYL5uAfH7XGd5hZ4jjbbmzxi/vGUK/OoA0MM4ga9QzYgtFXSyEry2loaGuSFemXaQZvWDObvy/UZE5jX9+unibDCjQcDwYlv2s1CLsUpHboW96YNjQQOrFxqzYZLbKTzoEvoW9wYAjJW+xEgImW3OrmXD2ccIJ6POkqsDL6KtjWQaCx31dXg+JGnpf3/1Gpskc7la+CUHghidYpCZv7+v5fpb+2Stm/2ySrTp9zb5v9J6bbnw==&lt;/diagram&gt;&lt;/mxfile&gt;">
     <defs/>
     <g>
-        <path d="M 0 26 L 0 0 L 140 0 L 140 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 220 26 L 220 0 L 360 0 L 360 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 220 26 L 220 52 L 360 52 L 360 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 220 26 L 360 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="289.5" y="17.5">
+                ステータス
+            </text>
+        </g>
+        <path d="M 147.71 26 L 220 26" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 140.71 26 L 144.21 22.5 L 147.71 26 L 144.21 29.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 26 L 0 0 L 140 0 L 140 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
         <path d="M 0 26 L 0 52 L 140 52 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
         <path d="M 0 26 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
         <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
             <text x="69.5" y="17.5">
-                Status
-            </text>
-        </g>
-        <path d="M 192.01 26 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 199.01 26 L 195.51 28.06 L 192.01 26 L 195.51 23.94 Z" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 200 26 L 200 0 L 340 0 L 340 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 200 26 L 200 52 L 340 52 L 340 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 200 26 L 340 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
-            <text x="269.5" y="17.5">
-                Todo
+                やること
             </text>
         </g>
     </g>
