@@ -1,23 +1,154 @@
-<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="361px" height="53px" viewBox="-0.5 -0.5 361 53" content="&lt;mxfile&gt;&lt;diagram id=&quot;nHeN7crnC20mGKosfUs1&quot; name=&quot;ページ1&quot;&gt;7VVNj5swEP013MGkLDkGmmwPu1KlHHr24glYa5jIOAnZX1/bjAM0jbRS1Z6KIjTz5tnzTaK0bIdnzY/NKwpQEYvFEKVfI8ZW+dq+HXAdgTx7GoFaSzFCyQTs5QcQGBN6kgL6BdEgKiOPS7DCroPKLDCuNV6WtAOqpdcjr+EO2Fdc3aM/pDANZcGeJvwbyLoJnpOMEm55IFMmfcMFXmZQuo3SUiOaUWqHEpSrXajLeG73wHoLTENnPnWAjSfOXJ0ouWibRjmLirUX7C8joSiDaTdxxizMNZSmv8hW8c5qxQE7sydLbPWqkUq88CueXGi94dV70IoGtfywfK6sKbGANWtDnWeZu00qVaJC7f2kyRtPgC1O7t2N5EtDb89+D3VIfoFe+bAgvvDehChRKX7s5ZuP2x1sua5lV6Ax2BLJpTYL5uAfH7XGd5hZ4jjbbmzxi/vGUK/OoA0MM4ga9QzYgtFXSyEry2loaGuSFemXaQZvWDObvy/UZE5jX9+unibDCjQcDwYlv2s1CLsUpHboW96YNjQQOrFxqzYZLbKTzoEvoW9wYAjJW+xEgImW3OrmXD2ccIJ6POkqsDL6KtjWQaCx31dXg+JGnpf3/1Gpskc7la+CUHghidYpCZv7+v5fpb+2Stm/2ySrTp9zb5v9J6bbnw==&lt;/diagram&gt;&lt;/mxfile&gt;">
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="781px" height="421px" viewBox="-0.5 -0.5 781 421" content="&lt;mxfile&gt;&lt;diagram id=&quot;nHeN7crnC20mGKosfUs1&quot; name=&quot;ページ1&quot;&gt;7Vrbjto6FP0av1ZJTC5+TLj0PEylSlQ67aMhHmLViVFiBujXHzuxyZUWpjSoOkEjjb29fdtrLd8AwHl6+pjjffKJx4QBx4pPAC6A49jQmsl/ynI2FtuqLLucxtpWG9b0B9FG43agMSlajoJzJui+bdzyLCNb0bLhPOfHttsrZ+1e93hHeob1FrO+9V8ai6SyBo5f2/8hdJeYnm0PVSUpNs56JkWCY35smOASwHnOuahS6WlOmIqeiUtVb3Wl9DKwnGTipgpOVeMNs4OeHFhCEDggQmVC/nk6Ec1N0ar2qWYhziY0xZGmDGcyF73yTKx1iSXz24Sy+AWf+UENrRB4+93kooTn9If0x0wW2dIgi3OhkXc81RplbM4Zz8t+oL3BNnFaNdeqRd1XTgpZ97OJg90xfcKnluMLLoQZJWcM7wu6KcetKqY439Es4kLwVDupqTUG81p+ylHn/DtplFiWtwxl8KM+MBqrN5ILcmqYNFAfCU+JyM/SRZe6liaNkY2v88eag/ZM25IG/1xtw5r2u0vTNTNkQpPjClGCHtQklqLQ2YyXkCciNQCSLA6V1OpCaVlR1UEZwhJg4xFTnPIsNmbtZl/iprq6ynBtKvgh3xovT68KEjpi3Jzh6OaEYUHf2u3/TqgMBHeESvbwtZn5poL0wTXZhWFrlTv/JIRfEpoNhPFXaJATFV8b6cYAZK7uX2VM94+DBrpjQWM/EZq/DxZvLFicCZY7YPHHgsV/ECz+/wOX2Ui4mM77h7ZgZhJRmbABgjoR9jfw6az2x85qsHtW84Ibz2rO7/MD3nsAaclPFze1Z7W1t2FcgdcQX0v8jWX4W7PsivbfKUD0B054uupnTmXP9bk7mLWwvFzeTBPVGHStDkyXYdymbDSgbB+gBQgssPRAgJSyJx3fo+OeaAe4dfOdywluvXM9QMfOu49Fd0rwIfp/n46Nlp5yUzOdt+TmATQHYTjp7pm6g+4TdQfvvSX+hfvn5d10hP3T72DZfY963P55Oag1Be2CcAmCOVjOQBSq58xJx6Pp2POeqePZABvaL9jhzLxyBzoRTuv8iPxw2vRwx2SHO8AOuUQs1P6v9vwAoHLzRz4I3YkUTyOFDcdkxdDbSm8HmVjxdFZcvgwehRX+tYsCkjsJAgiptWIiw9PIgEYkw2zgWOF4TEF3kH7eTpRzrCyMdi3FHmcXm1xa1IYD6xVFv98GJhEqH3X/XJiH3GiAepUzkqwM1EtvuNCLFgpNLV8n6nZMkXreqoYmZ94aXW3uT+NXE/vJEFHZ69J0v+y+WcsJDFR3VVAC3zjPG+Fozqds5x3zkcYmel0pJ3hf3f1EqbQNP2QxiV82RqPHhAqy3uPyfnXM8b5zQ9TqVTc7RXy6xSxkdJdJo+DKGescI6+iL3ECt4E1oDar/AypLbKQa1mPURtqqw06fbU53oDabNt6gNzgA+V2w+lfs2lVanMFAldxMLSUz0Srh9LK7h70BhZxf4BWwf2sktn6R1XVw0L92zS4/A8=&lt;/diagram&gt;&lt;/mxfile&gt;">
     <defs/>
     <g>
-        <path d="M 220 26 L 220 0 L 360 0 L 360 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 220 26 L 220 52 L 360 52 L 360 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 220 26 L 360 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 480 186 L 480 160 L 620 160 L 620 186" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 480 186 L 480 210 L 620 210 L 620 186" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 480 186 L 620 186" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
         <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
-            <text x="289.5" y="17.5">
+            <text x="549.5" y="177.5">
                 ステータス
             </text>
         </g>
-        <path d="M 147.71 26 L 220 26" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 140.71 26 L 144.21 22.5 L 147.71 26 L 144.21 29.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 0 26 L 0 0 L 140 0 L 140 26" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 0 26 L 0 52 L 140 52 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 0 26 L 140 26" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 427.71 184.39 L 480 184.65" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 420.71 184.35 L 424.22 180.87 L 427.71 184.39 L 424.19 187.87 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 272.29 181.91 L 140 146" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 279.05 183.74 L 275.13 184.81 L 272.29 181.91 L 276.21 180.84 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 272.62 186.21 L 140 226" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 279.32 184.2 L 276.98 188.56 L 272.62 186.21 L 274.96 181.86 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 274.19 189.06 L 140 306" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 279.47 184.46 L 279.13 189.4 L 274.19 189.06 L 274.53 184.13 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 273.83 179.38 L 140 79" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 279.43 183.58 L 274.53 184.28 L 273.83 179.38 L 278.73 178.68 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 280 184 L 280 158 L 420 158 L 420 184" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 280 184 L 280 210 L 420 210 L 420 184" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 280 184 L 420 184" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
         <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
-            <text x="69.5" y="17.5">
+            <text x="349.5" y="175.5">
                 やること
             </text>
         </g>
+        <path d="M 550 270 L 550 218.12" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 550 211.12 L 553.5 218.12 L 546.5 218.12 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 480 296 L 480 270 L 620 270 L 620 296" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 480 296 L 480 322 L 620 322 L 620 296" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 480 296 L 620 296" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="549.5" y="287.5">
+                着手
+            </text>
+        </g>
+        <path d="M 445.35 270 L 542.96 214.04" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 549.03 210.56 L 544.7 217.07 L 541.22 211 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 330 296 L 330 270 L 470 270 L 470 296" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 330 296 L 330 322 L 470 322 L 470 296" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 330 296 L 470 296" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="399.5" y="287.5">
+                未着手
+            </text>
+        </g>
+        <path d="M 661.63 270 L 557.15 213.84" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 550.98 210.53 L 558.81 210.76 L 555.49 216.93 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 296 L 640 270 L 780 270 L 780 296" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 296 L 640 322 L 780 322 L 780 296" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 296 L 780 296" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="709.5" y="287.5">
+                完了
+            </text>
+        </g>
+        <path d="M 0 66 L 0 40 L 140 40 L 140 66" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 66 L 0 92 L 140 92 L 140 66" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 66 L 140 66" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="69.5" y="57.5">
+                タイトル
+            </text>
+        </g>
+        <path d="M 0 146 L 0 120 L 140 120 L 140 146" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 146 L 0 172 L 140 172 L 140 146" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 146 L 140 146" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="69.5" y="137.5">
+                作成日
+            </text>
+        </g>
+        <path d="M 0 226 L 0 200 L 140 200 L 140 226" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 226 L 0 252 L 140 252 L 140 226" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 226 L 140 226" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="69.5" y="217.5">
+                完了日
+            </text>
+        </g>
+        <path d="M 0 306 L 0 280 L 140 280 L 140 306" fill="#1ba1e2" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 306 L 0 332 L 140 332 L 140 306" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 306 L 140 306" fill="none" stroke="#006eaf" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="#ffffff" font-family="Helvetica" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="69.5" y="297.5">
+                期限
+            </text>
+        </g>
+        <path d="M 70 310 L 305 310 L 330 335 L 330 420 L 70 420 L 70 310 Z" fill="#e3c800" stroke="#b09500" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 305 310 L 305 335 L 330 335" fill="none" stroke="#b09500" stroke-miterlimit="10" pointer-events="none"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 258px; height: 1px; padding-top: 342px; margin-left: 72px;">
+                        <div data-drawio-colors="color: #000000; " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; white-space: normal; overflow-wrap: normal;">
+                                <ul>
+                                    <li>
+                                        <span>
+                                            当日より前に期限を設定できない
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                            期限を過ぎると期限切れになる
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="72" y="354" fill="#000000" font-family="Helvetica" font-size="12px">
+                    当日より前に期限を設定できない期限を過ぎると期限切れになる
+                </text>
+            </switch>
+        </g>
+        <path d="M 100 0 L 245 0 L 270 25 L 270 80 L 100 80 L 100 0 Z" fill="#e3c800" stroke="#b09500" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 245 0 L 245 25 L 270 25" fill="none" stroke="#b09500" stroke-miterlimit="10" pointer-events="none"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 168px; height: 1px; padding-top: 32px; margin-left: 102px;">
+                        <div data-drawio-colors="color: #000000; " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; white-space: normal; overflow-wrap: normal;">
+                                <ul>
+                                    <li>
+                                        <span>
+                                            タイトルは必須
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="102" y="44" fill="#000000" font-family="Helvetica" font-size="12px">
+                    タイトルは必須
+                </text>
+            </switch>
+        </g>
     </g>
+    <switch>
+        <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/>
+        <a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank">
+            <text text-anchor="middle" font-size="10px" x="50%" y="100%">
+                Viewer does not support full SVG 1.1
+            </text>
+        </a>
+    </switch>
 </svg>

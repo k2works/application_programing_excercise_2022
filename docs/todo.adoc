@@ -12,6 +12,10 @@
 == 開発
 === 仕様
 
+- やることを追加できる
+- やることを編集できる
+- やることを削除できる
+
 === 設計
 
 ==== ユースケース
@@ -19,17 +23,245 @@
 ----
 left to right direction
 skinparam packageStyle rectangle
-actor customer
-actor clerk
-rectangle checkout {
-  customer -- (checkout)
-  (checkout) .> (payment) : include
-  (help) .> (checkout) : extends
-  (checkout) -- clerk
+actor 利用者
+rectangle TodoApp {
+  利用者 -- (やることを追加する)
+  利用者 -- (やることを編集する)
+  利用者 -- (やることを削除する)
 }
 ----
 
 ==== ドメインモデル
+
 image::images/domain_model.drawio.svg[]
+
+==== アプリケーションアーキテクチャ
+[plantuml]
+----
+package Client {
+  class React {}
+}
+package Api {
+  package domain {
+    package model {}
+    package type {}
+    type <- model
+  }
+  package presentation {
+  }
+  package application {
+  }
+  package infrastracture {
+    package entity {}
+    package repository {}
+  }
+  presentation -> application
+  application -> model
+  application -> repository
+  model <-- repository
+  repository -> entity
+}
+presentation <-- Client
+----
+
+==== オブジェクトモデル
+
+===== API
+
+[plantuml]
+----
+package domain {
+  package model {
+    package todo {
+      class TodoList {}
+      class Todo {
+        id
+        isCompleted
+        isOverDue
+        completed()
+        setDueDate(dueDate)
+      }
+      class Title {}
+      class CreatedAt {}
+      class CompletedAt {}
+      class DueDate {
+        overDue()
+      }
+    }
+    package status {
+      abstract class TodoStatus {
+        static create()
+      }
+      interface Status {}
+      class NotStarted extends TodoStatus {}
+      class InProgress extends TodoStatus {}
+      class Completed extends TodoStatus {}
+    }
+    Todo *-- Title
+    Todo *-- CreatedAt
+    Todo *-- CompletedAt
+    Todo *-- DueDate
+    TodoList *-- Todo
+    TodoStatus -|> Status
+    Status -* Todo
+  }
+  package type {
+    enum TodoStatusType {
+      UNDEFINED = 0,
+      NOT_STARTED = 1,
+      IN_PROGRESS = 2,
+      COMPLETED = 3,
+    }
+  }
+  TodoStatusType -* TodoStatus
+}
+package presentation {
+  class TodoController {
+    selectAll()
+    create()
+    delete()
+    update()
+  }
+}
+package application {
+  interface Service {}
+  class TodoService {
+    create(params)
+    selectAll()
+    update(params)
+    delete(params)
+  }
+  Service <|- TodoService
+}
+package infrastructure {
+  package entity {
+    class TodoEntity {
+      id
+      title
+      completed
+      dueDate
+      createdAt
+      completedAt
+      status
+    }
+  }
+  package repository {
+    interface Repository {}
+    class TodoRepository {
+      getTodos()
+      getTodo()
+      addTodo(todo)
+      deleteTodo(todo)
+      updateTodo(todo)
+    }
+    Repository <|- TodoRepository
+  }
+  class router {
+    get()
+    post()
+    put()
+    delete()
+  }
+  class Express {}
+}
+Express <- router
+TodoController <-- router
+TodoController *-- Service
+TodoService *-- Repository
+Todo <-- TodoService
+TodoList <-- TodoService
+Todo <--- TodoRepository
+TodoList <--- TodoRepository
+TodoRepository -> TodoEntity
+----
+
+===== クライアント
+
+[plantuml]
+----
+package app {
+  class React {}
+  class App {}
+  class Todo {
+    dispatch
+  }
+}
+package components {
+  class TodoList{
+    todos
+  }
+  class TodoItem{
+    dispatch
+    todo
+    completed
+    dueDate
+    setCompleted()
+    setDueDate()
+  }
+  class TodoInput{
+    dispatch
+    todo
+    isError
+  }
+  class TodoItemCount{
+    count
+  }
+  class TodoMessage{
+    message
+  }
+  TodoList *-- TodoItem
+}
+package features {
+  class todoSlice {
+    initialState
+    selectTodo()
+    selectTodos()
+    selectTodoCount()
+    selectTodoMessage()
+    selectIsError()
+    readTodoAsync()
+    createTodoAsync()
+    updateTodoAsync()
+    deleteTodoAsync()
+  }
+}
+package reducers {
+  class index {
+    rootReducer
+  }
+}
+App -> React
+Todo <- App
+Todo *-- TodoList
+Todo *-- TodoInput 
+Todo *-- TodoMessage 
+Todo *-- TodoItemCount 
+todoSlice <-- Todo
+index *-- todoSlice
+todoSlice -> Redux
+Redux <- index
+----
+
+==== データモデル
+[plantuml]
+----
+entity Todo {
+  * id : number <<generated>>
+  --
+  title : varchar
+  completed : boolean
+  dueDate : datetime
+  createdAt : datetime
+  completedAt : datetime
+}
+entity Status {
+  *id : number <<generated>>
+  --
+  type : varchar
+  code : varchar
+  name : varchar
+}
+Status ||.o{ Todo
+----
 
 == 運用
