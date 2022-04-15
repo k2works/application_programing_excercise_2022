@@ -48,7 +48,8 @@ npm start
 ### 開発
 
 - [ドキュメント](https://ape2022-take8.herokuapp.com/docs/todo.html)
-- [API ドキュメント](https://ape2022-take8.herokuapp.com/api-docs/)
+- [API ドキュメント](https://ape2022-take8.herokuapp.com/spec/index.html)
+- [Swagger ドキュメント](https://ape2022-take8.herokuapp.com/api-docs/)
 - [Cucumber Report](https://ape2022-take8.herokuapp.com/report/)
 
 
