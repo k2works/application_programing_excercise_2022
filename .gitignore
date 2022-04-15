@@ -112,3 +112,5 @@ cypress/videos
 *.sqlite
 .idea
 .vscode
+
+docs/cypress

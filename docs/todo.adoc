@@ -8,13 +8,159 @@
 
 == 要求
 == 構築
+[cols="1,1,1"]
+|===
+|ソフトウェア |バージョン |備考
+
+|Node.js
+
+|16.3.0
+
+|
+|===
+
+=== アプリケーションコンポーネント
+[plantuml]
+----
+package "SPA" {
+  [React]
+  [ReduxToolkit]
+}
+HTTP - SPA
+
+package "API" {
+  [Express]
+  [TypeORM]
+}
+API -- HTTP
+
+database "Sqlite" {
+  frame "Schema" {
+    [todo]
+  }
+}
+
+TypeORM - Sqlite
+----
+
+=== コンポーネントセットアップ
+==== 開発共通
+
+[source, bash]
+----
+npm init -y
+npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/register
+npm install --save-dev npm-run-all watch foreman cpx rimraf marked
+npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
+touch Procfile
+----
+
+==== テスト
+[source, bash]
+----
+npm install --save-dev jest
+npm install cypress
+npmx cypress open
+npm install --save-dev cypress-cucumber-preprocessor
+npm install --save-dev cucumber-html-reporter
+----
+
+==== クライアント関連
+[source, bash]
+----
+npm install --save-dev style-loader css-loader
+npm install --save-dev fake-indexeddb
+npm install dexie
+----
+
+==== React
+
+[source, bash]
+----
+npm install react react-dom
+npm install --save-dev babel-loader @babel/preset-react
+----
+
+==== TypeScript
+
+[source, bash]
+----
+npm install --save-dev typescript ts-loader
+npx tsc --init
+npm install -save-dev @types/react @types/react-dom
+npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node-dev@1.1.8 @types/jest
+----
+
+==== ReduxToolkit
+
+[source, bash]
+----
+npm install -save @reduxjs/toolkit react-redux
+npm install -save axios @types/axios
+npm install --save express uuid cors
+
+----
+
+==== API関連
+[source, bash]
+----
+npm install --save ts-node@10.5.0 @types/express @types/cors @types/node
+npm install --save-dev ts-node-dev@1.1.8 
+npm install --save cross-env
+npm install --save typeorm reflect-metadata 
+npm install --save better-sqlite3 
+----
+
+==== ドキュメント
+[source, bash]
+----
+npm install --save-dev typedoc tplant
+npm install --save-dev asciidoctor asciidoctor-kroki
+npm install -save tsoa swagger-ui-express
+npm install -save @types/swagger-ui-express
+----
+
 == 配置
+=== システムアーキテクチャ
+
+[plantuml]
+----
+@startuml
+actor 開発者
+actor 利用者
+cloud "Heroku" as Heroku {
+    package "Production Environment" as prd {
+      [API] as app_api_prd
+      [SPA] as app_spa_prd
+    }
+}
+
+cloud "Vercel" as Vercel {
+    package "Development Environment" as dev {
+      [SPA] as app_spa_dev
+    }
+}
+
+cloud "GitHub" as github {
+  [Git] as repository
+}
+
+開発者 --> app_spa_dev
+開発者 --> app_spa_prd
+開発者 --> repository
+app_spa_prd <-- 利用者
+repository --> prd
+repository --> dev
+@enduml
+----
+
 == 開発
 === 仕様
 
-- やることを追加できる
-- やることを編集できる
-- やることを削除できる
+[source, yml]
+----
+include::../cypress/integration/App.feature[]
+----
 
 === 設計
 
@@ -38,10 +184,9 @@ image::images/domain_model.drawio.svg[]
 ==== アプリケーションアーキテクチャ
 [plantuml]
 ----
-package Client {
-  class React {}
+package SPA {
 }
-package Api {
+package API {
   package domain {
     package model {}
     package type {}
@@ -61,7 +206,7 @@ package Api {
   model <-- repository
   repository -> entity
 }
-presentation <-- Client
+presentation <-- SPA
 ----
 
 ==== オブジェクトモデル
@@ -175,7 +320,7 @@ TodoList <--- TodoRepository
 TodoRepository -> TodoEntity
 ----
 
-===== クライアント
+===== SPA
 
 [plantuml]
 ----
@@ -265,3 +410,37 @@ Status ||.o{ Todo
 ----
 
 == 運用
+
+=== 開発
+
+[source, bash]
+----
+npm start
+----
+
+=== テスト 
+
+[source, bash]
+----
+npm run test
+----
+
+=== ビルド
+
+[source, bash]
+----
+npm build
+----
+
+=== デプロイ
+
+[source, bash]
+----
+npm run deploy
+----
+
+=== ドキュメント
+[source, bash]
+----
+npm run build:docs
+----
