@@ -46,13 +46,22 @@ TypeORM - Sqlite
 === コンポーネントセットアップ
 ==== 開発関連
 
+===== 開発ツール
+
 [source, bash]
 ----
 npm init -y
 npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/register
 npm install --save-dev npm-run-all watch foreman cpx rimraf marked
-npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
+npm install --save cross-env
 touch Procfile
+----
+
+===== Webpack
+
+[source, bash]
+----
+npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
 ----
 
 ===== TypeScript
@@ -63,13 +72,14 @@ npm install --save-dev typescript ts-loader
 npx tsc --init
 npm install -save-dev @types/react @types/react-dom
 npm install --save-dev typescript@4.5.5 jest@27.5.1 ts-jest@27.1.3 ts-node-dev@1.1.8 @types/jest
+npm install --save-dev ts-node-dev@1.1.8 
 ----
 
 
-===== テスト
+===== Cypress
+
 [source, bash]
 ----
-npm install --save-dev jest
 npm install cypress
 npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
@@ -90,6 +100,7 @@ npm install dexie
 ----
 npm install react react-dom
 npm install --save-dev babel-loader @babel/preset-react
+npm install --save-dev jest
 ----
 
 ===== ReduxToolkit
@@ -101,24 +112,43 @@ npm install -save @reduxjs/toolkit react-redux
 ----
 
 ==== API関連
+
+===== Express
 [source, bash]
 ----
 npm install --save ts-node@10.5.0 @types/express @types/cors @types/node
-npm install --save-dev ts-node-dev@1.1.8 
 npm install -save axios @types/axios
 npm install --save express uuid cors
-npm install --save cross-env
+----
+
+===== TypeORM
+[source, bash]
+----
 npm install --save typeorm reflect-metadata 
 npm install --save better-sqlite3 
 ----
 
-==== ドキュメント
+===== Swagger
 [source, bash]
 ----
 npm install --save-dev typedoc tplant
-npm install --save-dev asciidoctor asciidoctor-kroki
 npm install -save tsoa swagger-ui-express
 npm install -save @types/swagger-ui-express
+----
+
+==== ドキュメント関連
+
+===== Asciidoctor
+[source, bash]
+----
+npm install --save-dev asciidoctor asciidoctor-kroki
+----
+
+===== TypeDoc
+
+[source, bash]
+----
+npm install --save-dev typedoc tplant
 ----
 
 == 配置
@@ -448,23 +478,42 @@ npm run build:docs
 
 == 参照
 
-- https://vercel.com/[Vercel^]
-- https://webpack.js.org/[webpack^]
-- https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8[GitHub Actions でステータスバッジを表示する^]
-- https://www.cypress.io/[cypress^]
-- https://www.npmjs.com/package/cypress-cucumber-preprocessor[cypress-cucumber-preprocessor^]
-- https://github.com/andyhaskell/indexeddb-tutorial[IndexedDB tutorial example code^]
-- https://dexie.org/[Dexie.js^]
-- https://ics.media/entry/16028/[最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築^]
-- https://qiita.com/gakinchoy7/items/30d37bf912b21359ac3c#usecontext%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E5%AE%9F%E8%A3%85[おんなじTODOアプリをuseState / useReducer / useContext / Redux / Recoil を使って実装してみた^]
-- https://ics.media/entry/16329/[最新版TypeScript+webpack 5の環境構築まとめ^]
-- https://typeorm.io/[TypeORM^]
-- http://typedoc.org/[TYPE DOC^]
-- https://github.com/bafolts/tplant[tplant^]
- https://typescript-jp.gitbook.io/deep-dive/[TypeScript Deep Dive 日本語版^]
-- https://dev.to/rsbh/building-rest-api-with-express-typescript-and-swagger-2dma[Building REST API with Express, TypeScript and Swagger^]
-- https://tsoa-community.github.io/docs/[tsoa^]
-- https://docs.asciidoctor.org/[Asciidoctor Docs^]
+=== 要求
+
+==== RDRA
+
 - https://qiita.com/ogomr/items/97058a87337eaa2ba21a[PlantUML Example for RDRA 2.0 ハンドブック]
 - https://qiita.com/nkenbou/items/86d5718b63f610dfd67f#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB[PlantUML で始めるリレーションシップ駆動要件分析 (RDRA)]
 - https://qiita.com/_shimada/items/c9775f203ae91e32aacb[RDRA2.0の業務フロー図をPlantUMLで描く]
+
+=== 構築
+==== 開発関連
+
+- https://vercel.com/[Vercel^]
+- https://webpack.js.org/[webpack^]
+ https://typescript-jp.gitbook.io/deep-dive/[TypeScript Deep Dive 日本語版^]
+- https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8[GitHub Actions でステータスバッジを表示する^]
+- https://www.cypress.io/[cypress^]
+- https://www.npmjs.com/package/cypress-cucumber-preprocessor[cypress-cucumber-preprocessor^]
+
+==== SPA関連
+
+- https://dexie.org/[Dexie.js^]
+- https://ics.media/entry/16028/[最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築^]
+==== API関連
+
+- https://typeorm.io/[TypeORM^]
+
+==== ドキュメント関連
+
+- http://typedoc.org/[TYPE DOC^]
+- https://github.com/bafolts/tplant[tplant^]
+- https://tsoa-community.github.io/docs/[tsoa^]
+- https://docs.asciidoctor.org/[Asciidoctor Docs^]
+
+=== 開発
+
+- https://github.com/andyhaskell/indexeddb-tutorial[IndexedDB tutorial example code^]
+- https://qiita.com/gakinchoy7/items/30d37bf912b21359ac3c#usecontext%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E5%AE%9F%E8%A3%85[おんなじTODOアプリをuseState / useReducer / useContext / Redux / Recoil を使って実装してみた^]
+- https://ics.media/entry/16329/[最新版TypeScript+webpack 5の環境構築まとめ^]
+- https://dev.to/rsbh/building-rest-api-with-express-typescript-and-swagger-2dma[Building REST API with Express, TypeScript and Swagger^]
