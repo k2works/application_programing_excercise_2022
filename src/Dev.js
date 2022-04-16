@@ -252,13 +252,6 @@ const init = () => {
     if (dev !== null) {
       dev.innerHTML = `
             <div class="container">
-              <h1 id="docs">ドキュメント</h1>
-              <ul>
-                <li><a href="./spec/index.html" target="_blank">README</a></li>
-                <li><a href="./docs/index.html" target="_blank">Asciidoc</a></li>
-                <li><a href="./report" target="_blank">Cumberjs Report</a></li>
-                <li><a href="http://localhost:3000/api-docs" target="_blank">Swagger</a></li>
-              </ul>              
               <h1>開発</h1>
               <div class="py-3">
                 <div id="app"></div>

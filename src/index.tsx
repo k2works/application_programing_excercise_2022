@@ -20,5 +20,7 @@ if (container) {
   );
 }
 
-const Dev = require("./Dev.js");
-Dev.setUp();
+if (process.env.NODE_ENV !== "production") {
+  const Dev = require("./Dev.js");
+  Dev.setUp();
+}
