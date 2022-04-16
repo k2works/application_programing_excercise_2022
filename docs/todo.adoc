@@ -659,7 +659,7 @@ npm start
 
 [source, bash]
 ----
-npm run test
+npm test
 ----
 
 === ビルド
