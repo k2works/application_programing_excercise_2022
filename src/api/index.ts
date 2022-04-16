@@ -32,7 +32,9 @@ AppDataSource.initialize()
 
 /**
  * アプリケーションアーキテクチャ
- *
+ * 
  * [[include:images/app_architecuture.drawio.svg]]
+ * 
+ * やることドメインモデル {@link domain/model/todo.todo}
  */
 export default app;

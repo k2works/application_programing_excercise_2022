@@ -2,6 +2,14 @@ import { Todo } from "../todo/Todo";
 import { TodoStatusTypeEnum, TodoStatusType } from "../../type/TodoStatusType";
 import { Status } from "./Status";
 
+/**
+ * @module
+ * ステータス
+ */
+
+/**
+ * やることステータス
+ */
 export abstract class TodoStatus implements Status {
   protected value: string;
   protected type: string;
@@ -36,6 +44,9 @@ export abstract class TodoStatus implements Status {
   }
 }
 
+/**
+ * 未着手ステータス
+ */
 export class NotStarted extends TodoStatus {
   constructor() {
     super();
@@ -44,6 +55,9 @@ export class NotStarted extends TodoStatus {
   }
 }
 
+/**
+ * 着手ステータス
+ */
 export class InProgress extends TodoStatus {
   constructor() {
     super();
@@ -52,6 +66,9 @@ export class InProgress extends TodoStatus {
   }
 }
 
+/**
+ * 完了ステータス
+ */
 export class Completed extends TodoStatus {
   constructor() {
     super();
@@ -60,6 +77,9 @@ export class Completed extends TodoStatus {
   }
 }
 
+/**
+ * ステータス未定義
+ */
 export class Undefined extends TodoStatus {
   constructor() {
     super();
