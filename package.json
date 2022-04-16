@@ -31,10 +31,7 @@
     "report:cucumber:clean": "rimraf public/report && rimraf cypress/cucumber-json",
     "docs:spec": "typedoc",
     "docs:uml": "tplant --input ./src/api/**/*.ts --output ./docs/images/uml.svg",
-    "docs:copy": "npm-run-all docs:copy:*",
-    "docs:copy:spec": "cpx ./docs/images/domain_model.drawio.svg ./public/spec/docs/images",
-    "docs:copy:docs": "cpx ./docs/images/domain_model.drawio.svg ./public/docs/images",
-    "docs:copy:feature": "cpx ./cypress/integration/*.feature ./docs/cypress/integration",
+    "docs:copy": "node scripts/copy_assets.js",
     "docs:generate": "node scripts/asciidoctor.js",
     "docs:api": "tsoa spec"
   },
