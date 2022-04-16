@@ -30,4 +30,9 @@ AppDataSource.initialize()
     console.log(error);
   });
 
+/**
+ * アプリケーションアーキテクチャ
+ *
+ * [[include:images/app_architecuture.drawio.svg]]
+ */
 export default app;

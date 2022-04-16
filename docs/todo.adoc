@@ -213,32 +213,8 @@ rectangle TodoApp {
 image::images/domain_model.drawio.svg[]
 
 ==== アプリケーションアーキテクチャ
-[plantuml]
-----
-package SPA {
-}
-package API {
-  package domain {
-    package model {}
-    package type {}
-    type <- model
-  }
-  package presentation {
-  }
-  package application {
-  }
-  package infrastracture {
-    package entity {}
-    package repository {}
-  }
-  presentation -> application
-  application -> model
-  application -> repository
-  model <-- repository
-  repository -> entity
-}
-presentation <-- SPA
-----
+
+image::images/app_architecuture.drawio.svg[]
 
 ==== オブジェクトモデル
 
