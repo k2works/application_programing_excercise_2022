@@ -4,9 +4,239 @@
 :stem:
 :source-highlighter: coderay
 
-= Todoアプリケーション
+= ToDoアプリケーション
 
 == 要求
+
+=== システム価値
+
+==== 要求モデル図
+
+[plantuml]
+----
+title 要求モデル図
+
+left to right direction
+
+actor 利用者
+note "やることを整理したい" as s_r1
+note as s_dr1 #Turquoise
+  やることの整理を Web で直接行え、やることを管理できる
+end note
+:利用者: -- s_r1
+s_r1 -- s_dr1
+----
+
+==== システムコンテキスト図
+
+[plantuml]
+----
+title システムコンテキスト図
+
+left to right direction
+
+actor 利用者
+
+
+usecase ToDoアプリケーション
+note top of ToDoアプリケーション
+  利用者のやることの管理を支援し、やることを整理したい要求を実現する
+end note
+
+:利用者: -- (ToDoアプリケーション)
+----
+
+=== システム外部環境
+
+==== ビジネスコンテキスト図
+[plantuml]
+----
+title ビジネスコンテキスト図
+
+left to right direction
+
+actor 利用者
+
+node ToDoアプリケーション {
+  usecase やること管理
+}
+
+:利用者: -- (やること管理)
+----
+
+==== ビジネスユースケース
+[plantuml]
+----
+title ビジネスユースケース図 - やること管理
+
+left to right direction
+
+actor 利用者
+
+usecase やること管理
+
+:利用者: -- (やること管理)
+----
+
+==== 業務フロー図
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - やること管理
+
+/'
+actor 利用者
+usecase やることを登録する
+usecase やることを更新する
+usecase やることを削除する
+'/
+
+|利用者|
+partition やること管理 {
+  :やることを登録する;
+  split
+    -> 更新;
+    :やることを更新する;
+  split again
+    -> 不要;
+    :やることを削除する;
+  end split
+  stop
+}
+
+@enduml
+----
+
+==== 利用シーン図
+[plantuml]
+----
+title 利用シーン図 - やること管理:BUC
+
+left to right direction
+
+actor 利用者
+
+frame やること管理
+note right of やること管理
+  やること管理を行う
+  やることを登録・更新・削除したい
+  ステータスでやることの状態を把握したい
+end note
+
+usecase やることを登録する
+usecase やることを更新する
+usecase やることを削除する
+
+:利用者: -- やること管理
+やること管理 -- (やることを登録する)
+やること管理 -- (やることを更新する)
+やること管理 -- (やることを削除する)
+----
+
+==== バリエーション・条件図
+
+[cols="1"]
+|===
+|ステータス
+
+|未着手
+
+|着手
+
+|完了
+|===
+
+=== システム境界
+
+==== ユースケース複合図
+
+[plantuml]
+----
+title ユースケース複合図 - やること管理:BUC
+
+left to right direction
+
+actor 利用者
+
+entity やること
+
+usecase やること一覧を出力する
+boundary やること一覧
+control やること一覧出力条件
+
+やること一覧 - (やること一覧を出力する)
+やること一覧 -- やること一覧出力条件
+(やること一覧を出力する) - やること
+
+usecase やることを登録する
+boundary やること登録
+
+やること -- (やることを登録する)
+やること登録 - (やることを登録する)
+(やることを登録する) -- 利用者
+(やることを登録する) - やること一覧
+
+
+usecase やることを更新する
+boundary やること更新
+
+やること -- (やることを更新する)
+やること更新 - (やることを更新する)
+(やることを更新する) -- 利用者
+(やることを更新する) - やること一覧
+
+usecase やることを削除する
+boundary やること削除
+
+やること -- (やることを削除する)
+やること削除 - (やることを削除する)
+(やることを削除する) -- 利用者
+(やることを削除する) - やること一覧
+----
+
+=== システム
+
+==== 情報モデル図
+
+[plantuml]
+----
+title 情報モデル図
+
+left to right direction
+
+entity やること
+entity ステータス
+
+やること - ステータス
+----
+
+==== 状態モデル図
+
+[plantuml]
+----
+title 状態モデル図 - やること管理:情報
+
+/'
+actor 利用者
+usecase やることを登録する
+usecase やることを更新する
+usecase やることを削除する
+'/
+
+state 未着手
+
+state 着手
+
+state 完了
+
+未着手 -> 着手: やることを登録する
+着手 -> 完了: やることを更新する
+完了 --> 着手: やることを更新する
+
+----
+
+
 == 構築
 [cols="1,1,1"]
 |===
@@ -201,8 +431,8 @@ include::../cypress/integration/App.feature[]
 left to right direction
 skinparam packageStyle rectangle
 actor 利用者
-rectangle TodoApp {
-  利用者 -- (やることを追加する)
+rectangle Todoアプリケーション {
+  利用者 -- (やることを登録する)
   利用者 -- (やることを編集する)
   利用者 -- (やることを削除する)
 }
