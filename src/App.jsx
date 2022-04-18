@@ -8,12 +8,12 @@ const App = () => (
         <a href="index.html">
           <Logo width={135} height={25} />
         </a>
-      </div>
 
-      <button className="navbtn">
-        <i className="fas fa-bars"></i>
-        <span className="sr-only">MENU</span>
-      </button>
+        <button className="navbtn">
+          <i className="fas fa-bars"></i>
+          <span className="sr-only">MENU</span>
+        </button>
+      </div>
     </header>
   </div>
 );
