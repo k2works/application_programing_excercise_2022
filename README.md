@@ -42,6 +42,9 @@ npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
 npm install --save-dev cucumber-html-reporter
 npm install --save-dev asciidoctor asciidoctor-kroki
+npm install react react-dom
+npm install --save-dev style-loader css-loader
+npm install --save-dev babel-loader @babel/preset-react
 ```
 
 **[⬆ back to top](#構成)**
@@ -80,3 +83,5 @@ npm start
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
 - [Asciidoctor Kroki Extension](https://github.com/Mogztter/asciidoctor-kroki)
 - [Asciidoctor Documentation Site](https://docs.asciidoctor.org/)
+- [『作って学ぶ　HTML＆CSSモダンコーディング』サポートサイト](http://book.mynavi.jp/supportsite/detail/9784839977115.html)
+- [最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築](https://ics.media/entry/16028/)
