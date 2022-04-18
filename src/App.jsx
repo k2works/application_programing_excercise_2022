@@ -1,10 +1,9 @@
 import * as React from "react";
-import { SubComponent } from "./component/sub-component";
+import { Content } from "./component/Content";
 
 const App = () => (
   <div>
-    <h1>Hello React!</h1>
-    <SubComponent name="My Counter for TypeScript" />
+    <Content name="Content" />
   </div>
 );
 
