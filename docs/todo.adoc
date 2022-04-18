@@ -445,7 +445,7 @@ include::../cypress/integration/App.feature[]
 left to right direction
 skinparam packageStyle rectangle
 actor 利用者
-rectangle Todoアプリケーション {
+rectangle やること管理 {
   利用者 -- (やることを登録する)
   利用者 -- (やることを編集する)
   利用者 -- (やることを削除する)

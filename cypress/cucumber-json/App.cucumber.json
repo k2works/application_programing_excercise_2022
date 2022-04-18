@@ -2,14 +2,14 @@
   {
     "description": "利用者として\nやることを管理したい\nなぜならやることを整理する必要があるからだ",
     "keyword": "Feature",
-    "name": "Todoアプリケーション",
+    "name": "やること管理",
     "line": 1,
-    "id": "todoアプリケーション",
+    "id": "やること管理",
     "tags": [],
     "uri": "App.feature",
     "elements": [
       {
-        "id": "todoアプリケーション;やることを登録する",
+        "id": "やること管理;やることを登録する",
         "keyword": "Scenario",
         "line": 7,
         "name": "やることを登録する",
@@ -23,7 +23,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 6730000000
+              "duration": 7409000000
             }
           },
           {
@@ -33,7 +33,7 @@
             "name": "\"やること\" を追加する",
             "result": {
               "status": "passed",
-              "duration": 270000000
+              "duration": 284000000
             }
           },
           {
@@ -43,7 +43,7 @@
             "name": "\"やること\" が表示される",
             "result": {
               "status": "passed",
-              "duration": 23000000
+              "duration": 169000000
             }
           },
           {
@@ -53,7 +53,7 @@
             "name": "ステータスが \"未着手\" になる",
             "result": {
               "status": "passed",
-              "duration": 31000000
+              "duration": 24000000
             }
           },
           {
@@ -63,13 +63,13 @@
             "name": "アイテム数が \"1\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 22000000
+              "duration": 52000000
             }
           }
         ]
       },
       {
-        "id": "todoアプリケーション;やることに期限を設定する",
+        "id": "やること管理;やることに期限を設定する",
         "keyword": "Scenario",
         "line": 14,
         "name": "やることに期限を設定する",
@@ -83,7 +83,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 4219000000
+              "duration": 4569000000
             }
           },
           {
@@ -93,7 +93,7 @@
             "name": "期限を設定する",
             "result": {
               "status": "passed",
-              "duration": 413000000
+              "duration": 340000000
             }
           },
           {
@@ -103,7 +103,7 @@
             "name": "期限が設定される",
             "result": {
               "status": "passed",
-              "duration": 39000000
+              "duration": 26000000
             }
           },
           {
@@ -113,7 +113,7 @@
             "name": "ステータスが \"着手\" になる",
             "result": {
               "status": "passed",
-              "duration": 33000000
+              "duration": 18000000
             }
           },
           {
@@ -123,13 +123,13 @@
             "name": "アイテム数が \"1\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 54000000
+              "duration": 21000000
             }
           }
         ]
       },
       {
-        "id": "todoアプリケーション;やることを完了する",
+        "id": "やること管理;やることを完了する",
         "keyword": "Scenario",
         "line": 21,
         "name": "やることを完了する",
@@ -143,7 +143,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 4201000000
+              "duration": 4208000000
             }
           },
           {
@@ -153,7 +153,7 @@
             "name": "\"やること\" を完了する",
             "result": {
               "status": "passed",
-              "duration": 130000000
+              "duration": 138000000
             }
           },
           {
@@ -163,7 +163,7 @@
             "name": "\"やること\" が更新される",
             "result": {
               "status": "passed",
-              "duration": 20000000
+              "duration": 55000000
             }
           },
           {
@@ -173,7 +173,7 @@
             "name": "ステータスが \"完了\" になる",
             "result": {
               "status": "passed",
-              "duration": 16000000
+              "duration": 48000000
             }
           },
           {
@@ -183,13 +183,13 @@
             "name": "アイテム数が \"1\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 23000000
+              "duration": 17000000
             }
           }
         ]
       },
       {
-        "id": "todoアプリケーション;やることを削除する",
+        "id": "やること管理;やることを削除する",
         "keyword": "Scenario",
         "line": 28,
         "name": "やることを削除する",
@@ -203,7 +203,7 @@
             "name": "\"アプリケーション\" ページにアクセスする",
             "result": {
               "status": "passed",
-              "duration": 4163000000
+              "duration": 4219000000
             }
           },
           {
@@ -213,7 +213,7 @@
             "name": "\"やること\" を削除する",
             "result": {
               "status": "passed",
-              "duration": 151000000
+              "duration": 161000000
             }
           },
           {
@@ -223,7 +223,7 @@
             "name": "\"やること\" が削除される",
             "result": {
               "status": "passed",
-              "duration": 16000000
+              "duration": 15000000
             }
           },
           {
@@ -233,7 +233,7 @@
             "name": "アイテム数が \"0\" 件になる",
             "result": {
               "status": "passed",
-              "duration": 13000000
+              "duration": 20000000
             }
           }
         ]
