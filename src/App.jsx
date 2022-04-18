@@ -4,7 +4,7 @@ import Logo from "./img/logo.svg";
 const App = () => (
   <div>
     <header className="header">
-      <div className="header-container">
+      <div className="header-container w-container">
         <a href="index.html">
           <Logo width={135} height={25} />
         </a>
