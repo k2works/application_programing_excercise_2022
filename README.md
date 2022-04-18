@@ -45,6 +45,7 @@ npm install --save-dev asciidoctor asciidoctor-kroki
 npm install react react-dom
 npm install --save-dev style-loader css-loader
 npm install --save-dev babel-loader @babel/preset-react
+npm install --save-dev react-svg-loader
 ```
 
 **[⬆ back to top](#構成)**

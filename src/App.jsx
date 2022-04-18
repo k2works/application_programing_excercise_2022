@@ -1,11 +1,12 @@
 import * as React from "react";
+import Logo from "./img/logo.svg";
 
 const App = () => (
   <div>
     <header className="header">
       <div className="header-container">
         <a href="index.html">
-          <img src="logo.svg" alt="Boards" width={135} height={25} />
+          <Logo width={135} height={25} />
         </a>
       </div>
 
