@@ -42,6 +42,7 @@ img {
 .w-container {
 	width: min(92%, 1166px);
 	margin: auto;
+	position: relative;
 }
 /* ヘッダー */
 .header {
@@ -163,11 +164,13 @@ img {
 }
 /* 記事一覧 */
 .post {
-	padding: var(--v-space);
+	padding: var(--v-space) 0;
 	background-color: #f3f1ed;
 }
 /* パーツの見出し */
 .heading {
+	position: absolute;
+	top: calc((var(--v-space) + 0.6em) * -1);
 	font-family: "Montserrat", sans-serif;
 	font-size: clamp(40px, 5.2vw, 70px);
 	min-height: 0vw;

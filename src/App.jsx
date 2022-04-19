@@ -62,7 +62,8 @@ const App = () => (
     <section className="posts">
       <div className="w-container">
         <h2 className="heading">
-          New Releases <span>最新情報</span>
+          New Releases
+          <span>最新情報</span>
         </h2>
 
         <div className="posts-container">
