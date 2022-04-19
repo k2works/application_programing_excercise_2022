@@ -108,6 +108,9 @@ img {
 	padding: clamp(90px, 9vw, 120px) 0;
 	background-color: #ffffff;
 }
+.imgtext+.imgtext {
+	padding-top: 0;
+}
 .imgtext-container {
 	display: flex;
 	flex-direction: column;
@@ -120,6 +123,9 @@ img {
 		align-items: center;
 	}
 
+	.imgtext-container.reverse {
+		flex-direction: row-reverse;
+	}
 	.imgtext-container>.text {
 		flex: 1;
 		min-width: 17em;
