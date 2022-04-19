@@ -1,5 +1,6 @@
 import * as React from "react";
 import Logo from "./img/logo.svg";
+import Tool from "./img/tool.jpg";
 
 const App = () => (
   <div>
@@ -23,6 +24,21 @@ const App = () => (
         <a href="#" className="btn">
           無料で始める
         </a>
+      </div>
+    </section>
+
+    <section className="imgtext">
+      <div className="imgtext-container w-container">
+        <div className="text">
+          <h2>日常のツールたち</h2>
+          <p>Convenient</p>
+          <p>
+            どこにでもある、誰でも使ったことがある、普段は存在を意識しないけどないと困るツールたち。日常をちょっと楽しくしてくれます。
+          </p>
+        </div>
+        <figure className="img">
+          <img src={Tool} alt="" width={1600} height={1260} />
+        </figure>
       </div>
     </section>
   </div>
