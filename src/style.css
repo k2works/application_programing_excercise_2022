@@ -163,7 +163,7 @@ img {
 	font-size: 18px;
 }
 /* 記事一覧 */
-.post {
+.posts {
 	padding: var(--v-space) 0;
 	background-color: #f3f1ed;
 }
