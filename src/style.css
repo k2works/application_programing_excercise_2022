@@ -306,3 +306,9 @@ img {
 .entry-container {
 	font-size: clamp(16px, 2.4vw, 18px);
 }
+.entry-container:where(h1, h2, h3, h4, h5, h6, p, figure, ul) {
+	margin-top: reset;
+	margin-bottom: reset;
+	padding: reset;
+	list-style: revert;
+}
