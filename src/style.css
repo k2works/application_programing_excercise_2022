@@ -17,8 +17,11 @@ h4,
 h5,
 h6,
 p,
-figure {
+figure,
+ul {
 	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 p {
@@ -233,4 +236,10 @@ img {
 	display: grid;
 	gap: 50px;
 	justify-items: center;
+}
+/* フッター:SNSメニュー */
+.footer-sns {
+	display: flex;
+	gap: 24px;
+	font-size: 24px;
 }
