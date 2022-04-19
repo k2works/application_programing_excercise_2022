@@ -15,6 +15,14 @@ const App = () => (
         </button>
       </div>
     </header>
+
+    <section className="hero">
+      <div className="hero-container w-container">
+        <h1>Stationery Service</h1>
+        <p>便利な道具とサービスをお届けします</p>
+        <a href="#">無料で始める</a>
+      </div>
+    </section>
   </div>
 );
 
