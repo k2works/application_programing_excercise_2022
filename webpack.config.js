@@ -31,20 +31,32 @@ module.exports = {
         options: { presets: ["@babel/env", "@babel/preset-react"] },
       },
       {
-        test: /\.css/,
+        test: /\.(scss|css)/,
         use: [
           "style-loader",
           {
             loader: "css-loader",
-            options: { url: false },
+            options: {
+              url: true,
+              sourceMap: isDevelopment,
+
+              // 0 => no loaders (default);
+              // 1 => postcss-loader;
+              // 2 => postcss-loader, sass-loader
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: isDevelopment,
+            },
           },
         ],
       },
       {
-        test: /\.svg$/,
-        use: {
-          loader: "react-svg-loader",
-        },
+        test: /\.(gif|png|jpg|svg)$/,
+        type: "asset/inline",
       },
     ],
   },
