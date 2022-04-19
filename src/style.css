@@ -5,6 +5,15 @@ body {
 	background-color: #eeeeee;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	background-color: #eeeeee;
+}
 /* 横幅と左右の余白 */
 .w-container {
 	width: min(92%, 1166px);
@@ -31,4 +40,11 @@ body {
 	cursor: pointer;
 	color: #aaaaaa;
 	font-size: 30px;
+}
+/* ヒーロー */
+.hero {
+	height: 650px;
+	background-image: url(./img/hero.jpg);
+	background-position: center;
+	background-size: cover;
 }
