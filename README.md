@@ -47,6 +47,7 @@ npm install --save-dev babel-loader @babel/preset-react
 npm install --save-dev @testing-library/react @testing-library/jest-dom
 npm install --save-dev sass-loader sass style-loader css-loader
 npm install --save-dev identity-obj-proxy
+npm install react-router-dom
 ```
 
 **[⬆ back to top](#構成)**
@@ -89,3 +90,4 @@ npm start
 - [最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築](https://ics.media/entry/16028/)
 - [最新版で学ぶwebpack 5入門スタイルシート(CSS/Sass)を取り込む方法](https://ics.media/entry/17376/#bundle-css)
 - [Using with webpack](https://jestjs.io/docs/webpack)
+- [React Router v6 はじめでもわかるルーティングの設定方法の基礎](https://reffect.co.jp/react/react-router-6)
