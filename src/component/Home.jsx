@@ -26,6 +26,7 @@ export const Home = (props) => {
 
           <button className="navbtn" onClick={toggleMenu}>
             <i className="fas fa-bars"></i>
+            <i className="fas fa-times"></i>
             <span className="sr-only">MENU</span>
           </button>
 
