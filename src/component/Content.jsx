@@ -3,20 +3,42 @@ import Logo from "../img/logo.svg";
 import Service from "../img/service.jpg";
 
 export const Content = (props) => {
+  const toggleMenu = () => {
+    document.querySelector("html").classList.toggle("open");
+  };
+
   return (
     <div>
       <header className="header">
         <div className="header-container w-container">
-          <a href="/">
-            <img src={Logo} alt="logo" width={135} height={25} />
-          </a>
+          <div className="site">
+            <a href="/">
+              <img src={Logo} alt="logo" width={135} height={25} />
+            </a>
+          </div>
 
-          <button className="navbtn">
+          <button className="navbtn" onClick={toggleMenu}>
             <i className="fas fa-bars"></i>
+            <i className="fas fa-times"></i>
             <span className="sr-only">MENU</span>
           </button>
+
+          <nav className="nav">
+            <ul>
+              <li>
+                <a href="/">ホーム</a>
+              </li>
+              <li>
+                <a href="/content">サービス案内</a>
+              </li>
+              <li>
+                <a href="#">お問い合わせ</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
+
       <article className="entry">
         <figure className="entry-img">
           <img src={Service} alt="" width={1600} height={470} />
