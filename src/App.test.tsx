@@ -4,9 +4,9 @@ import { screen, render, fireEvent } from "@testing-library/react";
 import React from "react";
 
 describe("App", function () {
-  test("タイトルが表示されているか", () => {
+  test("ヘッダー", () => {
     const { getByText } = render(<Main />);
     screen.debug();
-    expect(getByText("Hello React!")).toBeInTheDocument();
+    expect(getByText("MENU")).toBeInTheDocument();
   });
 });
