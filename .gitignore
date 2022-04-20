@@ -114,3 +114,5 @@ db.*
 .vscode
 
 docs/cypress
+
+sample
