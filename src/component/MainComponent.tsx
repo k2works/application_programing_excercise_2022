@@ -6,7 +6,7 @@ export const Main: React.FC<{}> = () => {
   return (
     <div>
       <header className="header">
-        <div className="header-container">
+        <div className="header-container w-container">
           <div className="site">
             <a href="/">
               <img src={Log} alt="" width={135} height={26} />
