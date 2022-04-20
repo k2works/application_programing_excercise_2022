@@ -10,6 +10,10 @@ import News05 from "../img/news05.jpg";
 import News06 from "../img/news06.jpg";
 
 export const Home = (props) => {
+  const toggleMenu = () => {
+    document.querySelector("html").classList.toggle("open");
+  };
+
   return (
     <div>
       <header className="header">
@@ -20,7 +24,7 @@ export const Home = (props) => {
             </a>
           </div>
 
-          <button className="navbtn">
+          <button className="navbtn" onClick={toggleMenu}>
             <i className="fas fa-bars"></i>
             <span className="sr-only">MENU</span>
           </button>
