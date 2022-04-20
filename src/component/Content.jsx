@@ -48,7 +48,7 @@ export const Content = (props) => {
 
       <section className="plans">
         <div className="w-container">
-          <h2>
+          <h2 className="heading">
             Service Plans
             <span>サービスプラス</span>
           </h2>
