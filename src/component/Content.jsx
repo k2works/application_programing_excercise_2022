@@ -17,7 +17,6 @@ export const Content = (props) => {
           </button>
         </div>
       </header>
-
       <article className="entry">
         <figure className="entry-img">
           <img src={Service} alt="" width={1600} height={470} />
@@ -46,6 +45,26 @@ export const Content = (props) => {
           </div>
         </div>
       </article>
+
+      <section className="plans">
+        <div className="w-container">
+          <h2>
+            Service Plans
+            <span>サービスプラス</span>
+          </h2>
+
+          <div className="plans-container">
+            <div className="plan">
+              <h3>Free</h3>
+              <p className="desc">
+                便利なオンラインツールを今すぐご利用いただけるプランです。
+              </p>
+              <p className="price">無料</p>
+              <a href="#">使ってみる</a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
