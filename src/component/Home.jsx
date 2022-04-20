@@ -8,43 +8,13 @@ import News03 from "../img/news03.jpg";
 import News04 from "../img/news04.jpg";
 import News05 from "../img/news05.jpg";
 import News06 from "../img/news06.jpg";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 export const Home = (props) => {
-  const toggleMenu = () => {
-    document.querySelector("html").classList.toggle("open");
-  };
-
   return (
     <div>
-      <header className="header">
-        <div className="header-container w-container">
-          <div className="site">
-            <a href="/">
-              <img src={Logo} alt="logo" width={135} height={25} />
-            </a>
-          </div>
-
-          <button className="navbtn" onClick={toggleMenu}>
-            <i className="fas fa-bars"></i>
-            <i className="fas fa-times"></i>
-            <span className="sr-only">MENU</span>
-          </button>
-
-          <nav className="nav">
-            <ul>
-              <li>
-                <a href="/">ホーム</a>
-              </li>
-              <li>
-                <a href="/content">サービス案内</a>
-              </li>
-              <li>
-                <a href="#">お問い合わせ</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <section className="hero">
         <div className="hero-container w-container">
@@ -167,54 +137,7 @@ export const Home = (props) => {
         </div>
       </section>
 
-      <footer className="footer">
-        <div className="footer-container w-container">
-          <div className="footer-site">
-            <a href="/">
-              <img src={Logo} alt="Boards" width={135} height={26} />
-            </a>
-          </div>
-
-          <ul className="footer-sns">
-            <li>
-              <a href="#">
-                <i className="fab fa-twitter"></i>
-                <span className="sr-only">Twitter</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fab fa-facebook-f"></i>
-                <span className="sr-only">Facebook</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fab fa-instagram"></i>
-                <span className="sr-only">Instagram</span>
-              </a>
-            </li>
-          </ul>
-          <ul className="footer-menu">
-            <li>
-              <a href="#">会社外由生</a>
-            </li>
-            <li>
-              <a href="#">特定商取引</a>
-            </li>
-            <li>
-              <a href="#">個人情報の取り扱い</a>
-            </li>
-            <li>
-              <a href="content">サービス案内</a>
-            </li>
-            <li>
-              <a href="#">お問い合わせ</a>
-            </li>
-          </ul>
-          <div className="footer-copy">@ Boards Production.</div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
