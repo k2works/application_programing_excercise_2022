@@ -52,6 +52,7 @@ npm install --save-dev typescript ts-loader
 npm install --save @types/react @types/react-dom @types/react-router-dom
 npm install --save-dev @types/jest ts-jest
 npx tsc --init
+npm i -save @reduxjs/toolkit react-redux
 ```
 
 **[⬆ back to top](#構成)**
@@ -96,3 +97,4 @@ npm start
 - [Using with webpack](https://jestjs.io/docs/webpack)
 - [React Router v6 はじめでもわかるルーティングの設定方法の基礎](https://reffect.co.jp/react/react-router-6)
 - [最新版TypeScript+webpack 5の環境構築まとめ](https://ics.media/entry/16329/)
+- [Quick template to test Redux Tool Kit and React Router with Jest](https://dev.to/siyile/quick-template-to-test-redux-tool-kit-and-react-router-with-jest-34ll)
