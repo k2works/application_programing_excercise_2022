@@ -11,6 +11,7 @@
 | ソフトウェア | バージョン | 備考 |
 | :----------- | :--------- | :--- |
 | nodejs       | 16.3.0    |      |
+| java         | 17.0.0    |      |
 
 ## 構成
 
@@ -53,6 +54,10 @@ npm install --save @types/react @types/react-dom @types/react-router-dom
 npm install --save-dev @types/jest ts-jest
 npx tsc --init
 npm i -save @reduxjs/toolkit react-redux
+```
+
+```bash
+gradle init --type java-application
 ```
 
 **[⬆ back to top](#構成)**
@@ -98,3 +103,4 @@ npm start
 - [React Router v6 はじめでもわかるルーティングの設定方法の基礎](https://reffect.co.jp/react/react-router-6)
 - [最新版TypeScript+webpack 5の環境構築まとめ](https://ics.media/entry/16329/)
 - [Quick template to test Redux Tool Kit and React Router with Jest](https://dev.to/siyile/quick-template-to-test-redux-tool-kit-and-react-router-with-jest-34ll)
+- [環境構築から始めるテスト駆動開発 ~Java開発環境を構築する~](https://qiita.com/k2works/items/960020e6dbc70145226c)
