@@ -3,56 +3,109 @@
  */
 package ape2022;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.IllegalFormatConversionException;
 
 class AppTest {
-    @Test
-    void 値と演算() {
-        assertEquals(7, 5 + 2);
-        assertEquals(10, 5 * 2);
-        assertEquals(3, 5 - 2);
-        assertEquals(2, 5 / 2);
-        assertEquals(14, 2 + 3 * 4);
-        assertEquals(20, (2 + 3) * 4);
-        assertEquals(1, 5 % 2);
 
-        assertEquals(7.0, 5.0 + 2);
-        assertEquals(2.5, 5.0 / 2);
+    @Nested
+    class 値と計算 {
+        @Nested
+        class 値と演算 {
+            @Test
+            void 整数() {
+                assertEquals(7, 5 + 2);
+                assertEquals(10, 5 * 2);
+                assertEquals(3, 5 - 2);
+                assertEquals(2, 5 / 2);
+                assertEquals(14, 2 + 3 * 4);
+                assertEquals(20, (2 + 3) * 4);
+                assertEquals(1, 5 % 2);
 
-        assertEquals("tester", "test" + "er");
-        assertEquals("test123", "test" + "123");
-        assertEquals("test123", "test" + 12 + 3);
-        assertEquals("test15", "test" + (12 + 3));
-        assertEquals("15test", 12 + 3 + "test");
-        assertEquals("52", "5" + 2);
+            }
 
-        assertEquals("文字列に\"を含む", "文字列に\"を含む");
-        assertEquals("改行\nする", "改行\nする");
+            @Test
+            void 構文エラー() {
 
-        var text = """
-                test
-                foo
-                """;
-        assertEquals(text, "test\nfoo\n");
+            }
 
-        calcInterface calc = (a, b) -> a / b;
-        assertThrows(ArithmeticException.class, () -> calc.div(3, 0));
+            @Test
+            void 実数() {
+                assertEquals(7.0, 5.0 + 2);
+                assertEquals(2.5, 5.0 / 2);
 
-        assertEquals("TEST", "TEST".toUpperCase());
-        assertEquals(4, "test".length());
+            }
 
-        assertEquals("testtesttest", "test".repeat(3));
-        assertEquals("testtesttesttesttest", "test".repeat(5));
+            @Test
+            void 文字列() {
+                assertEquals("tester", "test" + "er");
+                assertEquals("test123", "test" + "123");
+                assertEquals("test123", "test" + 12 + 3);
+                assertEquals("test15", "test" + (12 + 3));
+                assertEquals("15test", 12 + 3 + "test");
+                assertEquals("52", "5" + 2);
 
-        assertEquals("tt", "test".replace("es", ""));
-        assertEquals("test15", "test%s".formatted(12 + 3));
-        assertEquals("testとsample", "%sと%s".formatted("test", "sample"));
-        assertEquals("2+3=5", "%d+%d=%d".formatted(2, 3, 2 + 3));
-        assertEquals("消費税抜き1,000円は消費税込みで1,100円", "消費税抜き%,d円は消費税込みで%,d円".formatted(1000, 1100));
-        assertThrows(IllegalFormatConversionException.class, () -> "%d+%d".formatted("abc", "cde"));
+                assertEquals("文字列に\"を含む", "文字列に\"を含む");
+                assertEquals("改行\nする", "改行\nする");
+
+                var text = """
+                        test
+                        foo
+                        """;
+                assertEquals(text, "test\nfoo\n");
+
+            }
+
+            @Test
+            void 例外() {
+
+                calcInterface calc = (a, b) -> a / b;
+                assertThrows(ArithmeticException.class, () -> calc.div(3, 0));
+            }
+        }
+
+        @Nested
+        class メソッドの呼び出し {
+            @Test
+            void メソッドの呼び出し() {
+                assertEquals("TEST", "TEST".toUpperCase());
+                assertEquals(4, "test".length());
+        }
+
+            @Test
+            void 文字列の掛け算や引き算() {
+                assertEquals("testtesttest", "test".repeat(3));
+                assertEquals("testtesttesttesttest", "test".repeat(5));
+            assertEquals("tt", "test".replace("es", ""));
+        }
+
+        @Test
+        void メソッドのシグネチャ() {
+
+        }
+
+        @Test
+        void メソッドの使い方がわからないとき() {
+
+        }
+
+        @Test
+        void 文字列のフォーマット() {
+
+                assertEquals("test15", "test%s".formatted(12 + 3));
+                assertEquals("testとsample", "%sと%s".formatted("test", "sample"));
+                assertEquals("2+3=5", "%d+%d=%d".formatted(2, 3, 2 + 3));
+                assertEquals("消費税抜き1,000円は消費税込みで1,100円", "消費税抜き%,d円は消費税込みで%,d円".formatted(1000, 1100));
+        }
+
+        @Test
+        void formattedメソッドでの例外() {
+                assertThrows(IllegalFormatConversionException.class, () -> "%d+%d".formatted("abc", "cde"));
+        }
+    }
     }
 }
 
