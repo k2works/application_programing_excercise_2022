@@ -116,3 +116,7 @@ db.*
 docs/cypress
 
 sample
+
+.gradle
+
+build
