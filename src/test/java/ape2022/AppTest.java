@@ -7,8 +7,25 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test
+    void 何も指定していない場合は既定の挨拶を返す() {
+        assertEquals("Hello, World!", Program.greeting());
     }
+
+    @Test
+    void 指定された名前で挨拶を返す() {
+        assertEquals("Hello from VSCode", Program.greeting("VSCode"));
+    }
+}
+
+class Program {
+
+    public static String greeting() {
+        return "Hello, World!";
+    }
+
+    public static String greeting(String string) {
+        return String.format("Hello from %s", string);
+    }
+
 }
