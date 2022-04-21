@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.IllegalFormatConversionException;
+import java.time.*;
 
 class AppTest {
 
@@ -215,6 +217,89 @@ class AppTest {
 
             }
 
+        }
+    }
+
+    @Nested
+    class 標準API {
+        @Nested
+        class 日付時刻 {
+            @Test
+            void 現在日時を取得する() {
+                var nowDay = java.time.LocalDate.now();
+                assertEquals(nowDay, java.time.LocalDate.now());
+                var nowTime = java.time.LocalTime.now();
+                assertEquals(nowTime, java.time.LocalTime.now());
+                var nowDateTime = java.time.LocalDateTime.now();
+                assertEquals(nowDateTime, java.time.LocalDateTime.now());
+            }
+
+            @Test
+            void 日付時刻の操作() {
+                var threeDaysAfter = LocalDate.now().plusDays(3);
+                assertEquals(threeDaysAfter, LocalDate.now().plusDays(3));
+                var today = LocalDateTime.now();
+                var twoWeeksLater = today.plusWeeks(2);
+                assertEquals(twoWeeksLater, today.plusWeeks(2));
+                var twoHoursLater = today.plusHours(2);
+                assertEquals(twoHoursLater, today.plusHours(2));
+            }
+
+            @Test
+            void 指定した日付時刻を扱う() {
+                var java17date = LocalDate.of(2021, 9, 14);
+                assertEquals(java17date, LocalDate.of(2021, 9, 14));
+                var java17time = LocalTime.of(14, 30);
+                assertEquals(java17time, LocalTime.of(14, 30));
+                var java17dateTime = LocalDateTime.of(java17date, java17time);
+                assertEquals(java17dateTime, LocalDateTime.of(java17date, java17time));
+                var java16dateTime = LocalDateTime.of(2021, 3, 16, 14, 30);
+                assertEquals(java16dateTime, LocalDateTime.of(2021, 3, 16, 14, 30));
+            }
+
+            @Test
+            void 日付時刻の整形() {
+                assertEquals("06月", "%tm月".formatted(LocalDate.of(2021, 6, 1)));
+                assertEquals("01時35分",
+                        "%tH時%tM分".formatted(LocalDateTime.of(2021, 6, 1, 1, 35), LocalDateTime.of(2020, 6, 1, 1, 35)));
+                assertEquals("01時35分",
+                        "%tH時%<tM分".formatted(LocalDateTime.of(2022, 6, 1, 1, 35)));
+                assertEquals("2021年06月25日", "%tY年%<tm月%<td日".formatted(LocalDate.of(2021, 6, 25)));
+            }
+
+            @Test
+            void staticメソッドとインスタンスメソッド() {
+                assertEquals("testとsample", String.format("%sと%s", "test", "sample"));
+                assertEquals("みかん", "%sですよ".format("みかん"));
+                assertEquals("みかんですよ", "%sですよ".formatted("みかん"));
+            }
+        }
+
+        @Nested
+        class BigDecimal_ {
+            @Test
+            void BigDecimalでの計算() {
+                assertEquals(28.95, BigDecimal.valueOf(579).multiply(BigDecimal.valueOf(0.05)).doubleValue());
+                var b579 = BigDecimal.valueOf(579);
+                assertEquals(579, b579.doubleValue());
+                var b005 = BigDecimal.valueOf(0.05);
+                assertEquals(0.05, b005.doubleValue());
+                assertEquals(28.95, b579.multiply(b005).doubleValue());
+                var result = b579.divideAndRemainder(BigDecimal.valueOf(100));
+                assertEquals(5, result[0].intValue());
+                assertEquals(79, result[1].intValue());
+            }
+
+            @Test
+            void newによるBigDecimalオブジェク生成() {
+                assertEquals(3.141592653589793, BigDecimal.valueOf(3.141592653589793238).doubleValue());
+                assertEquals(3.141592653589793238, new BigDecimal("3.141592653589793238").doubleValue());
+            }
+
+            @Test
+            void BigDecimalオブジェク生成時の注意() {
+                assertEquals(0.625, new BigDecimal(0.625).doubleValue());
+            }
         }
     }
 }
