@@ -9,62 +9,9 @@ const contents = `
 `;
 
 const uml = `
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-  Object[] elementData
-  size()
-}
-
-enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
-}
-
-annotation SuppressWarnings
 `;
 
 const erd = `
-' hide the spot
-hide circle
-
-' avoid problems with angled crows feet
-skinparam linetype ortho
-
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
-  --
-  *name : text
-  description : text
-}
-
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
-  --
-  *e1_id : number <<FK>>
-  other_details : text
-}
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
 `;
 
 export const setUp = () => {
@@ -81,8 +28,7 @@ const init = () => {
             <div class="container">
               <h1 id="docs">ドキュメント</h1>
               <ul>
-                <li><a href="./docs/index.html" target="_blank">サンプル</a></li>
-                <li><a href="./report" target="_blank">Cucumberjs Report</a></li>
+                <!-- <li><a href="./docs/index.html" target="_blank">サンプル</a></li> -->
               </ul>
               <h1>開発</h1>
               <div class="py-3">
