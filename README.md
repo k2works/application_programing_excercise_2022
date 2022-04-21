@@ -58,6 +58,7 @@ npm i -save @reduxjs/toolkit react-redux
 
 ```bash
 gradle init --type java-application
+git update-index --chmod=+x gradlew
 ```
 
 **[⬆ back to top](#構成)**
