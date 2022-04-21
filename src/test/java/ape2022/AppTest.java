@@ -10,16 +10,6 @@ import java.util.IllegalFormatConversionException;
 
 class AppTest {
     @Test
-    void 何も指定していない場合は既定の挨拶を返す() {
-        assertEquals("Hello, World!", Program.greeting());
-    }
-
-    @Test
-    void 指定された名前で挨拶を返す() {
-        assertEquals("Hello from VSCode", Program.greeting("VSCode"));
-    }
-
-    @Test
     void 値と演算() {
         assertEquals(7, 5 + 2);
         assertEquals(10, 5 * 2);
@@ -68,16 +58,4 @@ class AppTest {
 
 interface calcInterface {
     int div(int a, int b);
-}
-
-class Program {
-
-    public static String greeting() {
-        return "Hello, World!";
-    }
-
-    public static String greeting(String string) {
-        return String.format("Hello from %s", string);
-    }
-
 }
