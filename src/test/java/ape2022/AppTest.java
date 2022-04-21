@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.ParseException;
 import java.util.IllegalFormatConversionException;
 
 class AppTest {
@@ -73,39 +74,148 @@ class AppTest {
             void メソッドの呼び出し() {
                 assertEquals("TEST", "TEST".toUpperCase());
                 assertEquals(4, "test".length());
-        }
+            }
 
             @Test
             void 文字列の掛け算や引き算() {
                 assertEquals("testtesttest", "test".repeat(3));
                 assertEquals("testtesttesttesttest", "test".repeat(5));
-            assertEquals("tt", "test".replace("es", ""));
-        }
+                assertEquals("tt", "test".replace("es", ""));
+            }
 
-        @Test
-        void メソッドのシグネチャ() {
+            @Test
+            void メソッドのシグネチャ() {
 
-        }
+            }
 
-        @Test
-        void メソッドの使い方がわからないとき() {
+            @Test
+            void メソッドの使い方がわからないとき() {
 
-        }
+            }
 
-        @Test
-        void 文字列のフォーマット() {
+            @Test
+            void 文字列のフォーマット() {
 
                 assertEquals("test15", "test%s".formatted(12 + 3));
                 assertEquals("testとsample", "%sと%s".formatted("test", "sample"));
                 assertEquals("2+3=5", "%d+%d=%d".formatted(2, 3, 2 + 3));
                 assertEquals("消費税抜き1,000円は消費税込みで1,100円", "消費税抜き%,d円は消費税込みで%,d円".formatted(1000, 1100));
-        }
+            }
 
-        @Test
-        void formattedメソッドでの例外() {
+            @Test
+            void formattedメソッドでの例外() {
                 assertThrows(IllegalFormatConversionException.class, () -> "%d+%d".formatted("abc", "cde"));
+            }
         }
     }
+
+    @Nested
+    class 変数と型 {
+        @Nested
+        class 変数 {
+            @Test
+            void 変数() {
+                var t = "test";
+                assertEquals("test", t);
+                assertEquals("test3", t + "3");
+                assertEquals("TEST", t.toUpperCase());
+                t = "real";
+                assertEquals("real3", t + "3");
+                assertEquals("REAL", t.toUpperCase());
+            }
+
+            @Test
+            void 複合代入演算子() {
+                var n = 20;
+                n *= 5;
+                assertEquals(100, n);
+
+                var c = "te";
+                c += "st";
+                assertEquals("test", c);
+
+                n = 100;
+                assertEquals(101, ++n);
+                n = 100;
+                assertEquals(100, n++);
+            }
+
+            @Test
+            void 値に名前を付けるメリット() {
+                var test = "test";
+                assertEquals("test", test);
+                assertEquals("TEST", test.toUpperCase());
+                var rest = "rest";
+                assertEquals("REST", rest.toUpperCase());
+                var r10 = 11.75;
+                assertEquals(11.75, r10);
+                assertEquals(433.51625, r10 * r10 * 3.14);
+                assertEquals(433.73613573624084, r10 * r10 * Math.PI);
+            }
+
+        }
+
+        @Nested
+        class 型 {
+            @Test
+            void 変数の型() {
+                var t = "real";
+                assertTrue(t instanceof String);
+                var i = 5;
+                assertTrue((Integer) i instanceof Integer);
+            }
+
+            @Test
+            void 基本型と参照型() {
+                String u = "myname";
+                assertTrue(u instanceof String);
+            }
+
+            @Test
+            void 文字を扱う型() {
+                char ch = 48;
+                assertEquals('0', ch);
+                ch = '0' + 9;
+                assertEquals('9', ch);
+                assertEquals(8, '8' - '0');
+                ch = 'A' + 32;
+                assertEquals('a', ch);
+            }
+
+            @Test
+            void 数値の型変換() throws ParseException {
+                int i = 234;
+                double d = i;
+                assertEquals(234.0, d);
+                int j = (int) d;
+                assertEquals(234, j);
+                d = 3.14;
+                i = (int) d;
+                assertEquals(3, i);
+                d = i;
+                assertEquals(3.0, d);
+                assertEquals(-3, (int) -3.14);
+
+                int a = Integer.parseInt("3");
+                assertEquals(3, a);
+                assertThrows(NumberFormatException.class, () -> Integer.parseInt("3a"));
+                d = Double.parseDouble("12.3");
+                assertEquals(12.3, d);
+                assertEquals(12345, java.text.NumberFormat.getInstance().parse("12,345").intValue());
+
+                String s = 123 + "";
+                assertEquals("123", s);
+                assertEquals("123", String.valueOf(123));
+                assertEquals("12,345", "%,d".formatted(12345));
+                assertEquals("12,345", java.text.NumberFormat.getInstance().format(12345));
+            }
+
+            @Test
+            void 型の役割() {
+
+            }
+
+        }
     }
 }
 
