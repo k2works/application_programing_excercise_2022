@@ -65,7 +65,7 @@ class AppTest {
             @Test
             void 例外() {
 
-                calcInterface calc = (a, b) -> a / b;
+                CalcInterface calc = (a, b) -> a / b;
                 assertThrows(ArithmeticException.class, () -> calc.div(3, 0));
             }
         }
@@ -302,8 +302,154 @@ class AppTest {
             }
         }
     }
+
+    @Nested
+    class 条件分岐 {
+        @Nested
+        class 論理型 {
+            @Test
+            void 論理型() {
+                assertTrue("test".contains("es"));
+                assertFalse("test".contains("a"));
+            }
+
+            @Test
+            void 値の比較() {
+                assertTrue(3 < 4);
+                assertFalse(4 < 3);
+                assertTrue(4 == 4);
+                assertFalse(3 == 4);
+                assertFalse(4 != 4);
+                assertTrue(3 != 4);
+            }
+
+            @Test
+            void オブジェクトの大小比較() {
+                assertEquals(-1, "apple".compareTo("banana"));
+                var today = LocalDate.of(2021, 9, 24);
+                var java17 = LocalDate.of(2021, 9, 14);
+                assertEquals(10, today.compareTo(java17));
+                assertTrue(today.isAfter(java17));
+                assertFalse(today.isBefore(java17));
+            }
+
+            @Test
+            void オブジェクトが等しいかどうかの比較() {
+                assertTrue("test" == "test");
+                assertFalse("test" == "TEST");
+                var str = "TEST".toLowerCase();
+                assertFalse(str == "test");
+                assertTrue(str.equals("test"));
+                var java17 = LocalDate.of(2021, 9, 14);
+                assertFalse(java17.plusDays(5) == LocalDate.of(2021, 9, 19));
+                assertTrue(java17.plusDays(5).equals(LocalDate.of(2021, 9, 19)));
+            }
+
+            @Test
+            void 論理演算子() {
+                assertTrue(true || false);
+                assertFalse(false || false);
+                assertTrue(true && true);
+                assertFalse(true && false);
+                var a = 5;
+                assertTrue(3 <= a && a <= 7);
+                a = 1;
+                assertFalse(3 <= a && a <= 7);
+                a = 8;
+                assertFalse(3 <= a && a <= 7);
+                assertTrue(a < 3 || 7 < a);
+                a = 1;
+                assertTrue(a < 3 || 7 < a);
+                a = 5;
+                assertFalse(a < 3 || 7 < a);
+                assertFalse(!true);
+                assertTrue(!false);
+                assertFalse(!"test".contains("es"));
+                assertTrue(!"test".contains("a"));
+            }
+
+            @Test
+            void 条件演算子() {
+                var a = 3;
+                assertEquals("small", a < 5 ? "small" : "big");
+                a = 7;
+                assertEquals("big", a < 5 ? "small" : "big");
+                assertEquals("high", a < 3 ? "low" : a < 7 ? "middle" : "high");
+                var message = a < 3 ? "low" : a < 7 ? "middle" : "high";
+                assertEquals("high", message);
+            }
+        }
+
+        @Nested
+        class if文による条件分岐 {
+            @Test
+            void if文() {
+                StateMentInterface ifState = (args) -> {
+                    var a = 2;
+                    if (a < 3) {
+                        return "小さい";
+                    }
+                    return "大きい";
+                };
+
+                assertEquals("小さい", ifState.main(new String[0]));
+            }
+
+            @Test
+            void else句() {
+                StateMentInterface elseState = (args) -> {
+                    var a = 2;
+                    if (a < 3) {
+                        return "小さい";
+                    } else {
+                        return "大きい";
+                    }
+                };
+
+                assertEquals("小さい", elseState.main(new String[0]));
+            }
+
+            @Test
+            void elseIf句() {
+                StateMentInterface elseIfState = (args) -> {
+                    var a = 2;
+                    if (a < 3) {
+                        return "小さい";
+                    } else if (a < 3) {
+                        return "中くらい";
+                    } else {
+                        return "大きい";
+                    }
+                };
+
+                assertEquals("小さい", elseIfState.main(new String[0]));
+            }
+        }
+
+        @Nested
+        class switchによる条件分岐 {
+            @Test
+            void swith式() {
+                StateMentInterface switchState = (args) -> {
+                    var a = 3;
+                    return switch (a) {
+                        case 1, 2 -> "one-two";
+                        case 3 -> "three";
+                        case 4 -> "four";
+                        default -> "other";
+                    };
+                };
+
+                assertEquals("three", switchState.main(new String[0]));
+            }
+        }
+    }
 }
 
-interface calcInterface {
+interface CalcInterface {
     int div(int a, int b);
+}
+
+interface StateMentInterface {
+    String main(String[] args);
 }
