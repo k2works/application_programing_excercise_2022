@@ -6,10 +6,15 @@ package ape2022;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.IllegalFormatConversionException;
+import java.util.List;
+import java.util.Map;
 import java.time.*;
 
 class AppTest {
@@ -441,6 +446,136 @@ class AppTest {
                 };
 
                 assertEquals("three", switchState.main(new String[0]));
+            }
+        }
+    }
+
+    @Nested
+    class データ構造 {
+        @Nested
+        class Listで値をまとめる {
+            @Test
+            void List() {
+                var names = List.of("yamamoto", "kishida", "sugiyama");
+                assertEquals("[yamamoto, kishida, sugiyama]", names.toString());
+                assertEquals("kishida", names.get(1));
+                assertEquals("yamamoto", names.get(0));
+                assertEquals(3, names.size());
+                assumeTrue(names instanceof List<String>);
+            }
+
+            @Test
+            void 変更できるList() {
+                var names = List.of("yamamoto", "kishida", "sugiyama");
+                assertThrows(UnsupportedOperationException.class, () -> names.add("test"));
+                var authors = new ArrayList<String>();
+                authors.add("yamamoto");
+                assertEquals("yamamoto", authors.get(0));
+                authors.add("kishida");
+                assertEquals("[yamamoto, kishida]", authors.toString());
+                assertEquals(2, authors.size());
+                authors.add("sugiyama");
+                assertEquals(3, authors.size());
+                authors.set(1, "naoki");
+                assertEquals("[yamamoto, naoki, sugiyama]", authors.toString());
+                assertThrows(IndexOutOfBoundsException.class, () -> authors.get(4));
+                assertThrows(ArrayIndexOutOfBoundsException.class, () -> List.of().get(0));
+            }
+
+            @Test
+            void ジェネリクスの型推論() {
+                var names = List.of("yamamoto", "kishida", "sugiyama");
+                var authors = new ArrayList<>(names);
+                assertEquals("[yamamoto, kishida, sugiyama]", authors.toString());
+            }
+        }
+
+        @Nested
+        class 配列 {
+            @Test
+            void 配列の初期化() {
+                var scores = new int[3];
+                assertTrue(scores instanceof int[]);
+                assertEquals(3, scores.length);
+            }
+
+            @Test
+            void 要素を設定した配列の初期化() {
+                var scores = new int[] { 1, 2, 3 };
+                assertTrue(scores instanceof int[]);
+                assertEquals(3, scores.length);
+                assertEquals(1, scores[0]);
+                assertEquals(2, scores[1]);
+                assertEquals(3, scores[2]);
+            }
+
+            @Test
+            void 配列の要素の利用() {
+                var scores = new int[3];
+                scores[1] = 85;
+                assertEquals(85, scores[1]);
+            }
+
+            @Test
+            void 多次元配列() {
+                var mat = new int[2][3];
+                mat[1][2] = 5;
+                assertEquals(5, mat[1][2]);
+                var mat2 = new int[][] { { 1, 2 }, { 3, 4, 5 } };
+                assertEquals(3, mat2[1].length);
+            }
+        }
+
+        @Nested
+        class レコードで違う種類の値を組み合わせる {
+            @Test
+            void 違う種類の値をListでまとめて扱う() {
+                var exam = List.of("kis", "math", 80);
+                assertEquals("kis", exam.get(0));
+                assertEquals(80, exam.get(2));
+            }
+
+            @Test
+            void 違う種類の値をまとめて扱うレコードを定義する() {
+                record Exame(String name, String subject, int score) {
+                }
+            }
+
+            @Test
+            void レコードのオブジェクトを生成する() {
+                record Exame(String name, String subject, int score) {
+                }
+                var e1 = new Exame("kis", "math", 80);
+                assertEquals("kis", e1.name);
+                assertEquals(80, e1.score);
+                assertEquals("KIS", e1.name.toUpperCase());
+            }
+        }
+
+        @Nested
+        class Mapで辞書を作る {
+            @Test
+            void Map_() {
+                var fruits = Map.of("apple", "りんご", "grape", "ぶどう");
+                assertEquals("ぶどう", fruits.get("grape"));
+                assertNull(fruits.get("banana"));
+                assertEquals("みつからない", fruits.getOrDefault("banana", "みつからない"));
+                assertEquals(2, fruits.size());
+                assertThrows(IllegalArgumentException.class, () -> Map.of("carot", "にんじん", "carot", "ニンジン"));
+            }
+
+            @Test
+            void 変更可能なMap() {
+                var animals = new HashMap<String, String>();
+                animals.put("dog", "いぬ");
+                animals.put("cat", "ねこ");
+                assertEquals("ねこ", animals.get("cat"));
+                assertNull(animals.get("fox"));
+                animals.put("fox", "きつね");
+                assertEquals("きつね", animals.get("fox"));
+                animals.put("cat", "猫");
+                assertEquals("猫", animals.get("cat"));
+                assertEquals(3, animals.size());
             }
         }
     }
