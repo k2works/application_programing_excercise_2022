@@ -187,6 +187,19 @@ img {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* 記事一覧の記事 */
+.post img {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  width: 100%;
+}
+
+@supports not (aspect-ratio: 3 / 2) {
+  .post img {
+    width: 180%;
+  }
+}
   
 /* パーツの見出し */
 .heading {
