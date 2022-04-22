@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.IllegalFormatConversionException;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.time.*;
 
 class AppTest {
@@ -576,6 +578,153 @@ class AppTest {
                 animals.put("cat", "猫");
                 assertEquals("猫", animals.get("cat"));
                 assertEquals(3, animals.size());
+            }
+        }
+    }
+
+    @Nested
+    class 繰り返し {
+        @Nested
+        class ループ構文 {
+            @Test
+            void for文の基本() {
+                Function<String[], List<Object>> forState = (args) -> {
+                    var array = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        array.add(i);
+                    }
+                    return array;
+                };
+
+                assertEquals(5, forState.apply(new String[0]).size());
+            }
+
+            @Test
+            void for文の応用() {
+                Function<Function<List<Object>, List<Object>>, List<Object>> forState = (loop) -> {
+                    var array = new ArrayList<>();
+                    return loop.apply(array);
+                };
+
+                Function<List<Object>, List<Object>> loop1 = (array) -> {
+                    for (int i = 0; i < 5; i += 2) {
+                        array.add(i);
+                    }
+                    return array;
+                };
+
+                Function<List<Object>, List<Object>> loop2 = (array) -> {
+                    for (int i = 3; i > 0; i--) {
+                        array.add(i);
+                    }
+                    return array;
+                };
+
+                assertEquals("[0, 2, 4]", forState.apply(loop1).toString());
+                assertEquals("[3, 2, 1]", forState.apply(loop2).toString());
+            }
+
+            @Test
+            void while文() {
+                Function<String[], List<Object>> whileState = (args) -> {
+                    var array = new ArrayList<>();
+                    int i = 0;
+                    while (i < 5) {
+                        array.add(i);
+                        i++;
+                    }
+                    return array;
+                };
+
+                assertEquals(5, whileState.apply(new String[0]).size());
+            }
+
+            @Test
+            void ループのcontinueとbreak() {
+                Function<String[], List<Object>> loopState = (args) -> {
+                    var array = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        if (i == 2) {
+                            array.add("skip");
+                            continue;
+                        }
+                        array.add(i);
+                    }
+                    return array;
+                };
+
+                assertEquals("[0, 1, skip, 3, 4]", loopState.apply(new String[0]).toString());
+
+                Function<String[], List<Object>> loopState2 = (args) -> {
+                    var array = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        if (i == 2) {
+                            array.add("finish");
+                            break;
+                        }
+                        array.add(i);
+                    }
+                    return array;
+                };
+
+                assertEquals("[0, 1, finish]", loopState2.apply(new String[0]).toString());
+            }
+        }
+
+        @Nested
+        class ループになれる {
+            @Test
+            void デバッガーでループを覗く() {
+                Function<String[], List<Object>> loopState = (args) -> {
+                    var array = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        if (i != 2) {
+                            array.add(i);
+                            continue;
+                        }
+                        array.add("finish");
+                        break;
+                    }
+                    return array;
+                };
+
+                assertEquals("[0, 1, finish]", loopState.apply(new String[0]).toString());
+            }
+
+            @Test
+            void 二重ループ() {
+                Function<String[], List<Object>> loopState = (args) -> {
+                    var array = new ArrayList<>();
+                    for (int i = 1; i <= 5; i++) {
+                        for (int j = 1; j <= 9; j++) {
+                            array.add(i * j);
+                        }
+                    }
+                    return array;
+                };
+
+                assertEquals(
+                        "[1, 2, 3, 4, 5, 6, 7, 8, 9, 2, 4, 6, 8, 10, 12, 14, 16, 18, 3, 6, 9, 12, 15, 18, 21, 24, 27, 4, 8, 12, 16, 20, 24, 28, 32, 36, 5, 10, 15, 20, 25, 30, 35, 40, 45]",
+                        loopState.apply(new String[0]).toString());
+
+                Function<String[], List<Object>> loopState2 = (args) -> {
+                    var array = new ArrayList<>();
+                    for (int i = 1; i <= 5; i++) {
+                        array.add("○".repeat(i));
+                    }
+                    return array;
+                };
+
+                assertEquals("[○, ○○, ○○○, ○○○○, ○○○○○]", loopState2.apply(new String[0]).toString());
+            }
+
+            @Test
+            void もう少しループの練習() {
+
+            }
+
+            @Test
+            void 迷路ゲームを作る() {
             }
         }
     }
