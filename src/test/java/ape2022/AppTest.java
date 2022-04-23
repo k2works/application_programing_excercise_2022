@@ -5,12 +5,32 @@ package ape2022;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
+import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.engine.discovery.predicates.IsInnerClass;
+import org.junit.platform.engine.support.discovery.SelectorResolver.Match;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.text.ParseException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,9 +41,15 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+
 import java.time.*;
 
 class AppTest {
@@ -1019,6 +1045,578 @@ class AppTest {
             }
         }
     }
+
+    @Nested
+    class 入出力と例外 {
+        @Nested
+        class ファイルアクセスと例外 {
+            class WriteFile {
+                static void main(Path p) throws IOException {
+                    var message = """
+                            test
+                            message
+                            """;
+                    Files.writeString(p, message);
+                }
+            }
+
+            class ReadFile {
+                static String main(Path p) throws IOException {
+                    var content = Files.readString(p);
+                    return content;
+                }
+            }
+
+            @Test
+            void ファイル書き込み(@TempDir Path tempDir) throws IOException {
+                var p = tempDir.resolve("test.txt");
+                WriteFile.main(p);
+                assertTrue(Files.exists(p));
+            }
+
+            @Test
+            void ファイル読み込み(@TempDir Path tempDir) throws IOException {
+                var p = tempDir.resolve("test.txt");
+                WriteFile.main(p);
+                var content = ReadFile.main(p);
+                assertTrue(Files.exists(p));
+                assertEquals("test\nmessage\n", content);
+            }
+
+            @Test
+            void 例外(@TempDir Path tempDir) throws IOException {
+                var p = tempDir.resolve("test.txt");
+                WriteFile.main(p);
+                assertThrows(NoSuchFileException.class, () -> ReadFile.main(p.resolve("test.txta")));
+            }
+        }
+
+        @Nested
+        class ネットワークでコンピュータの外の世界と関わる {
+            @Test
+            void サーバーとクライアント() {
+                class SimpleServer {
+                    public static void main() throws IOException {
+                        var server = new ServerSocket(1600);
+                        System.out.println("Waiting...");
+                        Socket soc = server.accept();
+                        System.out.println("connect from " + soc.getInetAddress());
+                        InputStream input = soc.getInputStream();
+                        System.out.println(input.read());
+                        input.close();
+                        soc.close();
+                    }
+                }
+
+                class SimpleClient {
+                    public static void main() throws IOException {
+                        var soc = new Socket("localhost", 1600);
+                        OutputStream output = soc.getOutputStream();
+                        output.write(234);
+                        output.close();
+                        soc.close();
+                    }
+                }
+            }
+
+            @Test
+            void try_with_resources() {
+                class SimpleServer {
+                    public static void main() throws IOException {
+                        var server = new ServerSocket(1600);
+                        System.out.println("Waiting...");
+                        try (Socket soc = server.accept();
+                                InputStream input = soc.getInputStream()) {
+                            System.out.println("connect from " + soc.getInetAddress());
+                            System.out.println(input.read());
+                        }
+                    }
+                }
+
+                class SimpleClient {
+                    public static void main() throws IOException {
+                        try (var soc = new Socket("localhost", 1600);
+                                OutputStream is = soc.getOutputStream()) {
+                            is.write(234);
+                        }
+                    }
+                }
+            }
+        }
+
+        @Nested
+        class webの裏側を見てみる {
+            @Test
+            void HTTPクライアント() throws IOException {
+                class WebClient {
+                    public static void main() throws IOException {
+                        var domain = "example.com";
+                        try (var soc = new Socket(domain, 80);
+                                var pw = new PrintWriter(soc.getOutputStream());
+                                var isr = new InputStreamReader(soc.getInputStream());
+                                var bur = new BufferedReader(isr)) {
+                            pw.println("GET / HTTP/1.1");
+                            pw.println("Host: " + domain);
+                            pw.println();
+                            pw.flush();
+                            bur.lines()
+                                    .limit(18)
+                                    .forEach(System.out::println);
+                        }
+                    }
+                }
+            }
+
+            @Test
+            void HTTPSで安全なWebアクセス() throws IOException {
+            }
+
+            @Test
+            void Webクライアントライブラリ() throws IOException {
+                class WebClient2 {
+                    public static void main() throws IOException, InterruptedException {
+                        HttpClient client = HttpClient.newHttpClient();
+                        URI uri = URI.create("https://example.com");
+                        HttpRequest req = HttpRequest.newBuilder(uri).build();
+                        HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
+                        String body = res.body();
+                        body.lines()
+                                .limit(5)
+                                .forEach(System.out::println);
+                    }
+                }
+            }
+
+            @Test
+            void Webサーバーを作る() throws IOException {
+                class WebServer {
+                    public static void main() throws IOException {
+                        var server = new ServerSocket(8880);
+                        System.out.println("Waiting...");
+                        for (;;) {
+                            try (Socket soc = server.accept();
+                                    var isr = new InputStreamReader(soc.getInputStream());
+                                    var bur = new BufferedReader(isr);
+                                    var w = new PrintWriter(soc.getOutputStream())) {
+                                System.out.println("connect from " + soc.getInetAddress());
+                                bur.lines()
+                                        .takeWhile(line -> !line.isEmpty())
+                                        .forEach(System.out::println);
+                                w.println("""
+                                              HTTP/1.1 200 OK
+                                              Content-Type: text/html
+
+                                              <html><head><title>Hello</title></head>
+                                              <body><h1>Hello</h1></body></html>
+                                        """);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Nested
+    class 処理の難しさの段階 {
+        @Nested
+        class ループの難しさの段階 {
+            @Test
+            void 他のデータを参照するループ() {
+                Function<String[], String> loop = (String[] args) -> {
+                    var data = "abcccbaabcc";
+
+                    var builder = new StringBuilder();
+                    for (int i = 0; i < data.length(); i++) {
+                        char ch = data.charAt(i);
+                        if (i > 0 && ch == data.charAt(i - 1)) {
+                            continue;
+                        }
+                        builder.append(ch);
+                    }
+                    var result = builder.toString();
+                    return result;
+                };
+
+                assertEquals("abcbabc", loop.apply(new String[] {}));
+
+                Function<String[], String> loop2 = (String[] args) -> {
+                    var data = "abcccbaabcc";
+
+                    char prev = 0;
+                    var builder = new StringBuilder();
+                    for (char ch : data.toCharArray()) {
+                        if (ch == prev) {
+                            continue;
+                        }
+                        builder.append(ch);
+                        prev = ch;
+                    }
+                    var result = builder.toString();
+                    return result;
+                };
+
+                assertEquals("abcbabc", loop2.apply(new String[] {}));
+            }
+
+            @Test
+            void 隠れた状態を扱うループ() {
+                Function<String, String> runLengthCompression = (String args) -> {
+                    final var COUNTER_BASE = -1;
+                    var data = args;
+
+                    var count = COUNTER_BASE;
+                    char prev = 0;
+                    var builder = new StringBuilder();
+                    for (var ch : data.toCharArray()) {
+                        if (prev == ch) {
+                            count++;
+                            if (count == 9) {
+                                builder.append('9');
+                                count = COUNTER_BASE;
+                                prev = 0;
+                            }
+                        } else {
+                            if (count >= 0) {
+                                builder.append((char) ('0' + count));
+                                count = COUNTER_BASE;
+                            }
+                            builder.append(ch);
+                            prev = ch;
+                        }
+                    }
+                    if (count >= 0) {
+                        builder.append((char) ('0' + count));
+                    }
+                    var result = builder.toString();
+                    return result;
+                };
+
+                assertEquals("ab0c", runLengthCompression.apply("abbc"));
+                assertEquals("ab0c1ba2bc9cd1", runLengthCompression.apply("abbcccbaaaabccccccccccccddd"));
+            }
+        }
+
+        @Nested
+        class 状態遷移と正規表現 {
+            @Test
+            void 状態遷移の管理とenum() {
+                enum FloatState {
+                    START, INT, FRAC_START, FRAC, ZERO
+                }
+                Function<String, Boolean> check = (data) -> {
+                    var state = FloatState.START;
+                    for (char ch : data.toCharArray()) {
+                        switch (state) {
+                            case START -> {
+                                if (ch == '0') {
+                                    state = FloatState.ZERO;
+                                } else if (ch >= '1' && ch <= '9') {
+                                    state = FloatState.INT;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            case ZERO -> {
+                                if (ch == '.') {
+                                    state = FloatState.FRAC_START;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            case INT -> {
+                                if (ch >= '0' && ch <= '9') {
+                                    state = FloatState.INT;
+                                } else if (ch == '.') {
+                                    state = FloatState.FRAC_START;
+                                } else {
+                                    return false;
+                                }
+                            }
+                            case FRAC_START, FRAC -> {
+                                if (ch >= '0' && ch <= '9') {
+                                    state = FloatState.FRAC;
+                                } else {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    return switch (state) {
+                        case ZERO, INT, FRAC -> true;
+                        default -> false;
+                    };
+                };
+
+                assertFalse(check.apply(""));
+                assertFalse(check.apply("012"));
+                assertFalse(check.apply(".12"));
+                assertFalse(check.apply("12."));
+                assertFalse(check.apply("1.2.3"));
+                assertFalse(check.apply("1..3"));
+                assertTrue(check.apply("0"));
+                assertTrue(check.apply("12"));
+                assertTrue(check.apply("12.3"));
+                assertTrue(check.apply("0.3"));
+                assertTrue(check.apply("12.30"));
+            }
+
+            @Test
+            void 正規表現() {
+                final Pattern pat = Pattern.compile("(0|[1-9][0-9]*)(\\.[0-9]+)?");
+                Function<String, Boolean> check = (data) -> {
+                    Matcher mat = pat.matcher(data);
+                    return mat.matches();
+                };
+
+                assertFalse(check.apply(""));
+                assertFalse(check.apply("012"));
+                assertFalse(check.apply(".12"));
+                assertFalse(check.apply("12."));
+                assertFalse(check.apply("1.2.3"));
+                assertFalse(check.apply("1..3"));
+                assertTrue(check.apply("0"));
+                assertTrue(check.apply("12"));
+                assertTrue(check.apply("12.3"));
+                assertTrue(check.apply("0.3"));
+                assertTrue(check.apply("12.30"));
+            }
+        }
+
+        @Nested
+        class スタックとキュー {
+            @Test
+            void ツリーの探索() {
+                class TraverseDeep {
+                    public static void main() {
+                        int[][] map = {
+                                { 1, 1, 1, 1, 1, 1, 1 },
+                                { 1, 0, 1, 0, 0, 0, 1 },
+                                { 1, 0, 0, 0, 1, 1, 1 },
+                                { 1, 0, 1, 0, 0, 2, 1 },
+                                { 1, 1, 1, 1, 1, 1, 1 }
+                        };
+                        traverse(map, 1, 1);
+                        char[] ch = { '.', '*', 'G', 'o' };
+                        for (int[] row : map) {
+                            for (int cel : row) {
+                                System.out.print(ch[cel]);
+                            }
+                            System.out.println();
+                        }
+                    }
+
+                    static boolean traverse(int[][] map, int curX, int curY) {
+                        switch (map[curY][curX]) {
+                            case 0:
+                                break;
+                            case 2:
+                                return true;
+                            default:
+                                return false;
+                        }
+                        map[curY][curX] = 3;
+                        if (traverse(map, curX + 1, curY) ||
+                                traverse(map, curX - 1, curY) ||
+                                traverse(map, curX, curY + 1) ||
+                                traverse(map, curX, curY - 1)) {
+                            return true;
+                        }
+                        map[curY][curX] = 0;
+                        return false;
+                    }
+                }
+            }
+
+            @Test
+            void メソッドの先呼び出しをスタックを使った処理に置き換える() {
+                class TraverseDeep {
+                    public static void main() {
+                        int[][] map = {
+                                { 1, 1, 1, 1, 1, 1, 1 },
+                                { 1, 0, 1, 0, 0, 0, 1 },
+                                { 1, 0, 0, 0, 1, 1, 1 },
+                                { 1, 0, 1, 0, 0, 2, 1 },
+                                { 1, 1, 1, 1, 1, 1, 1 }
+                        };
+                        traverse(map, 1, 1);
+                        char[] ch = { '.', '*', 'G', 'o' };
+                        for (int[] row : map) {
+                            for (int cel : row) {
+                                System.out.print(ch[cel]);
+                            }
+                            System.out.println();
+                        }
+                    }
+
+                    static boolean traverse(int[][] map, int curX, int curY) {
+                        record Position(int x, int y) {
+                        }
+
+                        var stack = new ArrayDeque<Position>();
+                        stack.push(new Position(curX, curY));
+                        for (Position p; (p = stack.pollFirst()) != null;) {
+                            switch (map[p.y()][p.x()]) {
+                                case 0:
+                                    break;
+                                case 2:
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                            map[p.y()][p.x()] = 3;
+                            stack.push(new Position(p.x() + 1, p.y()));
+                            stack.push(new Position(p.x() - 1, p.y()));
+                            stack.push(new Position(p.x(), p.y() + 1));
+                            stack.push(new Position(p.x(), p.y() - 1));
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
+    @Nested
+    class クラスとインタフェース {
+        @Nested
+        class クラス {
+            @Test
+            void クラス() {
+                class ClassSample {
+                    record Student(String name, int score) {
+                    }
+
+                    public static Student main() {
+                        Student s = new Student("Taro", 80);
+                        return s;
+                    }
+                }
+
+                assertEquals("Taro", ClassSample.main().name());
+            }
+
+        }
+
+        @Nested
+        class インタフェース {
+            @Test
+            void インタフェースが欲しい状況() {
+                class InterfaceSample {
+                    record Student(String name, int score) {
+                    }
+
+                    record Teacher(String name, String subject) {
+                    }
+
+                    public static void main() {
+                        var people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
+                        for (var p : people) {
+                            var n = p instanceof Student s ? s.name() : p instanceof Teacher t ? t.name() : "___";
+                            System.out.println("こんにちは%sさん".formatted(n));
+                        }
+                    }
+                }
+            }
+
+            @Test
+            void インタフェースを使ってメソッドを統一的に扱う() {
+                class InterfaceSample {
+                    interface Named {
+                        String name();
+                    }
+
+                    record Student(String name, int score) implements Named {
+                    }
+
+                    record Teacher(String name, String subject) implements Named {
+                    }
+
+                    public static void main() {
+                        var people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
+                        for (var p : people) {
+                            System.out.println("こんにちは%sさん".formatted(p.name()));
+                        }
+                    }
+                }
+            }
+
+            @Test
+            void 必要なメソッドを実装していないときのエラー() {
+                class InterfaceSample {
+                    interface Named {
+                        String name();
+                    }
+
+                    record Student(String name, int score) implements Named {
+                    }
+
+                    record Teacher(String name, String subject) implements Named {
+                    }
+
+                    static class Passenger implements Named {
+                        @Override
+                        public String name() {
+                            return "通りすがり";
+                        }
+
+                    }
+
+                    public static void main() {
+                        var people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"),
+                                new Passenger());
+                        for (var p : people) {
+                            System.out.println("こんにちは%sさん".formatted(p.name()));
+                        }
+                    }
+                }
+
+            }
+        }
+
+        @Nested
+        class ラムダ式と関数型インタフェース {
+
+            @Test
+            void 関数型インタフェース() {
+                @FunctionalInterface
+                interface Named {
+                    String name();
+
+                    default String greeting() {
+                        return "こんにちは%sさん".formatted(name());
+                    }
+                }
+
+                var student = new Named() {
+                    @Override
+                    public String name() {
+                        return "kis";
+                    }
+                };
+
+                assertEquals("こんにちはkisさん", student.greeting());
+            }
+
+            @Test
+            void 標準APIで用意されている関数型インタフェース() {
+                Function<String, String> greeting = s -> "こんにちは%sさん".formatted(s);
+                assertEquals("こんにちはkisさん", greeting.apply("kis"));
+
+            }
+
+        }
+
+        @Nested
+        class クラスとファイル {
+        }
+    }
+
+    @Nested
+    class 継承 {
+
+    }
+
 }
 
 interface CalcInterface {
