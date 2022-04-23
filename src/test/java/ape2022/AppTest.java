@@ -914,6 +914,111 @@ class AppTest {
             }
         }
     }
+
+    @Nested
+    class メソッド {
+
+        @Nested
+        class メソッドの宣言 {
+            @Test
+            void メソッドの宣言() {
+                class Method {
+                    String greeting(String name) {
+                        return "Hello, " + name;
+                    }
+
+                    int twice(int x) {
+                        return x * 2;
+                    }
+                }
+
+                var method = new Method();
+                assertEquals("Hello, Yamamoto", method.greeting("Yamamoto"));
+                assertEquals("Hello, kis", method.greeting("kis"));
+                assertEquals(10, method.twice(5));
+            }
+
+            @Test
+            void staticメソッドの宣言() {
+                class StaticMethod {
+                    static int twice(int x) {
+                        return x * 2;
+                    }
+                }
+
+                assertEquals(10, StaticMethod.twice(5));
+            }
+
+            @Test
+            void インスタンスメソッドの宣言() {
+                class InstanceMethodSample {
+                    record Student(String name, int englishScore, int mathScore) {
+                        int average() {
+                            return (englishScore + mathScore) / 2;
+                        }
+                    }
+
+                    static int average(Student s) {
+                        return (s.englishScore + s.mathScore) / 2;
+                    }
+                }
+
+                var student = new InstanceMethodSample.Student("kis", 60, 80);
+                assertEquals(70, InstanceMethodSample.average(student));
+                assertEquals(70, student.average());
+            }
+        }
+
+        @Nested
+        class ラムダ式とメソッド参照 {
+            @Test
+            void ラムダ式() {
+                assertEquals(3, IntStream.range(0, 3).map(x -> x * 2).toArray().length);
+            }
+
+            @Test
+            void メソッド参照() {
+                class StaticMethod {
+                    static int twice(int x) {
+                        return x * 2;
+                    }
+                }
+                assertEquals(6, IntStream.range(0, 3).map(x -> StaticMethod.twice(x)).sum());
+                assertEquals(6, IntStream.range(0, 3).map(StaticMethod::twice).sum());
+            }
+        }
+
+        @Nested
+        class メソッドの使いこなし {
+            @Test
+            void メソッドのオーバーロード() {
+
+            }
+
+            @Test
+            void メソッド呼び出しの組み合わせ() {
+                assertEquals(30, "tomato".repeat(5).length());
+                assertEquals("買い物はトマトとレタスで600円", "買い物は%sで%d円".formatted("トマトとレタス", 600));
+                var items = String.join("と", "トマト", "レタス");
+                assertEquals("トマトとレタス", items);
+                assertEquals("買い物はトマトとレタスで600円", "買い物は%sで%d円".formatted(items, 600));
+            }
+
+            @Test
+            void 再帰とスタック() {
+                class RecLoop {
+                    static int loop(int i) {
+                        if (i >= 5) {
+                            return i;
+                        }
+                        return loop(i + 1);
+                    }
+                }
+
+                assertEquals(5, RecLoop.loop(0));
+            }
+        }
+    }
 }
 
 interface CalcInterface {
