@@ -12,11 +12,18 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.IllegalFormatConversionException;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Random;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import java.time.*;
 
 class AppTest {
@@ -725,6 +732,185 @@ class AppTest {
 
             @Test
             void 迷路ゲームを作る() {
+            }
+        }
+    }
+
+    @Nested
+    class データ構造の処理 {
+        @Nested
+        class データ構造を拡張for文で扱う {
+            @Test
+            void 基本for文でのListの要素の処理() {
+                Function<String[], List<Object>> forState = (args) -> {
+                    var array = new ArrayList<>();
+                    var strs = List.of("apple", "banana", "grape");
+                    for (int i = 0; i < strs.size(); i++) {
+                        array.add(strs.get(i));
+                    }
+                    return array;
+                };
+
+                assertEquals("[apple, banana, grape]", forState.apply(new String[0]).toString());
+            }
+
+            @Test
+            void 拡張for文によるListの要素の処理() {
+                Function<String[], List<Object>> forState = (args) -> {
+                    var array = new ArrayList<>();
+                    var strs = List.of("apple", "banana", "grape");
+                    for (String str : strs) {
+                        array.add(str);
+                    }
+                    return array;
+                };
+
+                assertEquals("[apple, banana, grape]", forState.apply(new String[0]).toString());
+            }
+
+            @Test
+            void 拡張for文による配列の要素の処理() {
+                Function<String[], List<Object>> forState = (args) -> {
+                    var array = new ArrayList<>();
+                    var nums = new int[] { 2, 3, 5, 7 };
+                    for (int num : nums) {
+                        array.add(num);
+                    }
+                    return array;
+                };
+
+                assertEquals("[2, 3, 5, 7]", forState.apply(new String[0]).toString());
+            }
+
+            @Test
+            void 値の集合の処理パターン() {
+                Function<String[], List<Object>> forState = (args) -> {
+                    var array = new ArrayList<>();
+                    var data = List.of("yamamoto", "kis", "sugiyama");
+                    for (var s : data) {
+                        if (s.length() > 5) {
+                            array.add(s);
+                        }
+                    }
+                    return array;
+                };
+
+                assertEquals("[yamamoto, sugiyama]", forState.apply(new String[0]).toString());
+
+                Function<String[], List<Object>> forState2 = (args) -> {
+                    var array = new ArrayList<>();
+                    var data = List.of("yamamoto", "kis", "sugiyama");
+
+                    var result = 0;
+                    for (var s : data) {
+                        if (s.length() > 5) {
+                            result++;
+                        }
+                    }
+                    array.add(result);
+                    return array;
+                };
+
+                assertEquals("[2]", forState2.apply(new String[0]).toString());
+            }
+        }
+
+        @Nested
+        class Stream_ {
+            @Test
+            void IntelliJIDEAによるStreamへの変換() {
+                var data = List.of("yamamoto", "kis", "sugiyama");
+                var result = data.stream().filter(s -> s.length() > 5).collect(Collectors.toCollection(ArrayList::new));
+                assertEquals("[yamamoto, sugiyama]", result.toString());
+
+                var result2 = (int) data.stream().filter(s -> s.length() >= 5).count();
+                assertEquals(2, result2);
+            }
+
+            @Test
+            void Streamソース() {
+                var names = List.of("yamamoto", "kis", "sugiyama");
+                assertEquals("[yamamoto, kis, sugiyama]", names.toString());
+                var strarray = new String[] { "test", "hello", "world" };
+                assertEquals("[test, hello, world]", Arrays.stream(strarray).toList().toString());
+                assertEquals("[test, hello, world]", Stream.of(strarray).toList().toString());
+                assertEquals("[test, hello, world]", Stream.of("test", "hello", "world").toList().toString());
+                var resutl = """
+                        test
+                        hello
+                        world
+                        """.lines().toList();
+                assertEquals("[test, hello, world]", resutl.toString());
+            }
+
+            @Test
+            void 終端処理() {
+                var names = List.of("yamamoto", "kis", "sugiyama");
+                assertEquals("[yamamoto, kis, sugiyama]", names.stream().toList().toString());
+                assertEquals(3, names.stream().count());
+                assertFalse(names.stream().allMatch(s -> s.contains("y")));
+                assertTrue(names.stream().anyMatch(s -> s.contains("y")));
+                assertFalse(names.stream().noneMatch(s -> s.contains("y")));
+                assertTrue(names.stream().noneMatch(s -> s.contains("n")));
+                assertEquals("yamamotokissugiyama", names.stream().collect(Collectors.joining()));
+                assertEquals("yamamoto/kis/sugiyama", names.stream().collect(Collectors.joining("/")));
+                assertEquals("[yamamoto, kis, sugiyama]", names.stream().collect(Collectors.toList()).toString());
+            }
+
+            @Test
+            void 中間処理() {
+                var names = List.of("yamamoto", "kis", "sugiyama");
+                assertEquals("[yamamoto, sugiyama]", names.stream().filter(s -> s.length() > 5).toList().toString());
+                assertEquals("[YAMAMOTO, KIS, SUGIYAMA]", names.stream().map(s -> s.toUpperCase()).toList().toString());
+
+                assertEquals("[kis, sugiyama]", names.stream().skip(1).toList().toString());
+                assertEquals("[yamamoto, kis]", names.stream().limit(2).toList().toString());
+                assertEquals("[kis, sugiyama, yamamoto]", names.stream().sorted().toList().toString());
+                assertEquals("[yamamoto, kis, sugiyama]", names.stream().distinct().toList().toString());
+                assertEquals("[abc, cde]", Stream.of("abc", "cde", "abc").distinct().toList().toString());
+            }
+
+            @Test
+            void Optional() {
+                var names = List.of("yamamoto", "kis", "sugiyama");
+                assertEquals("Optional[yamamoto]", names.stream().findAny().toString());
+                assertEquals("Optional.empty", Stream.of().findAny().toString());
+                var o = Optional.of("test");
+                assertEquals("Optional[test]", o.toString());
+                assertEquals("Optional.empty", Optional.empty().toString());
+                assertEquals("test", o.get().toString());
+                assertThrows(NoSuchElementException.class, () -> Optional.empty().get());
+                assertEquals("無", Optional.empty().orElse("無"));
+                assertEquals("test", o.orElse("無"));
+                assertEquals("TEST", o.map(s -> s.toUpperCase()).orElse("無"));
+                assertTrue(o.isPresent());
+                assertFalse(o.isEmpty());
+                o.ifPresent(s -> assertEquals("test", s));
+            }
+        }
+
+        @Nested
+        class 基本型のStream処理 {
+            @Test
+            void IntStreamで整数の処理() {
+                var nums = new int[] { 2, 5, 3 };
+                assertEquals(10, IntStream.of(nums).sum());
+                assertEquals(10, IntStream.range(0, 10).toArray().length);
+                assertEquals(11, IntStream.rangeClosed(0, 10).toArray().length);
+                assertEquals(10, IntStream.iterate(0, i -> i < 10, i -> i + 1).toArray().length);
+                assertEquals(10, IntStream.iterate(123, i -> (i * 211 + 2111) % 1000).limit(10).toArray().length);
+                assertEquals(10, new Random().ints(10, 0, 10).toArray().length);
+                assertEquals(6, IntStream.of(nums).map(n -> n * 2).toArray()[2]);
+                assertEquals(3, IntStream.of(nums).filter(n -> n < 5).toArray()[1]);
+                assertEquals(5, IntStream.of(nums).sorted().toArray()[2]);
+            }
+
+            @Test
+            void StreamとIntStreamの行き来() {
+                var nums = new int[] { 2, 5, 3 };
+                var names = List.of("yamamoto", "kis", "sugiyama");
+                assertEquals("[**, *****, ***]", IntStream.of(nums).mapToObj(n -> "*".repeat(n)).toList().toString());
+                assertEquals(3, names.stream().mapToInt(s -> s.length()).toArray().length);
             }
         }
     }
