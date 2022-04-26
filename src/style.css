@@ -19,6 +19,7 @@ h4,
 h5,
 h6,
 p,
+figure,
 ul {
   margin: 0;
   padding: 0;
@@ -78,7 +79,7 @@ img {
 /* ヒーロー */
 .hero {
   height: 650px;
-  background-image: url(img/hero.jpg);
+  background-image: url(./img/hero.jpg);
   background-position: center;
   background-size: cover;
 }
@@ -155,6 +156,12 @@ img {
 }
 
 /* タイトルとサブタイトル（赤色の短い線で装飾） */
+.heading-decoration {
+  font-size: clamp(30px, 3vw, 40px);
+  min-height: 0vw;
+  font-weight: 400;
+}
+
 .heading-decoration::after {
   display: block;
   content: "";
@@ -204,7 +211,7 @@ img {
 .post p {
   max-width: 20em;
   font-size: clamp(10px, 1.6vw, 14px);
-  min-height: 0w;
+  min-height: 0vw;
 }
 
 .post img {
@@ -215,7 +222,7 @@ img {
 
 @supports not (aspect-ratio: 3 / 2) {
   .post img {
-    width: 180%;
+    height: 180px;
   }
 }
 
@@ -255,8 +262,7 @@ img {
     grid-template-rows: auto auto auto;
     gap: 20px;
   }
-
-  .footer-container > .footer-sns {
+  .footer-container > .footer-site {
     margin-bottom: 20px;
   }
 
@@ -289,13 +295,12 @@ img {
   clip-path: circle(50%);
 }
 
-@supports not (aspect-ratio: 1/ 1) {
+@supports not (aspect-ratio: 1 / 1) {
   .footer-sns a {
-    width: 36px;
+    height: 36px;
   }
 }
-
-/* フッター:テキストメニュー */
+/* フッター : テキストメニュー */
 .footer-menu {
   display: flex;
   flex-wrap: wrap;
