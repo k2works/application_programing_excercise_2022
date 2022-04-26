@@ -1609,12 +1609,308 @@ class AppTest {
     class 継承 {
         @Nested
         class 継承_ {
+            @Test
+            void クラクラスの継承() {
+                class User {
+                    String name;
 
+                    public String getName() {
+                        return name;
+                    }
+                }
+
+                class Student extends User {
+                    int score;
+
+                    Student(String name, int score) {
+                        this.name = name;
+                        this.score = score;
+                    }
+
+                    public int getScore() {
+                        return score;
+                    }
+                }
+
+                class Teacher extends User {
+                    String subject;
+
+                    Teacher(String name, String subject) {
+                        this.name = name;
+                        this.subject = subject;
+                    }
+
+                    public String getSubject() {
+                        return subject;
+                    }
+                }
+                List<User> people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
+                assertEquals("kis", people.get(0).getName());
+                assertEquals(80, ((Student) people.get(0)).getScore());
+                assertEquals("hosoya", people.get(1).getName());
+                assertEquals("Math", ((Teacher) people.get(1)).getSubject());
+            }
+
+            @Test
+            void 継承でのコンストラクタ() {
+                class User {
+                    String name;
+
+                    User(String name) {
+                        this.name = name;
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+                }
+
+                class Student extends User {
+                    int score;
+
+                    Student(String name, int score) {
+                        super(name);
+                        this.name = name;
+                        this.score = score;
+                    }
+
+                    public int getScore() {
+                        return score;
+                    }
+                }
+
+                class Teacher extends User {
+                    String subject;
+
+                    Teacher(String name, String subject) {
+                        super(name);
+                        this.name = name;
+                        this.subject = subject;
+                    }
+
+                    public String getSubject() {
+                        return subject;
+                    }
+                }
+                List<User> people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
+                assertEquals("kis", people.get(0).getName());
+                assertEquals(80, ((Student) people.get(0)).getScore());
+                assertEquals("hosoya", people.get(1).getName());
+                assertEquals("Math", ((Teacher) people.get(1)).getSubject());
+            }
+
+            @Test
+            void Objectクラス() {
+
+            }
+
+            @Test
+            void メソッドのオーバーライド() {
+                class User {
+                    String name;
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "%sの%s".formatted(getClass().getSimpleName(), getName());
+                    }
+                }
+
+                class Student extends User {
+                    int score;
+
+                    Student(String name, int score) {
+                        this.name = name;
+                        this.score = score;
+                    }
+
+                    public int getScore() {
+                        return score;
+                    }
+                }
+
+                class Teacher extends User {
+                    String subject;
+
+                    Teacher(String name, String subject) {
+                        this.name = name;
+                        this.subject = subject;
+                    }
+
+                    public String getSubject() {
+                        return subject;
+                    }
+                }
+                List<User> people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
+                assertEquals("Studentのkis", people.get(0).toString());
+                assertEquals("Teacherのhosoya", people.get(1).toString());
+            }
+
+            @Test
+            void 匿名クラス() {
+                abstract class User {
+                    String name;
+
+                    public User(String string) {
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    abstract String profile();
+
+                    @Override
+                    public String toString() {
+                        return profile();
+                    }
+                }
+
+                class Student extends User {
+                    Student(String name, int score) {
+                        super(name);
+                        this.name = name;
+                        this.score = score;
+                    }
+
+                    int score;
+
+                    public int getScore() {
+                        return score;
+                    }
+
+                    @Override
+                    String profile() {
+                        return "学生 %s, %d点".formatted(getName(), getScore());
+                    }
+                }
+
+                class Teacher extends User {
+                    String subject;
+
+                    Teacher(String name, String subject) {
+                        super(name);
+                        this.name = name;
+                        this.subject = subject;
+                    }
+
+                    public String getSubject() {
+                        return subject;
+                    }
+
+                    @Override
+                    String profile() {
+                        return "先生 %s, 教科 %s".formatted(getName(), getSubject());
+                    }
+                }
+                List<User> people = List.of(new Student("kis", 80), new Teacher("hosoya", "Math"));
+                assertEquals("学生 kis, 80点", people.get(0).toString());
+                assertEquals("先生 hosoya, 教科 Math", people.get(1).toString());
+
+                List<User> people2 = List.of(
+                        new User("匿名") {
+                            @Override
+                            String profile() {
+                                return "ダミー";
+                            }
+                        }, new Student("kis", 80),
+                        new Teacher("hosoya", "Math"));
+
+                assertEquals("ダミー", people2.get(0).toString());
+                assertEquals("学生 kis, 80点", people2.get(1).toString());
+                assertEquals("先生 hosoya, 教科 Math", people2.get(2).toString());
+            }
         }
 
         @Nested
         class 継承の活用 {
+            @Test
+            void 差分プログラミング() {
 
+            }
+
+            @Test
+            void 継承でデータを分類する() {
+                abstract class Node {
+                    int val;
+
+                    Node(int val) {
+                        this.val = val;
+                    }
+
+                    abstract int sum();
+                }
+
+                class Leaf extends Node {
+                    Leaf(int val) {
+                        super(val);
+                    }
+
+                    @Override
+                    int sum() {
+                        return val;
+                    }
+                }
+
+                class Branch extends Node {
+                    Node left;
+                    Node right;
+
+                    Branch(int val, Node left, Node right) {
+                        super(val);
+                        this.left = left;
+                        this.right = right;
+                    }
+
+                    @Override
+                    int sum() {
+                        int result = val;
+                        if (left != null)
+                            result += left.sum();
+                        if (right != null)
+                            result += right.sum();
+                        return result;
+                    }
+                }
+
+                Node root = new Branch(5,
+                        new Branch(2,
+                                new Leaf(4),
+                                null),
+                        new Branch(7,
+                                new Leaf(6),
+                                new Leaf(8)));
+                assertEquals(32, root.sum());
+
+            }
+
+            @Test
+            void 継承とオブジェクト指向() {
+                abstract class 哺乳類 {
+                    abstract String 鳴く();
+                }
+                class イヌ extends 哺乳類 {
+                    @Override
+                    String 鳴く() {
+                        return "わん";
+                    }
+                }
+                class ネコ extends 哺乳類 {
+                    @Override
+                    String 鳴く() {
+                        return "にゃあ";
+                    }
+
+                }
+
+                var 柴犬 = new イヌ();
+                var トラネコ = new ネコ();
+                assertEquals("わん", 柴犬.鳴く());
+                assertEquals("にゃあ", トラネコ.鳴く());
+            }
         }
     }
 
