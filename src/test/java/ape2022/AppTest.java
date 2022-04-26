@@ -5,11 +5,7 @@ package ape2022;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestClassOrder;
 import org.junit.jupiter.api.io.TempDir;
-import org.junit.jupiter.engine.discovery.predicates.IsInnerClass;
-import org.junit.platform.engine.support.discovery.SelectorResolver.Match;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -46,9 +42,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocketFactory;
 
 import java.time.*;
 
@@ -1614,7 +1607,15 @@ class AppTest {
 
     @Nested
     class 継承 {
+        @Nested
+        class 継承_ {
 
+        }
+
+        @Nested
+        class 継承の活用 {
+
+        }
     }
 
 }
