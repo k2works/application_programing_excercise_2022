@@ -120,3 +120,5 @@ sample
 .gradle
 
 build
+
+bin
