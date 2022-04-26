@@ -42,6 +42,16 @@ npmx cypress open
 npm install --save-dev cypress-cucumber-preprocessor
 npm install --save-dev cucumber-html-reporter
 npm install --save-dev asciidoctor asciidoctor-kroki
+npm install react react-dom
+npm install --save-dev babel-loader @babel/preset-react
+npm install --save-dev @testing-library/react @testing-library/jest-dom
+npm install --save-dev sass-loader sass style-loader css-loader
+npm install --save-dev identity-obj-proxy
+npm install react-router-dom
+npm install --save-dev typescript ts-loader
+npm install --save @types/react @types/react-dom @types/react-router-dom
+npm install --save-dev @types/jest ts-jest
+npx tsc --init
 ```
 
 **[⬆ back to top](#構成)**
@@ -80,3 +90,9 @@ npm start
 - [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
 - [Asciidoctor Kroki Extension](https://github.com/Mogztter/asciidoctor-kroki)
 - [Asciidoctor Documentation Site](https://docs.asciidoctor.org/)
+- [『作って学ぶ　HTML＆CSSモダンコーディング』サポートサイト](http://book.mynavi.jp/supportsite/detail/9784839977115.html)
+- [最新版で学ぶwebpack 5入門 Babel 7でES2021環境の構築](https://ics.media/entry/16028/)
+- [最新版で学ぶwebpack 5入門スタイルシート(CSS/Sass)を取り込む方法](https://ics.media/entry/17376/#bundle-css)
+- [Using with webpack](https://jestjs.io/docs/webpack)
+- [React Router v6 はじめでもわかるルーティングの設定方法の基礎](https://reffect.co.jp/react/react-router-6)
+- [最新版TypeScript+webpack 5の環境構築まとめ](https://ics.media/entry/16329/)

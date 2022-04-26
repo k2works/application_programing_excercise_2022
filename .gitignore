@@ -114,3 +114,11 @@ db.*
 .vscode
 
 docs/cypress
+
+sample
+
+.gradle
+
+build
+
+bin
