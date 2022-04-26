@@ -18,7 +18,8 @@ h3,
 h4,
 h5,
 h6,
-p, ul {
+p,
+ul {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -171,7 +172,6 @@ img {
   font-size: 18px;
 }
 
-
 /* 記事一覧 */
 .posts {
   padding: var(--v-space) 0;
@@ -218,7 +218,7 @@ img {
     width: 180%;
   }
 }
-  
+
 /* パーツの見出し */
 .heading {
   position: absolute;
@@ -249,7 +249,7 @@ img {
   justify-items: center;
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .footer-container {
     grid-template-columns: auto auto;
     grid-template-rows: auto auto auto;
@@ -289,7 +289,7 @@ img {
   clip-path: circle(50%);
 }
 
-@supports not ( aspect-ratio: 1/ 1) {
+@supports not (aspect-ratio: 1/ 1) {
   .footer-sns a {
     width: 36px;
   }
