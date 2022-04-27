@@ -37,24 +37,24 @@ export const MainComponent: React.FC<{}> = () => {
             <tr>
               <td className="hidden">1</td>
               <td>Java本の原稿を入港する</td>
-              <td>2021-09-30</td>
-              <td>未完了</td>
+              <td width={100}>2021-09-30</td>
+              <td width={50}>未完了</td>
               <input type="button" value="更新" />
               <input type="button" value="削除" />
             </tr>
             <tr>
               <td className="hidden">2</td>
               <td>猫の予防接種を受ける</td>
-              <td>2021-10-10</td>
-              <td>未完了</td>
+              <td width={100}>2021-10-10</td>
+              <td width={50}>未完了</td>
               <input type="button" value="更新" />
               <input type="button" value="削除" />
             </tr>
             <tr>
               <td className="hidden">3</td>
               <td>卵と牛乳と豆腐を買う</td>
-              <td>2021-10-15</td>
-              <td>未完了</td>
+              <td width={100}>2021-10-15</td>
+              <td width={50}>未完了</td>
               <input type="button" value="更新" />
               <input type="button" value="削除" />
             </tr>
