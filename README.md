@@ -61,6 +61,10 @@ gradle init --type java-application
 git update-index --chmod=+x gradlew
 ```
 
+```bash
+heroku create ape2022-take11
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
