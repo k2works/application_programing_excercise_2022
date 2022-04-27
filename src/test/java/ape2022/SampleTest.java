@@ -46,7 +46,7 @@ import java.util.stream.Stream;
 
 import java.time.*;
 
-class AppTest {
+class SampleTest {
 
     @Nested
     class 値と計算 {
