@@ -1,23 +1,56 @@
 import marked from "marked";
 
 const contents = `
-## 機能名
+## タスク管理アプリケーション
 
 ## 仕様
 
+> ユーザーがWebサイト上で自分の「タスク（やること）」をメモして、一覧で確認できるようにする。
+
 ## TODOリスト
+`;
+
+const usecase = `
+@startuml
+left to right direction
+actor "ユーザー" as user
+actor "タスク管理DB" as db
+rectangle タスク管理 {
+  usecase "タスクの登録" as UC1
+  usecase "タスクの参照" as UC2
+  usecase "タスクの編集" as UC3
+  usecase "タスクの削除" as UC4
+}
+user --> UC1
+user --> UC2
+user --> UC3
+user --> UC4
+UC1 --> db
+UC2 --> db
+UC3 --> db
+UC4 --> db
+@enduml
 `;
 
 const uml = `
 `;
 
 const erd = `
+package "タスク管理DB" {
+  entity "タスクリスト" {
+    * タスクリストID
+    --
+    タスク名
+    終了期限
+    完了状態
+  }
+}
 `;
 
 export const setUp = () => {
   init();
   documents(contents);
-  diagrams(uml, erd);
+  diagrams(usecase, uml, erd);
 };
 
 const init = () => {
@@ -37,6 +70,11 @@ const init = () => {
               </div>
               <div class="row p-3">
                 <div id="spec"></div>
+              </div>
+              <h2>ユースケース</h2>
+              <div class="row p-3">
+                <img id="usecase-im"
+                src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
               </div>
               <h2>オブジェクトモデル</h2>
               <div class="row p-3">
@@ -63,7 +101,14 @@ const documents = (contents) => {
   });
 };
 
-const diagrams = (uml, erd) => {
+const diagrams = (uml_usecae, uml, erd) => {
+  const usecaseDiagram = ((uml) => {
+    const inputId = "usecase-diagram-input";
+    const outputId = "usecase-im";
+    const source = uml;
+    compress(source, outputId);
+  })(uml_usecae);
+
   const classDiagram = ((uml) => {
     const inputId = "class-diagram-input";
     const outputId = "class-im";
