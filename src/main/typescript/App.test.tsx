@@ -28,6 +28,6 @@ describe("App", function () {
   test("タイトルが表示されているか", () => {
     const { getByText } = render(wrapComponent(Main));
     screen.debug();
-    expect(getByText("Hello React!")).toBeInTheDocument();
+    expect(getByText("タスク管理アプリケーション")).toBeInTheDocument();
   });
 });
