@@ -39,11 +39,12 @@ input {
 
 /* タスク更新ダイアログ */
 #updateDialog {
-  display: none;
-  border-color: #FFFFFF;
+  display: block;
+  background-color: #FFFFFF;
   border: 2px double;
   width: 500px;
   position: fixed;
   top: 120px;
   z-index: 9999;
+  left: 400px;
 }
