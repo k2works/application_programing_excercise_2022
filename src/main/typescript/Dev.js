@@ -12,7 +12,7 @@ const contents = `
 - ~RestControllerでWebアプリケーションの仕組みを学ぶ~
 - ~モデルを使ってアプリケーションの内部情報を保持する~
 - ~ユーザーインタフェースの作成にテンプレートエンジンを活用する~
-- Webアプリケーションにデータベースを組み込む
+- ~Webアプリケーションにデータベースを組み込む~
 
 `;
 
@@ -43,6 +43,8 @@ class HomeController {
   hello()
   listItems()
   addItem()
+  deleteItem()
+  updateItem()
 }
 class TaskItem {
   String id
@@ -50,8 +52,15 @@ class TaskItem {
   String deadline
   boolean done 
 }
+class TaskListDao {
+  add()
+  findAll()
+  delete()
+  update()
+}
 
 HomeController *- TaskItem
+TaskListDao -* HomeController
 HomeController --> View
 `;
 
