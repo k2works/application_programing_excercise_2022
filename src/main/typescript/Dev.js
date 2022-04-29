@@ -39,6 +39,20 @@ UC4 --> db
 `;
 
 const uml = `
+class HomeController {
+  hello()
+  listItems()
+  addItem()
+}
+class TaskItem {
+  String id
+  String task
+  String deadline
+  boolean done 
+}
+
+HomeController *- TaskItem
+HomeController --> View
 `;
 
 const erd = `
