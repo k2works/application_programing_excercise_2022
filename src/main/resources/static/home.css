@@ -37,7 +37,7 @@ input {
 /* タスク更新ダイアログ */
 #updateDialog {
   display: none;
-  border-color: #FFFFFF;
+  background-color:  #FFFFFF;
   border: 2px double;
   width: 500px;
   position: fixed;
