@@ -1,6 +1,34 @@
 import React, { useState } from "react";
 import "../style.scss";
 
+type Todo = {
+  id: number;
+  task: string;
+  deadline: Date;
+  done: boolean;
+};
+
+const taskList: Todo[] = [
+  {
+    id: 1,
+    task: "Java本の原稿を入稿する",
+    deadline: new Date(2021, 9, 30),
+    done: false,
+  },
+  {
+    id: 2,
+    task: "猫の予防接種を受ける",
+    deadline: new Date(2021, 10, 10),
+    done: false,
+  },
+  {
+    id: 3,
+    task: "卵と牛乳と豆腐を買う",
+    deadline: new Date(2021, 10, 15),
+    done: false,
+  },
+];
+
 export const MainComponent: React.FC<{}> = () => {
   const [dialog, setDialog] = useState(false);
   const toggleDialog = () => setDialog(!dialog);
@@ -34,63 +62,27 @@ export const MainComponent: React.FC<{}> = () => {
           </thead>
 
           <tbody>
-            <tr>
-              <td className="hidden">1</td>
-              <td>Java本の原稿を入港する</td>
-              <td width={100}>2021-09-30</td>
-              <td width={50}>未完了</td>
-              <td width="50px">
-                <button type="submit" onClick={toggleDialog}>
-                  更新
-                </button>
-              </td>
-              <td width="50px">
-                <form action="/">
-                  <button type="submit" id="delete_button">
-                    削除
+            {taskList.map((task) => (
+              <tr key={task.id}>
+                <td className="hidden">{task.id}</td>
+                <td>{task.task}</td>
+                <td width={100}>{task.deadline.toISOString().slice(0, 10)}</td>
+                <td width={50}>{task.done ? "完了" : "未完了"}</td>
+                <td width="50px">
+                  <button type="submit" onClick={toggleDialog}>
+                    更新
                   </button>
-                  <input type="hidden" name="id" />
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <td className="hidden">2</td>
-              <td>猫の予防接種を受ける</td>
-              <td width={100}>2021-10-10</td>
-              <td width={50}>未完了</td>
-              <td width="50px">
-                <button type="submit" onClick={toggleDialog}>
-                  更新
-                </button>
-              </td>
-              <td width="50px">
-                <form action="/delete">
-                  <button type="submit" id="delete_button">
-                    削除
-                  </button>
-                  <input type="hidden" name="id" />
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <td className="hidden">3</td>
-              <td>卵と牛乳と豆腐を買う</td>
-              <td width={100}>2021-10-15</td>
-              <td width={50}>未完了</td>
-              <td width="50px">
-                <button type="submit" onClick={toggleDialog}>
-                  更新
-                </button>
-              </td>
-              <td width="50px">
-                <form action="/delete">
-                  <button type="submit" id="delete_button">
-                    削除
-                  </button>
-                  <input type="hidden" name="id" />
-                </form>
-              </td>
-            </tr>
+                </td>
+                <td width="50px">
+                  <form action="/">
+                    <button type="submit" id="delete_button">
+                      削除
+                    </button>
+                    <input type="hidden" name="id" />
+                  </form>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
