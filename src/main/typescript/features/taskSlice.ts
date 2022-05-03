@@ -1,16 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Task } from "../components/main-component";
+import { RootState } from "../reducers";
 
 const taskSlice = createSlice({
   name: "taskList",
-  initialState: [],
+  initialState: {
+    taskList: [],
+  },
   reducers: {
     readTask(state: any, action: any) {
-      return state;
+      return {
+        ...state,
+        taskList: action.payload,
+      };
     },
   },
 });
+
+export const taskList = (state: RootState) => state.task.taskList;
 
 export const readTaskAsyc = () => async (dispatch: any) => {
   try {

@@ -1,6 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, selectCount } from "../features/counterSlice";
+import {
+  increment,
+  incrementAsync,
+  selectCount,
+} from "../features/counterSlice";
 
 interface IProps {
   name: string;
@@ -18,7 +22,9 @@ export const SubComponent: React.FC<IProps> = (props) => {
     <div>
       <h2>{props.name}</h2>
       <div>{count}</div>
-      <button onClick={() => dispatch(increment())}>Add +1</button>
+      <button onClick={() => dispatch(incrementAsync(10) as any)}>
+        Add +1
+      </button>
     </div>
   );
 };

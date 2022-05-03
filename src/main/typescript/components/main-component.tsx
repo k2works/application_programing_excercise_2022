@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { increment, incrementAsync } from "../features/counterSlice";
-import { readTask, readTaskAsyc } from "../features/taskSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { readTaskAsyc, taskList } from "../features/taskSlice";
 import "../style.scss";
 
 export type Task = {
@@ -11,35 +10,16 @@ export type Task = {
   done: boolean;
 };
 
-const taskList: Task[] = [
-  {
-    id: 1,
-    task: "Java本の原稿を入稿する",
-    deadline: new Date(2021, 9, 30),
-    done: false,
-  },
-  {
-    id: 2,
-    task: "猫の予防接種を受ける",
-    deadline: new Date(2021, 10, 10),
-    done: false,
-  },
-  {
-    id: 3,
-    task: "卵と牛乳と豆腐を買う",
-    deadline: new Date(2021, 10, 15),
-    done: false,
-  },
-];
-
 export const MainComponent: React.FC<{}> = () => {
   const [dialog, setDialog] = useState(false);
   const toggleDialog = () => setDialog(!dialog);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(readTaskAsyc());
+    dispatch(readTaskAsyc() as any);
   }, []);
+
+  const tasks = useSelector(taskList);
 
   return (
     <div>
@@ -70,11 +50,11 @@ export const MainComponent: React.FC<{}> = () => {
           </thead>
 
           <tbody>
-            {taskList.map((task) => (
+            {tasks.map((task: any) => (
               <tr key={task.id}>
                 <td className="hidden">{task.id}</td>
                 <td>{task.task}</td>
-                <td width={100}>{task.deadline.toISOString().slice(0, 10)}</td>
+                <td width={100}>{task.deadline}</td>
                 <td width={50}>{task.done ? "完了" : "未完了"}</td>
                 <td width="50px">
                   <button type="submit" onClick={toggleDialog}>
