@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { readTaskAsyc, taskList } from "../features/taskSlice";
+import { addTaskAsync, readTaskAsyc, taskList } from "../features/taskSlice";
 import "../style.scss";
 
 export type Task = {
@@ -21,6 +21,9 @@ export const MainComponent: React.FC<{}> = () => {
 
   const tasks = useSelector(taskList);
 
+  const [task, setTask] = useState<string>("");
+  const [deadline, setDeadline] = useState<string>("");
+
   return (
     <div>
       <h1>タスク管理アプリケーション</h1>
@@ -28,11 +31,31 @@ export const MainComponent: React.FC<{}> = () => {
       <div className="task_form">
         <h2>タスクの登録</h2>
 
-        <form action="/">
+        <form
+          action="/"
+          onSubmit={(e) => {
+            e.preventDefault();
+            dispatch(addTaskAsync({ task, deadline }) as any);
+          }}
+        >
           <label>タスク</label>
-          <input name="task" type="text" />
+          <input
+            name="task"
+            type="text"
+            value={task}
+            onChange={(e) => {
+              setTask(e.target.value);
+            }}
+          />
           <label>期限</label>
-          <input name="deadline" type="date" />
+          <input
+            name="deadline"
+            type="date"
+            value={deadline}
+            onChange={(e) => {
+              setDeadline(e.target.value);
+            }}
+          />
           <input value="登録" type="submit" />
         </form>
       </div>

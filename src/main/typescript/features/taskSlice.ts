@@ -15,6 +15,12 @@ const taskSlice = createSlice({
         taskList: action.payload,
       };
     },
+    addTask(state: any, action: any) {
+      return {
+        ...state,
+        taskList: [...state.taskList, action.payload],
+      };
+    },
   },
 });
 
@@ -44,5 +50,20 @@ export const readTaskAsyc = () => async (dispatch: any) => {
   }
 };
 
-export const { readTask } = taskSlice.actions;
+export const addTaskAsync = (item: any) => async (dispatch: any) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/restadd?task=${item.task}&deadline=${item.deadline}`
+    );
+    dispatch(addTask(response.data));
+  } catch (e: any) {
+    if (e.response && e.response.status === 400) {
+      return e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+export const { readTask, addTask } = taskSlice.actions;
 export default taskSlice.reducer;
