@@ -53,7 +53,8 @@ npm install --save-dev typescript ts-loader
 npm install --save @types/react @types/react-dom @types/react-router-dom
 npm install --save-dev @types/jest ts-jest
 npx tsc --init
-npm i -save @reduxjs/toolkit react-redux
+npm install -save @reduxjs/toolkit react-redux
+npm install -save axios @types/axios
 ```
 
 ```bash

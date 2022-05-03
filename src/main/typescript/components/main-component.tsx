@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { increment, incrementAsync } from "../features/counterSlice";
+import { readTask, readTaskAsyc } from "../features/taskSlice";
 import "../style.scss";
 
-type Todo = {
+export type Task = {
   id: number;
   task: string;
   deadline: Date;
   done: boolean;
 };
 
-const taskList: Todo[] = [
+const taskList: Task[] = [
   {
     id: 1,
     task: "Java本の原稿を入稿する",
@@ -32,6 +35,11 @@ const taskList: Todo[] = [
 export const MainComponent: React.FC<{}> = () => {
   const [dialog, setDialog] = useState(false);
   const toggleDialog = () => setDialog(!dialog);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(readTaskAsyc());
+  }, []);
 
   return (
     <div>
