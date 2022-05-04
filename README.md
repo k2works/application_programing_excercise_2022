@@ -55,6 +55,7 @@ npm install --save-dev @types/jest ts-jest
 npx tsc --init
 npm install -save @reduxjs/toolkit react-redux
 npm install -save axios @types/axios
+npm install --save cross-env
 ```
 
 ```bash
