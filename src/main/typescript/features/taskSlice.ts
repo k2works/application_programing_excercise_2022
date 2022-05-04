@@ -3,6 +3,10 @@ import axios from "axios";
 import { Task } from "../components/main-component";
 import { RootState } from "../reducers";
 
+let baseUrl = "http://localhost:8080";
+if (process.env.NODE_ENV === "production")
+  baseUrl = "https://ape2022-take11.herokuapp.com";
+
 const taskSlice = createSlice({
   name: "taskList",
   initialState: {
@@ -44,7 +48,7 @@ export const taskList = (state: RootState) => state.task.taskList;
 
 export const readTaskAsyc = () => async (dispatch: any) => {
   try {
-    const response = await axios.get("http://localhost:8080/restlist");
+    const response = await axios.get(`${baseUrl}/restlist`);
     const result = response.data;
     const taskList = result.error
       ? result
@@ -69,7 +73,7 @@ export const readTaskAsyc = () => async (dispatch: any) => {
 export const addTaskAsync = (item: any) => async (dispatch: any) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/restadd?task=${item.task}&deadline=${item.deadline}`
+      `${baseUrl}/restadd?task=${item.task}&deadline=${item.deadline}`
     );
     dispatch(addTask(response.data));
   } catch (e: any) {
@@ -83,9 +87,7 @@ export const addTaskAsync = (item: any) => async (dispatch: any) => {
 
 export const deleteTaskAsync = (id: number) => async (dispatch: any) => {
   try {
-    const response = await axios.get(
-      `http://localhost:8080/restdelete?id=${id}`
-    );
+    const response = await axios.get(`${baseUrl}/restdelete?id=${id}`);
     dispatch(deleteTask(response.data));
   } catch (e: any) {
     if (e.response && e.response.status === 400) {
@@ -99,7 +101,7 @@ export const deleteTaskAsync = (id: number) => async (dispatch: any) => {
 export const updateTaskAsync = (item: any) => async (dispatch: any) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/restupdate?id=${item.id}&task=${item.task}&deadline=${item.deadline}&done=${item.done}`
+      `${baseUrl}/restupdate?id=${item.id}&task=${item.task}&deadline=${item.deadline}&done=${item.done}`
     );
     dispatch(updateTask(response.data));
   } catch (e: any) {
