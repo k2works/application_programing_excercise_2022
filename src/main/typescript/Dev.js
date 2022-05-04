@@ -1,76 +1,115 @@
 import marked from "marked";
 
 const contents = `
-## 機能名
+## タスク管理アプリケーション
 
 ## 仕様
 
+> ユーザーがWebサイト上で自分の「タスク（やること）」をメモして、一覧で確認できるようにする。
+
 ## TODOリスト
+
+- ~RestControllerでWebアプリケーションの仕組みを学ぶ~
+- ~モデルを使ってアプリケーションの内部情報を保持する~
+- ~ユーザーインタフェースの作成にテンプレートエンジンを活用する~
+- ~Webアプリケーションにデータベースを組み込む~
+
+`;
+
+const arch = `
+@startuml
+actor 開発者
+actor ユーザー
+cloud "Heroku" as Heroku {
+    package "API" as api {
+      [API] as app_api
+    }
+}
+
+cloud "Vercel" as Vercel {
+    package "SPA" as spa {
+      [SPA] as app_spa
+    }
+}
+
+cloud "GitHub" as github {
+  [Git] as repository
+}
+
+spa -> api
+開発者 --> app_spa
+開発者 --> app_api
+開発者 --> repository
+app_spa <-- ユーザー
+repository --> api
+repository --> spa
+@enduml
+`;
+
+const usecase = `
+@startuml
+left to right direction
+actor "ユーザー" as user
+actor "タスク管理DB" as db
+rectangle タスク管理 {
+  usecase "タスクの登録" as UC1
+  usecase "タスクの参照" as UC2
+  usecase "タスクの編集" as UC3
+  usecase "タスクの削除" as UC4
+}
+user --> UC1
+user --> UC2
+user --> UC3
+user --> UC4
+UC1 --> db
+UC2 --> db
+UC3 --> db
+UC4 --> db
+@enduml
 `;
 
 const uml = `
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-  Object[] elementData
-  size()
+class HomeController {
+  hello()
+  listItems()
+  addItem()
+  deleteItem()
+  updateItem()
+}
+class TaskItem {
+  String id
+  String task
+  String deadline
+  boolean done 
+}
+class TaskListDao {
+  add()
+  findAll()
+  delete()
+  update()
 }
 
-enum TimeUnit {
-  DAYS
-  HOURS
-  MINUTES
-}
-
-annotation SuppressWarnings
+HomeController *- TaskItem
+TaskListDao -* HomeController
+HomeController --> View
 `;
 
 const erd = `
-' hide the spot
-hide circle
-
-' avoid problems with angled crows feet
-skinparam linetype ortho
-
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
-  --
-  *name : text
-  description : text
+package "タスク管理DB" {
+  entity "タスクリスト" {
+    * タスクリストID
+    --
+    タスク名
+    終了期限
+    完了状態
+  }
 }
-
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
-  --
-  *e1_id : number <<FK>>
-  other_details : text
-}
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
 `;
 
 export const setUp = () => {
   init();
   documents(contents);
-  diagrams(uml, erd);
+  diagrams(arch, usecase, uml, erd);
 };
 
 const init = () => {
@@ -81,8 +120,7 @@ const init = () => {
             <div class="container">
               <h1 id="docs">ドキュメント</h1>
               <ul>
-                <li><a href="./docs/index.html" target="_blank">サンプル</a></li>
-                <li><a href="./report" target="_blank">Cucumberjs Report</a></li>
+                <!-- <li><a href="./docs/index.html" target="_blank">サンプル</a></li> -->
               </ul>
               <h1>開発</h1>
               <div class="py-3">
@@ -91,6 +129,16 @@ const init = () => {
               </div>
               <div class="row p-3">
                 <div id="spec"></div>
+              </div>
+              <h2>アーキテクチャ</h2>
+              <div class="row p-3">
+                <img id="arch-im"
+                src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
+              </div>
+              <h2>ユースケース</h2>
+              <div class="row p-3">
+                <img id="usecase-im"
+                src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
               </div>
               <h2>オブジェクトモデル</h2>
               <div class="row p-3">
@@ -117,7 +165,21 @@ const documents = (contents) => {
   });
 };
 
-const diagrams = (uml, erd) => {
+const diagrams = (uml_arch, uml_usecae, uml, erd) => {
+  const archDiagram = ((uml) => {
+    const inputId = "arch-diagram-input";
+    const outputId = "arch-im";
+    const source = uml;
+    compress(source, outputId);
+  })(uml_arch);
+
+  const usecaseDiagram = ((uml) => {
+    const inputId = "usecase-diagram-input";
+    const outputId = "usecase-im";
+    const source = uml;
+    compress(source, outputId);
+  })(uml_usecae);
+
   const classDiagram = ((uml) => {
     const inputId = "class-diagram-input";
     const outputId = "class-im";
