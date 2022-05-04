@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTaskAsync, readTaskAsyc, taskList } from "../features/taskSlice";
+import {
+  addTaskAsync,
+  deleteTaskAsync,
+  readTaskAsyc,
+  taskList,
+} from "../features/taskSlice";
 import "../style.scss";
 
 export type Task = {
@@ -86,7 +91,14 @@ export const MainComponent: React.FC<{}> = () => {
                 </td>
                 <td width="50px">
                   <form action="/">
-                    <button type="submit" id="delete_button">
+                    <button
+                      type="submit"
+                      id="delete_button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(deleteTaskAsync(task.id) as any);
+                      }}
+                    >
                       削除
                     </button>
                     <input type="hidden" name="id" />
