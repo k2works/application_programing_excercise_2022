@@ -16,6 +16,36 @@ const contents = `
 
 `;
 
+const arch = `
+@startuml
+actor 開発者
+actor ユーザー
+cloud "Heroku" as Heroku {
+    package "API" as api {
+      [API] as app_api
+    }
+}
+
+cloud "Vercel" as Vercel {
+    package "SPA" as spa {
+      [SPA] as app_spa
+    }
+}
+
+cloud "GitHub" as github {
+  [Git] as repository
+}
+
+spa -> api
+開発者 --> app_spa
+開発者 --> app_api
+開発者 --> repository
+app_spa <-- ユーザー
+repository --> api
+repository --> spa
+@enduml
+`;
+
 const usecase = `
 @startuml
 left to right direction
@@ -79,7 +109,7 @@ package "タスク管理DB" {
 export const setUp = () => {
   init();
   documents(contents);
-  diagrams(usecase, uml, erd);
+  diagrams(arch, usecase, uml, erd);
 };
 
 const init = () => {
@@ -99,6 +129,11 @@ const init = () => {
               </div>
               <div class="row p-3">
                 <div id="spec"></div>
+              </div>
+              <h2>アーキテクチャ</h2>
+              <div class="row p-3">
+                <img id="arch-im"
+                src=http://www.plantuml.com/plantuml/img/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000>
               </div>
               <h2>ユースケース</h2>
               <div class="row p-3">
@@ -130,7 +165,14 @@ const documents = (contents) => {
   });
 };
 
-const diagrams = (uml_usecae, uml, erd) => {
+const diagrams = (uml_arch, uml_usecae, uml, erd) => {
+  const archDiagram = ((uml) => {
+    const inputId = "arch-diagram-input";
+    const outputId = "arch-im";
+    const source = uml;
+    compress(source, outputId);
+  })(uml_arch);
+
   const usecaseDiagram = ((uml) => {
     const inputId = "usecase-diagram-input";
     const outputId = "usecase-im";
