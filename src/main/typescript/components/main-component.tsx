@@ -135,6 +135,7 @@ export const MainComponent: React.FC<{}> = () => {
               onSubmit={(e) => {
                 e.preventDefault();
                 dispatch(updateTaskAsync({ id, task, deadline, done }) as any);
+                toggleDialog();
               }}
             >
               <h2>タスクの更新</h2>
