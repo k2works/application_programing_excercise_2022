@@ -25,6 +25,15 @@ public class HomeRestController {
     this.dao = dao;
   }
 
+  @GetMapping("/restupdate")
+  @CrossOrigin
+  TaskItem updateItem(@RequestParam("id") String id, @RequestParam("task") String task,
+      @RequestParam("deadline") String deadline, @RequestParam("done") boolean done) {
+    TaskItem item = new TaskItem(id, task, deadline, done);
+    dao.update(item);
+    return item;
+  }
+
   @GetMapping("/restdelete")
   @CrossOrigin
   String deleteItem(@RequestParam("id") String id) {

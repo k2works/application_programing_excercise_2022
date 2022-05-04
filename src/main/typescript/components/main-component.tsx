@@ -5,6 +5,7 @@ import {
   deleteTaskAsync,
   readTaskAsyc,
   taskList,
+  updateTaskAsync,
 } from "../features/taskSlice";
 import "../style.scss";
 
@@ -26,8 +27,13 @@ export const MainComponent: React.FC<{}> = () => {
 
   const tasks = useSelector(taskList);
 
+  const [inputTask, setInputTask] = useState<string>("");
+  const [inputDeadline, setInputDeadline] = useState<string>("");
+
+  const [id, setId] = useState<string>("");
   const [task, setTask] = useState<string>("");
   const [deadline, setDeadline] = useState<string>("");
+  const [done, setDone] = useState<boolean>(false);
 
   return (
     <div>
@@ -40,25 +46,27 @@ export const MainComponent: React.FC<{}> = () => {
           action="/"
           onSubmit={(e) => {
             e.preventDefault();
-            dispatch(addTaskAsync({ task, deadline }) as any);
+            dispatch(
+              addTaskAsync({ task: inputTask, deadline: inputDeadline }) as any
+            );
           }}
         >
           <label>タスク</label>
           <input
             name="task"
             type="text"
-            value={task}
+            value={inputTask}
             onChange={(e) => {
-              setTask(e.target.value);
+              setInputTask(e.target.value);
             }}
           />
           <label>期限</label>
           <input
             name="deadline"
             type="date"
-            value={deadline}
+            value={inputDeadline}
             onChange={(e) => {
-              setDeadline(e.target.value);
+              setInputDeadline(e.target.value);
             }}
           />
           <input value="登録" type="submit" />
@@ -85,7 +93,16 @@ export const MainComponent: React.FC<{}> = () => {
                 <td width={100}>{task.deadline}</td>
                 <td width={50}>{task.done ? "完了" : "未完了"}</td>
                 <td width="50px">
-                  <button type="submit" onClick={toggleDialog}>
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      setId(task.id.toString());
+                      setTask(task.task);
+                      setDeadline(task.deadline.toString());
+                      setDone(task.done);
+                      toggleDialog();
+                    }}
+                  >
                     更新
                   </button>
                 </td>
@@ -113,16 +130,42 @@ export const MainComponent: React.FC<{}> = () => {
       {dialog ? (
         <div>
           <div id="updateDialog">
-            <div className="task_form">
+            <div
+              className="task_form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                dispatch(updateTaskAsync({ id, task, deadline, done }) as any);
+              }}
+            >
               <h2>タスクの更新</h2>
               <form action="/">
-                <input id="update_id" name="id" type="hidden" />
+                <input id="update_id" name="id" type="hidden" value={id} />
                 <label>タスク</label>
-                <input id="update_task" name="task" type="text" />
+                <input
+                  id="update_task"
+                  name="task"
+                  type="text"
+                  value={task}
+                  onChange={(e) => {
+                    setTask(e.target.value);
+                  }}
+                />
                 <label>期限</label>
-                <input id="update_deadline" name="deadline" type="date" />
+                <input
+                  id="update_deadline"
+                  name="deadline"
+                  type="date"
+                  value={deadline}
+                  onChange={(e) => {
+                    setDeadline(e.target.value);
+                  }}
+                />
                 <label>状態</label>
-                <select id="update_status" name="done">
+                <select
+                  id="update_status"
+                  name="done"
+                  onChange={() => setDone(!done)}
+                >
                   <option value="false">未完了</option>
                   <option value="true">完了</option>
                 </select>

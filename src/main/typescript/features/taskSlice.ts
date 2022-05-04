@@ -29,6 +29,14 @@ const taskSlice = createSlice({
         ),
       };
     },
+    updateTask(state: any, action: any) {
+      return {
+        ...state,
+        taskList: state.taskList.map((task: Task) =>
+          task.id === action.payload.id ? { ...task, ...action.payload } : task
+        ),
+      };
+    },
   },
 });
 
@@ -88,5 +96,20 @@ export const deleteTaskAsync = (id: number) => async (dispatch: any) => {
   }
 };
 
-export const { readTask, addTask, deleteTask } = taskSlice.actions;
+export const updateTaskAsync = (item: any) => async (dispatch: any) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/restupdate?id=${item.id}&task=${item.task}&deadline=${item.deadline}&done=${item.done}`
+    );
+    dispatch(updateTask(response.data));
+  } catch (e: any) {
+    if (e.response && e.response.status === 400) {
+      return e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+export const { readTask, addTask, deleteTask, updateTask } = taskSlice.actions;
 export default taskSlice.reducer;
