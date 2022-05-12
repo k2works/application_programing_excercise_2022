@@ -67,7 +67,6 @@ entity "利用者" as e03
 
 
 user - f01
-admin - f01
 f01 - UC1
 b01 -- UC1
 UC1 - e03
@@ -75,6 +74,7 @@ UC1 - e03
 f01 ---> f02
 
 user - f02
+admin - f02
 f02 - UC2
 b02 -- UC2
 UC2 - e03
