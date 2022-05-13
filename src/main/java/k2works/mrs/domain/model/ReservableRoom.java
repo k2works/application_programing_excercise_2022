@@ -20,7 +20,11 @@ public class ReservableRoom implements Serializable {
 	public ReservableRoom() {
 	}
 
-	public MeetingRoom meetingRoom() {
+	public MeetingRoom getMeetingRoom() {
 		return meetingRoom;
+	}
+
+	public ReservableRoomId getReservableRoomId() {
+		return reservableRoomId;
 	}
 }

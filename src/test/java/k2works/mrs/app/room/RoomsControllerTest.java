@@ -10,8 +10,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import k2works.mrs.app.RoomsController;
-import k2works.mrs.domain.service.RoomService;
+import k2works.mrs.domain.service.room.RoomService;
 
 @SpringBootTest
 public class RoomsControllerTest {

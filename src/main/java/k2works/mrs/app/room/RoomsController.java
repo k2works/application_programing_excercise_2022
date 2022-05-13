@@ -1,4 +1,4 @@
-package k2works.mrs.app;
+package k2works.mrs.app.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import k2works.mrs.domain.model.ReservableRoom;
-import k2works.mrs.domain.service.RoomService;
+import k2works.mrs.domain.service.room.RoomService;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -10,15 +10,15 @@ import java.io.Serializable;
 public class MeetingRoom implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long roomId;
+	private Integer roomId;
 
 	private String roomName;
 
-	public Long getRoomId() {
+	public Integer getRoomId() {
 		return roomId;
 	}
 
-	public void setRoomId(Long roomId) {
+	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
 	}
 

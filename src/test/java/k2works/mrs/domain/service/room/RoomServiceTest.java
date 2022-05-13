@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import k2works.mrs.MrsApplication;
 import k2works.mrs.domain.model.ReservableRoom;
-import k2works.mrs.domain.service.RoomService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

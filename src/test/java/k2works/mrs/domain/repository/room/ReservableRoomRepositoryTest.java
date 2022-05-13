@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import k2works.mrs.domain.model.ReservableRoom;
-import k2works.mrs.domain.repository.ReservableRoomRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +25,6 @@ public class ReservableRoomRepositoryTest {
 				.findByReservableRoomId_ReservedDateOrderByReservableRoomId_RoomIdAsc(date);
 		assertNotNull(rooms);
 		assertEquals(2, rooms.size());
-		assertEquals(java.util.Optional.ofNullable(rooms.get(1).meetingRoom().getRoomName()), Optional.of("有楽町"));
+		assertEquals(java.util.Optional.ofNullable(rooms.get(1).getMeetingRoom().getRoomName()), Optional.of("有楽町"));
 	}
 }
