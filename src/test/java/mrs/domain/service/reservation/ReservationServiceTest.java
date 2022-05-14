@@ -9,9 +9,10 @@ import org.springframework.test.context.jdbc.Sql;
 import mrs.MrsApplication;
 import mrs.domain.model.*;
 import mrs.domain.repository.reservation.ReservationRepository;
-import mrs.domain.repository.reservation.UserRepository;
 import mrs.domain.repository.room.MeetingRoomRepository;
 import mrs.domain.repository.room.ReservableRoomRepository;
+import mrs.domain.repository.user.UserRepository;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -122,7 +123,7 @@ public class ReservationServiceTest {
     }
 
     private void キャンセルする(Reservation reservation) {
-        reservationService.cancel(reservation.getReservationId(), reservation.getUser());
+        reservationService.cancel(reservation);
     }
 
     private MeetingRoom 会議室を作る() {

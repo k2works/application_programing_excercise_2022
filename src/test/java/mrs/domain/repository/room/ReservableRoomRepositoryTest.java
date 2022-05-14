@@ -1,18 +1,16 @@
 package mrs.domain.repository.room;
 
+import mrs.domain.model.ReservableRoom;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import mrs.domain.model.ReservableRoom;
-import mrs.domain.repository.room.ReservableRoomRepository;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 public class ReservableRoomRepositoryTest {

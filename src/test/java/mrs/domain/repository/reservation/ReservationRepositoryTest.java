@@ -1,12 +1,12 @@
 package mrs.domain.repository.reservation;
 
+import mrs.domain.model.ReservableRoomId;
+import mrs.domain.model.Reservation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import mrs.domain.model.ReservableRoomId;
-import mrs.domain.model.Reservation;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +14,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@DataJdbcTest
+@DataJpaTest
 public class ReservationRepositoryTest {
-
     @Autowired
     private ReservationRepository reservationRepository;
 
