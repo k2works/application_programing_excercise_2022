@@ -4,79 +4,90 @@
 
 ## 概要
 
+Spring 徹底入門 Spring Framework による Java アプリケーション開発 チュートリアルの実装例
+
 ### 目的
+
+- SpringBootの学習
+- 戦略・戦術的DDD 及び [CCSR手法](https://masuda220.hatenablog.com/entry/2020/05/27/103750) の実践
+- テスト駆動開発とリファクタリングの実践
+- 継続的インテグレーションの実践
 
 ### 前提
 
-| ソフトウェア | バージョン | 備考 |
-| :----------- | :--------- | :--- |
-| nodejs       | 16.3.0    |      |
+| ソフトウェア | バージョン  | 備考 |
+|:-------|:-------| :--- |
+| nodejs | 16.3.0 |      |
+| java   | 17.0.0 |      |
 
-## 構成
-
-- [構築](#構築)
-- [配置](#配置)
-- [運用](#運用)
-- [開発](#開発)
-
-## 詳細
-
-### Quick Start
+#### Quick Start
 
 ```bash
+docker-compose up -d 
+
 npm install
+
 npm start
 ```
 
-### 構築
+## Example Domain: WolfDesk
 
-```bash
-npm init -y
-npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/register
-npm install --save-dev npm-run-all watch foreman cpx rimraf marked@1.2.2 
-npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
-touch Procfile
-npm install --save-dev jest
-npm install cypress
-npx cypress open
-npm install --save-dev cypress-cucumber-preprocessor
-npm install --save-dev cucumber-html-reporter
-npm install --save-dev asciidoctor asciidoctor-kroki
-```
+WolfDesk provides a help desk tickets management system as a service. If your start-up company needs to provide support
+to your customers, with WolfDesk's solution you can get up and running in no time.
 
-**[⬆ back to top](#構成)**
+WolfDesk uses a different payment model than its competitors. Instead of charging a fee per user, it allows the tenants
+to set up as many users as needed, and the tenants are charged for the number of support tickets opened per charging
+period. There is no minimum fee, and there are automatic volume discounts for certain thresholds of monthly tickets: 10%
+for opening more than 500 tickets, 20% for opening more than 750 tickets, and 30% for opening more than 1,000 tickets
+per month.
 
-### 配置
+To prevent tenants from abusing the business model, WolfDesk's ticket lifecycle algorithm ensures that inactive tickets
+are closed automatically, encouraging customers to open new tickets when further support is needed. Moreover, WolfDesk
+implements a fraud detection system that analyzes messages and detects cases of unrelated topics being discussed in then
+same ticket.
 
-```bash
-npm i -g vercel
-npm run deploy
-```
+To help its tenants streamline the support-related works, WolfDesk has implemented a "support autopilot" feature. Then
+autopilot analyzes new tickets and tries to automatically find a matching solution from the tenant's ticket history. The
+functionality allows for further reducing the tickets' lifespans, encouraging customers to open new tickets for further
+questions.
 
-**[⬆ back to top](#構成)**
+WolfDesk incorporates all the security standards and measures to authenticate and authorize its tenants' users and also
+allows tenants to configure a single sign-on (SSO) with their existing user management systems.
 
-### 運用
+The administration interface allows tenants to configure the possible values for the tickets' categories, as well as a
+list of the tenant's products that it supports.
 
-```bash
-npm run deploy
-```
+To be able to route new tickets to the tenant's support agents only during their working hours, WolfDesk allows the
+entry of each agent's shift schedule.
 
-**[⬆ back to top](#構成)**
+Since WolfDesk provides its service with no minimal fee, it has to optimize its infrastructure in a way that minimizes
+the costs of onboarding a new tenant. To do that, WolfDesk leverages serverless computing, which allows it to
+elastically scale its compute resources based on the operations on active tickets.
 
-### 開発
+### 事例 ドメイン: S社
 
-```bash
-npm start
-```
+S社は、地方都市に本社を置くビル管理サービス事業会社である。市内に複数のビルを所有しており、主な事業は不動産賃貸業務及び設備総合管理業務である。
 
-**[⬆ back to top](#構成)**
+近年、所有物件の稼働率を向上するべく貸会議室運営業務に新たに取り組んでいるが状況は芳しくない。
 
-## 参照
+現在、貸会議室運営業の大半は手作業で行われている。最近、サービスを紹介するWebページと会議室予約システムの初回リリースが行われたが担当者の急な退職により十分な引継ぎが行われなかったため仕様を把握する人間が不在の状況となっている。
 
-- [Vercel](https://vercel.com/)
-- [webpack](https://webpack.js.org/)
-- [GitHub Actions でステータスバッジを表示する](https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8)
-- [cypress](https://www.cypress.io/)
-- [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
-- [Asciidoctor Kroki Extension](https://github.com/Mogztter/asciidoctor-kroki)
-- [Asciidoctor Documentation Site](https://docs.asciidoctor.org/)
+利用可能な会議室の登録は手作業でシステムに登録しているため、登録漏れや登録間違いにより予約した会議室が使えない、利用したい会議室がいつも使えないなど利用者からのクレームが発生しておりサービス品質向上が求めらている。
+また、プロジェクタやホワイトボードなど付随する設備の要望が上がっているが十分に対応できていない状況である。
+
+S社としては、効率化によるサービス品質向上と会員管理の強化によるサブスクリプションサービスで収益を多様化することで貸会議室運営業務を新たな収益の柱に成長させたいと考えている。
+
+- [参照1](https://www.saycogroup.co.jp/company/about/)
+- [参照2](https://www.ekimaekaigi.com/)
+
+## 実践
+
+要件・開発に [CCSR手法](https://masuda220.hatenablog.com/entry/2020/05/27/103750) を適用
+
+![](./docs/images/life_cycle.drawio.svg)
+
+### [要件](./docs/index.adoc)
+
+### [開発](./docs/index.adoc)
+
+### [運用](./docs/index.adoc)

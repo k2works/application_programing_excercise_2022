@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymelef.org">
+
+<div th:include="fragment/app-header"></div>
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2016/5/20の会議室</title>
+</head>
+<body th:with="user=${#authentication.principal.user}">
+
+<section class="app">
+    <div class="app-container">
+        <div class="message">
+            <p class="error" th:if="${error != null}" th:text="${error}"></p>
+        </div>
+
+        <div class="app-decoration">
+            <form class="app-form" method="post" th:action="@{'/reservations/' + ${date} + '/' + ${roomId}}"
+                  th:object="${reservationForm}">
+                <a class="app-btn" th:href="@{'/rooms/' + ${date}}">戻る</a>
+
+                <label>会議室:</label>
+                <span th:text="${room.RoomName}">豊洲</span>
+                <label> 予約者名:</label>
+                <span th:text="${user.Name.FullName}">山田 太郎</span>
+                <label>日付:</label>
+                <span th:text="${#temporals.format(date, 'yyyy/M/d')}">2016/5/20</span>
+                <label>開始時間:</label>
+                <select th:field="*{startTime}">
+                    <option th:each="time : ${timeList}" th:text="${time}" th:value="${time}">09:00</option>
+                </select>
+                <span style="color:red" th:error="*{startTime}" th:if="${#fields.hasErrors('startTime')}">error</span>
+                <label>終了時間:</label>
+                <select th:field="*{endTime}">
+                    <option th:each="time : ${timeList}" th:text="${time}" th:value="${time}">10:00</option>
+                </select>
+                <span style="color:red" th:error="*{endTime}" th:if="${#fields.hasErrors('endTime')}">error</span>
+
+                <button class="app-btn">予約</button>
+            </form>
+        </div>
+
+        <div class="app-decoration">
+            <table class="app-table">
+                <tr>
+                    <th>時間帯</th>
+                    <th>予約者</th>
+                </tr>
+                <tr th:each="reservation : ${reservations}">
+                    <td>
+            <span th:text="${reservation.ReservedTime.StartTime}">
+            -
+            <span th:text="${reservation.ReservedTime.EndTime}">
+                    </td>
+                    <td>
+            <span th:text="${reservation.User.Name.LastName}">
+            <span th:text="${reservation.User.Name.FirstName}">
+                    </td>
+                    <td>
+                        <form method="post"
+                              sec:authorize="${hasRole('ADMIN') or #vars.user.UserId == #vars.reservation.User.UserId}"
+                              th:action="@{'/reservations/' + ${date} + '/' + ${roomId}}">
+                            <input name="reservationId" th:value="${reservation.ReservationId.Value}" type="hidden">
+                            <button class="app-btn app-btn-accent reserve-form-table-button" name="cancel"
+                                    type="submit">
+                                取消
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

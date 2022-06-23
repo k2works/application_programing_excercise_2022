@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width" name="viewport">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<header class="header">
+    <div class="header-container w-container">
+        <div class="site">
+            <a href="/">
+                <img alt="Boards" height="26" th:src="@{/img/logo2.svg}" width="135">
+            </a>
+        </div>
+    </div>
+</header>
+<body>
+
+<section class="login">
+    <div class="login-container w-container">
+        <div class="login-form">
+            <form class="login-form" method="POST" th:action="@{/login}">
+                <p class="error" th:if="${param.error}">Error!</p>
+                <label for="username">利用者番号:</label>
+                <input id="username" name="username" type="text" value="U000001">
+                <label for="password">パスワード:</label>
+                <input id="password" name="password" type="password" value="demo">
+                <button class="btn" type="submit">ログイン</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
