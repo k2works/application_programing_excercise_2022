@@ -1,0 +1,176 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'org.dddjava.jig-gradle-plugin' version '2022.4.1'
+	id 'de.undercouch.download' version '4.0.1'
+	id "com.thinkimi.gradle.MybatisGenerator" version "2.4"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+sourceSets {
+	main {
+		resources.srcDirs = ["src/main/java", "src/main/resources"]
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly "org.postgresql:postgresql"
+    runtimeOnly "org.flywaydb:flyway-core"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2"
+    testImplementation "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.2.2"
+	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.github.irof:jig-erd:latest.release'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.13'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+jig {
+	linkPrefix = "https://github.com/k2works/application_programing_excercise_2022/tree/take13/src/main/java"
+}
+
+[compileJava, processResources]*.shouldRunAfter(clean)
+jigReports.dependsOn(clean, classes)
+
+task cleanImage(type: Delete) {
+	delete "./docs/images/jig"
+	delete "./docs/images/erd"
+}
+
+task syncJigImage(type: Sync) {
+	from "./build/jig"
+	into "./docs/images/jig"
+	include "**/*.svg"
+}
+
+task syncErdImage(type: Sync) {
+	from "./build/erd"
+	into "./docs/images/erd"
+	include "**/*.svg"
+}
+
+task syncSchemaspyImage(type: Sync) {
+	from "./ops/build/docker/schemaspy/output/public/diagrams"
+	into "./docs/images/schemaspy"
+	include "**/*.png"
+}
+
+task syncImage(type: GradleBuild, dependsOn: ['syncJigImage', 'syncErdImage'], group: 'documentation') {}
+task publishDocs(type: GradleBuild, dependsOn: ['clean', 'build', 'cleanImage', 'jigReports', 'syncJigImage', 'syncErdImage'], group: 'documentation') {}
+
+// SchemaSpy Task
+configurations {
+	// JDBC ドライバのためのコンフィギュレーション
+	jdbc
+}
+
+dependencies {
+	// JDBC ドライバのライブラリ
+	jdbc(
+			'org.postgresql:postgresql:42.3.3'
+	)
+}
+
+tasks.register('schemaSpy', JavaExec) {
+	description = 'Generates database documents.'
+
+	group = name
+
+	ext.outputDir = file("${buildDir}/${name}")
+
+	download {
+		ext.schemaSpyFile = file("${downloadTaskDir}/${name}/schemaspy.jar")
+
+		src('https://github.com/schemaspy/schemaspy/releases/download/v6.1.0/schemaspy-6.1.0.jar')
+		dest(schemaSpyFile)
+		overwrite = false
+	}
+
+	File driverFile = configurations.jdbc.files.first()
+
+	main = '-jar'
+	args = [
+			schemaSpyFile,
+			'-t', 'pgsql',
+			'-dp', driverFile,
+			'-host', 'localhost',
+			'-port', '5432',
+			'-u', 'mrs',
+			'-p', 'mrs',
+			'-db', 'mrs',
+			'-s', 'public',
+			'-o', outputDir,
+	]
+
+	doFirst {
+		outputDir.deleteDir()
+	}
+}
+
+// MyBatis Generator Task
+configurations {
+	mybatisGenerator
+}
+
+mybatisGenerator {
+	verbose = true
+	configFile = 'src/main/resources/autogen/generatorConfig.xml'
+	mybatisProperties = ['key1': "value1", 'key2': "value2"]
+
+	download {
+		ext.postgres = file("${downloadTaskDir}/jdbc/postgresql-42.3.3.jar")
+		src('https://jdbc.postgresql.org/download/postgresql-42.3.3.jar')
+		dest(postgres)
+		overwrite = false
+	}
+
+	// optional, here is the override dependencies for the plugin or you can add other database dependencies.
+	dependencies {
+		mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.4.0'
+		mybatisGenerator 'mysql:mysql-connector-java:5.1.47'
+		mybatisGenerator 'org.postgresql:postgresql:42.2.6'
+	}
+
+	mybatisProperties = ['jdbcUrl'        : 'jdbc:postgresql://localhost:5432/mrs',
+						 'jdbcDriverClass': 'org.postgresql.Driver',
+						 'jdbcUsername'   : 'mrs',
+						 'jdbcPassword'   : 'mrs',
+	]
+}
+
+task setUpJmeter(type: Copy) {
+	download {
+		ext.jmeter = file("${downloadTaskDir}/jmeter/apache-jmeter-5.5.zip")
+		src('https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip')
+		dest(jmeter)
+		overwrite = false
+	}
+
+	def zipFile = file("${buildDir}/download-task/jmeter/apache-jmeter-5.5.zip")
+	def outputDir = file("${buildDir}/jmeter")
+
+	from zipTree(zipFile)
+	into outputDir
+}

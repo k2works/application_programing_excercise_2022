@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+
+<div th:include="fragment/app-header"></div>
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2016/5/20の会議室</title>
+</head>
+<body>
+
+
+<section class="app">
+    <div class="app-container w-container">
+        <div class="app-decoration">
+            <div th:include="fragment/app-menu"></div>
+        </div>
+
+        <div class="app-decoration">
+            <nav th:block th:if="${pageNation.EndPage} > ${pageNation.PageSize}">
+                <ul class="pagination">
+                    <li>
+                        <a th:href="@{'/rooms/' + ${date} + '?page=1'}" 　tabindex="-2">最初</a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/rooms/' + ${date} + '?page=' + ${pageNation.Page-1}}"
+                           　tabindex="-1">前へ</a>
+                    </li>
+                    <th:block th:if="${pageNation.EndPage} <= 1">
+                        <li th:classappend="${i == pageNation.Page} ? active"
+                            th:each="i : ${pageNation.StartPage}">
+                            <a th:href="@{'/rooms/' + ${date} + '?page=' + ${i}}" th:text="${i}"></a>
+                        </li>
+                    </th:block>
+
+                    <th:block th:if="${pageNation.EndPage}>${pageNation.PageSize}">
+                        <li th:classappend="${i == pageNation.Page} ? active"
+                            th:each="i : ${#numbers.sequence(pageNation.Page, pageNation.Page + 2)}">
+                            <a th:href="@{'/rooms/' + ${date} + '?page=' + ${i}}" th:text="${i}"></a>
+                        </li>
+                        <li>...</li>
+                        <li th:classappend="${i == pageNation.Page} ? active"
+                            th:each="i : ${#numbers.sequence(pageNation.EndPage - 2, pageNation.EndPage, 1)}">
+                            <a th:href="@{'/rooms/' + ${date} + '?page=' + ${i}}" th:text="${i}"></a>
+                        </li>
+                    </th:block>
+                    <li>
+                        <a th:href="@{'/rooms/' + ${date} + '?page=' + ${pageNation.Page+1}}">次へ</a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/rooms/' + ${date} + '?page=' + ${pageNation.TotalPage}}">最後</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="app-decoration">
+            <a th:href="@{'/rooms/' + ${date.minusDays(1)}}">&lt; 前日</a>
+            <span th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2016/5/20の会議室</span>
+            <a th:href="@{'/rooms/' + ${date.plusDays(1)}}">翌日 &gt;</a>
+        </div>
+
+        <div class="app-decoration">
+            <ul>
+                <li th:each="room: ${rooms}">
+                    <a th:href="@{'/reservations/' + ${date} + '/' + ${room.MeetingRoom.RoomId.Value}}"
+                       th:id="'No' + ${room.MeetingRoom.RoomId.Value}"
+                       th:text="${room.MeetingRoom.RoomName}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

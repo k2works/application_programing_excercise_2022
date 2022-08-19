@@ -7,19 +7,24 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "nf start -j Procfile",
-    "app": "webpack server --config ./webpack.config.js --open",
+    "start": "nf start -j Procfile.dev",
+    "app": "webpack server --port 8081 --config ./webpack.config.js --open",
+    "api": "gradlew bootRun  --args='--spring.profiles.active=dev'",
     "test": "jest --coverage",
     "test:e2e": "cypress run",
     "test:cypress": "cypress open",
+    "test:load:setup": "gradlew setUpJmeter",
+    "test:load:run": "cd ./build/jmeter/apache-jmeter-5.5/bin && jmeter.bat",
     "watch": "webpack --watch --config webpack.config.js",
     "build": "npm-run-all clean build:*",
-    "build:webpack": "webpack --config webpack.config.js",
+    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "build:report": "npm-run-all report:cucumber:generate report:cucumber:report",
     "build:docs": "npm-run-all docs",
     "clean": "rimraf ./public",
     "deploy:local": "vercel dev",
-    "deploy": "vercel",
+    "deploy:vercel": "vercel",
+    "deploy:heroku": "git push heroku take14:main",
+    "deploy": "npm-run-all deploy:*",
     "report:cucumber": "npm-run-all report:cucumber:clean test:e2e report:cucumber:generate report:cucumber:report",
     "report:cucumber:generate": "node scripts/cucumber_generate.js",
     "report:cucumber:report": "node scripts/cucumber_report.js",
@@ -43,25 +48,50 @@
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.17.12",
     "@babel/register": "^7.12.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@types/jest": "^27.4.1",
     "asciidoctor": "^2.2.6",
     "asciidoctor-kroki": "^0.15.4",
+    "babel-loader": "^8.2.5",
     "cpx": "^1.5.0",
+    "css-loader": "^6.7.1",
     "cucumber-html-reporter": "^5.5.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "foreman": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "marked": "^1.2.2",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.0",
+    "style-loader": "^3.3.1",
+    "ts-jest": "^27.1.4",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
     "watch": "^1.0.2",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "cypress": "^9.4.1"
+    "@reduxjs/toolkit": "^1.8.2",
+    "@types/axios": "^0.14.0",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^0.27.2",
+    "cross-env": "^7.0.3",
+    "cypress": "^9.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.33.1",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/",
@@ -75,10 +105,26 @@
   },
   "jest": {
     "moduleFileExtensions": [
-      "js"
+      "js",
+      "ts",
+      "tsx"
     ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
     "testMatch": [
-      "**/**/*.test.js"
-    ]
+      "**/**/*.test.tsx",
+      "**/**/*.test.ts"
+    ],
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
   }
 }

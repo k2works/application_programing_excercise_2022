@@ -1,0 +1,63 @@
+[
+  {
+    "description": "  スタッフとして\n  会議室を登録したい\n  なぜなら会議室を利用するために必要だから",
+    "keyword": "Feature",
+    "name": "予約管理:会議室の登録(選択)",
+    "line": 1,
+    "id": "予約管理:会議室の登録(選択)",
+    "tags": [],
+    "uri": "RoomRegist.Extentions.feature",
+    "elements": [
+      {
+        "id": "予約管理:会議室の登録(選択);会議室を登録する",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "会議室を登録する",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "\"スタッフ\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 4748000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 21,
+            "name": "\"会議室一覧画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 447000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "会議室番号:\"1234\" 会議室名: \"新会議室\" で登録する",
+            "result": {
+              "status": "passed",
+              "duration": 1763000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "会議室一覧に \"会議室番号は999以下である必要があります\" がエラー表示される",
+            "result": {
+              "status": "passed",
+              "duration": 186000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

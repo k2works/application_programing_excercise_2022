@@ -1,0 +1,163 @@
+[
+  {
+    "description": "  スタッフとして\n  会員からの問い合わせを管理したい\n  なぜならサービス品質を向上させるため資料を提供するために必要であるから",
+    "keyword": "Feature",
+    "name": "会員管理:問い合わせの対応(基本)",
+    "line": 1,
+    "id": "会員管理:問い合わせの対応(基本)",
+    "tags": [],
+    "uri": "ContactManagement.Basic.feature",
+    "elements": [
+      {
+        "id": "会員管理:問い合わせの対応(基本);会員の問い合わせを確認する",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "会員の問い合わせを確認する",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "\"スタッフ\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 90532000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "\"会員\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 1973000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "\"問い合わせ画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 235000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "問い合わせ画面で \"問い合わせ内容\" を入力する",
+            "result": {
+              "status": "passed",
+              "duration": 833000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "\"スタッフ\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 2745000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "\"問い合わせ一覧画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 313000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "問い合わせ一覧画面に \"問い合わせ内容\" が表示される",
+            "result": {
+              "status": "passed",
+              "duration": 279000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "会員管理:問い合わせの対応(基本);ゲストの問い合わせを確認する",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "ゲストの問い合わせを確認する",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "\"スタッフ\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 4231000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "\"ゲスト問い合わせ画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 255000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 20,
+            "name": "問い合わせ画面で \"問い合わせ内容\" を入力する",
+            "result": {
+              "status": "passed",
+              "duration": 860000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 21,
+            "name": "\"スタッフ\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 2784000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "\"問い合わせ一覧画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 271000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "問い合わせ一覧画面に \"問い合わせ内容\" が表示される",
+            "result": {
+              "status": "passed",
+              "duration": 253000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+<html lang="ja">
+
+<div th:include="fragment/app-header"></div>
+
+<body>
+
+<div class="app">
+    <div class="app-container w-container">
+        <div class="app-decoration">
+            <div th:include="fragment/app-menu"></div>
+        </div>
+
+        <div class="app-decoration">
+            <nav th:block th:if="${pageNation.EndPage} > ${pageNation.PageSize}">
+                <ul class="pagination">
+                    <li>
+                        <a th:href="@{'/meetingRooms?page=1'}" 　tabindex="-2">最初</a>
+                    </li>
+                    <li th:if="${pageNation.Page} > 1">
+                        <a th:href="@{'/meetingRooms?page=' + ${pageNation.Page-1}}"
+                           　tabindex="-1">前へ</a>
+                    </li>
+                    <th:block th:if="${pageNation.EndPage} <= 1">
+                        <li th:classappend="${i == pageNation.Page} ? active"
+                            th:each="i : ${pageNation.StartPage}">
+                            <a th:href="@{'/meetingRooms?page=' + ${i}}" th:text="${i}"></a>
+                        </li>
+                    </th:block>
+
+                    <th:block th:if="${pageNation.EndPage}>${pageNation.PageSize}">
+                        <li th:classappend="${i == pageNation.Page} ? active"
+                            th:each="i : ${#numbers.sequence(pageNation.Page, pageNation.Page + 2)}">
+                            <a th:href="@{'/meetingRooms?page=' + ${i}}" th:text="${i}"></a>
+                        </li>
+                        <li>...</li>
+                        <li th:classappend="${i == pageNation.Page} ? active"
+                            th:each="i : ${#numbers.sequence(pageNation.EndPage - 2, pageNation.EndPage, 1)}">
+                            <a th:href="@{'/meetingRooms?page=' + ${i}}" th:text="${i}"></a>
+                        </li>
+                    </th:block>
+                    <li>
+                        <a th:href="@{'/meetingRooms?page=' + ${pageNation.Page+1}}">次へ</a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/meetingRooms?page=' + ${pageNation.TotalPage}}">最後</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="app-decoration">
+            <div class="message">
+                <p class="error" th:if="${error != null}" th:text="${error}"></p>
+                <p class="error" th:if="${errors != null}" th:text="入力内容にエラーがあります"></p>
+                <p class="success" th:if="${success != null}" th:text="${success}"></p>
+            </div>
+        </div>
+
+        <div class="app-decoration">
+            <button class="regist app-btn" id="regist_button" onclick="
+              let row = this.parentElement.parentElement;
+              getElementById('regist_id').value = '';
+              getElementById('regist_roomName').value = '';
+              var dialog = getElementById('registDialog');
+              dialog.style.left = ((window.innerWidth - 500) / 2) + 'px';
+              dialog.style.display = 'block';
+              " type="submit">新規
+            </button>
+        </div>
+
+        <div class="app-decoration">
+            <table class="app-table">
+                <tr>
+                    <th>会議室番号</th>
+                    <th>会議室名</th>
+                </tr>
+                <tr th:each="room : ${rooms}">
+                    <td>
+                    <span th:text="${room.RoomNumber}">
+                    </td>
+                    <td>
+                    <span th:text="${room.RoomName}">
+                    </td>
+                    <td>
+                        <button class="app-btn" onclick="
+                        let row = this.parentElement.parentElement;
+                        console.log(row.cells[1].innerText);
+                        getElementById('update_id').value = row.cells[0].innerText;
+                        getElementById('update_roomName').value = row.cells[1].innerText;
+                        var dialog = getElementById('updateDialog');
+                        dialog.style.left = ((window.innerWidth - 500) / 2) + 'px';
+                        dialog.style.display = 'block';
+                    " type="submit">編集
+                        </button>
+                    </td>
+                    <td>
+                        <a class="app-btn app-btn-accent"
+                           th:href="@{'/meetingRooms/delete/' + ${room.RoomId.Value}}">削除</a>
+                    </td>
+                </tr>
+            </table>
+
+            <div id="registDialog">
+                <div>
+                    <form class="app-form" method="post" th:action="@{/meetingRooms}"
+                          th:object="${meetingRoomForm}">
+                        <label>会議室番号</label>
+                        <input id="regist_id" name="id" th:field="*{roomId}" type="text"/>
+                        <ul>
+                            <li class="error" th:each="err : ${#fields.errors('roomId')}" th:text="${err}"/>
+                        </ul>
+                        <label>会議室名</label>
+                        <input id="regist_roomName" name="roomName" th:field="*{roomName}" type="text"/>
+                        <ul>
+                            <li class="error" th:each="err : ${#fields.errors('roomName')}" th:text="${err}"/>
+                        </ul>
+                        <button class="app-btn" name="regist" type="submit">登録</button>
+                        <button class="app-btn app-btn-accent"
+                                onclick="getElementById('registDialog').style.display='none';"
+                                type="reset">キャンセル
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="updateDialog">
+                <div>
+                    <form class="app-form" method="post" th:action="@{/meetingRooms}"
+                          th:object="${meetingRoomForm}">
+                        <label>会議室番号</label>
+                        <input id="update_id" name="id" readonly th:field="*{roomId}" type="text"/>
+                        <ul>
+                            <li class="error" th:each="err : ${#fields.errors('roomId')}" th:text="${err}"/>
+                        </ul>
+                        <label>会議室名</label>
+                        <input id="update_roomName" name="roomName" th:field="*{roomName}" type="text"/>
+                        <ul>
+                            <li class="error" th:each="err : ${#fields.errors('roomName')}" th:text="${err}"/>
+                        </ul>
+                        <button class="app-btn" name="update" type="submit">登録</button>
+                        <button class="app-btn app-btn-accent"
+                                onclick="getElementById('updateDialog').style.display='none';"
+                                type="reset">キャンセル
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

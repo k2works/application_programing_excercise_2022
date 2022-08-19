@@ -1,0 +1,53 @@
+[
+  {
+    "description": "  システムとして\n  アプリケーション利用者の認証をしたい\n  なぜなら認証された利用者むけのサービスだから",
+    "keyword": "Feature",
+    "name": "会員管理:利用者の認証(選択)",
+    "line": 1,
+    "id": "会員管理:利用者の認証(選択)",
+    "tags": [],
+    "uri": "UserAuth.Extentions.feature",
+    "elements": [
+      {
+        "id": "会員管理:利用者の認証(選択);利用者を認証する",
+        "keyword": "Scenario",
+        "line": 27,
+        "name": "利用者を認証する",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 28,
+            "name": "\"ログイン\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 1889000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 29,
+            "name": "利用者番号: \"U123456\" パスワード: \"pAssw0rd\" でログインする",
+            "result": {
+              "status": "passed",
+              "duration": 2200000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 30,
+            "name": "\"利用者が存在しません\" がログイン画面にエラー表示される",
+            "result": {
+              "status": "passed",
+              "duration": 255000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

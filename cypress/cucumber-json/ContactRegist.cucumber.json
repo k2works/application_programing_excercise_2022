@@ -1,0 +1,63 @@
+[
+  {
+    "description": "  会員として\n  問い合わせをしたい\n  なぜならサービス内容を確認する手段が必要だから",
+    "keyword": "Feature",
+    "name": "会員管理:問い合わせの実施",
+    "line": 1,
+    "id": "会員管理:問い合わせの実施",
+    "tags": [],
+    "uri": "ContactRegist.feature",
+    "elements": [
+      {
+        "id": "会員管理:問い合わせの実施;問い合わせをする",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "問い合わせをする",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "\"会員\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 3427000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "\"問い合わせ画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 126000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "問い合わせ画面で \"問い合わせ内容\" を入力する",
+            "result": {
+              "status": "failed",
+              "duration": 4023000000,
+              "error_message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `#regist_details`, but never found it.\n    at Context.eval (http://localhost:8081/__cypress/tests?p=cypress\\integration\\UserManagement\\ContactRegist.feature:609:6)\n    at Context.resolveAndRunStepDefinition (http://localhost:8081/__cypress/tests?p=cypress\\integration\\UserManagement\\ContactRegist.feature:11394:29)\n    at Context.eval (http://localhost:8081/__cypress/tests?p=cypress\\integration\\UserManagement\\ContactRegist.feature:10715:35)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "問い合わせが送信される",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

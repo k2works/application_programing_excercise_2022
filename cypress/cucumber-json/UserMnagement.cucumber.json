@@ -1,0 +1,113 @@
+[
+  {
+    "description": "  スタッフとして\n  アプリケーション利用者の登録をしたい\n  なぜなら登録された利用者しか認証できないから",
+    "keyword": "Feature",
+    "name": "会員管理:利用者の管理(選択)",
+    "line": 1,
+    "id": "会員管理:利用者の管理(選択)",
+    "tags": [],
+    "uri": "UserMnagement.Extentions.feature",
+    "elements": [
+      {
+        "id": "会員管理:利用者の管理(選択);利用者を新規登録する",
+        "keyword": "Scenario",
+        "line": 40,
+        "name": "利用者を新規登録する",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "\"スタッフ\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 4144000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 41,
+            "name": "\"利用者一覧画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 233000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 42,
+            "name": "パスワードを \"password\" で新規登録する",
+            "result": {
+              "status": "passed",
+              "duration": 3059000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 43,
+            "name": "利用者登録画面に \"パスワードは小文字、大文字、数字を含む必要があります\" がエラー表示される",
+            "result": {
+              "status": "passed",
+              "duration": 128000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "会員管理:利用者の管理(選択);登録済み利用者を新規登録する",
+        "keyword": "Scenario",
+        "line": 45,
+        "name": "登録済み利用者を新規登録する",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "\"スタッフ\" としてログインしている",
+            "result": {
+              "status": "passed",
+              "duration": 3965000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 46,
+            "name": "\"利用者一覧画面\" ページにアクセスする",
+            "result": {
+              "status": "passed",
+              "duration": 236000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 47,
+            "name": "存在する利用者を新規登録する",
+            "result": {
+              "status": "passed",
+              "duration": 2961000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 48,
+            "name": "利用者登録画面に \"利用者はすでに登録されています\" がエラー表示される",
+            "result": {
+              "status": "passed",
+              "duration": 142000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

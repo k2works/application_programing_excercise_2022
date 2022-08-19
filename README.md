@@ -4,79 +4,56 @@
 
 ## 概要
 
+Spring 徹底入門 Spring Framework による Java アプリケーション開発 チュートリアルの実装例
+
 ### 目的
+
+- SpringBootの学習
+- 戦略・戦術的DDD 及び [CCSR手法](https://masuda220.hatenablog.com/entry/2020/05/27/103750) の実践
+- テスト駆動開発とリファクタリングの実践
+- 継続的インテグレーションの実践
 
 ### 前提
 
-| ソフトウェア | バージョン | 備考 |
-| :----------- | :--------- | :--- |
-| nodejs       | 16.3.0    |      |
+| ソフトウェア | バージョン  | 備考 |
+|:-------|:-------| :--- |
+| nodejs | 16.3.0 |      |
+| java   | 17.0.0 |      |
 
-## 構成
-
-- [構築](#構築)
-- [配置](#配置)
-- [運用](#運用)
-- [開発](#開発)
-
-## 詳細
-
-### Quick Start
+#### Quick Start
 
 ```bash
+docker-compose up -d 
+
 npm install
+
 npm start
 ```
 
-### 構築
+### 事例 ドメイン: S社
 
-```bash
-npm init -y
-npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/register
-npm install --save-dev npm-run-all watch foreman cpx rimraf marked@1.2.2 
-npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
-touch Procfile
-npm install --save-dev jest
-npm install cypress
-npx cypress open
-npm install --save-dev cypress-cucumber-preprocessor
-npm install --save-dev cucumber-html-reporter
-npm install --save-dev asciidoctor asciidoctor-kroki
-```
+S社は、地方都市に本社を置くビル管理サービス事業会社である。市内に複数のビルを所有しており、主な事業は不動産賃貸業務及び設備総合管理業務である。
 
-**[⬆ back to top](#構成)**
+近年、所有物件の稼働率を向上するべく貸会議室運営業務に新たに取り組んでいるが状況は芳しくない。
 
-### 配置
+現在、貸会議室運営業の大半は手作業で行われている。最近、サービスを紹介するWebページと会議室予約システムの初回リリースが行われたが担当者の急な退職により十分な引継ぎが行われなかったため仕様を把握する人間が不在の状況となっている。
 
-```bash
-npm i -g vercel
-npm run deploy
-```
+利用可能な会議室の登録は手作業でシステムに登録しているため、登録漏れや登録間違いにより予約した会議室が使えない、利用したい会議室がいつも使えないなど利用者からのクレームが発生しておりサービス品質向上が求めらている。
+また、プロジェクタやホワイトボードなど付随する設備の要望が上がっているが十分に対応できていない状況である。
 
-**[⬆ back to top](#構成)**
+S社としては、効率化によるサービス品質向上と会員管理の強化によるサブスクリプションサービスで収益を多様化することで貸会議室運営業務を新たな収益の柱に成長させたいと考えている。
 
-### 運用
+- [参照1](https://www.saycogroup.co.jp/company/about/)
+- [参照2](https://www.ekimaekaigi.com/)
 
-```bash
-npm run deploy
-```
+## 実践
 
-**[⬆ back to top](#構成)**
+要件・開発に [CCSR手法](https://masuda220.hatenablog.com/entry/2020/05/27/103750) を適用
 
-### 開発
+![](./docs/images/life_cycle.drawio.svg)
 
-```bash
-npm start
-```
+### [要件](./docs/index.adoc)
 
-**[⬆ back to top](#構成)**
+### [開発](./docs/index.adoc)
 
-## 参照
-
-- [Vercel](https://vercel.com/)
-- [webpack](https://webpack.js.org/)
-- [GitHub Actions でステータスバッジを表示する](https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8)
-- [cypress](https://www.cypress.io/)
-- [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
-- [Asciidoctor Kroki Extension](https://github.com/Mogztter/asciidoctor-kroki)
-- [Asciidoctor Documentation Site](https://docs.asciidoctor.org/)
+### [運用](./docs/index.adoc)
