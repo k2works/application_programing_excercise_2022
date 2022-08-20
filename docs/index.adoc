@@ -192,6 +192,13 @@ npm install cross-env
 
 === システムアーキテクチャ
 
+=== CIセットアップ
+
+[source,bash]
+----
+git update-index --chmod=+x gradlew
+----
+
 == 参照
 
 - https://www.benkyoenkai.org/contents/Bouquet1-2[花束問題V1.2]
