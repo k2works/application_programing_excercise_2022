@@ -23,6 +23,7 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.github.irof:jig-erd:latest.release'
 }
 
 tasks.named('test') {
@@ -35,3 +36,23 @@ jig {
 
 [compileJava, processResources]*.shouldRunAfter(clean)
 jigReports.dependsOn(clean, classes)
+
+task cleanImage(type: Delete) {
+    delete "./docs/images/jig"
+    delete "./docs/images/erd"
+}
+
+task syncJigImage(type: Sync) {
+    from "./build/jig"
+    into "./docs/images/jig"
+    include "**/*.svg"
+}
+
+task syncErdImage(type: Sync) {
+    from "./build/erd"
+    into "./docs/images/erd"
+    include "**/*.svg"
+}
+
+task syncImage(type: GradleBuild, dependsOn: ['syncJigImage', 'syncErdImage'], group: 'documentation') {}
+task publishDocs(type: GradleBuild, dependsOn: ['clean', 'build', 'cleanImage', 'jigReports', 'syncJigImage', 'syncErdImage'], group: 'documentation') {}
