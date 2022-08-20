@@ -91,6 +91,8 @@ image::images/jig/business-rule-relation.svg[]
 
 ==== データモデル
 
+image::images/schemaspy/tables/usr.1degree.png[]
+
 == 運用
 
 === 開発

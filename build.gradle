@@ -57,5 +57,11 @@ task syncErdImage(type: Sync) {
     include "**/*.svg"
 }
 
-task syncImage(type: GradleBuild, dependsOn: ['syncJigImage', 'syncErdImage'], group: 'documentation') {}
-task publishDocs(type: GradleBuild, dependsOn: ['clean', 'build', 'cleanImage', 'jigReports', 'syncJigImage', 'syncErdImage'], group: 'documentation') {}
+task syncSchemaspyImage(type: Sync) {
+    from "./ops/build/docker/schemaspy/output/postgresql/public/diagrams"
+    into "./docs/images/schemaspy"
+    include "**/*.png"
+}
+
+task syncImage(type: GradleBuild, dependsOn: ['syncJigImage', 'syncErdImage', 'syncSchemaspyImage'], group: 'documentation') {}
+task publishDocs(type: GradleBuild, dependsOn: ['clean', 'build', 'cleanImage', 'jigReports', 'syncJigImage', 'syncErdImage', 'syncSchemaspyImage'], group: 'documentation') {}
