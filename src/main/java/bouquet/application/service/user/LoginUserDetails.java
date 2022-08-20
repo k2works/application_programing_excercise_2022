@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * 認証ユーザー
+ */
 public class LoginUserDetails implements UserDetails {
     private final User user;
 

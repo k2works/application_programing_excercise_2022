@@ -69,11 +69,17 @@ image::images/life_cycle.drawio.svg[]
 
 ==== ユースケース
 
+image:images/jig/service-method-call-hierarchy.svg[]
+
 === 設計
 
 ==== アプリケーションアーキテクチャ
 
+image::images/jig/architecture.svg[]
+
 ==== ドメインモデル
+
+image::images/jig/business-rule-relation.svg[]
 
 ==== データモデル
 

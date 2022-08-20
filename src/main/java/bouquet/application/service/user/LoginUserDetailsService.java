@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * 認証サービス
+ */
 @Service
 public class LoginUserDetailsService implements UserDetailsService {
     @Autowired
