@@ -5,20 +5,20 @@ const env = process.env.NODE_ENV || "development";
 const isDevelopment = env === "development";
 
 module.exports = {
-  mode: env,
-  target: ["web", "es5"],
-  devtool: isDevelopment ? "source-map" : false,
-  entry: "./src/index.tsx",
-  output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "public"),
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "index.html",
-    }),
-  ],
+    mode: env,
+    target: ["web", "es5"],
+    devtool: isDevelopment ? "source-map" : false,
+    entry: "./src/main/typescript/index.tsx",
+    output: {
+        filename: "main.js",
+        path: path.resolve(__dirname, "public"),
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "./src/main/typescript/index.html",
+            filename: "index.html",
+        }),
+    ],
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
