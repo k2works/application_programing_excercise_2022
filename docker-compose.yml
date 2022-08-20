@@ -54,3 +54,34 @@ services:
     ports:
       - 20083:80
 
+  schemaspy_postgresql:
+    build:
+      context: ops
+      dockerfile: ./build/docker/schemaspy/Dockerfile
+    volumes:
+      - ./ops/build/docker/schemaspy/output/postgresql:/output
+      - ./ops/build/docker/schemaspy/config:/config
+    container_name: "schemaspy_local_postgresql"
+    command: [ "-all", "-configFile", "/config/postgresql/schemaspy.properties" ]
+    links:
+      - db_postgresql
+
+  schemaspy_mysql:
+    build:
+      context: ops
+      dockerfile: ./build/docker/schemaspy/Dockerfile
+    volumes:
+      - ./ops/build/docker/schemaspy/output/mysql:/output
+      - ./ops/build/docker/schemaspy/config:/config
+    container_name: "schemaspy_local_mysql"
+    command: [ "-all", "-configFile", "/config/mysql/schemaspy.properties" ]
+    links:
+      - db_mysql
+
+  nginx:
+    image: nginx
+    container_name: "nginx_for_schemaspy"
+    ports:
+      - "20081:80"
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
