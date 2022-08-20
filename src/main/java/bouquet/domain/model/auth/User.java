@@ -1,4 +1,4 @@
-package bouquet.domain.model;
+package bouquet.domain.model.auth;
 
 import javax.persistence.*;
 import java.io.Serializable;

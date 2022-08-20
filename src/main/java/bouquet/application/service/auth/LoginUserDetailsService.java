@@ -1,6 +1,6 @@
-package bouquet.application.service.user;
+package bouquet.application.service.auth;
 
-import bouquet.domain.model.User;
+import bouquet.domain.model.auth.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

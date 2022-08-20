@@ -1,6 +1,6 @@
-package bouquet.application.service.user;
+package bouquet.application.service.auth;
 
-import bouquet.domain.model.User;
+import bouquet.domain.model.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

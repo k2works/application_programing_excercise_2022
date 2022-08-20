@@ -1,6 +1,6 @@
 package bouquet;
 
-import bouquet.application.service.user.LoginUserDetailsService;
+import bouquet.application.service.auth.LoginUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

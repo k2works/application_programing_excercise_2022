@@ -1,4 +1,4 @@
-package bouquet.domain.model;
+package bouquet.domain.model.auth;
 
 /**
  * ユーザー区分
