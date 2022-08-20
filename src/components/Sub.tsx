@@ -1,23 +1,24 @@
-import * as React from "react";
-import {useCallback, useState} from "react";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {increment, selectCount} from "../features/counterSlice";
 
-// Propsの型定義
 interface IProps {
     name: string;
 }
 
+interface IState {
+    count: number;
+}
+
 export const SubComponent: React.FC<IProps> = (props) => {
-    const [count, setCount] = useState(0);
-    const handleClick = useCallback(() => {
-        console.log("クリックされました");
-        setCount(count + 1);
-    }, [count]);
+    const count = useSelector(selectCount);
+    const dispatch = useDispatch();
 
     return (
         <div>
             <h2>{props.name}</h2>
             <div>{count}</div>
-            <button onClick={handleClick}>Add +1</button>
+            <button onClick={() => dispatch(increment())}>Add +1</button>
         </div>
     );
 };
