@@ -67,6 +67,14 @@ image::images/life_cycle.drawio.svg[]
 
 ==== コンテキストマップ
 
+[plantuml]
+----
+skinparam componentStyle uml2
+
+component [AuthContext] <<認証・認可>>
+
+----
+
 ==== ユースケース
 
 image:images/jig/service-method-call-hierarchy.svg[]

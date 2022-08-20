@@ -16,7 +16,7 @@
             <title>cluster_usecases</title>
         </g>
         <g id="clust2" class="cluster">
-            <title>cluster_bouquet.application.service.user.LoginUserDetailsService</title>
+            <title>cluster_bouquet.application.service.auth.LoginUserDetailsService</title>
             <polygon fill="none" stroke="black" points="16,-39 16,-147 249.79,-147 249.79,-39 16,-39"/>
             <text text-anchor="middle" x="132.89" y="-131.8" font-family="Times New Roman,serif" font-size="14.00">
                 認証サービス
@@ -25,11 +25,11 @@
                 LoginUserDetailsService
             </text>
         </g>
-        <!-- bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String) -->
+        <!-- bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String) -->
         <g id="node1" class="node">
-            <title>bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String)</title>
+            <title>bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)</title>
             <g id="a_node1">
-                <a xlink:href="https://github.com/k2works/application_programing_excercise_2022/tree/take15/src/main/java/bouquet/application/service/user/LoginUserDetailsService.java"
+                <a xlink:href="https://github.com/k2works/application_programing_excercise_2022/tree/take15/src/main/java/bouquet/application/service/auth/LoginUserDetailsService.java"
                    xlink:title="LoginUserDetailsService.loadUserByUsername(String)">
                     <ellipse fill="#eedd82" stroke="black" cx="132.89" cy="-74" rx="108.79" ry="26.74"/>
                     <text text-anchor="middle" x="132.89" y="-77.8" font-family="Times New Roman,serif"

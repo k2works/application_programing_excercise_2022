@@ -9,17 +9,17 @@
     <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1150)">
         <title>ERD</title>
         <polygon fill="white" stroke="transparent" points="-4,4 -4,-1150 171,-1150 171,4 -4,4"/>
-        <g id="clust1" class="cluster">
-            <title>cluster_PUBLIC</title>
-            <polygon fill="lightyellow" stroke="black" points="48.5,-8 48.5,-83 118.5,-83 118.5,-8 48.5,-8"/>
-            <text text-anchor="middle" x="83.5" y="-67.8" font-family="Times New Roman,serif" font-size="14.00">PUBLIC
-            </text>
-        </g>
         <g id="clust2" class="cluster">
             <title>cluster_PG_CATALOG</title>
             <polygon fill="lightyellow" stroke="black" points="8,-91 8,-1138 159,-1138 159,-91 8,-91"/>
             <text text-anchor="middle" x="83.5" y="-1122.8" font-family="Times New Roman,serif" font-size="14.00">
                 PG_CATALOG
+            </text>
+        </g>
+        <g id="clust1" class="cluster">
+            <title>cluster_PUBLIC</title>
+            <polygon fill="lightyellow" stroke="black" points="48.5,-8 48.5,-83 118.5,-83 118.5,-8 48.5,-8"/>
+            <text text-anchor="middle" x="83.5" y="-67.8" font-family="Times New Roman,serif" font-size="14.00">PUBLIC
             </text>
         </g>
         <!-- PUBLIC.USR -->

@@ -12,11 +12,11 @@
         <text text-anchor="middle" x="154.5" y="15.2" font-family="Times New Roman,serif" font-size="14.00">
             ユースケース複合図
         </text>
-        <!-- bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String) -->
+        <!-- bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String) -->
         <g id="node1" class="node">
-            <title>bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String)</title>
+            <title>bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)</title>
             <g id="a_node1">
-                <a xlink:href="https://github.com/k2works/application_programing_excercise_2022/tree/take15/src/main/java/bouquet/application/service/user/LoginUserDetailsService.java"
+                <a xlink:href="https://github.com/k2works/application_programing_excercise_2022/tree/take15/src/main/java/bouquet/application/service/auth/LoginUserDetailsService.java"
                    xlink:title="LoginUserDetailsService.loadUserByUsername(String)">
                     <ellipse fill="#eedd82" stroke="black" cx="200.23" cy="-72.78" rx="108.79" ry="26.74"/>
                     <text text-anchor="middle" x="200.23" y="-76.58" font-family="Times New Roman,serif"
@@ -41,15 +41,15 @@
                 </a>
             </g>
         </g>
-        <!-- bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;java.lang.String -->
+        <!-- bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;java.lang.String -->
         <g id="edge2" class="edge">
-            <title>bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;java.lang.String</title>
+            <title>bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;java.lang.String</title>
             <path fill="none" stroke="black" stroke-dasharray="5,2"
                   d="M200.65,-45.87C200.7,-42.48 200.76,-39.07 200.81,-35.86"/>
         </g>
-        <!-- bouquet.domain.model.User -->
+        <!-- bouquet.domain.model.auth.User -->
         <g id="node4" class="node">
-            <title>bouquet.domain.model.User</title>
+            <title>bouquet.domain.model.auth.User</title>
             <g id="a_node4">
                 <a xlink:title="User">
                     <polygon fill="none" stroke="black"
@@ -60,9 +60,9 @@
                 </a>
             </g>
         </g>
-        <!-- bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.domain.model.User -->
+        <!-- bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.domain.model.auth.User -->
         <g id="edge3" class="edge">
-            <title>bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.domain.model.User</title>
+            <title>bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.domain.model.auth.User</title>
             <path fill="none" stroke="black" stroke-dasharray="1,5"
                   d="M227.04,-99.03C230.03,-101.95 233.03,-104.89 235.88,-107.68"/>
         </g>
@@ -79,9 +79,9 @@
                 </a>
             </g>
         </g>
-        <!-- org.springframework.security.core.userdetails.UserDetails&#45;&gt;bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String) -->
+        <!-- org.springframework.security.core.userdetails.UserDetails&#45;&gt;bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String) -->
         <g id="edge1" class="edge">
-            <title>org.springframework.security.core.userdetails.UserDetails&#45;&gt;bouquet.application.service.user.LoginUserDetailsService#loadUserByUsername(java.lang.String)</title>
+            <title>org.springframework.security.core.userdetails.UserDetails&#45;&gt;bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)</title>
             <path fill="none" stroke="black" stroke-width="2" d="M80.65,-68.93C84.35,-69.05 88.21,-69.17 92.17,-69.3"/>
         </g>
     </g>
