@@ -26,3 +26,31 @@ services:
       PGADMIN_DEFAULT_PASSWORD: password
     hostname: pgadmin4
     restart: always
+
+  db_mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    hostname: mysql
+    volumes:
+      - ./ops/build/docker/mysql/data:/var/lib/mysql
+      - ./ops/build/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./ops/build/docker/mysql/init:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+  db_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    ports:
+      - 20083:80
+

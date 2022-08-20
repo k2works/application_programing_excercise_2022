@@ -156,3 +156,4 @@ out/
 tmp/
 
 ops/build/docker/postgres/config/pgadmin
+ops/build/docker/mysql/data
