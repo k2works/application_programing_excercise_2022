@@ -150,4 +150,9 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
+.vscode/
+
+!ops/build
+tmp/
+
+ops/build/docker/postgres/config/pgadmin
