@@ -1,14 +1,14 @@
 import * as React from "react";
-import "../style.scss";
-import Image from "../thumb.jpg";
+import "../static/css/style.scss";
+import Image from "../static/img/thumb.jpg";
 
-import {SubComponent} from "./sub-component";
+import {SubComponent as Sub} from "./Sub";
 
 export const MainComponent: React.FC<{}> = () => {
     return (
         <div>
             <h1>Hello React!</h1>
-            <SubComponent name="My Counter for Babel"/>
+            <Sub name="My Counter for Babel"/>
 
             <img src={Image} alt="image"/>
 
