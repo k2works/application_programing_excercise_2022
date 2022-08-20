@@ -192,11 +192,50 @@ npm install cross-env
 
 === システムアーキテクチャ
 
+[plantuml]
+----
+@startuml
+actor 開発者
+actor 利用者
+
+cloud "Vercel" as vercel {
+    package "Production Environment" as ui_prd_env {
+      [UI] as ui_prd
+    }
+}
+
+cloud "Heroku" as heroku {
+    package "Production Environment" as api_prd_env {
+      [API] as api_prd
+      [DB] as db_prd
+    }
+}
+
+cloud "GitHub" as github {
+  [Git] as repository
+}
+
+開発者 --> repository
+repository --> heroku
+repository --> vercel
+api_prd -> db_prd
+api_prd <-- ui_prd
+ui_prd <-- 利用者
+@enduml
+----
+
 === CIセットアップ
 
 [source,bash]
 ----
 git update-index --chmod=+x gradlew
+----
+
+=== Herokuセットアップ
+
+[source,bash]
+----
+heroku create ape2022-take15
 ----
 
 == 参照
