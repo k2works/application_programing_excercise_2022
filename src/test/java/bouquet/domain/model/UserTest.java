@@ -16,8 +16,8 @@ public class UserTest {
         void ユーザーを生成できる() {
             User user = new User("userId", "password", "firstName", "lastName", RoleName.USER);
             assertEquals("userId", user.UserId());
-            assertEquals("firstName", user.FirstName());
-            assertEquals("lastName", user.LastName());
+            assertEquals("firstName", user.Name().FirstName());
+            assertEquals("lastName", user.Name().LastName());
             assertEquals("password", user.Password());
             assertEquals(RoleName.USER, user.RoleName());
         }

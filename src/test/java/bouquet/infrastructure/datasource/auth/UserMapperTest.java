@@ -33,8 +33,8 @@ public class UserMapperTest {
 
         User actual = userMapper.selectByPrimaryKey("userId");
         assertEquals(user.UserId(), actual.UserId());
-        assertEquals(user.FirstName(), actual.FirstName());
-        assertEquals(user.LastName(), actual.LastName());
+        assertEquals(user.Name().FirstName(), actual.Name().FirstName());
+        assertEquals(user.Name().LastName(), actual.Name().LastName());
         assertEquals(user.Password(), actual.Password());
         assertEquals(user.RoleName(), actual.RoleName());
     }
@@ -49,8 +49,8 @@ public class UserMapperTest {
 
         User actual = userMapper.selectByPrimaryKey("userId");
         assertEquals(user.UserId(), actual.UserId());
-        assertNotEquals(user.FirstName(), actual.FirstName());
-        assertNotEquals(user.LastName(), actual.LastName());
+        assertNotEquals(user.Name().FirstName(), actual.Name().FirstName());
+        assertNotEquals(user.Name().LastName(), actual.Name().LastName());
         assertNotEquals(user.Password(), actual.Password());
         assertNotEquals(user.RoleName(), actual.RoleName());
     }
