@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {RootState} from "../reducers";
+import {RootState} from "../app/store";
 
 export const counterSlice = createSlice({
     name: "counter",

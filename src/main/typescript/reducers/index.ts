@@ -9,6 +9,4 @@ const rootReducer = combineReducers({
     message: messageReducer
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
-
 export default rootReducer;

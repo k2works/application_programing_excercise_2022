@@ -3,6 +3,7 @@ import "../static/css/style.scss";
 import Image from "../static/img/thumb.jpg";
 
 import {SubComponent as Sub} from "./Sub";
+import {LogoutComponent as Logout} from "./Logout";
 
 export const MainComponent: React.FC<{}> = () => {
     return (
@@ -18,6 +19,8 @@ export const MainComponent: React.FC<{}> = () => {
                 <main className="my-grid-item">メインコンテンツ</main>
                 <footer className="my-grid-item">フッター</footer>
             </div>
+
+            <Logout/>
         </div>
     );
 };
