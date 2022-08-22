@@ -8,7 +8,7 @@ public class User {
 
     private Name name;
 
-    private String password;
+    private Password password;
 
     private RoleName roleName;
 
@@ -18,7 +18,7 @@ public class User {
 
     public User(String userId, String password, String firstName, String lastName, RoleName user) {
         this.userId = userId;
-        this.password = password;
+        this.password = new Password(password);
         this.name = new Name(firstName, lastName);
         this.roleName = user;
     }
@@ -31,7 +31,7 @@ public class User {
         return userId;
     }
 
-    public String Password() {
+    public Password Password() {
         return password;
     }
 

@@ -1,5 +1,6 @@
 package bouquet.domain.model;
 
+import bouquet.domain.model.auth.Password;
 import bouquet.domain.model.auth.RoleName;
 import bouquet.domain.model.auth.User;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +19,7 @@ public class UserTest {
             assertEquals("userId", user.UserId());
             assertEquals("firstName", user.Name().FirstName());
             assertEquals("lastName", user.Name().LastName());
-            assertEquals("password", user.Password());
+            assertEquals(new Password("password"), user.Password());
             assertEquals(RoleName.USER, user.RoleName());
         }
     }

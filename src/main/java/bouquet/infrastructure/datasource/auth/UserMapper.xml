@@ -5,7 +5,7 @@
         <id column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="first_name" jdbcType="VARCHAR" property="name.firstName"/>
         <result column="last_name" jdbcType="VARCHAR" property="name.lastName"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="password" jdbcType="VARCHAR" property="password.value"/>
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
     </resultMap>
 
@@ -39,7 +39,7 @@
             <if test="name.lastName != null">
                 last_name,
             </if>
-            <if test="password != null">
+            <if test="password.value != null">
                 password,
             </if>
             <if test="roleName != null">
@@ -56,8 +56,8 @@
             <if test="name.lastName != null">
                 #{name.lastName,jdbcType=VARCHAR},
             </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
+            <if test="password.value != null">
+                #{password.value,jdbcType=VARCHAR},
             </if>
             <if test="roleName != null">
                 #{roleName,jdbcType=VARCHAR},
@@ -74,8 +74,8 @@
             <if test="name.lastName != null">
                 last_name = #{name.lastName,jdbcType=VARCHAR},
             </if>
-            <if test="password != null">
-                password = #{password,jdbcType=VARCHAR},
+            <if test="password.value != null">
+                password = #{password.value,jdbcType=VARCHAR},
             </if>
             <if test="roleName != null">
                 role_name = #{roleName,jdbcType=VARCHAR},
