@@ -1,6 +1,6 @@
 package bouquet.application.service.auth;
 
-import bouquet.domain.model.autogen.auth.Usr;
+import bouquet.domain.model.auth.User;
 
 import java.util.Optional;
 
@@ -8,5 +8,5 @@ import java.util.Optional;
  * ユーザーレポジトリ
  */
 public interface UserRepository {
-    Optional<Usr> findById(String userId);
+    Optional<User> findById(String userId);
 }
