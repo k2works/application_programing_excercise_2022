@@ -79,6 +79,19 @@ component [AuthContext] <<認証・認可>>
 
 image:images/jig/service-method-call-hierarchy.svg[]
 
+===== 認証・認可
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "ユーザー" as user
+rectangle 認証・認可 {
+  usecase "ユーザーの認証" as UC1
+}
+user --> UC1
+@enduml
+----
 === 設計
 
 ==== アプリケーションアーキテクチャ
@@ -89,6 +102,34 @@ image::images/jig/architecture.svg[]
 
 image::images/jig/business-rule-relation.svg[]
 
+===== 認証認可
+
+[plantuml]
+----
+skinparam componentStyle uml2
+
+package mrs.domain.model.auth {
+	package "'User' Aggregate" <<Rectangle>> {
+		class User <<(E,DarkSeaGreen) Entity>> {
+		}
+		class UserId <<(V,DarkSeaGreen) Value Object>> {
+		}
+		class Name <<(V,DarkSeaGreen) Value Object>> {
+		}
+		class Password <<(V,DarkSeaGreen) Value Object>> {
+		}
+		enum RoleName {
+            ADMIN,
+            USER
+		}
+
+        UserId --* User
+        Password --* User
+        Name -* User
+        User *- RoleName
+	}
+}
+----
 ==== データモデル
 
 image::images/schemaspy/tables/usr.1degree.png[]
