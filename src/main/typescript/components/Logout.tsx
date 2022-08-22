@@ -16,19 +16,9 @@ export const LogoutComponent: React.FC<{}> = () => {
 
     return (
         <div>
-            <header className="header">
-                <div className="header-container w-container">
-                    <nav className="nav">
-                        <ul>
-                            <li>
-                                <form method="get" name="logout_form">
-                                    <a onClick={handleOnClickLogout}>ログアウト</a>
-                                </form>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
+            <form method="get" name="logout_form">
+                <button onClick={handleOnClickLogout}>ログアウト</button>
+            </form>
         </div>
     )
 }
