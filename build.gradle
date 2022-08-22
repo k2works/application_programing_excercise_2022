@@ -37,6 +37,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'com.github.irof:jig-erd:latest.release'
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.2'
 }
 
 tasks.named('test') {
