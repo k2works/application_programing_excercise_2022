@@ -1,15 +1,9 @@
 package bouquet.domain.model.auth;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
 /**
  * ユーザー
  */
-@Entity
-@Table(name = "usr", schema = "auth")
-public class User implements Serializable {
-    @Id
+public class User {
     private String userId;
 
     private String password;
@@ -18,7 +12,6 @@ public class User implements Serializable {
 
     private String lastName;
 
-    @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
     public RoleName getRoleName() {
