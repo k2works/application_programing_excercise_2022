@@ -1,6 +1,6 @@
 package bouquet.application.service.auth;
 
-import bouquet.domain.model.auth.User;
+import bouquet.domain.model.autogen.auth.Usr;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,19 +11,19 @@ import java.util.Collection;
  * 認証ユーザー
  */
 public class LoginUserDetails implements UserDetails {
-    private final User user;
+    private final Usr user;
 
-    public LoginUserDetails(User user) {
+    public LoginUserDetails(Usr user) {
         this.user = user;
     }
 
-    public User getUser() {
+    public Usr getUser() {
         return user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_" + this.user.getRoleName().name());
+        return AuthorityUtils.createAuthorityList("ROLE_" + this.user.getRoleName());
     }
 
     @Override

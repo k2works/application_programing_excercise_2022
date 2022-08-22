@@ -39,7 +39,7 @@
                enableCountByExample="false"
                selectByExampleQueryId="false"
                modelType="flat"
-               schema="public">
+               schema="auth">
         </table>
     </context>
 </generatorConfiguration>

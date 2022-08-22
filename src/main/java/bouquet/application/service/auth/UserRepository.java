@@ -1,10 +1,12 @@
 package bouquet.application.service.auth;
 
-import bouquet.domain.model.auth.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import bouquet.domain.model.autogen.auth.Usr;
+
+import java.util.Optional;
 
 /**
- * 利用者リポジトリ
+ * ユーザーレポジトリ
  */
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository {
+    Optional<Usr> findById(String userId);
 }
