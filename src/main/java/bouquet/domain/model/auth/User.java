@@ -4,7 +4,7 @@ package bouquet.domain.model.auth;
  * ユーザー
  */
 public class User {
-    private String userId;
+    private UserId userId;
 
     private Name name;
 
@@ -17,7 +17,7 @@ public class User {
     }
 
     public User(String userId, String password, String firstName, String lastName, RoleName user) {
-        this.userId = userId;
+        this.userId = new UserId(userId);
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
         this.roleName = user;
@@ -27,7 +27,7 @@ public class User {
         return roleName;
     }
 
-    public String UserId() {
+    public UserId UserId() {
         return userId;
     }
 

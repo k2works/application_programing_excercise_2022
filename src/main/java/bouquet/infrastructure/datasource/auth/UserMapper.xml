@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bouquet.infrastructure.datasource.auth.UserMapper">
     <resultMap id="BaseResultMap" type="bouquet.domain.model.auth.User">
-        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <id column="user_id" jdbcType="VARCHAR" property="userId.value"/>
         <result column="first_name" jdbcType="VARCHAR" property="name.firstName"/>
         <result column="last_name" jdbcType="VARCHAR" property="name.lastName"/>
         <result column="password" jdbcType="VARCHAR" property="password.value"/>
@@ -18,7 +18,7 @@
         select
         <include refid="Base_Column_List"/>
         from auth.usr
-        where user_id = #{userId,jdbcType=VARCHAR}
+        where user_id = #{userId.value,jdbcType=VARCHAR}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
@@ -30,7 +30,7 @@
     <insert id="insert" parameterType="bouquet.domain.model.auth.User">
         insert into auth.usr
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
+            <if test="userId.value != null">
                 user_id,
             </if>
             <if test="name.firstName != null">
@@ -47,8 +47,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                #{userId,jdbcType=VARCHAR},
+            <if test="userId.value != null">
+                #{userId.value,jdbcType=VARCHAR},
             </if>
             <if test="name.firstName != null">
                 #{name.firstName,jdbcType=VARCHAR},
@@ -81,13 +81,13 @@
                 role_name = #{roleName,jdbcType=VARCHAR},
             </if>
         </set>
-        where user_id = #{userId,jdbcType=VARCHAR}
+        where user_id = #{userId.value,jdbcType=VARCHAR}
     </update>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from auth.usr
-        where user_id = #{userId,jdbcType=VARCHAR}
+        where user_id = #{userId.value,jdbcType=VARCHAR}
     </delete>
 
     <delete id="deleteAll">

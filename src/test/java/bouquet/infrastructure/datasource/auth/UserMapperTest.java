@@ -44,7 +44,7 @@ public class UserMapperTest {
         User user = getUser();
         userMapper.insert(user);
 
-        User updateUser = new User(user.UserId(), "password2", "firstName2", "lastName2", RoleName.ADMIN);
+        User updateUser = new User(user.UserId().Value(), "password2", "firstName2", "lastName2", RoleName.ADMIN);
         userMapper.update(updateUser);
 
         User actual = userMapper.selectByPrimaryKey("userId");

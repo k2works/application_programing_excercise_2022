@@ -33,7 +33,7 @@ public class LoginUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.UserId();
+        return this.user.UserId().Value();
     }
 
     @Override

@@ -3,6 +3,7 @@ package bouquet.domain.model;
 import bouquet.domain.model.auth.Password;
 import bouquet.domain.model.auth.RoleName;
 import bouquet.domain.model.auth.User;
+import bouquet.domain.model.auth.UserId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class UserTest {
         @Test
         void ユーザーを生成できる() {
             User user = new User("userId", "password", "firstName", "lastName", RoleName.USER);
-            assertEquals("userId", user.UserId());
+            assertEquals(new UserId("userId"), user.UserId());
             assertEquals("firstName", user.Name().FirstName());
             assertEquals("lastName", user.Name().LastName());
             assertEquals(new Password("password"), user.Password());
