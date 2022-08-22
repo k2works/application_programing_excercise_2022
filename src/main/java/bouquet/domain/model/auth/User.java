@@ -7,7 +7,7 @@ import java.io.Serializable;
  * ユーザー
  */
 @Entity
-@Table(name = "usr")
+@Table(name = "usr", schema = "auth")
 public class User implements Serializable {
     @Id
     private String userId;
