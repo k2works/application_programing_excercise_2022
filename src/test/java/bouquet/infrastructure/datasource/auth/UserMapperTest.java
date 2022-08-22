@@ -32,11 +32,11 @@ public class UserMapperTest {
         userMapper.insert(user);
 
         User actual = userMapper.selectByPrimaryKey("userId");
-        assertEquals(user.getUserId(), actual.getUserId());
-        assertEquals(user.getFirstName(), actual.getFirstName());
-        assertEquals(user.getLastName(), actual.getLastName());
-        assertEquals(user.getPassword(), actual.getPassword());
-        assertEquals(user.getRoleName(), actual.getRoleName());
+        assertEquals(user.UserId(), actual.UserId());
+        assertEquals(user.FirstName(), actual.FirstName());
+        assertEquals(user.LastName(), actual.LastName());
+        assertEquals(user.Password(), actual.Password());
+        assertEquals(user.RoleName(), actual.RoleName());
     }
 
     @Test
@@ -44,15 +44,15 @@ public class UserMapperTest {
         User user = getUser();
         userMapper.insert(user);
 
-        User updateUser = new User(user.getUserId(), "password2", "firstName2", "lastName2", RoleName.ADMIN);
+        User updateUser = new User(user.UserId(), "password2", "firstName2", "lastName2", RoleName.ADMIN);
         userMapper.update(updateUser);
 
         User actual = userMapper.selectByPrimaryKey("userId");
-        assertEquals(user.getUserId(), actual.getUserId());
-        assertNotEquals(user.getFirstName(), actual.getFirstName());
-        assertNotEquals(user.getLastName(), actual.getLastName());
-        assertNotEquals(user.getPassword(), actual.getPassword());
-        assertNotEquals(user.getRoleName(), actual.getRoleName());
+        assertEquals(user.UserId(), actual.UserId());
+        assertNotEquals(user.FirstName(), actual.FirstName());
+        assertNotEquals(user.LastName(), actual.LastName());
+        assertNotEquals(user.Password(), actual.Password());
+        assertNotEquals(user.RoleName(), actual.RoleName());
     }
 
     @Test

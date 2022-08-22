@@ -15,11 +15,11 @@ public class UserTest {
         @Test
         void ユーザーを生成できる() {
             User user = new User("userId", "password", "firstName", "lastName", RoleName.USER);
-            assertEquals("userId", user.getUserId());
-            assertEquals("firstName", user.getFirstName());
-            assertEquals("lastName", user.getLastName());
-            assertEquals("password", user.getPassword());
-            assertEquals(RoleName.USER, user.getRoleName());
+            assertEquals("userId", user.UserId());
+            assertEquals("firstName", user.FirstName());
+            assertEquals("lastName", user.LastName());
+            assertEquals("password", user.Password());
+            assertEquals(RoleName.USER, user.RoleName());
         }
     }
 }
