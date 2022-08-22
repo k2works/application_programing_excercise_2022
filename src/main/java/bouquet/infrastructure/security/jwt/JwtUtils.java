@@ -1,6 +1,6 @@
 package bouquet.infrastructure.security.jwt;
 
-import bouquet.application.service.auth.LoginUserDetails;
+import bouquet.domain.model.auth.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class JwtUtils {
 
     public String generateJwtToken(Authentication authentication) {
 
-        LoginUserDetails userPrincipal = (LoginUserDetails) authentication.getPrincipal();
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))

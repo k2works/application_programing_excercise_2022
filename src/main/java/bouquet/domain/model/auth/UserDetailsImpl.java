@@ -1,6 +1,5 @@
-package bouquet.application.service.auth;
+package bouquet.domain.model.auth;
 
-import bouquet.domain.model.auth.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +9,10 @@ import java.util.Collection;
 /**
  * 認証ユーザー
  */
-public class LoginUserDetails implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private final User user;
 
-    public LoginUserDetails(User user) {
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 

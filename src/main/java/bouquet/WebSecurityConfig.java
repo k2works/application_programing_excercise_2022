@@ -1,6 +1,6 @@
 package bouquet;
 
-import bouquet.application.service.auth.LoginUserDetailsService;
+import bouquet.application.service.auth.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    LoginUserDetailsService userDetailsService;
+    UserAuthService userDetailsService;
 
     @Bean
     PasswordEncoder passwordEncoder() {

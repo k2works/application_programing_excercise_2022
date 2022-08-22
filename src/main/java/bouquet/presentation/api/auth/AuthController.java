@@ -1,11 +1,7 @@
 package bouquet.presentation.api.auth;
 
-import bouquet.application.service.auth.LoginUserDetails;
 import bouquet.application.service.auth.UserRepository;
-import bouquet.domain.model.auth.Name;
-import bouquet.domain.model.auth.RoleName;
-import bouquet.domain.model.auth.User;
-import bouquet.domain.model.auth.UserId;
+import bouquet.domain.model.auth.*;
 import bouquet.infrastructure.security.jwt.JwtUtils;
 import bouquet.infrastructure.security.jwt.payload.request.LoginRequest;
 import bouquet.infrastructure.security.jwt.payload.request.SignupRequest;
@@ -59,7 +55,7 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateJwtToken(authentication);
 
-            LoginUserDetails userDetails = (LoginUserDetails) authentication.getPrincipal();
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             List<String> roles = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority).toList();
 

@@ -1,6 +1,7 @@
 package bouquet.application.service.auth;
 
 import bouquet.domain.model.auth.User;
+import bouquet.domain.model.auth.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +14,7 @@ import java.util.Optional;
  * 認証サービス
  */
 @Service
-public class LoginUserDetailsService implements UserDetailsService {
+public class UserAuthService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
@@ -23,6 +24,6 @@ public class LoginUserDetailsService implements UserDetailsService {
         if (user.isEmpty()) {
             throw new UsernameNotFoundException(username + " is not found.");
         }
-        return new LoginUserDetails(user.get());
+        return new UserDetailsImpl(user.get());
     }
 }

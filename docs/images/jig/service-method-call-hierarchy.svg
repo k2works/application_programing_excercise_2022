@@ -25,9 +25,9 @@
                 LoginUserDetailsService
             </text>
         </g>
-        <!-- bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String) -->
+        <!-- bouquet.application.service.auth.UserAuthService#loadUserByUsername(java.lang.String) -->
         <g id="node1" class="node">
-            <title>bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)</title>
+            <title>bouquet.application.service.auth.UserAuthService#loadUserByUsername(java.lang.String)</title>
             <g id="a_node1">
                 <a xlink:href="https://github.com/k2works/application_programing_excercise_2022/tree/take15/src/main/java/bouquet/application/service/auth/LoginUserDetailsService.java"
                    xlink:title="LoginUserDetailsService.loadUserByUsername(String)">
@@ -50,9 +50,9 @@
                 UserRepository
             </text>
         </g>
-        <!-- bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.application.service.auth.UserRepository -->
+        <!-- bouquet.application.service.auth.UserAuthService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.application.service.auth.UserRepository -->
         <g id="edge1" class="edge">
-            <title>bouquet.application.service.auth.LoginUserDetailsService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.application.service.auth.UserRepository</title>
+            <title>bouquet.application.service.auth.UserAuthService#loadUserByUsername(java.lang.String)&#45;&gt;bouquet.application.service.auth.UserRepository</title>
             <path fill="none" stroke="black" stroke-dasharray="5,2" d="M241.88,-74C250.57,-74 259.15,-74 267.33,-74"/>
             <polygon fill="black" stroke="black" points="267.48,-77.5 277.48,-74 267.48,-70.5 267.48,-77.5"/>
         </g>

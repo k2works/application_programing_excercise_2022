@@ -1,6 +1,6 @@
 package bouquet.infrastructure.security.jwt;
 
-import bouquet.application.service.auth.LoginUserDetailsService;
+import bouquet.application.service.auth.UserAuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;
     @Autowired
-    private LoginUserDetailsService userAuthService;
+    private UserAuthService userAuthService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -1,6 +1,6 @@
 package bouquet;
 
-import bouquet.application.service.auth.LoginUserDetailsService;
+import bouquet.application.service.auth.UserAuthService;
 import bouquet.infrastructure.security.jwt.AuthEntryPointJwt;
 import bouquet.infrastructure.security.jwt.AuthTokenFilter;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @Order(2)
 class WebApiSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final LoginUserDetailsService userDetailsService;
+    private final UserAuthService userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    public WebApiSecurityConfig(LoginUserDetailsService userAuthService, AuthEntryPointJwt unauthorizedHandler) {
+    public WebApiSecurityConfig(UserAuthService userAuthService, AuthEntryPointJwt unauthorizedHandler) {
         this.userDetailsService = userAuthService;
         this.unauthorizedHandler = unauthorizedHandler;
     }
