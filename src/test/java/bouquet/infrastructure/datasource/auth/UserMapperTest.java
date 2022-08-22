@@ -9,6 +9,7 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @MybatisTest
 @DisplayName("ユーザーエンティティ")
@@ -17,13 +18,7 @@ public class UserMapperTest {
     UserMapper userMapper;
 
     private static User getUser() {
-        User user = new User();
-        user.setUserId("userId");
-        user.setFirstName("firstName");
-        user.setLastName("lastName");
-        user.setPassword("password");
-        user.setRoleName(RoleName.USER);
-        return user;
+        return new User("userId", "password", "firstName", "lastName", RoleName.USER);
     }
 
     @BeforeEach
@@ -49,18 +44,15 @@ public class UserMapperTest {
         User user = getUser();
         userMapper.insert(user);
 
-        user.setFirstName("firstName2");
-        user.setLastName("lastName2");
-        user.setPassword("password2");
-        user.setRoleName(RoleName.ADMIN);
-        userMapper.update(user);
+        User updateUser = new User(user.getUserId(), "password2", "firstName2", "lastName2", RoleName.ADMIN);
+        userMapper.update(updateUser);
 
         User actual = userMapper.selectByPrimaryKey("userId");
         assertEquals(user.getUserId(), actual.getUserId());
-        assertEquals(user.getFirstName(), actual.getFirstName());
-        assertEquals(user.getLastName(), actual.getLastName());
-        assertEquals(user.getPassword(), actual.getPassword());
-        assertEquals(user.getRoleName(), actual.getRoleName());
+        assertNotEquals(user.getFirstName(), actual.getFirstName());
+        assertNotEquals(user.getLastName(), actual.getLastName());
+        assertNotEquals(user.getPassword(), actual.getPassword());
+        assertNotEquals(user.getRoleName(), actual.getRoleName());
     }
 
     @Test

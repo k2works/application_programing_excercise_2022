@@ -14,12 +14,7 @@ public class UserTest {
     class ユーザー {
         @Test
         void ユーザーを生成できる() {
-            User user = new User();
-            user.setUserId("userId");
-            user.setFirstName("firstName");
-            user.setLastName("lastName");
-            user.setPassword("password");
-            user.setRoleName(RoleName.USER);
+            User user = new User("userId", "password", "firstName", "lastName", RoleName.USER);
             assertEquals("userId", user.getUserId());
             assertEquals("firstName", user.getFirstName());
             assertEquals("lastName", user.getLastName());
