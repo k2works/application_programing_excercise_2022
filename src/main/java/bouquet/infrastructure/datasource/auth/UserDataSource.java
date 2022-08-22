@@ -18,4 +18,9 @@ public class UserDataSource implements UserRepository {
     public Optional<User> findById(String userId) {
         return Optional.ofNullable(userMapper.selectByPrimaryKey(userId));
     }
+
+    @Override
+    public void save(User newUser) {
+        userMapper.insert(newUser);
+    }
 }
