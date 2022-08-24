@@ -194,12 +194,15 @@ left to right direction
 actor 顧客 as ac_01
 
 node WEB店舗 {
-  rectangle バックヤード {
-    actor スタッフ as ac_02
-  }
   usecase 受注管理 as uc_01
+}
+
+node 店舗 {
+  actor スタッフ as ac_02
+
   usecase 発注管理 as uc_02
   usecase 在庫管理 as uc_03
+  usecase ユーザー管理 as uc_04
   artifact 商品 as ar_01
 }
 
@@ -210,17 +213,104 @@ ac_02 -- (uc_02)
 (uc_02) -- (ar_01)
 ac_02 -- (uc_03)
 (uc_03) -- (ar_01)
+ac_01 -- (uc_04)
+ac_02 -- (uc_04)
 
 @enduml
 ----
 
 ==== ビジネスユースケース
 
+===== ユーザー管理
+
+[plantuml]
+----
+@startuml
+
+title ビジネスユースケース図 - 受注管理
+
+left to right direction
+
+actor 顧客 as ac_01
+actor スタッフ as ac_02
+
+usecase ユーザー登録 as uc_01
+usecase ユーザー認証 as uc_02
+
+ac_01 -- (uc_01)
+ac_01 -- (uc_02)
+
+ac_02 -- (uc_01)
+ac_02 -- (uc_02)
+
+@enduml
+----
+
 ===== 受注管理
+
+[plantuml]
+----
+@startuml
+
+title ビジネスユースケース図 - 受注管理
+
+left to right direction
+
+actor 顧客 as ac_01
+actor スタッフ as ac_02
+
+usecase 商品の閲覧 as uc_01
+usecase 商品の注文 as uc_02
+
+ac_01 -- (uc_01)
+ac_01 -- (uc_02)
+
+ac_02 -- (uc_02)
+
+@enduml
+----
 
 ===== 発注管理
 
+[plantuml]
+----
+@startuml
+
+title ビジネスユースケース図 - 発注管理
+
+left to right direction
+
+actor スタッフ as ac_01
+
+usecase 商品の発注 as uc_01
+usecase 商品の検収 as uc_02
+
+ac_01 -- (uc_01)
+ac_01 -- (uc_02)
+
+@enduml
+----
+
 ===== 在庫管理
+
+[plantuml]
+----
+@startuml
+
+title ビジネスユースケース図 - 在庫管理
+
+left to right direction
+
+actor スタッフ as ac_01
+
+usecase 商品の入荷 as uc_01
+usecase 商品の出荷 as uc_02
+
+ac_01 -- (uc_01)
+ac_01 -- (uc_02)
+
+@enduml
+----
 
 ==== 業務フロー
 
