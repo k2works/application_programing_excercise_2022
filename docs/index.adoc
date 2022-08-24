@@ -265,6 +265,7 @@ usecase 商品の注文 as uc_02
 ac_01 -- (uc_01)
 ac_01 -- (uc_02)
 
+ac_02 -- (uc_01)
 ac_02 -- (uc_02)
 
 @enduml
@@ -280,13 +281,13 @@ title ビジネスユースケース図 - 発注管理
 
 left to right direction
 
-actor スタッフ as ac_01
+actor 顧客 as ac_01
+actor スタッフ as ac_02
 
 usecase 商品の発注 as uc_01
-usecase 商品の検収 as uc_02
 
 ac_01 -- (uc_01)
-ac_01 -- (uc_02)
+ac_02 -- (uc_01)
 
 @enduml
 ----
@@ -301,12 +302,14 @@ title ビジネスユースケース図 - 在庫管理
 
 left to right direction
 
-actor スタッフ as ac_01
+actor 顧客 as ac_01
+actor スタッフ as ac_02
 
 usecase 商品の入荷 as uc_01
 usecase 商品の出荷 as uc_02
 
-ac_01 -- (uc_01)
+ac_02 -- (uc_01)
+ac_02 -- (uc_02)
 ac_01 -- (uc_02)
 
 @enduml
@@ -314,7 +317,166 @@ ac_01 -- (uc_02)
 
 ==== 業務フロー
 
+===== 受注管理
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 商品の閲覧:BUC
+
+|スタッフ|
+:商品を登録する;
+
+|顧客|
+:商品を一覧表示する;
+:選択した商品を表示する;
+
+stop
+
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 商品の注文:BUC
+
+|顧客|
+:商品を注文する;
+
+|スタッフ|
+:商品の注文を受け付ける;
+:注文確認を返信する;
+
+|顧客|
+:注文確認を受信する;
+
+stop
+
+@enduml
+----
+
+===== 発注管理
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 商品の発注:BUC
+
+|スタッフ|
+:商品の引き当てする;
+if (在庫) then (有り)
+ :出荷予定日を通知する;
+else (無し)
+ :リードタイムを確認する;
+ :出荷予定日を通知する;
+endif
+
+|顧客|
+:出荷予定を受信する;
+
+stop
+
+@enduml
+----
+
+===== 在庫管理
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 商品の入荷:BUC
+
+|スタッフ|
+:商品を検収する;
+if (検収) then (OK)
+ :商品を入庫する;
+else (NG)
+ :商品を返品する;
+endif
+
+stop
+
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 商品の出荷:BUC
+
+|スタッフ|
+:商品をピッキングする;
+:商品を出荷する;
+:出荷案内を通知する;
+
+|顧客|
+:出荷案内を受信する;
+:商品を受け取る;
+
+stop
+
+@enduml
+----
+
 ==== 利用シーン
+
+===== ユーザー管理
+
+[plantuml]
+----
+@startuml
+
+title 利用シーン図 - ユーザー登録:BUC
+
+left to right direction
+
+actor 顧客 as ac_01
+actor スタッフ as ac_02
+
+frame ユーザー登録 as fr_01
+note right of fr_01
+  システムを利用できるユーザーを登録する
+end note
+
+usecase ユーザーを登録する as uc_01
+
+:ac_01: -- fr_01
+:ac_02: -- fr_01
+fr_01 -- (uc_01)
+
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+
+title 利用シーン図 - ユーザー認証:BUC
+
+left to right direction
+
+actor 顧客 as ac_01
+actor スタッフ as ac_02
+
+frame ユーザー認証 as fr_01
+note right of fr_01
+  登録済みのユーザーを認証してシステムの利用を認証・認可する
+end note
+
+usecase ユーザーを認証する as uc_01
+
+:ac_01: -- fr_01
+:ac_02: -- fr_01
+fr_01 -- (uc_01)
+
+@enduml
+----
 
 ==== バリエーション・条件
 
