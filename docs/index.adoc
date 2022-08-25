@@ -264,7 +264,7 @@ agent 取引先 as ag_01
 usecase 商品の閲覧 as uc_01
 usecase 商品の注文 as uc_02
 usecase 単品の発注 as uc_03
-usecase 注文内容の変更 as uc_04
+usecase 注文の変更 as uc_04
 usecase 注文の取消 as uc_05
 
 ac_01 -- (uc_01)
@@ -343,14 +343,16 @@ end
 title 業務フロー図 - 商品の注文:BUC
 
 |顧客|
+:商品をカートに追加する;
 :商品を注文する;
 
 |スタッフ|
-:商品の注文を受け付ける;
-:注文確認を返信する;
+:受注内容を確認する;
+:注文を承諾する;
+:注文承諾を返信する;
 
 |顧客|
-:注文確認を受信する;
+:注文承諾を受信する;
 
 end
 
@@ -386,16 +388,16 @@ end
 @enduml
 ----
 
-====== 注文内容の変更
+====== 注文の変更
 
 [plantuml]
 ----
 @startuml
 
-title 業務フロー図 - 注文内容の変更:BUC
+title 業務フロー図 - 注文の変更:BUC
 
 |顧客|
-:注文内容を変更する;
+:注文を変更する;
 
 |スタッフ|
 :変更内容を確認する;
@@ -440,7 +442,7 @@ if (出荷) then (未)
  :注文取消を返信する;
 else (済)
  |スタッフ|
- :出荷済みのため取消できない返信をする;
+ :取消できないことを返信をする;
 endif
 
 |顧客|
@@ -508,33 +510,6 @@ end
 
 ===== ユーザー管理
 
-====== ユーザー登録
-
-[plantuml]
-----
-@startuml
-
-title 利用シーン図 - ユーザー登録:BUC
-
-left to right direction
-
-actor 顧客 as ac_01
-actor スタッフ as ac_02
-
-frame ユーザー登録 as fr_01
-note right of fr_01
-  システムを利用できるユーザーを登録する
-end note
-
-usecase ユーザーを登録する as uc_01
-
-:ac_01: -- fr_01
-:ac_02: -- fr_01
-fr_01 -- (uc_01)
-
-@enduml
-----
-
 ====== ユーザー認証
 
 [plantuml]
@@ -562,6 +537,33 @@ fr_01 -- (uc_01)
 @enduml
 ----
 
+====== ユーザー登録
+
+[plantuml]
+----
+@startuml
+
+title 利用シーン図 - ユーザー登録:BUC
+
+left to right direction
+
+actor 顧客 as ac_01
+actor スタッフ as ac_02
+
+frame ユーザー登録 as fr_01
+note right of fr_01
+  システムを利用できるユーザーを登録する
+end note
+
+usecase ユーザーを登録する as uc_01
+
+:ac_01: -- fr_01
+:ac_02: -- fr_01
+fr_01 -- (uc_01)
+
+@enduml
+----
+
 ==== バリエーション・条件
 
 |===
@@ -576,6 +578,184 @@ fr_01 -- (uc_01)
 
 ==== ユースケース複合図
 
+===== ユーザー管理
+
+====== ユーザー認証
+
+[plantuml]
+----
+@startuml
+actor "顧客" as ac_01
+actor "スタッフ" as ac_02
+frame "ユーザー認証" as f01
+usecase "ユーザーを認証する" as UC1
+boundary "ログイン画面" as b01
+entity "ユーザー" as e01
+ac_01 - f01
+ac_02 - f01
+f01 - UC1
+b01 -- UC1
+UC1 - e01
+@enduml
+----
+
+====== ユーザー登録
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "ユーザー登録" as f01
+usecase "ユーザーを確認する" as UC1
+usecase "ユーザーを登録する" as UC2
+usecase "ユーザー情報を更新する" as UC3
+usecase "ユーザー登録を抹消する" as UC4
+boundary "ユーザー一覧画面" as b01
+boundary "ユーザー画面" as b02
+entity "ユーザー" as e01
+control "ユーザーバリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+f01 - UC3
+f01 - UC4
+b01 -- UC1
+b02 -- UC2
+b02 -- UC3
+b02 -- UC4
+UC2 -- c01
+UC3 -- c01
+UC4 -- c01
+UC1 - e01
+UC2 - e01
+UC3 - e01
+UC4 - e01
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+actor "顧客" as ac_01
+frame "ユーザー登録" as f01
+usecase "ユーザーを確認する" as UC1
+usecase "ユーザーを登録する" as UC2
+usecase "ユーザー情報を更新する" as UC3
+boundary "ユーザー画面" as b02
+entity "ユーザー" as e01
+control "ユーザーバリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+f01 - UC3
+b02 -- UC1
+b02 -- UC2
+b02 -- UC3
+UC2 -- c01
+UC3 -- c01
+UC1 - e01
+UC2 - e01
+UC3 - e01
+@enduml
+----
+
+===== 受注管理
+
+====== 商品の閲覧
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "商品の閲覧" as f01
+usecase "商品を登録する" as UC1
+boundary "商品一覧画面" as b01
+boundary "商品明細画面" as b02
+entity "商品" as e01
+control "商品バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+b01 -- UC1
+b02 -- UC1
+UC1 - e01
+UC1 -- c01
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+actor "顧客" as ac_01
+frame "商品の閲覧" as f01
+usecase "商品を一覧表示する" as UC1
+usecase "選択した商品を表示する" as UC2
+boundary "商品一覧画面" as b01
+boundary "商品明細画面" as b02
+entity "商品" as e01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+b01 -- UC1
+b02 -- UC2
+UC1 - e01
+UC2 - e01
+----
+
+====== 商品の注文
+
+[plantuml]
+----
+@startuml
+actor "顧客" as ac_01
+frame "商品の注文" as f01
+usecase "商品をカートに追加する" as UC1
+usecase "商品を注文する" as UC2
+boundary "商品明細画面" as b01
+boundary "商品カート画面" as b02
+entity "商品" as e01
+control "商品バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+b01 -- UC1
+b02 -- UC2
+UC1 - e01
+UC2 - e01
+UC1 -- c01
+UC2 -- c01
+----
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "商品の注文" as f01
+usecase "受注内容を確認する" as UC1
+usecase "注文を承諾する" as UC2
+usecase "注文承諾を返信する" as UC3
+boundary "受注一覧画面" as b01
+boundary "受注明細画面" as b02
+entity "注文" as e01
+control "注文バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+b01 -- UC1
+b02-- UC1
+b01 -- UC2
+b01 -- UC3
+UC1 - e01
+UC2 - e01
+UC3 - e01
+UC1 -- c01
+UC2 -- c01
+----
 === システム
 
 ==== 情報モデル
