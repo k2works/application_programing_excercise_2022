@@ -193,17 +193,19 @@ left to right direction
 
 actor 顧客 as ac_01
 
-node WEB店舗 {
+node WEB店舗 as no_01{
   usecase 受注管理 as uc_01
 }
 
-node 店舗 {
+node 店舗 as no_02 {
   actor スタッフ as ac_02
 
-  usecase 発注管理 as uc_02
-  usecase 在庫管理 as uc_03
-  usecase ユーザー管理 as uc_04
+  usecase 在庫管理 as uc_02
+  usecase ユーザー管理 as uc_03
   artifact 商品 as ar_01
+}
+
+node 取引先 as no_03 {
 }
 
 ac_01 -- (uc_01)
@@ -211,10 +213,9 @@ ac_02 - (uc_01)
 (uc_01) -- (ar_01)
 ac_02 -- (uc_02)
 (uc_02) -- (ar_01)
+(uc_02) -- no_03
+ac_01 -- (uc_03)
 ac_02 -- (uc_03)
-(uc_03) -- (ar_01)
-ac_01 -- (uc_04)
-ac_02 -- (uc_04)
 
 @enduml
 ----
@@ -227,7 +228,7 @@ ac_02 -- (uc_04)
 ----
 @startuml
 
-title ビジネスユースケース図 - 受注管理
+title ビジネスユースケース図 - ユーザー管理
 
 left to right direction
 
@@ -258,9 +259,13 @@ left to right direction
 
 actor 顧客 as ac_01
 actor スタッフ as ac_02
+agent 取引先 as ag_01
 
 usecase 商品の閲覧 as uc_01
 usecase 商品の注文 as uc_02
+usecase 単品の発注 as uc_03
+usecase 注文内容の変更 as uc_04
+usecase 注文の取消 as uc_05
 
 ac_01 -- (uc_01)
 ac_01 -- (uc_02)
@@ -268,26 +273,14 @@ ac_01 -- (uc_02)
 ac_02 -- (uc_01)
 ac_02 -- (uc_02)
 
-@enduml
-----
+ac_02 -- (uc_03)
+(uc_03) -- ag_01
 
-===== 発注管理
+ac_01 -- (uc_04)
+ac_02 -- (uc_04)
 
-[plantuml]
-----
-@startuml
-
-title ビジネスユースケース図 - 発注管理
-
-left to right direction
-
-actor 顧客 as ac_01
-actor スタッフ as ac_02
-
-usecase 商品の発注 as uc_01
-
-ac_01 -- (uc_01)
-ac_02 -- (uc_01)
+ac_01 -- (uc_05)
+ac_02 -- (uc_05)
 
 @enduml
 ----
@@ -304,13 +297,15 @@ left to right direction
 
 actor 顧客 as ac_01
 actor スタッフ as ac_02
+agent 取引先 as ag_01
 
-usecase 商品の入荷 as uc_01
+usecase 単品の入荷 as uc_01
 usecase 商品の出荷 as uc_02
 
 ac_02 -- (uc_01)
 ac_02 -- (uc_02)
 ac_01 -- (uc_02)
+(uc_01) -- ag_01
 
 @enduml
 ----
@@ -318,6 +313,8 @@ ac_01 -- (uc_02)
 ==== 業務フロー
 
 ===== 受注管理
+
+====== 商品の閲覧
 
 [plantuml]
 ----
@@ -332,10 +329,12 @@ title 業務フロー図 - 商品の閲覧:BUC
 :商品を一覧表示する;
 :選択した商品を表示する;
 
-stop
+end
 
 @enduml
 ----
+
+====== 商品の注文
 
 [plantuml]
 ----
@@ -353,12 +352,12 @@ title 業務フロー図 - 商品の注文:BUC
 |顧客|
 :注文確認を受信する;
 
-stop
+end
 
 @enduml
 ----
 
-===== 発注管理
+====== 単品の発注
 
 [plantuml]
 ----
@@ -371,6 +370,10 @@ title 業務フロー図 - 商品の発注:BUC
 if (在庫) then (有り)
  :出荷予定日を通知する;
 else (無し)
+ :単品を発注する;
+ |取引先|
+ :納品予定を返信する;
+ |スタッフ|
  :リードタイムを確認する;
  :出荷予定日を通知する;
 endif
@@ -378,31 +381,107 @@ endif
 |顧客|
 :出荷予定を受信する;
 
-stop
+end
 
 @enduml
 ----
 
+====== 注文内容の変更
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 注文内容の変更:BUC
+
+|顧客|
+:注文内容を変更する;
+
+|スタッフ|
+:変更内容を確認する;
+if (変更) then (可能)
+ |スタッフ|
+ :商品の引き当てする;
+ if (在庫) then (有り)
+  :リードタイムを確認する;
+ else (無し)
+  :単品を発注する;
+  |取引先|
+  :納品予定を返信する;
+  |スタッフ|
+  :リードタイムを確認する;
+ endif
+else (不可能)
+ :変更できないこと返信する;
+ end
+endif
+:注文内容変更を返信する;
+end
+
+@enduml
+----
+
+====== 注文の取消
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 注文の取消:BUC
+
+|顧客|
+:注文を取消する;
+
+|スタッフ|
+:取消注文を確認する;
+if (出荷) then (未)
+ |スタッフ|
+ :注文を取消す;
+ :注文取消を返信する;
+else (済)
+ |スタッフ|
+ :出荷済みのため取消できない返信をする;
+endif
+
+|顧客|
+:注文取消を受信する;
+end
+@enduml
+----
+
 ===== 在庫管理
+
+====== 単品の入荷
 
 [plantuml]
 ----
 @startuml
 
 title 業務フロー図 - 商品の入荷:BUC
-
+|取引先|
+:単品を出荷する;
 |スタッフ|
-:商品を検収する;
-if (検収) then (OK)
- :商品を入庫する;
-else (NG)
- :商品を返品する;
+:単品を検収する;
+if (検収) then (NG)
+ :単品を返品する;
+ |取引先|
+ :代替品納品予定を返信する;
+ |スタッフ|
+ :リードタイムを確認する;
+ :出荷予定を通知する;
+ |顧客|
+ :出荷予定を受信する;
+ end
+else (OK)
+ |スタッフ|
+ :単品を入庫する;
+ end
 endif
-
-stop
 
 @enduml
 ----
+
+====== 商品の出荷
 
 [plantuml]
 ----
@@ -411,7 +490,8 @@ stop
 title 業務フロー図 - 商品の出荷:BUC
 
 |スタッフ|
-:商品をピッキングする;
+:単品をピッキングする;
+:単品を結束して商品にする;
 :商品を出荷する;
 :出荷案内を通知する;
 
@@ -419,7 +499,7 @@ title 業務フロー図 - 商品の出荷:BUC
 :出荷案内を受信する;
 :商品を受け取る;
 
-stop
+end
 
 @enduml
 ----
@@ -427,6 +507,8 @@ stop
 ==== 利用シーン
 
 ===== ユーザー管理
+
+====== ユーザー登録
 
 [plantuml]
 ----
@@ -452,6 +534,8 @@ fr_01 -- (uc_01)
 
 @enduml
 ----
+
+====== ユーザー認証
 
 [plantuml]
 ----
