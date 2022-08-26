@@ -54,26 +54,28 @@ left to right direction
 
 actor ユーザー as ac_01
 actor スタッフ as ac_02
-actor 顧客 as ac_03
+actor 得意先 as ac_03
 ac_01 <|-- ac_02
 ac_01 <|-- ac_03
+actor 個人 as ac_04
+ac_03 <|- ac_04
 
 note top of ac_01
   ユーザーとはシステムを利用するアクター全般を指す。
-  お金を払って製品を購入する顧客。
+  お金を払って製品を購入する得意先。
   販売管理業務を担当するスタッフ。
 end note
 
 usecase 販売管理システム as uc_01
 note top of uc_01
-  顧客の受注を管理できるようにする。
+  得意先の受注を管理できるようにする。
   商品の受発注を管理できるようにする。
   商品の在庫を管理できるようにする。
 end note
 
 usecase 販売サイト as uc_02
 note top of uc_02
-  顧客がオンラインで商品を注文できるようにする。
+  得意先がオンラインで商品を注文できるようにする。
 end note
 
 ac_02 -- (uc_01)
@@ -84,7 +86,7 @@ ac_03 -- (uc_02)
 
 ==== 要求モデル
 
-===== 顧客
+===== 得意先
 
 [plantuml]
 ----
@@ -94,7 +96,7 @@ title 要求モデル図
 
 left to right direction
 
-actor 顧客 as ac_01
+actor 得意先 as ac_01
 note "オンラインで商品を閲覧したい" as k_r1
 note "オンラインで商品を購入したい" as k_r2
 note as k_dr1 #Turquoise
@@ -144,7 +146,7 @@ note as k_dr5 #Turquoise
 end note
 note as k_dr6 #Turquoise
  いったん受注を受けてから、届け日の変更が要望されることがある。
- その際には可能な限り変更に対応できるようにしたいが、指定日に出荷変更できないようならばその旨を顧客に直ちに伝えられるようでなければならない。
+ その際には可能な限り変更に対応できるようにしたいが、指定日に出荷変更できないようならばその旨を得意先に直ちに伝えられるようでなければならない。
 end note
 note as k_dr7 #Turquoise
  単品を結束して商品（花束）にするための工程は十分に効率化されていて、材料さえあれば一瞬で結束可能とみなしてよい。
@@ -191,7 +193,7 @@ title ビジネスコンテキスト図
 
 left to right direction
 
-actor 顧客 as ac_01
+actor 得意先 as ac_01
 
 node WEB店舗 as no_01{
   usecase 受注管理 as uc_01
@@ -205,7 +207,7 @@ node 店舗 as no_02 {
   artifact 商品 as ar_01
 }
 
-node 取引先 as no_03 {
+node 仕入先 as no_03 {
 }
 
 ac_01 -- (uc_01)
@@ -232,7 +234,7 @@ title ビジネスユースケース図 - ユーザー管理
 
 left to right direction
 
-actor 顧客 as ac_01
+actor 得意先 as ac_01
 actor スタッフ as ac_02
 
 usecase ユーザー登録 as uc_01
@@ -257,9 +259,9 @@ title ビジネスユースケース図 - 受注管理
 
 left to right direction
 
-actor 顧客 as ac_01
+actor 得意先 as ac_01
 actor スタッフ as ac_02
-agent 取引先 as ag_01
+agent 仕入先 as ag_01
 
 usecase 商品の閲覧 as uc_01
 usecase 商品の注文 as uc_02
@@ -295,9 +297,9 @@ title ビジネスユースケース図 - 在庫管理
 
 left to right direction
 
-actor 顧客 as ac_01
+actor 得意先 as ac_01
 actor スタッフ as ac_02
-agent 取引先 as ag_01
+agent 仕入先 as ag_01
 
 usecase 単品の入荷 as uc_01
 usecase 商品の出荷 as uc_02
@@ -325,7 +327,7 @@ title 業務フロー図 - 商品の閲覧:BUC
 |スタッフ|
 :商品を登録する;
 
-|顧客|
+|得意先|
 :商品を一覧表示する;
 :選択した商品を表示する;
 
@@ -342,7 +344,7 @@ end
 
 title 業務フロー図 - 商品の注文:BUC
 
-|顧客|
+|得意先|
 :商品をカートに追加する;
 :商品を注文する;
 
@@ -351,7 +353,7 @@ title 業務フロー図 - 商品の注文:BUC
 :注文を承諾する;
 :注文承諾を返信する;
 
-|顧客|
+|得意先|
 :注文承諾を受信する;
 
 end
@@ -373,14 +375,14 @@ if (在庫) then (有り)
  :出荷予定日を通知する;
 else (無し)
  :単品を発注する;
- |取引先|
+ |仕入先|
  :納品予定を返信する;
  |スタッフ|
  :リードタイムを確認する;
  :出荷予定日を通知する;
 endif
 
-|顧客|
+|得意先|
 :出荷予定を受信する;
 
 end
@@ -396,7 +398,7 @@ end
 
 title 業務フロー図 - 注文の変更:BUC
 
-|顧客|
+|得意先|
 :注文を変更する;
 
 |スタッフ|
@@ -408,7 +410,7 @@ if (変更) then (可能)
   :リードタイムを確認する;
  else (無し)
   :単品を発注する;
-  |取引先|
+  |仕入先|
   :納品予定を返信する;
   |スタッフ|
   :リードタイムを確認する;
@@ -431,7 +433,7 @@ end
 
 title 業務フロー図 - 注文の取消:BUC
 
-|顧客|
+|得意先|
 :注文を取消する;
 
 |スタッフ|
@@ -445,7 +447,7 @@ else (済)
  :取消できないことを返信をする;
 endif
 
-|顧客|
+|得意先|
 :注文取消を受信する;
 end
 @enduml
@@ -460,18 +462,18 @@ end
 @startuml
 
 title 業務フロー図 - 商品の入荷:BUC
-|取引先|
+|仕入先|
 :単品を出荷する;
 |スタッフ|
 :単品を検収する;
 if (検収) then (NG)
  :単品を返品する;
- |取引先|
+ |仕入先|
  :代替品納品予定を返信する;
  |スタッフ|
  :リードタイムを確認する;
  :出荷予定を通知する;
- |顧客|
+ |得意先|
  :出荷予定を受信する;
  end
 else (OK)
@@ -497,7 +499,7 @@ title 業務フロー図 - 商品の出荷:BUC
 :商品を出荷する;
 :出荷案内を通知する;
 
-|顧客|
+|得意先|
 :出荷案内を受信する;
 :商品を受け取る;
 
@@ -520,7 +522,7 @@ title 利用シーン図 - ユーザー認証:BUC
 
 left to right direction
 
-actor 顧客 as ac_01
+actor 得意先 as ac_01
 actor スタッフ as ac_02
 
 frame ユーザー認証 as fr_01
@@ -547,7 +549,7 @@ title 利用シーン図 - ユーザー登録:BUC
 
 left to right direction
 
-actor 顧客 as ac_01
+actor 得意先 as ac_01
 actor スタッフ as ac_02
 
 frame ユーザー登録 as fr_01
@@ -569,7 +571,7 @@ fr_01 -- (uc_01)
 |===
 |ユーザー区分
 
-|顧客
+|得意先
 |スタッフ
 
 |===
@@ -585,7 +587,7 @@ fr_01 -- (uc_01)
 [plantuml]
 ----
 @startuml
-actor "顧客" as ac_01
+actor "得意先" as ac_01
 actor "スタッフ" as ac_02
 frame "ユーザー認証" as f01
 usecase "ユーザーを認証する" as UC1
@@ -637,7 +639,7 @@ UC4 - e01
 [plantuml]
 ----
 @startuml
-actor "顧客" as ac_01
+actor "得意先" as ac_01
 frame "ユーザー登録" as f01
 usecase "ユーザーを確認する" as UC1
 usecase "ユーザーを登録する" as UC2
@@ -688,7 +690,7 @@ UC1 -- c01
 [plantuml]
 ----
 @startuml
-actor "顧客" as ac_01
+actor "得意先" as ac_01
 frame "商品の閲覧" as f01
 usecase "商品を一覧表示する" as UC1
 usecase "選択した商品を表示する" as UC2
@@ -710,7 +712,7 @@ UC2 - e01
 [plantuml]
 ----
 @startuml
-actor "顧客" as ac_01
+actor "得意先" as ac_01
 frame "商品の注文" as f01
 usecase "商品をカートに追加する" as UC1
 usecase "商品を注文する" as UC2
