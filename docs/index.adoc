@@ -838,7 +838,6 @@ control "商品バリエーション" as c01
 ac_01 - f01
 f01 - UC1
 f01 - UC2
-f01 - UC3
 b01 -- UC1
 b02 -- UC2
 UC1 - e01
@@ -897,6 +896,7 @@ boundary "単品発注画面" as b01
 boundary "在庫推移画面" as b02
 entity "在庫" as e01
 entity "単品" as e02
+entity "仕入" as e03
 
 ac_01 - f01
 f01 - UC1
@@ -909,6 +909,7 @@ b01 -- UC3
 b02 -- UC4
 UC1 - e01
 UC2 - e02
+UC2 - e03
 UC4 - e01
 ----
 
@@ -925,9 +926,9 @@ usecase "商品を出荷する" as UC3
 boundary "出荷一覧画面" as b01
 boundary "出荷明細画面" as b02
 entity "在庫" as e01
-entity "注文" as e02
-entity "単品" as e03
-entity "商品" as e04
+entity "商品" as e02
+entity "注文" as e03
+entity "売上" as e04
 control "商品バリエーション" as c01
 
 ac_01 - f01
@@ -937,10 +938,12 @@ f01 - UC3
 b01 -- UC1
 b02 -- UC2
 b01 -- UC3
+UC1 - e01
 UC1 - e03
-UC2 - e04
+UC2 - e01
 UC3 - e01
 UC3 - e02
+UC3 - e04
 UC2 -- c01
 ----
 
@@ -966,6 +969,33 @@ UC1 - e01
 === システム
 
 ==== 情報モデル
+
+[plantuml]
+----
+@startuml
+
+title 情報モデル図
+
+left to right direction
+
+entity ユーザー
+entity 商品
+entity 単品
+entity 注文
+entity 在庫
+entity 売上
+entity 仕入
+
+ユーザー - 注文
+注文 -- 商品
+商品 -- 単品
+単品 - 在庫
+注文 -- 在庫
+注文 -- 売上
+注文 -- 仕入
+
+@enduml
+----
 
 ==== 状態モデル
 
