@@ -205,6 +205,7 @@ node 店舗 as no_02 {
   usecase 在庫管理 as uc_02
   usecase ユーザー管理 as uc_03
   artifact 商品 as ar_01
+  artifact 単品 as ar_02
 }
 
 node 仕入先 as no_03 {
@@ -213,8 +214,10 @@ node 仕入先 as no_03 {
 ac_01 -- (uc_01)
 ac_02 - (uc_01)
 (uc_01) -- (ar_01)
+(uc_01) -- (ar_02)
 ac_02 -- (uc_02)
 (uc_02) -- (ar_01)
+(uc_02) -- (ar_02)
 (uc_02) -- no_03
 ac_01 -- (uc_03)
 ac_02 -- (uc_03)
@@ -302,10 +305,12 @@ agent 仕入先 as ag_01
 
 usecase 単品の入荷 as uc_01
 usecase 商品の出荷 as uc_02
+usecase 商品の返品 as uc_03
 
 ac_02 -- (uc_01)
 ac_02 -- (uc_02)
 ac_01 -- (uc_02)
+ac_01 -- (uc_03)
 (uc_01) -- ag_01
 
 @enduml
@@ -360,7 +365,6 @@ else (無し)
  :リードタイムを確認する;
  :出荷予定日を確認する;
 endif
-:注文を承諾する;
 :注文承諾を通知する;
 
 end
@@ -500,6 +504,27 @@ title 業務フロー図 - 商品の出荷:BUC
 
 |得意先|
 :商品を受け取る;
+
+end
+
+@enduml
+----
+
+====== 商品の返品
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 商品の返品:BUC
+
+|得意先|
+:商品を返品する;
+
+|スタッフ|
+:商品を受け取る;
+:返品処理をする;
+:商品を廃棄する;
 
 end
 
@@ -734,7 +759,6 @@ actor "スタッフ" as ac_01
 frame "商品の注文" as f01
 usecase "受注内容を確認する" as UC1
 usecase "注文を承諾する" as UC2
-usecase "注文承諾を通知する" as UC3
 boundary "受注一覧画面" as b01
 boundary "受注明細画面" as b02
 entity "注文" as e01
@@ -746,10 +770,8 @@ f01 - UC2
 b01 -- UC1
 b02-- UC1
 b01 -- UC2
-b01 -- UC3
 UC1 - e01
 UC2 - e01
-UC3 - e01
 UC1 -- c01
 UC2 -- c01
 ----
@@ -767,6 +789,7 @@ usecase "リードタイムを確認する" as UC3
 boundary "在庫推移画面" as b01
 boundary "単品発注画面" as b02
 entity "在庫" as e01
+entity "単品" as e02
 
 ac_01 - f01
 f01 - UC1
@@ -776,7 +799,7 @@ b01 -- UC1
 b02 -- UC2
 b02 -- UC3
 UC1 - e01
-UC2 - e01
+UC2 - e02
 UC3 - e01
 ----
 
@@ -806,10 +829,10 @@ actor "スタッフ" as ac_01
 frame "注文の変更" as f01
 usecase "注文内容を確認する" as UC1
 usecase "商品を引き当てる" as UC2
-usecase "注文内容変更を通知する" as UC3
 boundary "注文一覧画面" as b01
 boundary "注文明細画面" as b02
 entity "注文" as e01
+entity "在庫" as e02
 control "商品バリエーション" as c01
 
 ac_01 - f01
@@ -819,7 +842,7 @@ f01 - UC3
 b01 -- UC1
 b02 -- UC2
 UC1 - e01
-UC2 - e01
+UC2 - e02
 UC2 -- c01
 ----
 
@@ -861,7 +884,84 @@ UC1 - e01
 
 ====== 単品の入荷
 
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "単品の入荷" as f01
+usecase "単品を検収する" as UC1
+usecase "単品を入庫する" as UC2
+usecase "単品を返品する" as UC3
+usecase "リードタイムを確認する" as UC4
+boundary "単品発注画面" as b01
+boundary "在庫推移画面" as b02
+entity "在庫" as e01
+entity "単品" as e02
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+f01 - UC3
+f01 - UC4
+b01 -- UC1
+b01 -- UC2
+b01 -- UC3
+b02 -- UC4
+UC1 - e01
+UC2 - e02
+UC4 - e01
+----
+
 ====== 商品の出荷
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "商品の出荷" as f01
+usecase "単品をピッキングする" as UC1
+usecase "単品を結束して商品にする" as UC2
+usecase "商品を出荷する" as UC3
+boundary "出荷一覧画面" as b01
+boundary "出荷明細画面" as b02
+entity "在庫" as e01
+entity "注文" as e02
+entity "単品" as e03
+entity "商品" as e04
+control "商品バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+f01 - UC3
+b01 -- UC1
+b02 -- UC2
+b01 -- UC3
+UC1 - e03
+UC2 - e04
+UC3 - e01
+UC3 - e02
+UC2 -- c01
+----
+
+====== 商品の返品
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "商品の返品" as f01
+usecase "返品処理をする" as UC1
+boundary "注文一覧画面" as b01
+boundary "注文明細画面" as b02
+entity "注文" as e01
+
+ac_01 - f01
+f01 - UC1
+b01 -- UC1
+b02 -- UC1
+UC1 - e01
+----
 
 === システム
 
@@ -916,7 +1016,7 @@ image::images/jig/business-rule-relation.svg[]
 ----
 skinparam componentStyle uml2
 
-package mrs.domain.model.auth {
+package bouquet.domain.model.auth {
 	package "'User' Aggregate" <<Rectangle>> {
 		class User <<(E,DarkSeaGreen) Entity>> {
 		}
