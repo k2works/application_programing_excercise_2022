@@ -694,7 +694,7 @@ UC4 - e01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "ユーザー登録" as f01
+frame "登録" as f01
 usecase "ユーザーを確認する" as UC1
 usecase "ユーザーを登録する" as UC2
 usecase "ユーザー情報を更新する" as UC3
