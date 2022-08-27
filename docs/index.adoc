@@ -331,10 +331,12 @@ title 業務フロー図 - 商品の登録:BUC
 |スタッフ|
 partition 登録 {
     :商品を登録する;
+}
+|得意先|
+partition 閲覧 {
     :商品を一覧表示する;
     :選択した商品を表示する;
 }
-
 end
 
 @enduml
@@ -725,26 +727,36 @@ UC3 - e01
 actor "スタッフ" as ac_01
 frame "登録" as f01
 usecase "商品を登録する" as UC1
-usecase "商品を一覧表示する" as UC2
-usecase "選択した商品を表示する" as UC3
-boundary "商品一覧画面" as b01
-boundary "商品明細画面" as b02
-boundary "商品登録画面" as b03
+boundary "商品登録画面" as b01
 entity "商品" as e01
 control "商品バリエーション" as c01
 
 ac_01 - f01
 f01 - UC1
+b01 -- UC1
+UC1 - e01
+UC1 -- c01
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+actor "得意先" as ac_01
+frame "閲覧" as f01
+usecase "商品を一覧表示する" as UC1
+usecase "選択した商品を表示する" as UC2
+boundary "商品一覧画面" as b01
+boundary "商品明細画面" as b02
+entity "商品" as e01
+
+ac_01 - f01
+f01 - UC1
 f01 - UC2
-f01 - UC3
-b01 -- UC2
+b01 -- UC1
 b02 -- UC2
-b02 -- UC3
-b03 -- UC1
 UC1 - e01
 UC2 - e01
-UC3 - e01
-UC1 -- c01
 @enduml
 ----
 
@@ -759,10 +771,12 @@ usecase "商品を一覧表示する" as UC1
 usecase "選択した商品を表示する" as UC2
 usecase "商品をカートに追加する" as UC3
 usecase "商品を注文する" as UC4
+usecase "商品をカートから削除する" as UC5
 boundary "商品一覧画面" as b01
 boundary "商品明細画面" as b02
 boundary "商品カート画面" as b03
 entity "商品" as e01
+entity "在庫" as e02
 control "商品バリエーション" as c01
 
 ac_01 - f01
@@ -773,10 +787,11 @@ b01 -- UC1
 b02 -- UC2
 b03 -- UC3
 b03 -- UC4
+b03 -- UC5
 UC1 - e01
 UC2 - e01
-UC3 - e01
-UC4 - e01
+UC3 - e02
+UC4 - e02
 UC3 -- c01
 UC4 -- c01
 ----
@@ -1044,21 +1059,23 @@ title 情報モデル図
 
 left to right direction
 
-entity ユーザー
+entity 得意先
 entity 商品
 entity 単品
-entity 注文
+entity 受注
+entity 発注
 entity 在庫
 entity 売上
 entity 仕入
 
-ユーザー - 注文
-注文 -- 商品
+得意先 - 受注
+受注 -- 商品
 商品 -- 単品
 単品 - 在庫
-注文 -- 在庫
-注文 -- 売上
-注文 -- 仕入
+受注 -- 売上
+スタッフ - 発注
+発注 -- 在庫
+発注 -- 仕入
 
 @enduml
 ----
