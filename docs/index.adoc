@@ -1059,16 +1059,24 @@ title 情報モデル図
 
 left to right direction
 
+package 受注 {
 entity 得意先
-entity 仕入先
 entity 商品
 entity 単品
 entity 受注
+}
+
+package 在庫 {
+entity 仕入先
+entity 商品
+entity 単品
 entity 出荷
 entity 発注
+entity 入荷
 entity 在庫
-entity 売上
 entity 仕入
+entity 売上
+}
 
 得意先 - 出荷
 得意先 -- 受注
@@ -1077,9 +1085,9 @@ entity 仕入
 単品 - 在庫
 出荷 -- 売上
 仕入先 -- 発注
-仕入先 - 入荷
-発注 -- 単品
-入荷 -- 仕入
+仕入先 --- 入荷
+発注 - 単品
+入荷 - 仕入
 
 @enduml
 ----
