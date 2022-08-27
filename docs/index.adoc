@@ -1060,22 +1060,26 @@ title 情報モデル図
 left to right direction
 
 entity 得意先
+entity 仕入先
 entity 商品
 entity 単品
 entity 受注
+entity 出荷
 entity 発注
 entity 在庫
 entity 売上
 entity 仕入
 
-得意先 - 受注
+得意先 - 出荷
+得意先 -- 受注
 受注 -- 商品
 商品 -- 単品
 単品 - 在庫
-受注 -- 売上
-スタッフ - 発注
-発注 -- 在庫
-発注 -- 仕入
+出荷 -- 売上
+仕入先 -- 発注
+仕入先 - 入荷
+発注 -- 単品
+入荷 -- 仕入
 
 @enduml
 ----
