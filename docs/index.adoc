@@ -329,9 +329,11 @@ ac_01 -- (uc_03)
 title 業務フロー図 - 商品の登録:BUC
 
 |スタッフ|
-:商品を登録する;
-:商品を一覧表示する;
-:選択した商品を表示する;
+partition 登録 {
+    :商品を登録する;
+    :商品を一覧表示する;
+    :選択した商品を表示する;
+}
 
 end
 
@@ -347,25 +349,31 @@ end
 title 業務フロー図 - 商品の注文:BUC
 
 |得意先|
-:商品を一覧表示する;
-:選択した商品を表示する;
-:商品をカートに追加する;
-:商品を注文する;
+partition 注文 {
+    :商品を一覧表示する;
+    :選択した商品を表示する;
+    :商品をカートに追加する;
+    :商品を注文する;
+}
 
 |スタッフ|
-:受注内容を確認する;
-:商品の引き当てする;
-if (在庫) then (有り)
- :出荷予定日を確認する;
-else (無し)
- :単品を発注する;
- |仕入先|
- :納品予定を通知する;
- |スタッフ|
- :リードタイムを確認する;
- :出荷予定日を確認する;
-endif
-:注文承諾を通知する;
+partition 受注 {
+    :受注内容を確認する;
+    :商品の引き当てする;
+    if (在庫) then (有り)
+     :出荷予定日を確認する;
+    else (無し)
+     partition 発注 {
+         :単品を発注する;
+         |仕入先|
+         :納品予定を通知する;
+         |スタッフ|
+         :リードタイムを確認する;
+         :出荷予定日を確認する;
+     }
+    endif
+    :注文承諾を通知する;
+}
 
 end
 
@@ -381,6 +389,7 @@ end
 title 業務フロー図 - 単品の発注:BUC
 
 |スタッフ|
+partition 発注 {
 :在庫推移を確認する;
 if (発注) then (不要)
  end
@@ -391,6 +400,8 @@ else (必要)
  |スタッフ|
  :リードタイムを確認する;
 endif
+}
+
 end
 
 @enduml
@@ -405,27 +416,32 @@ end
 title 業務フロー図 - 注文の変更:BUC
 
 |得意先|
+partition 注文変更 {
 :注文を変更する;
-
-|スタッフ|
-:変更内容を確認する;
-if (変更) then (可能)
- |スタッフ|
- :商品の引き当てする;
- if (在庫) then (有り)
-  :リードタイムを確認する;
- else (無し)
-  :単品を発注する;
-  |仕入先|
-  :納品予定を通知する;
-  |スタッフ|
-  :リードタイムを確認する;
- endif
-else (不可能)
- :変更できないこと通知する;
- end
-endif
-:注文内容変更を通知する;
+}
+partition 受注変更 {
+    |スタッフ|
+    :変更内容を確認する;
+    if (変更) then (可能)
+     |スタッフ|
+     :商品の引き当てする;
+     if (在庫) then (有り)
+      :リードタイムを確認する;
+     else (無し)
+      partition 発注変更 {
+          :単品を発注する;
+          |仕入先|
+          :納品予定を通知する;
+          |スタッフ|
+          :リードタイムを確認する;
+      }
+     endif
+    else (不可能)
+     :変更できないこと通知する;
+     end
+    endif
+    :注文内容変更を通知する;
+}
 end
 
 @enduml
@@ -440,19 +456,22 @@ end
 title 業務フロー図 - 注文の取消:BUC
 
 |得意先|
+partition 注文取消 {
 :注文を取消する;
-
-|スタッフ|
-:取消注文を確認する;
-if (出荷) then (未)
- |スタッフ|
- :注文を取消す;
- :注文取消を通知する;
-else (済)
- |スタッフ|
- :取消できないことを通知をする;
- end
-endif
+}
+partition 受注取消 {
+    |スタッフ|
+    :取消注文を確認する;
+    if (出荷) then (未)
+     |スタッフ|
+     :注文を取消す;
+     :注文取消を通知する;
+    else (済)
+     |スタッフ|
+     :取消できないことを通知をする;
+     end
+    endif
+}
 end
 
 @enduml
@@ -466,24 +485,30 @@ end
 ----
 @startuml
 
-title 業務フロー図 - 商品の入荷:BUC
+title 業務フロー図 - 単品の入荷:BUC
 |仕入先|
 :単品を出荷する;
 |スタッフ|
-:単品を検収する;
-if (検収) then (NG)
- :単品を返品する;
- |仕入先|
- :代替品納品予定を通知する;
- |スタッフ|
- :リードタイムを確認する;
- :出荷予定を通知する;
- end
-else (OK)
- |スタッフ|
- :単品を入庫する;
- end
-endif
+partition 検収 {
+    :単品を検収する;
+    if (検収) then (NG)
+     partition 返品 {
+         :単品を返品する;
+         |仕入先|
+         :代替品納品予定を通知する;
+         |スタッフ|
+         :リードタイムを確認する;
+         :出荷予定を通知する;
+     }
+     end
+    else (OK)
+     |スタッフ|
+     partition 入庫 {
+     :単品を入庫する;
+     }
+     end
+    endif
+}
 
 @enduml
 ----
@@ -497,11 +522,14 @@ endif
 title 業務フロー図 - 商品の出荷:BUC
 
 |スタッフ|
-:単品をピッキングする;
-:単品を結束して商品にする;
-:商品を出荷する;
-:出荷案内を通知する;
-
+partition 出庫 {
+    :単品をピッキングする;
+}
+partition 出荷 {
+    :単品を結束して商品にする;
+    :商品を出荷する;
+    :出荷案内を通知する;
+}
 |得意先|
 :商品を受け取る;
 
@@ -521,11 +549,12 @@ title 業務フロー図 - 商品の返品:BUC
 |得意先|
 :商品を返品する;
 
-|スタッフ|
-:商品を受け取る;
-:返品処理をする;
-:商品を廃棄する;
-
+partition 返品 {
+    |スタッフ|
+    :商品を受け取る;
+    :返品処理をする;
+}
+    :商品を廃棄する;
 end
 
 @enduml
@@ -548,7 +577,7 @@ left to right direction
 actor 得意先 as ac_01
 actor スタッフ as ac_02
 
-frame ユーザー認証 as fr_01
+frame 認証 as fr_01
 note right of fr_01
   登録済みのユーザーを認証してシステムの利用を認証・認可する
 end note
@@ -575,7 +604,7 @@ left to right direction
 actor 得意先 as ac_01
 actor スタッフ as ac_02
 
-frame ユーザー登録 as fr_01
+frame 登録 as fr_01
 note right of fr_01
   システムを利用できるユーザーを登録する
 end note
@@ -612,12 +641,12 @@ fr_01 -- (uc_01)
 @startuml
 actor "得意先" as ac_01
 actor "スタッフ" as ac_02
-frame "ユーザー認証" as f01
+frame "認証" as f01
 usecase "ユーザーを認証する" as UC1
 boundary "ログイン画面" as b01
 entity "ユーザー" as e01
 ac_01 - f01
-ac_02 - f01
+ac_02 -- f01
 f01 - UC1
 b01 -- UC1
 UC1 - e01
@@ -630,7 +659,7 @@ UC1 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "ユーザー登録" as f01
+frame "登録" as f01
 usecase "ユーザーを確認する" as UC1
 usecase "ユーザーを登録する" as UC2
 usecase "ユーザー情報を更新する" as UC3
@@ -694,7 +723,7 @@ UC3 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "商品の登録" as f01
+frame "登録" as f01
 usecase "商品を登録する" as UC1
 usecase "商品を一覧表示する" as UC2
 usecase "選択した商品を表示する" as UC3
@@ -725,7 +754,7 @@ UC1 -- c01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "商品の注文" as f01
+frame "注文" as f01
 usecase "商品を一覧表示する" as UC1
 usecase "選択した商品を表示する" as UC2
 usecase "商品をカートに追加する" as UC3
@@ -756,24 +785,39 @@ UC4 -- c01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "商品の注文" as f01
+frame "受注" as f01
+frame "発注" as f02
 usecase "受注内容を確認する" as UC1
 usecase "注文を承諾する" as UC2
+usecase "単品を発注する" as UC3
+usecase "リードタイムを確認する" as UC4
 boundary "受注一覧画面" as b01
 boundary "受注明細画面" as b02
+boundary "単品発注画面" as b03
 entity "注文" as e01
+entity "在庫" as e02
+entity "単品" as e03
 control "注文バリエーション" as c01
+control "単品バリエーション" as c02
 
 ac_01 - f01
+ac_01 -- f02
 f01 - UC1
 f01 - UC2
+f02 - UC3
+f02 - UC4
 b01 -- UC1
 b02-- UC1
 b01 -- UC2
+b03 -- UC3
+b03 -- UC4
 UC1 - e01
 UC2 - e01
+UC3 - e03
+UC4 - e02
 UC1 -- c01
 UC2 -- c01
+UC3 -- c02
 ----
 
 ====== 単品の発注
@@ -782,7 +826,7 @@ UC2 -- c01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "単品の発注" as f01
+frame "発注" as f01
 usecase "在庫推移を確認する" as UC1
 usecase "単品を発注する" as UC2
 usecase "リードタイムを確認する" as UC3
@@ -790,6 +834,7 @@ boundary "在庫推移画面" as b01
 boundary "単品発注画面" as b02
 entity "在庫" as e01
 entity "単品" as e02
+control "単品バリエーション" as c01
 
 ac_01 - f01
 f01 - UC1
@@ -801,6 +846,7 @@ b02 -- UC3
 UC1 - e01
 UC2 - e02
 UC3 - e01
+UC2 -- c01
 ----
 
 ====== 注文の変更
@@ -809,7 +855,7 @@ UC3 - e01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "注文の変更" as f01
+frame "注文変更" as f01
 usecase "注文を変更する" as UC1
 boundary "注文履歴画面" as b01
 entity "注文" as e01
@@ -826,23 +872,37 @@ UC1 -- c01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "注文の変更" as f01
+frame "受注変更" as f01
+frame "発注変更" as f02
 usecase "注文内容を確認する" as UC1
 usecase "商品を引き当てる" as UC2
+usecase "単品を発注する" as UC3
+usecase "リードタイムを確認する" as UC4
 boundary "注文一覧画面" as b01
 boundary "注文明細画面" as b02
+boundary "単品発注画面" as b03
 entity "注文" as e01
 entity "在庫" as e02
-control "商品バリエーション" as c01
+entity "単品" as e03
+control "単品バリエーション" as c01
+control "商品バリエーション" as c02
 
 ac_01 - f01
+ac_01 -- f02
 f01 - UC1
 f01 - UC2
+f02 - UC3
+f02 - UC4
 b01 -- UC1
 b02 -- UC2
+b03 -- UC3
+b03 -- UC4
 UC1 - e01
 UC2 - e02
-UC2 -- c01
+UC3 - e03
+UC4 - e02
+UC2 -- c02
+UC3 -- c01
 ----
 
 ====== 注文の取消
@@ -851,7 +911,7 @@ UC2 -- c01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "注文の取消" as f01
+frame "注文取消" as f01
 usecase "注文を取消する" as UC1
 boundary "注文履歴画面" as b01
 entity "注文" as e01
@@ -866,7 +926,7 @@ UC1 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "注文の取消" as f01
+frame "受注取消" as f01
 usecase "取消注文を確認する" as UC1
 boundary "注文一覧画面" as b01
 boundary "注文明細画面" as b02
@@ -887,7 +947,9 @@ UC1 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "単品の入荷" as f01
+frame "検収" as f01
+frame "入庫" as f02
+frame "返品" as f03
 usecase "単品を検収する" as UC1
 usecase "単品を入庫する" as UC2
 usecase "単品を返品する" as UC3
@@ -899,10 +961,12 @@ entity "単品" as e02
 entity "仕入" as e03
 
 ac_01 - f01
+ac_01 -- f02
+ac_01 ---- f03
 f01 - UC1
-f01 - UC2
-f01 - UC3
-f01 - UC4
+f02 - UC2
+f03 - UC3
+f03 - UC4
 b01 -- UC1
 b01 -- UC2
 b01 -- UC3
@@ -919,7 +983,8 @@ UC4 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "商品の出荷" as f01
+frame "出庫" as f01
+frame "出荷" as f02
 usecase "単品をピッキングする" as UC1
 usecase "単品を結束して商品にする" as UC2
 usecase "商品を出荷する" as UC3
@@ -932,9 +997,10 @@ entity "売上" as e04
 control "商品バリエーション" as c01
 
 ac_01 - f01
+ac_01 --- f02
 f01 - UC1
-f01 - UC2
-f01 - UC3
+f02 - UC2
+f02 - UC3
 b01 -- UC1
 b02 -- UC2
 b01 -- UC3
@@ -953,7 +1019,7 @@ UC2 -- c01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "商品の返品" as f01
+frame "返品" as f01
 usecase "返品処理をする" as UC1
 boundary "注文一覧画面" as b01
 boundary "注文明細画面" as b02
