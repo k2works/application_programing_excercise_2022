@@ -1059,7 +1059,7 @@ title 情報モデル図
 
 left to right direction
 
-package 受注 {
+package 注文 {
 entity 得意先
 entity 商品
 entity 単品
