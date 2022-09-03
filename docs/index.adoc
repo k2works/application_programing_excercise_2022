@@ -271,6 +271,8 @@ usecase 商品の注文 as uc_02
 usecase 単品の発注 as uc_03
 usecase 注文の変更 as uc_04
 usecase 注文の取消 as uc_05
+usecase 商品の出荷 as uc_06
+usecase 商品の返品 as uc_07
 
 ac_01 -- (uc_01)
 
@@ -286,6 +288,10 @@ ac_02 -- (uc_04)
 ac_01 -- (uc_05)
 ac_02 -- (uc_05)
 
+ac_02 -- (uc_06)
+
+ac_01 -- (uc_07)
+
 @enduml
 ----
 
@@ -299,18 +305,12 @@ title ビジネスユースケース図 - 在庫管理
 
 left to right direction
 
-actor 得意先 as ac_01
-actor スタッフ as ac_02
+actor スタッフ as ac_01
 agent 仕入先 as ag_01
 
 usecase 単品の入荷 as uc_01
-usecase 商品の出荷 as uc_02
-usecase 商品の返品 as uc_03
 
-ac_02 -- (uc_01)
-ac_02 -- (uc_02)
-ac_01 -- (uc_02)
-ac_01 -- (uc_03)
+ac_01 -- (uc_01)
 (uc_01) -- ag_01
 
 @enduml
@@ -479,42 +479,6 @@ end
 @enduml
 ----
 
-===== 在庫管理
-
-====== 単品の入荷
-
-[plantuml]
-----
-@startuml
-
-title 業務フロー図 - 単品の入荷:BUC
-|仕入先|
-:単品を出荷する;
-|スタッフ|
-partition 検収 {
-    :単品を検収する;
-    if (検収) then (NG)
-     partition 返品 {
-         :単品を返品する;
-         |仕入先|
-         :代替品納品予定を通知する;
-         |スタッフ|
-         :リードタイムを確認する;
-         :出荷予定を通知する;
-     }
-     end
-    else (OK)
-     |スタッフ|
-     partition 入庫 {
-     :単品を入庫する;
-     }
-     end
-    endif
-}
-
-@enduml
-----
-
 ====== 商品の出荷
 
 [plantuml]
@@ -558,6 +522,42 @@ partition 返品 {
 }
     :商品を廃棄する;
 end
+
+@enduml
+----
+
+===== 在庫管理
+
+====== 単品の入荷
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 単品の入荷:BUC
+|仕入先|
+:単品を出荷する;
+|スタッフ|
+partition 検収 {
+    :単品を検収する;
+    if (検収) then (NG)
+     partition 返品 {
+         :単品を返品する;
+         |仕入先|
+         :代替品納品予定を通知する;
+         |スタッフ|
+         :リードタイムを確認する;
+         :出荷予定を通知する;
+     }
+     end
+    else (OK)
+     |スタッフ|
+     partition 入庫 {
+     :単品を入庫する;
+     }
+     end
+    endif
+}
 
 @enduml
 ----
@@ -954,44 +954,6 @@ b02 -- UC1
 UC1 - e01
 ----
 
-===== 在庫管理
-
-====== 単品の入荷
-
-[plantuml]
-----
-@startuml
-actor "スタッフ" as ac_01
-frame "検収" as f01
-frame "入庫" as f02
-frame "返品" as f03
-usecase "単品を検収する" as UC1
-usecase "単品を入庫する" as UC2
-usecase "単品を返品する" as UC3
-usecase "リードタイムを確認する" as UC4
-boundary "単品発注画面" as b01
-boundary "在庫推移画面" as b02
-entity "在庫" as e01
-entity "単品" as e02
-entity "仕入" as e03
-
-ac_01 - f01
-ac_01 -- f02
-ac_01 ---- f03
-f01 - UC1
-f02 - UC2
-f03 - UC3
-f03 - UC4
-b01 -- UC1
-b01 -- UC2
-b01 -- UC3
-b02 -- UC4
-UC1 - e01
-UC2 - e02
-UC2 - e03
-UC4 - e01
-----
-
 ====== 商品の出荷
 
 [plantuml]
@@ -1047,6 +1009,44 @@ b02 -- UC1
 UC1 - e01
 ----
 
+===== 在庫管理
+
+====== 単品の入荷
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "検収" as f01
+frame "入庫" as f02
+frame "返品" as f03
+usecase "単品を検収する" as UC1
+usecase "単品を入庫する" as UC2
+usecase "単品を返品する" as UC3
+usecase "リードタイムを確認する" as UC4
+boundary "単品発注画面" as b01
+boundary "在庫推移画面" as b02
+entity "在庫" as e01
+entity "単品" as e02
+entity "仕入" as e03
+
+ac_01 - f01
+ac_01 -- f02
+ac_01 ---- f03
+f01 - UC1
+f02 - UC2
+f03 - UC3
+f03 - UC4
+b01 -- UC1
+b01 -- UC2
+b01 -- UC3
+b02 -- UC4
+UC1 - e01
+UC2 - e02
+UC2 - e03
+UC4 - e01
+----
+
 === システム
 
 ==== 情報モデル
@@ -1062,27 +1062,27 @@ left to right direction
 package 注文 {
 entity 得意先
 entity 商品
-entity 単品
 entity 受注
+entity 出荷
+entity 売上
 }
 
 package 在庫 {
+entity 単品
 entity 仕入先
 entity 商品
 entity 単品
-entity 出荷
 entity 発注
 entity 入荷
 entity 在庫
 entity 仕入
-entity 売上
 }
 
 得意先 - 出荷
 得意先 -- 受注
 受注 -- 商品
 商品 -- 単品
-単品 - 在庫
+単品 -- 在庫
 出荷 -- 売上
 仕入先 -- 発注
 仕入先 --- 入荷
