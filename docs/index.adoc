@@ -1241,6 +1241,8 @@ state 入荷
 
 == 開発
 
+https://masuda220.hatenablog.com/entry/2020/05/27/103750[CCSR手法に準拠]
+
 === 仕様
 
 ==== コンテキストマップ
