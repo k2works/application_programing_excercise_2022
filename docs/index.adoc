@@ -274,10 +274,8 @@ usecase 注文の取消 as uc_05
 usecase 商品の出荷 as uc_06
 usecase 商品の返品 as uc_07
 
-ac_01 -- (uc_01)
-
 ac_02 -- (uc_01)
-ac_02 -- (uc_02)
+ac_01 -- (uc_02)
 
 ac_02 -- (uc_03)
 (uc_03) -- ag_01
@@ -375,33 +373,6 @@ partition 受注 {
      }
     endif
     :注文承諾を通知する;
-}
-
-end
-
-@enduml
-----
-
-====== 単品の発注
-
-[plantuml]
-----
-@startuml
-
-title 業務フロー図 - 単品の発注:BUC
-
-|スタッフ|
-partition 発注 {
-:在庫推移を確認する;
-if (発注) then (不要)
- end
-else (必要)
- :単品を発注する;
- |仕入先|
- :納品予定を通知する;
- |スタッフ|
- :リードタイムを確認する;
-endif
 }
 
 end
@@ -527,6 +498,33 @@ end
 ----
 
 ===== 在庫管理
+
+====== 単品の発注
+
+[plantuml]
+----
+@startuml
+
+title 業務フロー図 - 単品の発注:BUC
+
+|スタッフ|
+partition 発注 {
+:在庫推移を確認する;
+if (発注) then (不要)
+ end
+else (必要)
+ :単品を発注する;
+ |仕入先|
+ :納品予定を通知する;
+ |スタッフ|
+ :リードタイムを確認する;
+endif
+}
+
+end
+
+@enduml
+----
 
 ====== 単品の入荷
 
@@ -835,35 +833,6 @@ UC2 -- c01
 UC3 -- c02
 ----
 
-====== 単品の発注
-
-[plantuml]
-----
-@startuml
-actor "スタッフ" as ac_01
-frame "発注" as f01
-usecase "在庫推移を確認する" as UC1
-usecase "単品を発注する" as UC2
-usecase "リードタイムを確認する" as UC3
-boundary "在庫推移画面" as b01
-boundary "単品発注画面" as b02
-entity "在庫" as e01
-entity "単品" as e02
-control "単品バリエーション" as c01
-
-ac_01 - f01
-f01 - UC1
-f01 - UC2
-f01 - UC3
-b01 -- UC1
-b02 -- UC2
-b02 -- UC3
-UC1 - e01
-UC2 - e02
-UC3 - e01
-UC2 -- c01
-----
-
 ====== 注文の変更
 
 [plantuml]
@@ -1010,6 +979,35 @@ UC1 - e01
 ----
 
 ===== 在庫管理
+
+====== 単品の発注
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "発注" as f01
+usecase "在庫推移を確認する" as UC1
+usecase "単品を発注する" as UC2
+usecase "リードタイムを確認する" as UC3
+boundary "在庫推移画面" as b01
+boundary "単品発注画面" as b02
+entity "在庫" as e01
+entity "単品" as e02
+control "単品バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+f01 - UC3
+b01 -- UC1
+b02 -- UC2
+b02 -- UC3
+UC1 - e01
+UC2 - e02
+UC3 - e01
+UC2 -- c01
+----
 
 ====== 単品の入荷
 
@@ -1159,27 +1157,6 @@ state 注文完了
 @enduml
 ----
 
-====== 単品の発注
-
-[plantuml]
-----
-@startuml
-
-title 状態モデル図 - 単品の発注
-
-state 未発注
-state 発注
-state 入荷待ち
-state 入荷
-
-[*] --> 未発注
-未発注 -> 発注: (単品を発注する)
-発注 -> 入荷待ち: (単品を発注する)
-入荷待ち -> 入荷: (単品を入荷する)
-入荷 --> [*]
-@enduml
-----
-
 ====== 注文の変更
 
 [plantuml]
@@ -1233,6 +1210,35 @@ state 商品出荷済み
 @enduml
 ----
 
+====== 商品の出荷
+
+====== 商品の返品
+
+===== 在庫管理
+
+====== 単品の発注
+
+[plantuml]
+----
+@startuml
+
+title 状態モデル図 - 単品の発注
+
+state 未発注
+state 発注
+state 入荷待ち
+state 入荷
+
+[*] --> 未発注
+未発注 -> 発注: (単品を発注する)
+発注 -> 入荷待ち: (単品を発注する)
+入荷待ち -> 入荷: (単品を入荷する)
+入荷 --> [*]
+@enduml
+----
+
+====== 単品の入荷
+
 == 開発
 
 === 仕様
@@ -1244,7 +1250,9 @@ state 商品出荷済み
 skinparam componentStyle uml2
 
 component [AuthContext] <<認証・認可>>
+component [UserContext] <<ユーザー>>
 
+[AuthContext]<-->[UserContext] : Shared Kernel
 ----
 
 ==== ユースケース
@@ -1257,13 +1265,32 @@ image:images/jig/service-method-call-hierarchy.svg[]
 ----
 @startuml
 left to right direction
-actor "ユーザー" as user
+actor "得意先" as customer
+actor "スタッフ" as staff
 rectangle 認証・認可 {
   usecase "ユーザーの認証" as UC1
 }
-user --> UC1
+customer --> UC1
+staff --> UC1
 @enduml
 ----
+
+===== ユーザー
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "得意先" as customer
+actor "スタッフ" as staff
+rectangle ユーザー {
+usecase "ユーザーの管理" as UC1
+}
+customer --> UC1
+staff --> UC1
+@enduml
+----
+
 === 設計
 
 ==== アプリケーションアーキテクチャ
