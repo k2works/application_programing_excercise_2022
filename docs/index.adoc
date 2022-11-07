@@ -196,6 +196,7 @@ left to right direction
 actor 得意先 as ac_01
 
 node WEB店舗 as no_01{
+  usecase ユーザー管理 as uc_03
   usecase 受注管理 as uc_01
 }
 
@@ -203,7 +204,6 @@ node 店舗 as no_02 {
   actor スタッフ as ac_02
 
   usecase 在庫管理 as uc_02
-  usecase ユーザー管理 as uc_03
   artifact 商品 as ar_01
   artifact 単品 as ar_02
 }
@@ -264,11 +264,9 @@ left to right direction
 
 actor 得意先 as ac_01
 actor スタッフ as ac_02
-agent 仕入先 as ag_01
 
 usecase 商品の登録 as uc_01
 usecase 商品の注文 as uc_02
-usecase 単品の発注 as uc_03
 usecase 注文の変更 as uc_04
 usecase 注文の取消 as uc_05
 usecase 商品の出荷 as uc_06
@@ -276,9 +274,6 @@ usecase 商品の返品 as uc_07
 
 ac_02 -- (uc_01)
 ac_01 -- (uc_02)
-
-ac_02 -- (uc_03)
-(uc_03) -- ag_01
 
 ac_01 -- (uc_04)
 ac_02 -- (uc_04)
@@ -306,10 +301,15 @@ left to right direction
 actor スタッフ as ac_01
 agent 仕入先 as ag_01
 
-usecase 単品の入荷 as uc_01
+usecase 単品の発注 as uc_01
+usecase 単品の入荷 as uc_02
 
 ac_01 -- (uc_01)
 (uc_01) -- ag_01
+
+ac_01 -- (uc_02)
+(uc_02) -- ag_01
+
 
 @enduml
 ----
