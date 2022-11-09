@@ -1362,7 +1362,7 @@ left to right direction
 actor "得意先" as customer
 actor "スタッフ" as staff
 rectangle 認証・認可 {
-  usecase "ユーザーの認証" as UC1
+  usecase "ユーザーを認証する" as UC1
 }
 customer --> UC1
 staff --> UC1
@@ -1378,10 +1378,18 @@ left to right direction
 actor "得意先" as customer
 actor "スタッフ" as staff
 rectangle ユーザー {
-usecase "ユーザーの管理" as UC1
+usecase "ユーザーを登録する" as UC1
+usecase "ユーザーを確認する" as UC2
+usecase "ユーザー情報を更新する" as UC3
+usecase "ユーザー登録を抹消する" as UC4
 }
 customer --> UC1
+customer --> UC2
+customer --> UC3
 staff --> UC1
+staff --> UC2
+staff --> UC3
+staff --> UC4
 @enduml
 ----
 
