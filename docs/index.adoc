@@ -604,16 +604,22 @@ left to right direction
 actor 得意先 as ac_01
 actor スタッフ as ac_02
 
-frame 登録 as fr_01
+frame ユーザー as fr_01
 note right of fr_01
   システムを利用できるユーザーを登録する
 end note
 
 usecase ユーザーを登録する as uc_01
+usecase ユーザーを確認する as uc_02
+usecase ユーザー情報を更新する as uc_03
+usecase ユーザー登録を抹消する as uc_04
 
 :ac_01: -- fr_01
 :ac_02: -- fr_01
 fr_01 -- (uc_01)
+fr_01 -- (uc_02)
+fr_01 -- (uc_03)
+fr_01 -- (uc_04)
 
 @enduml
 ----
@@ -659,7 +665,7 @@ UC1 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "登録" as f01
+frame "ユーザー" as f01
 usecase "ユーザーを確認する" as UC1
 usecase "ユーザーを登録する" as UC2
 usecase "ユーザー情報を更新する" as UC3
@@ -692,7 +698,7 @@ UC4 - e01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "登録" as f01
+frame "ユーザー" as f01
 usecase "ユーザーを確認する" as UC1
 usecase "ユーザーを登録する" as UC2
 usecase "ユーザー情報を更新する" as UC3
@@ -1281,7 +1287,7 @@ state 入荷済
 未発注 -> 発注中: (単品を発注する)
 発注中 -> 入荷待: (単品を発注する)
 入荷待 -> 入荷済: (単品を入荷する)
-入荷済 --> [*]
+    入荷済 --> [*]
 @enduml
 ----
 
