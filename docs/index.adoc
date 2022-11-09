@@ -350,8 +350,10 @@ title 業務フロー図 - 商品の注文:BUC
 
 |得意先|
 partition 注文 {
-    :商品を一覧表示する;
-    :選択した商品を表示する;
+    partition 商品 {
+        :商品を一覧表示する;
+        :選択した商品を表示する;
+    }
     :商品をカートに追加する;
     :商品を注文する;
 }
@@ -389,10 +391,10 @@ end
 title 業務フロー図 - 注文の変更:BUC
 
 |得意先|
-partition 注文変更 {
+partition 注文 {
 :注文を変更する;
 }
-partition 受注変更 {
+partition 受注 {
     |スタッフ|
     :変更内容を確認する;
     if (変更) then (可能)
@@ -429,10 +431,10 @@ end
 title 業務フロー図 - 注文の取消:BUC
 
 |得意先|
-partition 注文取消 {
+partition 注文 {
 :注文を取消する;
 }
-partition 受注取消 {
+partition 受注 {
     |スタッフ|
     :取消注文を確認する;
     if (出荷) then (未)
@@ -467,8 +469,10 @@ partition 出荷 {
     :商品を出荷する;
     :出荷案内を通知する;
 }
+partition 注文 {
 |得意先|
 :商品を受け取る;
+}
 
 end
 
@@ -484,14 +488,16 @@ end
 title 業務フロー図 - 商品の返品:BUC
 
 |得意先|
+partition 注文 {
 :商品を返品する;
+}
 
 partition 返品 {
     |スタッフ|
     :商品を受け取る;
     :返品処理をする;
-}
     :商品を廃棄する;
+}
 end
 
 @enduml
@@ -774,7 +780,8 @@ UC2 - e01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "注文" as f01
+frame "商品" as f01
+frame "注文" as f02
 usecase "商品を一覧表示する" as UC1
 usecase "選択した商品を表示する" as UC2
 usecase "商品をカートに追加する" as UC3
@@ -788,9 +795,12 @@ entity "在庫" as e02
 control "商品バリエーション" as c01
 
 ac_01 - f01
+ac_01 -- f02
 f01 - UC1
 f01 - UC2
-f01 - UC3
+f02 - UC3
+f02 - UC4
+f02 - UC5
 b01 -- UC1
 b02 -- UC2
 b03 -- UC3
@@ -849,7 +859,7 @@ UC3 -- c02
 ----
 @startuml
 actor "得意先" as ac_01
-frame "注文変更" as f01
+frame "注文" as f01
 usecase "注文を変更する" as UC1
 boundary "注文履歴画面" as b01
 entity "注文" as e01
@@ -866,8 +876,8 @@ UC1 -- c01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "受注変更" as f01
-frame "発注変更" as f02
+frame "受注" as f01
+frame "発注" as f02
 usecase "注文内容を確認する" as UC1
 usecase "商品を引き当てる" as UC2
 usecase "単品を発注する" as UC3
@@ -905,7 +915,7 @@ UC3 -- c01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "注文取消" as f01
+frame "注文" as f01
 usecase "注文を取消する" as UC1
 boundary "注文履歴画面" as b01
 entity "注文" as e01
@@ -920,7 +930,7 @@ UC1 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "受注取消" as f01
+frame "受注" as f01
 usecase "取消注文を確認する" as UC1
 boundary "注文一覧画面" as b01
 boundary "注文明細画面" as b02
