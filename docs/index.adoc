@@ -612,7 +612,9 @@ end note
 usecase ユーザーを登録する as uc_01
 usecase ユーザーを確認する as uc_02
 usecase ユーザー情報を更新する as uc_03
-usecase ユーザー登録を抹消する as uc_04
+usecase ユーザー登録を解除する as uc_04
+usecase ユーザー登録を復活する as uc_05
+usecase ユーザー登録を抹消する as uc_06
 
 :ac_01: -- fr_01
 :ac_02: -- fr_01
@@ -620,6 +622,8 @@ fr_01 -- (uc_01)
 fr_01 -- (uc_02)
 fr_01 -- (uc_03)
 fr_01 -- (uc_04)
+fr_01 -- (uc_05)
+fr_01 -- (uc_06)
 
 @enduml
 ----
@@ -1098,6 +1102,56 @@ entity 仕入
 
 ==== 状態モデル
 
+===== ユーザー管理
+
+====== ユーザー認証
+
+[plantuml]
+----
+@startuml
+
+title 状態モデル図 - ユーザー認証
+
+state 認証 {
+state 未認証
+state 認証済
+}
+
+[*] --> 未認証
+未認証 -> 認証済 : 認証成功
+未認証 -> 未認証 : 認証失敗
+認証済 -> 未認証 : ログアウト
+認証済 --> [*] : タイムアウト
+
+@enduml
+----
+
+====== ユーザー登録
+
+[plantuml]
+----
+@startuml
+
+title 状態モデル図 - ユーザー登録
+
+state ユーザー {
+state 未登録
+state 登録済
+state 登録解除
+state 抹消済
+}
+
+[*] --> 未登録
+未登録 -> 登録済 : (ユーザーを登録する)
+登録済 -> 登録済 : (ユーザー情報を更新する)
+登録済 --> 登録解除 : (ユーザー登録を解除する)
+登録解除 --> 登録済 : (ユーザー登録を復活する)
+登録解除 -> 抹消済 : (ユーザー登録を抹消する)
+抹消済 --> [*]
+
+@enduml
+----
+
 ===== 受注管理
 
 ====== 商品の登録
@@ -1381,7 +1435,9 @@ rectangle ユーザー {
 usecase "ユーザーを登録する" as UC1
 usecase "ユーザーを確認する" as UC2
 usecase "ユーザー情報を更新する" as UC3
-usecase "ユーザー登録を抹消する" as UC4
+usecase "ユーザー情報を解除する" as UC4
+usecase "ユーザー情報を復活する" as UC5
+usecase "ユーザー登録を抹消する" as UC6
 }
 customer --> UC1
 customer --> UC2
@@ -1390,6 +1446,8 @@ staff --> UC1
 staff --> UC2
 staff --> UC3
 staff --> UC4
+staff --> UC5
+staff --> UC6
 @enduml
 ----
 
