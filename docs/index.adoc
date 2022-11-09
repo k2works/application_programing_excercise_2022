@@ -327,11 +327,11 @@ ac_01 -- (uc_02)
 title 業務フロー図 - 商品の登録:BUC
 
 |スタッフ|
-partition 登録 {
+partition 商品 {
     :商品を登録する;
 }
 |得意先|
-partition 閲覧 {
+partition 商品 {
     :商品を一覧表示する;
     :選択した商品を表示する;
 }
@@ -729,7 +729,7 @@ UC3 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "登録" as f01
+frame "商品" as f01
 usecase "商品を登録する" as UC1
 boundary "商品登録画面" as b01
 entity "商品" as e01
@@ -747,7 +747,7 @@ UC1 -- c01
 ----
 @startuml
 actor "得意先" as ac_01
-frame "閲覧" as f01
+frame "商品" as f01
 usecase "商品を一覧表示する" as UC1
 usecase "選択した商品を表示する" as UC2
 boundary "商品一覧画面" as b01
