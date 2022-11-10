@@ -1455,17 +1455,44 @@ https://masuda220.hatenablog.com/entry/2020/05/27/103750[CCSR手法に準拠]
 ----
 skinparam componentStyle uml2
 
-component [AuthContext] <<認証・認可>>
+component [AuthContext] <<認証>>
 component [UserContext] <<ユーザー>>
+component [ProductContext] <<商品>>
+component [SalesContext] <<販売>>
+component [OrderContext] <<注文>>
+component [ReceivedOrderContext] <<受注>>
+component [PlacementOrderContext] <<発注>>
+component [ShippingContext] <<出庫>>
+component [DeliveryContext] <<出荷>>
+component [WarehousingContext] <<入庫>>
+component [ArrivedContext] <<入荷>>
+component [AcceptanceContext] <<検収>>
+component [ReturnedProductContext] <<返品>>
 
-[AuthContext]<-->[UserContext] : Shared Kernel
+[AuthContext]<-->[UserContext]
+[UserContext] <-- [OrderContext]
+[UserContext] <-- [ReceivedOrderContext]
+[ProductContext] <- [SalesContext]
+[ProductContext] <-- [OrderContext]
+[ProductContext] <-- [ReceivedOrderContext]
+[ProductContext] <-- [PlacementOrderContext]
+[OrderContext] -> [ReceivedOrderContext]
+[OrderContext] --> [ReturnedProductContext]
+[ReceivedOrderContext] -> [PlacementOrderContext]
+[ReceivedOrderContext] --> [DeliveryContext]
+[DeliveryContext] --> [ShippingContext]
+[PlacementOrderContext] --> [ArrivedContext]
+[PlacementOrderContext] --> [ReturnedProductContext]
+[ArrivedContext] <- [AcceptanceContext]
+[ArrivedContext] --> [WarehousingContext]
+
 ----
 
 ==== ユースケース
 
 image:images/jig/service-method-call-hierarchy.svg[]
 
-===== 認証・認可
+===== 認証
 
 [plantuml]
 ----
@@ -1473,7 +1500,7 @@ image:images/jig/service-method-call-hierarchy.svg[]
 left to right direction
 actor "得意先" as customer
 actor "スタッフ" as staff
-rectangle 認証・認可 {
+rectangle 認証 {
   usecase "ユーザーを認証する" as UC1
 }
 customer --> UC1
@@ -1509,6 +1536,28 @@ staff --> UC6
 @enduml
 ----
 
+===== 商品
+
+===== 販売
+
+===== 注文
+
+===== 受注
+
+===== 発注
+
+===== 出庫
+
+===== 出荷
+
+===== 入庫
+
+===== 入荷
+
+===== 検収
+
+===== 返品
+
 === 設計
 
 ==== アプリケーションアーキテクチャ
@@ -1519,7 +1568,7 @@ image::images/jig/architecture.svg[]
 
 image::images/jig/business-rule-relation.svg[]
 
-===== 認証認可
+===== 認証
 
 [plantuml]
 ----
