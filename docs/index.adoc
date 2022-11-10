@@ -379,7 +379,7 @@ partition 受注 {
      if (在庫) then (有り)
       :リードタイムを確認する;
      else (無し)
-      partition 発注変更 {
+      partition 発注 {
           :単品を発注する;
           |仕入先|
           :納品予定を通知する;
