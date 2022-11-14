@@ -337,7 +337,7 @@ partition 注文 {
 |スタッフ|
 partition 受注 {
     :受注内容を確認する;
-    :商品の引き当てする;
+    :商品を引き当る;
     if (在庫) then (有り)
      :出荷予定日を確認する;
     else (無し)
@@ -375,9 +375,9 @@ partition 受注 {
     :変更内容を確認する;
     if (変更) then (可能)
      |スタッフ|
-     :商品の引き当てする;
+     :商品を引き当てる;
      if (在庫) then (有り)
-      :リードタイムを確認する;
+      :出荷予定を確認する;
      else (無し)
       partition 発注 {
           :単品を発注する;
@@ -415,8 +415,18 @@ partition 受注 {
     :取消注文を確認する;
     if (出荷) then (未)
      |スタッフ|
-     :注文を取消す;
-     :注文取消を通知する;
+     :受注を取消す;
+     if (発注) then (未)
+        :取消注文を通知する;
+     else (済)
+        :発注を取消す;
+        if (取消) then (OK)
+            :取消注文を通知する;
+        else (NG)
+            :取消できないことを通知する;
+            end
+        endif
+     endif
     else (済)
      |スタッフ|
      :取消できないことを通知をする;
@@ -622,8 +632,7 @@ title 利用シーン図 - 商品の登録:BUC
 
 left to right direction
 
-actor 得意先 as ac_01
-actor スタッフ as ac_02
+actor スタッフ as ac_01
 
 frame 商品 as fr_01
 note right of fr_01
@@ -643,8 +652,7 @@ usecase 販売を再開する as uc_05
 usecase 販売を終了する as uc_06
 
 :ac_01: -- fr_01
-:ac_02: -- fr_01
-:ac_02: -- fr_02
+:ac_01: -- fr_02
 fr_01 -- (uc_01)
 fr_01 -- (uc_02)
 fr_01 -- (uc_03)
@@ -864,6 +872,7 @@ usecase "受注内容を確認する" as UC1
 usecase "注文を承諾する" as UC2
 usecase "単品を発注する" as UC3
 usecase "リードタイムを確認する" as UC4
+usecase "出荷予定日を確認する" as UC5
 boundary "受注一覧画面" as b01
 boundary "受注明細画面" as b02
 boundary "単品発注画面" as b03
@@ -880,14 +889,16 @@ f01 - UC2
 f02 - UC3
 f02 - UC4
 b01 -- UC1
-b02-- UC1
+b02 -- UC1
 b01 -- UC2
 b03 -- UC3
 b03 -- UC4
+b01 -- UC5
 UC1 - e01
 UC2 - e01
 UC3 - e03
 UC4 - e02
+UC5 - e01
 UC1 -- c01
 UC2 -- c01
 UC3 -- c02
@@ -958,7 +969,7 @@ actor "得意先" as ac_01
 frame "注文" as f01
 usecase "注文を取消する" as UC1
 boundary "注文履歴画面" as b01
-entity "注文" as e01
+entity "受注" as e01
 
 ac_01 - f01
 f01 - UC1
@@ -971,16 +982,27 @@ UC1 - e01
 @startuml
 actor "スタッフ" as ac_01
 frame "受注" as f01
+frame "発注" as f02
 usecase "取消注文を確認する" as UC1
+usecase "受注を取消す" as UC2
+usecase "発注を取消す" as UC3
 boundary "注文一覧画面" as b01
 boundary "注文明細画面" as b02
-entity "注文" as e01
+boundary "単品発注画面" as b03
+entity "受注" as e01
+entity "発注" as e02
 
 ac_01 - f01
 f01 - UC1
 b01 -- UC1
 b02 -- UC1
+b02 -- UC2
 UC1 - e01
+UC2 - e01
+ac_01 -- f02
+f02 - UC3
+b03 -- UC3
+UC3 - e02
 ----
 
 ====== 商品の出荷
@@ -1538,25 +1560,163 @@ staff --> UC6
 
 ===== 商品
 
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 商品 {
+usecase "商品を登録する" as UC1
+usecase "商品を確認する" as UC2
+usecase "商品情報を更新する" as UC3
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
+@enduml
+----
+
 ===== 販売
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 販売 {
+usecase "販売を停止する" as UC1
+usecase "販売を再開する" as UC2
+usecase "販売を終了する" as UC3
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
+@enduml
+----
 
 ===== 注文
 
+[plantuml]
+----
+@startuml
+left to right direction
+actor "得意先" as ac_01
+rectangle 注文 {
+usecase "商品を一覧表示する" as UC1
+usecase "選択した商品を表示する" as UC2
+usecase "商品をカートに追加する" as UC3
+usecase "商品をカートから削除する" as UC4
+usecase "注文を変更する" as UC5
+usecase "注文を取消する" as UC6
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
+ac_01 --> UC4
+ac_01 --> UC5
+ac_01 --> UC6
+@enduml
+----
+
 ===== 受注
 
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 受注 {
+usecase "受注内容を確認する" as UC1
+usecase "商品を引き当てる" as UC2
+usecase "受注を承諾する" as UC3
+usecase "出荷予定日を確認する" as UC4
+usecase "取消注文を確認する" as UC5
+usecase "受注を取消す" as UC6
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
+ac_01 --> UC4
+ac_01 --> UC5
+ac_01 --> UC6
+@enduml
+----
+
 ===== 発注
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 発注 {
+usecase "単品を発注する" as UC1
+usecase "リードタイムを確認する" as UC2
+usecase "発注を取消す" as UC3
+usecase "在庫推移を確認する" as UC4
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
+ac_01 --> UC4
+@enduml
+----
 
 ===== 出庫
 
 ===== 出荷
 
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 出荷 {
+usecase "単品を結束して商品にする" as UC1
+usecase "単品をピッキングする" as UC2
+usecase "商品を出荷する" as UC3
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
+@enduml
+----
+
 ===== 入庫
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 入庫 {
+usecase "単品を検収する" as UC1
+usecase "単品を入庫する" as UC2
+}
+ac_01 --> UC1
+ac_01 --> UC2
+@enduml
+----
 
 ===== 入荷
 
 ===== 検収
 
 ===== 返品
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 返品 {
+usecase "単品を返品する" as UC1
+usecase "返品処理をする" as UC2
+}
+ac_01 --> UC1
+ac_01 --> UC2
+@enduml
+----
 
 === 設計
 
