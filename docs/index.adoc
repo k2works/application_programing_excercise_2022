@@ -358,8 +358,7 @@ title 業務フロー図 - 商品の注文:BUC
 
 |得意先|
 partition 注文 {
-    :商品を一覧表示する;
-    :選択した商品を表示する;
+    :商品を確認する;
     :商品をカートに追加する;
     :商品を注文する;
 }
@@ -919,11 +918,10 @@ UC3 -- c01
 @startuml
 actor "得意先" as ac_01
 frame "注文" as f01
-usecase "商品を一覧表示する" as UC1
-usecase "選択した商品を表示する" as UC2
-usecase "商品をカートに追加する" as UC3
-usecase "商品を注文する" as UC4
-usecase "商品をカートから削除する" as UC5
+usecase "商品を確認する" as UC1
+usecase "商品をカートに追加する" as UC2
+usecase "商品を注文する" as UC3
+usecase "商品をカートから削除する" as UC4
 boundary "商品一覧画面" as b01
 boundary "商品明細画面" as b02
 boundary "商品カート画面" as b03
@@ -937,21 +935,18 @@ f01 - UC1
 f01 - UC2
 f01 - UC3
 f01 - UC4
-f01 - UC5
 b01 -- UC1
-b02 -- UC2
+b02 -- UC1
+b03 -- UC2
 b03 -- UC3
 b03 -- UC4
-b03 -- UC5
 UC1 - e01
 UC2 - e01
 UC3 - e02
 UC4 - e02
 UC1 -- c01
 UC2 -- c01
-UC3 -- c01
-UC4 -- c02
-UC5 -- c01
+UC3 -- c02
 ----
 
 [plantuml]
@@ -1830,19 +1825,17 @@ ac_01 --> UC3
 left to right direction
 actor "得意先" as ac_01
 rectangle 注文 {
-usecase "商品を一覧表示する" as UC1
-usecase "選択した商品を表示する" as UC2
-usecase "商品をカートに追加する" as UC3
-usecase "商品をカートから削除する" as UC4
-usecase "注文を変更する" as UC5
-usecase "注文を取消する" as UC6
+usecase "商品を確認する" as UC1
+usecase "商品をカートに追加する" as UC2
+usecase "商品をカートから削除する" as UC3
+usecase "注文を変更する" as UC4
+usecase "注文を取消する" as UC5
 }
 ac_01 --> UC1
 ac_01 --> UC2
 ac_01 --> UC3
 ac_01 --> UC4
 ac_01 --> UC5
-ac_01 --> UC6
 @enduml
 ----
 
