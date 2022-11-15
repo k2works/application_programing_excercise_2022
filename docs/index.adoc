@@ -330,14 +330,16 @@ title ビジネスユースケース図 - 取引先管理
 left to right direction
 
 actor スタッフ as ac_01
-agent 仕入先 as ag_01
-agent 得意先 as ag_02
+agent 得意先 as ag_01
+agent 仕入先 as ag_02
 
 usecase 得意先の登録 as uc_01
+usecase 仕入先の登録 as uc_02
 
 ac_01 -- (uc_01)
+ac_01 -- (uc_02)
 (uc_01) -- ag_01
-(uc_01) -- ag_02
+(uc_02) -- ag_02
 
 @enduml
 ----
