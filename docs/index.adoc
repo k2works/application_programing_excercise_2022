@@ -478,9 +478,11 @@ title 業務フロー図 - 商品の出荷:BUC
 
 |スタッフ|
 partition 出庫 {
+    :ピッキングリストを作成する;
     :単品をピッキングする;
 }
 partition 出荷 {
+    :加工指示書を作成する;
     :単品を結束して商品にする;
     :商品を出荷する;
     :出荷案内を通知する;
@@ -1102,10 +1104,31 @@ UC3 - e02
 @startuml
 actor "スタッフ" as ac_01
 frame "出庫" as f01
-frame "出荷" as f02
-usecase "単品をピッキングする" as UC1
-usecase "単品を結束して商品にする" as UC2
-usecase "商品を出荷する" as UC3
+usecase "ピッキングリストを作成する" as UC1
+boundary "出荷一覧画面" as b01
+boundary "出荷明細画面" as b02
+entity "在庫" as e01
+entity "注文" as e02
+entity "商品" as e03
+control "商品バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+b01 -- UC1
+b02 -- UC1
+UC1 - e01
+UC1 - e02
+UC1 - e03
+UC1 -- c01
+----
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "出荷" as f01
+usecase "加工指示書を作成する" as UC1
+usecase "出荷案内を通知する" as UC2
 boundary "出荷一覧画面" as b01
 boundary "出荷明細画面" as b02
 entity "在庫" as e01
@@ -1115,20 +1138,16 @@ entity "売上" as e04
 control "商品バリエーション" as c01
 
 ac_01 - f01
-ac_01 --- f02
 f01 - UC1
-f02 - UC2
-f02 - UC3
+f01 - UC2
 b01 -- UC1
-b02 -- UC2
-b01 -- UC3
+b02 -- UC1
+b01 -- UC2
 UC1 - e01
+UC1 - e02
 UC1 - e03
-UC2 - e01
-UC3 - e01
-UC3 - e02
-UC3 - e04
-UC2 -- c01
+UC2 - e04
+UC1 -- c01
 ----
 
 ====== 商品の返品
@@ -1873,6 +1892,18 @@ ac_01 --> UC4
 
 ===== 出庫
 
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 出庫 {
+usecase "ピッキングリストを作成する" as UC1
+}
+ac_01 --> UC1
+@enduml
+----
+
 ===== 出荷
 
 [plantuml]
@@ -1881,13 +1912,11 @@ ac_01 --> UC4
 left to right direction
 actor "スタッフ" as ac_01
 rectangle 出荷 {
-usecase "単品を結束して商品にする" as UC1
-usecase "単品をピッキングする" as UC2
-usecase "商品を出荷する" as UC3
+usecase "加工指示書を作成する" as UC1
+usecase "出荷案内を通知する" as UC2
 }
 ac_01 --> UC1
 ac_01 --> UC2
-ac_01 --> UC3
 @enduml
 ----
 
