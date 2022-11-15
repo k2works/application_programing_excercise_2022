@@ -1204,31 +1204,40 @@ UC2 -- c01
 actor "スタッフ" as ac_01
 frame "検収" as f01
 frame "入庫" as f02
-frame "返品" as f03
 usecase "単品を検収する" as UC1
 usecase "単品を入庫する" as UC2
-usecase "単品を返品する" as UC3
-usecase "リードタイムを確認する" as UC4
 boundary "単品発注画面" as b01
-boundary "在庫推移画面" as b02
 entity "在庫" as e01
 entity "単品" as e02
 entity "仕入" as e03
 
 ac_01 - f01
-ac_01 -- f02
-ac_01 ---- f03
+ac_01 - f02
 f01 - UC1
 f02 - UC2
-f03 - UC3
-f03 - UC4
 b01 -- UC1
 b01 -- UC2
-b01 -- UC3
-b02 -- UC4
 UC1 - e01
 UC2 - e02
 UC2 - e03
+----
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "返品" as f03
+usecase "単品を返品する" as UC3
+usecase "リードタイムを確認する" as UC4
+boundary "単品発注画面" as b01
+boundary "在庫推移画面" as b02
+entity "在庫" as e01
+
+ac_01 - f03
+f03 - UC3
+f03 - UC4
+b01 -- UC3
+b02 -- UC4
 UC4 - e01
 ----
 
