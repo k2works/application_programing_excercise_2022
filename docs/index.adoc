@@ -1922,6 +1922,8 @@ ac_01 --> UC2
 @enduml
 ----
 
+===== 入荷
+
 ===== 入庫
 
 [plantuml]
@@ -1930,17 +1932,25 @@ ac_01 --> UC2
 left to right direction
 actor "スタッフ" as ac_01
 rectangle 入庫 {
-usecase "単品を検収する" as UC1
-usecase "単品を入庫する" as UC2
+usecase "単品を入庫する" as UC1
 }
 ac_01 --> UC1
-ac_01 --> UC2
 @enduml
 ----
 
-===== 入荷
-
 ===== 検収
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 検収 {
+usecase "単品を検収する" as UC1
+}
+ac_01 --> UC1
+@enduml
+----
 
 ===== 返品
 
