@@ -559,25 +559,28 @@ title 業務フロー図 - 単品の入荷:BUC
 |仕入先|
 :単品を出荷する;
 |スタッフ|
-partition 検収 {
-    :単品を検収する;
-    if (検収) then (NG)
-     partition 返品 {
-         :単品を返品する;
-         |仕入先|
-         :代替品納品予定を通知する;
+partition 入荷 {
+    :単品を受け取る;
+    partition 検収 {
+        :単品を検収する;
+        if (検収) then (NG)
+         partition 返品 {
+             :単品を返品する;
+             |仕入先|
+             :代替品納品予定を通知する;
+             |スタッフ|
+             :リードタイムを確認する;
+             :出荷予定を通知する;
+         }
+         end
+        else (OK)
          |スタッフ|
-         :リードタイムを確認する;
-         :出荷予定を通知する;
-     }
-     end
-    else (OK)
-     |スタッフ|
-     partition 入庫 {
-     :単品を入庫する;
-     }
-     end
-    endif
+         partition 入庫 {
+         :単品を入庫する;
+         }
+         end
+        endif
+    }
 }
 
 @enduml
@@ -1849,15 +1852,14 @@ actor "スタッフ" as ac_01
 rectangle 受注 {
 usecase "受注内容を確認する" as UC1
 usecase "商品を引き当てる" as UC2
-usecase "受注を承諾する" as UC3
-usecase "出荷予定日を確認する" as UC4
-usecase "取消注文を確認する" as UC5
-usecase "受注を取消す" as UC6
-usecase "注文承諾を通知する" as UC7
-usecase "取消注文を通知する" as UC8
-usecase "注文内容変更を通知する" as UC9
-usecase "変更できないことを通知する" as UC10
-usecase "取消できないことを通知する" as UC11
+usecase "出荷予定日を確認する" as UC3
+usecase "取消注文を確認する" as UC4
+usecase "受注を取消す" as UC5
+usecase "注文承諾を通知する" as UC6
+usecase "取消注文を通知する" as UC7
+usecase "注文内容変更を通知する" as UC8
+usecase "変更できないことを通知する" as UC9
+usecase "取消できないことを通知する" as UC10
 }
 ac_01 --> UC1
 ac_01 --> UC2
@@ -1869,7 +1871,6 @@ ac_01 --> UC7
 ac_01 --> UC8
 ac_01 --> UC9
 ac_01 --> UC10
-ac_01 --> UC11
 @enduml
 ----
 
