@@ -1860,6 +1860,11 @@ usecase "受注を承諾する" as UC3
 usecase "出荷予定日を確認する" as UC4
 usecase "取消注文を確認する" as UC5
 usecase "受注を取消す" as UC6
+usecase "注文承諾を通知する" as UC7
+usecase "取消注文を通知する" as UC8
+usecase "注文内容変更を通知する" as UC9
+usecase "変更できないことを通知する" as UC10
+usecase "取消できないことを通知する" as UC11
 }
 ac_01 --> UC1
 ac_01 --> UC2
@@ -1867,6 +1872,11 @@ ac_01 --> UC3
 ac_01 --> UC4
 ac_01 --> UC5
 ac_01 --> UC6
+ac_01 --> UC7
+ac_01 --> UC8
+ac_01 --> UC9
+ac_01 --> UC10
+ac_01 --> UC11
 @enduml
 ----
 
@@ -1949,10 +1959,12 @@ left to right direction
 actor "スタッフ" as ac_01
 rectangle 返品 {
 usecase "単品を返品する" as UC1
-usecase "返品処理をする" as UC2
+usecase "リードタイムを確認する" as UC2
+usecase "出荷予定を通知する" as UC3
 }
 ac_01 --> UC1
 ac_01 --> UC2
+ac_01 --> UC3
 @enduml
 ----
 
