@@ -707,12 +707,12 @@ left to right direction
 
 actor スタッフ as ac_01
 
-frame 受注 as fr_01
+frame 得意先 as fr_01
 note right of fr_01
   対象は顧客である得意先。
 end note
 
-frame 発注 as fr_02
+frame 仕入先 as fr_02
 note right of fr_02
   対象は単品の仕入先。
 end note
@@ -744,6 +744,7 @@ fr_02 -- (uc_09)
 
 @enduml
 ----
+
 ==== バリエーション・条件
 
 |===
@@ -751,6 +752,14 @@ fr_02 -- (uc_09)
 
 |得意先
 |スタッフ
+
+|===
+
+|===
+|取引先区分
+
+|得意先
+|仕入先
 
 |===
 
@@ -1216,7 +1225,7 @@ UC4 - e01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "受注" as f01
+frame "得意先" as f01
 usecase "得意先を登録する" as UC1
 usecase "得意先を確認する" as UC2
 usecase "得意先情報を更新する" as UC3
@@ -1244,7 +1253,7 @@ UC3 -- c01
 ----
 @startuml
 actor "スタッフ" as ac_01
-frame "発注" as f01
+frame "仕入先" as f01
 usecase "仕入先を登録する" as UC1
 usecase "仕入先を確認する" as UC2
 usecase "仕入先情報を更新する" as UC3
@@ -1616,7 +1625,7 @@ state 入庫済み
 
 title 状態モデル図 - 取引先の登録
 
-state 受注 {
+state 得意先 {
 state 未登録
 state 登録済
 state 取引中
@@ -1642,7 +1651,7 @@ state 取引終了
 
 title 状態モデル図 - 取引先の登録
 
-state 発注 {
+state 仕入先 {
 state 未登録
 state 登録済
 state 取引中
@@ -1832,9 +1841,6 @@ usecase "受注を承諾する" as UC3
 usecase "出荷予定日を確認する" as UC4
 usecase "取消注文を確認する" as UC5
 usecase "受注を取消す" as UC6
-usecase "得意先を登録する" as UC7
-usecase "得意先を確認する" as UC8
-usecase "得意先情報を更新する" as UC9
 }
 ac_01 --> UC1
 ac_01 --> UC2
@@ -1842,9 +1848,6 @@ ac_01 --> UC3
 ac_01 --> UC4
 ac_01 --> UC5
 ac_01 --> UC6
-ac_01 --> UC7
-ac_01 --> UC8
-ac_01 --> UC9
 @enduml
 ----
 
@@ -1860,17 +1863,11 @@ usecase "単品を発注する" as UC1
 usecase "リードタイムを確認する" as UC2
 usecase "発注を取消す" as UC3
 usecase "在庫推移を確認する" as UC4
-usecase "仕入先を登録する" as UC5
-usecase "仕入先を確認する" as UC6
-usecase "仕入先情報を更新する" as UC7
 }
 ac_01 --> UC1
 ac_01 --> UC2
 ac_01 --> UC3
 ac_01 --> UC4
-ac_01 --> UC5
-ac_01 --> UC6
-ac_01 --> UC7
 @enduml
 ----
 
@@ -1927,6 +1924,42 @@ usecase "返品処理をする" as UC2
 }
 ac_01 --> UC1
 ac_01 --> UC2
+@enduml
+----
+
+===== 得意先
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 得意先 {
+usecase "得意先を登録する" as UC1
+usecase "得意先を確認する" as UC2
+usecase "得意先情報を更新する" as UC3
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
+@enduml
+----
+
+===== 仕入先
+
+[plantuml]
+----
+@startuml
+left to right direction
+actor "スタッフ" as ac_01
+rectangle 仕入先 {
+usecase "仕入先を登録する" as UC1
+usecase "仕入先を確認する" as UC2
+usecase "仕入先情報を更新する" as UC3
+}
+ac_01 --> UC1
+ac_01 --> UC2
+ac_01 --> UC3
 @enduml
 ----
 
