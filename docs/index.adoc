@@ -204,11 +204,15 @@ node 店舗 as no_02 {
   actor スタッフ as ac_02
 
   usecase 在庫管理 as uc_02
+  usecase 取引先管理 as uc_04
   artifact 商品 as ar_01
   artifact 単品 as ar_02
 }
 
 node 仕入先 as no_03 {
+}
+
+node 得意先 as no_04 {
 }
 
 ac_01 -- (uc_01)
@@ -221,6 +225,9 @@ ac_02 -- (uc_02)
 (uc_02) -- no_03
 ac_01 -- (uc_03)
 ac_02 -- (uc_03)
+ac_02 -- (uc_04)
+no_03 -- (uc_04)
+no_04 -- (uc_04)
 
 @enduml
 ----
@@ -310,6 +317,29 @@ ac_01 -- (uc_01)
 ac_01 -- (uc_02)
 (uc_02) -- ag_01
 
+
+@enduml
+----
+
+===== 取引先管理
+
+[plantuml]
+----
+@startuml
+
+title ビジネスユースケース図 - 取引先管理
+
+left to right direction
+
+actor スタッフ as ac_01
+agent 仕入先 as ag_01
+agent 得意先 as ag_02
+
+usecase 得意先の登録 as uc_01
+
+ac_01 -- (uc_01)
+(uc_01) -- ag_01
+(uc_01) -- ag_02
 
 @enduml
 ----
@@ -663,6 +693,57 @@ fr_02 -- (uc_06)
 @enduml
 ----
 
+===== 取引先管理
+
+====== 取引先の登録
+
+[plantuml]
+----
+@startuml
+
+title 利用シーン図 - 取引先の登録:BUC
+
+left to right direction
+
+actor スタッフ as ac_01
+
+frame 受注 as fr_01
+note right of fr_01
+  対象は顧客である得意先。
+end note
+
+frame 発注 as fr_02
+note right of fr_02
+  対象は単品の仕入先。
+end note
+
+usecase 得意先を登録する as uc_01
+usecase 得意先を確認する as uc_02
+usecase 得意先情報を更新する as uc_03
+usecase 仕入先を登録する as uc_04
+usecase 仕入先を確認する as uc_05
+usecase 仕入先情報を更新する as uc_06
+usecase 取引を停止する as uc_07
+usecase 取引を再開する as uc_08
+usecase 取引を終了する as uc_09
+
+:ac_01: -- fr_01
+:ac_01: -- fr_02
+fr_01 -- (uc_01)
+fr_01 -- (uc_02)
+fr_01 -- (uc_03)
+fr_01 -- (uc_07)
+fr_01 -- (uc_08)
+fr_01 -- (uc_09)
+fr_02 -- (uc_04)
+fr_02 -- (uc_05)
+fr_02 -- (uc_06)
+fr_02 -- (uc_07)
+fr_02 -- (uc_08)
+fr_02 -- (uc_09)
+
+@enduml
+----
 ==== バリエーション・条件
 
 |===
@@ -1127,6 +1208,66 @@ UC2 - e03
 UC4 - e01
 ----
 
+===== 取引先管理
+
+====== 取引先の登録
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "受注" as f01
+usecase "得意先を登録する" as UC1
+usecase "得意先を確認する" as UC2
+usecase "得意先情報を更新する" as UC3
+boundary "得意先登録画面" as b01
+entity "得意先" as e01
+control "得意先バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+f01 - UC3
+b01 -- UC1
+b01 -- UC2
+b01 -- UC3
+UC1 - e01
+UC2 - e01
+UC3 - e01
+UC1 -- c01
+UC2 -- c01
+UC3 -- c01
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+actor "スタッフ" as ac_01
+frame "発注" as f01
+usecase "仕入先を登録する" as UC1
+usecase "仕入先を確認する" as UC2
+usecase "仕入先情報を更新する" as UC3
+boundary "仕入先登録画面" as b01
+entity "仕入先" as e01
+control "仕入先バリエーション" as c01
+
+ac_01 - f01
+f01 - UC1
+f01 - UC2
+f01 - UC3
+b01 -- UC1
+b01 -- UC2
+b01 -- UC3
+UC1 - e01
+UC2 - e01
+UC3 - e01
+UC1 -- c01
+UC2 -- c01
+UC3 -- c01
+@enduml
+----
+
 === システム
 
 ==== 情報モデル
@@ -1465,6 +1606,61 @@ state 入庫済み
 @enduml
 ----
 
+===== 取引先管理
+
+====== 取引先の登録
+
+[plantuml]
+----
+@startuml
+
+title 状態モデル図 - 取引先の登録
+
+state 受注 {
+state 未登録
+state 登録済
+state 取引中
+state 取引停止
+state 取引終了
+}
+
+[*] --> 未登録
+未登録 -> 登録済 : (得意先を登録する)
+登録済 -> 登録済 : (得意先情報を更新する)
+登録済 --> 取引中 : (得意先を登録する)
+取引中 --> 取引停止 : (取引を停止する)
+取引停止 --> 取引中 : (取引を再開する)
+取引停止 --> 取引終了 : (取引を終了する)
+取引終了 --> [*]
+
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+
+title 状態モデル図 - 取引先の登録
+
+state 発注 {
+state 未登録
+state 登録済
+state 取引中
+state 取引停止
+state 取引終了
+}
+
+[*] --> 未登録
+未登録 -> 登録済 : (仕入先を登録する)
+登録済 -> 登録済 : (仕入先情報を更新する)
+登録済 --> 取引中 : (仕入先を登録する)
+取引中 --> 取引停止 : (取引を停止する)
+取引停止 --> 取引中 : (取引を再開する)
+取引停止 --> 取引終了 : (取引を終了する)
+取引終了 --> [*]
+
+@enduml
+----
 == 開発
 
 https://masuda220.hatenablog.com/entry/2020/05/27/103750[CCSR手法に準拠]
@@ -1490,15 +1686,16 @@ component [WarehousingContext] <<入庫>>
 component [ArrivedContext] <<入荷>>
 component [AcceptanceContext] <<検収>>
 component [ReturnedProductContext] <<返品>>
+component [CustomerContext] <<得意先>>
+component [SupplierContext] <<仕入先>>
 
 [AuthContext]<-->[UserContext]
 [UserContext] <-- [OrderContext]
-[UserContext] <-- [ReceivedOrderContext]
-[ProductContext] <- [SalesContext]
+[SalesContext] --> [ProductContext]
 [ProductContext] <-- [OrderContext]
 [ProductContext] <-- [ReceivedOrderContext]
 [ProductContext] <-- [PlacementOrderContext]
-[OrderContext] -> [ReceivedOrderContext]
+[OrderContext] <- [ReceivedOrderContext]
 [OrderContext] --> [ReturnedProductContext]
 [ReceivedOrderContext] -> [PlacementOrderContext]
 [ReceivedOrderContext] --> [DeliveryContext]
@@ -1507,6 +1704,9 @@ component [ReturnedProductContext] <<返品>>
 [PlacementOrderContext] --> [ReturnedProductContext]
 [ArrivedContext] <- [AcceptanceContext]
 [ArrivedContext] --> [WarehousingContext]
+[UserContext] <-- [CustomerContext]
+[CustomerContext] <-- [ReceivedOrderContext]
+[SupplierContext] <-- [PlacementOrderContext]
 
 ----
 
@@ -1632,6 +1832,9 @@ usecase "受注を承諾する" as UC3
 usecase "出荷予定日を確認する" as UC4
 usecase "取消注文を確認する" as UC5
 usecase "受注を取消す" as UC6
+usecase "得意先を登録する" as UC7
+usecase "得意先を確認する" as UC8
+usecase "得意先情報を更新する" as UC9
 }
 ac_01 --> UC1
 ac_01 --> UC2
@@ -1639,6 +1842,9 @@ ac_01 --> UC3
 ac_01 --> UC4
 ac_01 --> UC5
 ac_01 --> UC6
+ac_01 --> UC7
+ac_01 --> UC8
+ac_01 --> UC9
 @enduml
 ----
 
@@ -1654,11 +1860,17 @@ usecase "単品を発注する" as UC1
 usecase "リードタイムを確認する" as UC2
 usecase "発注を取消す" as UC3
 usecase "在庫推移を確認する" as UC4
+usecase "仕入先を登録する" as UC5
+usecase "仕入先を確認する" as UC6
+usecase "仕入先情報を更新する" as UC7
 }
 ac_01 --> UC1
 ac_01 --> UC2
 ac_01 --> UC3
 ac_01 --> UC4
+ac_01 --> UC5
+ac_01 --> UC6
+ac_01 --> UC7
 @enduml
 ----
 
