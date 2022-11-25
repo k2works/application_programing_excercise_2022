@@ -2056,9 +2056,20 @@ package bouquet.domain.model.auth {
 	}
 }
 ----
+
 ==== データモデル
 
-image::images/schemaspy/tables/usr.1degree.png[]
+===== 認証スキーマ
+
+image::images/schemaspy/postgresql/auth/diagrams/summary/relationships.real.large.png[]
+
+===== 注文スキーマ
+
+image::images/schemaspy/postgresql/orders/diagrams/summary/relationships.real.large.png[]
+
+===== 在庫スキーマ
+
+image::images/schemaspy/postgresql/inventories/diagrams/summary/relationships.real.large.png[]
 
 == 運用
 
