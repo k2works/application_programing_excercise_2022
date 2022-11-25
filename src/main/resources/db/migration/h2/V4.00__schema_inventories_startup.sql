@@ -5,7 +5,7 @@ CREATE TABLE inventories.item
 (
     product_number INTEGER     NOT NULL,
     item_number    INTEGER     NOT NULL,
-    item_code      VARCHAR(40) NOT NULL,
+    item_code      VARCHAR(40) NOT NULL UNIQUE,
     quantity       INTEGER     NOT NULL,
     created_by     VARCHAR(40) NOT NULL,
     created_at     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -27,7 +27,7 @@ CREATE TABLE inventories.supplier
 (
     supplier_number      INTEGER,
     supplier_line_number INTEGER,
-    supplier_code        VARCHAR(40) NOT NULL,
+    supplier_code        VARCHAR(40) NOT NULL UNIQUE,
     supplier_name        VARCHAR(40) NOT NULL,
     created_by           VARCHAR(40) NOT NULL,
     created_at           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,

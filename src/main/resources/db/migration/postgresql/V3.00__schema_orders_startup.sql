@@ -4,7 +4,7 @@ CREATE SEQUENCE orders.product_number;
 CREATE TABLE orders.product
 (
     product_number     INTEGER       NOT NULL,
-    product_code       VARCHAR(6)    NOT NULL,
+    product_code       VARCHAR(6)    NOT NULL UNIQUE,
     product_name       VARCHAR(40)   NOT NULL,
     product_name_short VARCHAR(40)   NOT NULL,
     product_type       VARCHAR(5)    NOT NULL,
@@ -32,7 +32,7 @@ CREATE SEQUENCE orders.customer_number;
 CREATE TABLE orders.customer
 (
     customer_number INTEGER     NOT NULL,
-    customer_code   VARCHAR(40) NOT NULL,
+    customer_code   VARCHAR(40) NOT NULL UNIQUE,
     customer_name   VARCHAR(40) NOT NULL,
     created_by      VARCHAR(40) NOT NULL,
     created_at      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
