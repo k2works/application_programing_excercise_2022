@@ -23,7 +23,8 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
   devServer: {
-    historyApiFallback: true,
+      allowedHosts: "all",
+      historyApiFallback: true,
   },
   module: {
     rules: [
