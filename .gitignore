@@ -159,3 +159,6 @@ ops/build/docker/postgres/config/pgadmin
 ops/build/docker/mysql/data
 ops/build/docker/schemaspy/output
 docs/images/schemaspy/mysql
+docs/.asciidoctor/
+docs/*.svg
+docs/*.png
