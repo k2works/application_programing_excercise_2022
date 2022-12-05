@@ -1,5 +1,6 @@
 package bouquet.presentation.api.auth;
 
+import bouquet.application.service.auth.UserAuthApiService;
 import bouquet.application.service.auth.UserRepository;
 import bouquet.domain.model.auth.*;
 import bouquet.infrastructure.security.jwt.JwtUtils;
@@ -12,15 +13,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -28,6 +24,9 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 @Tag(name = "JWTAuth", description = "JWT認証")
 public class AuthController {
+    @Autowired
+    UserAuthApiService userAuthApiService;
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -49,17 +48,12 @@ public class AuthController {
                 return ResponseEntity.badRequest().body(new MessageResponse("Error: User is not exist"));
             }
 
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUserId(), loginRequest.getPassword())
+            JwtResponse results = userAuthApiService.authenticateUser(
+                    new UserId(loginRequest.getUserId()),
+                    new Password(loginRequest.getPassword())
             );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = jwtUtils.generateJwtToken(authentication);
 
-            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-            List<String> roles = userDetails.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority).toList();
-
-            return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), roles));
+            return ResponseEntity.ok(results);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
