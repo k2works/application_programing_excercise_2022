@@ -37,7 +37,7 @@ public class UserManagementServiceTest {
             @Test
             void 新規登録する() {
                 User user = new User("1", "password", "山田", "太郎", RoleName.USER);
-                userManagementService.registerUser(user);
+                userManagementService.regist(user);
                 User result = userManagementService.findOne(user.UserId());
                 assertEquals(user, result);
             }
@@ -47,7 +47,7 @@ public class UserManagementServiceTest {
         class ユーザーを確認する {
             @Test
             @WithMockUser
-            void 登録ユーザーを検索する() {
+            void 登録したユーザーを検索する() {
                 List<User> result = userManagementService.findAll();
                 assertEquals(1, result.size());
             }
@@ -59,7 +59,7 @@ public class UserManagementServiceTest {
             @Test
             void 登録したユーザーを更新する() {
                 User user = new User("2", "password", "山田", "太郎", RoleName.USER);
-                userManagementService.registerUser(user);
+                userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
                 User updateUser = new User(registUser.UserId().Value(), "password", "山田", "花子", RoleName.USER);
                 userManagementService.update(updateUser);

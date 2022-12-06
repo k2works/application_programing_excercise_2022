@@ -15,7 +15,7 @@ public class UserManagementService {
         this.userRepository = userRepository;
     }
 
-    public void registerUser(User user) {
+    public void regist(User user) {
         userRepository.save(user);
     }
 
