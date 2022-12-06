@@ -27,7 +27,6 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
 COPY ./bash /root/
 RUN ["/bin/bash", "/root/nodesource_setup.bash"]
 RUN sudo apt install -y nodejs
-
 RUN sudo apt-get update && \
     sudo apt-get upgrade -y
 
@@ -35,7 +34,16 @@ RUN sudo apt-get update && \
 RUN apt-get update
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get -qq -y install curl wget unzip zip
-
 RUN curl -s "https://get.sdkman.io" | bash
 RUN source "$HOME/.sdkman/bin/sdkman-init.sh"
 RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle 7.6"
+
+# Dockerインストール
+RUN apt-get update
+RUN apt-get -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu/ $(lsb_release -cs) stable"
+RUN apt-get update
+RUN apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+RUN curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
