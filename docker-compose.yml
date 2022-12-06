@@ -85,3 +85,16 @@ services:
       - "20081:80"
     volumes:
       - ./public:/usr/share/nginx/html:ro
+
+  devenv:
+    build:
+      context: ops/build/docker/devenv
+      dockerfile: Dockerfile
+    volumes:
+      - .:/root/app
+    container_name: "devenv_local"
+    ports:
+      - 8080:8080
+      - 8081:8081
+    links:
+      - db_postgresql
