@@ -3,13 +3,15 @@ package bouquet.application.service.user;
 import bouquet.application.service.auth.UserRepository;
 import bouquet.domain.model.auth.User;
 import bouquet.domain.model.auth.UserId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserManagementService {
-    @Autowired
-    UserRepository userRepository;
+    final UserRepository userRepository;
+
+    public UserManagementService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void registerUser(User user) {
         userRepository.save(user);
