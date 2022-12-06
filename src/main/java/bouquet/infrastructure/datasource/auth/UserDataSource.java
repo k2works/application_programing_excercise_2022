@@ -4,6 +4,7 @@ import bouquet.application.service.auth.UserRepository;
 import bouquet.domain.model.auth.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,5 +23,10 @@ public class UserDataSource implements UserRepository {
     @Override
     public void save(User newUser) {
         userMapper.insert(newUser);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userMapper.selectAll();
     }
 }

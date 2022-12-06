@@ -10,6 +10,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -42,7 +45,12 @@ public class UserManagementServiceTest {
 
         @Nested
         class ユーザーを確認する {
-
+            @Test
+            @WithMockUser
+            void 登録ユーザーを検索する() {
+                List<User> result = userManagementService.findAll();
+                assertEquals(1, result.size());
+            }
         }
 
         @Nested

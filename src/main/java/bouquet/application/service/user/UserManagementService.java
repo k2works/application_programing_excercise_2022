@@ -5,6 +5,8 @@ import bouquet.domain.model.auth.User;
 import bouquet.domain.model.auth.UserId;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserManagementService {
     final UserRepository userRepository;
@@ -19,5 +21,9 @@ public class UserManagementService {
 
     public User findOne(UserId userId) {
         return userRepository.findById(userId.Value()).orElse(null);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
