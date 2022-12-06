@@ -22,7 +22,12 @@ public class UserDataSource implements UserRepository {
 
     @Override
     public void save(User newUser) {
-        userMapper.insert(newUser);
+        User result = this.userMapper.selectByPrimaryKey(newUser.UserId().Value());
+        if (result == null) {
+            this.userMapper.insert(newUser);
+        } else {
+            this.userMapper.update(newUser);
+        }
     }
 
     @Override

@@ -54,8 +54,19 @@ public class UserManagementServiceTest {
         }
 
         @Nested
+        @WithMockUser
         class ユーザー情報を更新する {
+            @Test
+            void 登録したユーザーを更新する() {
+                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                userManagementService.registerUser(user);
+                User registUser = userManagementService.findOne(user.UserId());
+                User updateUser = new User(registUser.UserId().Value(), "password", "山田", "花子", RoleName.USER);
+                userManagementService.update(updateUser);
 
+                User result = userManagementService.findOne(user.UserId());
+                assertEquals(updateUser, result);
+            }
         }
 
         @Nested
