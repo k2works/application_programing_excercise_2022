@@ -12,6 +12,8 @@ public class User {
 
     private RoleName roleName;
 
+    private RegistType registType;
+
     @Deprecated
     public User() {
     }
@@ -21,10 +23,27 @@ public class User {
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
         this.roleName = user;
+        this.registType = RegistType.有効;
+    }
+
+    public User(String userId, String password, String firstName, String lastName, RoleName user, RegistType registType) {
+        this.userId = new UserId(userId);
+        this.password = new Password(password);
+        this.name = new Name(firstName, lastName);
+        this.roleName = user;
+        if (registType == null) {
+            this.registType = RegistType.有効;
+        } else {
+            this.registType = registType;
+        }
     }
 
     public RoleName RoleName() {
         return roleName;
+    }
+
+    public RegistType RegistType() {
+        return registType;
     }
 
     public UserId UserId() {

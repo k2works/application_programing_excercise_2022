@@ -3,6 +3,7 @@ package bouquet.application.service.user;
 
 import bouquet.IntegrationTest;
 import bouquet.TestDataFactory;
+import bouquet.domain.model.auth.RegistType;
 import bouquet.domain.model.auth.RoleName;
 import bouquet.domain.model.auth.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +71,19 @@ public class UserManagementServiceTest {
         }
 
         @Nested
+        @WithMockUser
         class ユーザー情報を解除する {
+            @Test
+            void 登録したユーザーの登録区分を無効にする() {
+                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                userManagementService.regist(user);
+                User registUser = userManagementService.findOne(user.UserId());
+                User updateUser = new User(registUser.UserId().Value(), registUser.Password().Value(), registUser.Name().FirstName(), registUser.Name().LastName(), registUser.RoleName(), RegistType.無効);
+                userManagementService.update(updateUser);
+
+                User result = userManagementService.findOne(user.UserId());
+                assertEquals(RegistType.無効, result.RegistType());
+            }
 
         }
 

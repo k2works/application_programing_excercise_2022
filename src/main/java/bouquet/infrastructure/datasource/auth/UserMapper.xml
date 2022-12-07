@@ -7,11 +7,12 @@
         <result column="last_name" jdbcType="VARCHAR" property="name.lastName"/>
         <result column="password" jdbcType="VARCHAR" property="password.value"/>
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="regist_type" jdbcType="VARCHAR" property="registType"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         user_id
-        , first_name, last_name, password, role_name
+        , first_name, last_name, password, role_name, regist_type
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -45,6 +46,9 @@
             <if test="roleName != null">
                 role_name,
             </if>
+            <if test="registType != null">
+                regist_type,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId.value != null">
@@ -61,6 +65,9 @@
             </if>
             <if test="roleName != null">
                 #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="registType != null">
+                #{registType,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -79,6 +86,9 @@
             </if>
             <if test="roleName != null">
                 role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="registType != null">
+                regist_type = #{registType,jdbcType=VARCHAR},
             </if>
         </set>
         where user_id = #{userId.value,jdbcType=VARCHAR}
