@@ -18,7 +18,7 @@ public class UserMapperTest {
     UserMapper userMapper;
 
     private static User getUser() {
-        return new User("userId", "password", "firstName", "lastName", RoleName.USER);
+        return new User("userId", "password", "firstName", "lastName", RoleName.スタッフ);
     }
 
     @BeforeEach
@@ -44,7 +44,7 @@ public class UserMapperTest {
         User user = getUser();
         userMapper.insert(user);
 
-        User updateUser = new User(user.UserId().Value(), "password2", "firstName2", "lastName2", RoleName.ADMIN);
+        User updateUser = new User(user.UserId().Value(), "password2", "firstName2", "lastName2", RoleName.得意先);
         userMapper.update(updateUser);
 
         User actual = userMapper.selectByPrimaryKey("userId");

@@ -38,7 +38,7 @@ public class UserManagementServiceTest {
         class ユーザーを登録する {
             @Test
             void 新規登録する() {
-                User user = new User("1", "password", "山田", "太郎", RoleName.USER);
+                User user = new User("1", "password", "山田", "太郎", RoleName.スタッフ);
                 userManagementService.regist(user);
                 User result = userManagementService.findOne(user.UserId());
                 assertEquals(user, result);
@@ -60,10 +60,10 @@ public class UserManagementServiceTest {
         class ユーザー情報を更新する {
             @Test
             void 登録したユーザーを更新する() {
-                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                User user = new User("2", "password", "山田", "太郎", RoleName.スタッフ);
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
-                User updateUser = new User(registUser.UserId().Value(), "password", "山田", "花子", RoleName.USER);
+                User updateUser = new User(registUser.UserId().Value(), "password", "山田", "花子", RoleName.スタッフ);
                 userManagementService.update(updateUser);
 
                 User result = userManagementService.findOne(user.UserId());
@@ -76,7 +76,7 @@ public class UserManagementServiceTest {
         class ユーザー情報を解除する {
             @Test
             void 登録したユーザーの登録区分を無効にする() {
-                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                User user = new User("2", "password", "山田", "太郎", RoleName.スタッフ);
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
                 User updateUser = new User(registUser.UserId().Value(), registUser.Password().Value(), registUser.Name().FirstName(), registUser.Name().LastName(), registUser.RoleName(), RegistType.無効);
@@ -93,7 +93,7 @@ public class UserManagementServiceTest {
         class ユーザー情報を復活する {
             @Test
             void 無効にしたユーザーの登録区分を有効にする() {
-                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                User user = new User("2", "password", "山田", "太郎", RoleName.スタッフ);
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
                 User unregistUser = new User(registUser.UserId().Value(), registUser.Password().Value(), registUser.Name().FirstName(), registUser.Name().LastName(), registUser.RoleName(), RegistType.無効);
@@ -113,7 +113,7 @@ public class UserManagementServiceTest {
         class ユーザー情報を抹消する {
             @Test
             void 登録したユーザーを削除する() {
-                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                User user = new User("2", "password", "山田", "太郎", RoleName.スタッフ);
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
                 userManagementService.destroy(registUser);

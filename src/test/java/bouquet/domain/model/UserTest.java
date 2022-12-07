@@ -13,12 +13,12 @@ public class UserTest {
     class ユーザー {
         @Test
         void ユーザーを生成できる() {
-            User user = new User("userId", "password", "firstName", "lastName", RoleName.USER);
+            User user = new User("userId", "password", "firstName", "lastName", RoleName.スタッフ);
             assertEquals(new UserId("userId"), user.UserId());
             assertEquals("firstName", user.Name().FirstName());
             assertEquals("lastName", user.Name().LastName());
             assertEquals(new Password("password"), user.Password());
-            assertEquals(RoleName.USER, user.RoleName());
+            assertEquals(RoleName.スタッフ, user.RoleName());
             assertEquals(RegistType.有効, user.RegistType());
         }
     }
