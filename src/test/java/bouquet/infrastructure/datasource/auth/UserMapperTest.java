@@ -1,5 +1,6 @@
 package bouquet.infrastructure.datasource.auth;
 
+import bouquet.TestDataFactoryImpl;
 import bouquet.domain.model.auth.RoleName;
 import bouquet.domain.model.auth.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ public class UserMapperTest {
     UserMapper userMapper;
 
     private static User getUser() {
-        return new User("userId", "password", "firstName", "lastName", RoleName.スタッフ);
+        return TestDataFactoryImpl.newUser();
     }
 
     @BeforeEach
@@ -31,7 +32,7 @@ public class UserMapperTest {
         User user = getUser();
         userMapper.insert(user);
 
-        User actual = userMapper.selectByPrimaryKey("userId");
+        User actual = userMapper.selectByPrimaryKey(user.UserId().Value());
         assertEquals(user.UserId(), actual.UserId());
         assertEquals(user.Name().FirstName(), actual.Name().FirstName());
         assertEquals(user.Name().LastName(), actual.Name().LastName());
@@ -44,10 +45,10 @@ public class UserMapperTest {
         User user = getUser();
         userMapper.insert(user);
 
-        User updateUser = new User(user.UserId().Value(), "password2", "firstName2", "lastName2", RoleName.得意先);
+        User updateUser = new User(user.UserId().Value(), "a234567Z2", "firstName2", "lastName2", RoleName.得意先);
         userMapper.update(updateUser);
 
-        User actual = userMapper.selectByPrimaryKey("userId");
+        User actual = userMapper.selectByPrimaryKey(user.UserId().Value());
         assertEquals(user.UserId(), actual.UserId());
         assertNotEquals(user.Name().FirstName(), actual.Name().FirstName());
         assertNotEquals(user.Name().LastName(), actual.Name().LastName());
@@ -60,8 +61,8 @@ public class UserMapperTest {
         User user = getUser();
         userMapper.insert(user);
 
-        userMapper.deleteByPrimaryKey("userId");
-        User actual = userMapper.selectByPrimaryKey("userId");
+        userMapper.deleteByPrimaryKey(user.UserId().Value());
+        User actual = userMapper.selectByPrimaryKey(user.UserId().Value());
         assert actual == null;
 
     }

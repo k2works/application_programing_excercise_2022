@@ -30,8 +30,8 @@ public class TestDataFactoryImpl implements TestDataFactory {
         return userMapper;
     }
 
-    private User newUser() {
-        return new User("U999999", "テスト", "太郎", "a234567Z", RoleName.スタッフ);
+    public static User newUser() {
+        return new User("U999999", "a234567Z", "テスト", "太郎", RoleName.スタッフ);
     }
 
     void createUser() {
