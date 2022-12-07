@@ -88,7 +88,22 @@ public class UserManagementServiceTest {
         }
 
         @Nested
-        class ユーザー情報をを復活する {
+        @WithMockUser
+        class ユーザー情報を復活する {
+            @Test
+            void 無効にしたユーザーの登録区分を有効にする() {
+                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                userManagementService.regist(user);
+                User registUser = userManagementService.findOne(user.UserId());
+                User unregistUser = new User(registUser.UserId().Value(), registUser.Password().Value(), registUser.Name().FirstName(), registUser.Name().LastName(), registUser.RoleName(), RegistType.無効);
+                userManagementService.update(unregistUser);
+                User reregistUser = userManagementService.findOne(unregistUser.UserId());
+                User updateReregistUser = new User(reregistUser.UserId().Value(), reregistUser.Password().Value(), reregistUser.Name().FirstName(), reregistUser.Name().LastName(), reregistUser.RoleName(), RegistType.有効);
+                userManagementService.update(updateReregistUser);
+
+                User result = userManagementService.findOne(user.UserId());
+                assertEquals(RegistType.有効, result.RegistType());
+            }
 
         }
 
