@@ -31,7 +31,7 @@ public class TestDataFactoryImpl implements TestDataFactory {
     }
 
     public static User newUser() {
-        return new User("U999999", "a234567Z", "テスト", "太郎", RoleName.スタッフ);
+        return new User("U999999", "a234567Z", "テスト", "太郎", RoleName.一般);
     }
 
     void createUser() {

@@ -1,8 +1,8 @@
 package bouquet.domain.model.auth;
 
 /**
- * ユーザー区分
+ * 役割
  */
 public enum RoleName {
-    スタッフ, 得意先
+    管理, 一般
 }

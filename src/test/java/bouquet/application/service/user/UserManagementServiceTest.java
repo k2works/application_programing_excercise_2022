@@ -68,7 +68,7 @@ public class UserManagementServiceTest {
                 User user = new User("U000001", getUser().Password().Value(), getUser().Name().FirstName(), getUser().Name().LastName(), getUser().RoleName());
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
-                User updateUser = new User(registUser.UserId().Value(), "b234567Z2", "山田", "花子", RoleName.スタッフ);
+                User updateUser = new User(registUser.UserId().Value(), "b234567Z2", "山田", "花子", RoleName.一般);
                 userManagementService.update(updateUser);
 
                 User result = userManagementService.findOne(user.UserId());

@@ -74,7 +74,7 @@ public class AuthController {
             String role = signupRequest.getRole();
             RoleName roleName;
             if (role == null) {
-                roleName = RoleName.スタッフ;
+                roleName = RoleName.一般;
             } else {
                 roleName = RoleName.valueOf(role);
             }
