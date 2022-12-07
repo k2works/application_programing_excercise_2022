@@ -34,4 +34,9 @@ public class UserDataSource implements UserRepository {
     public List<User> findAll() {
         return userMapper.selectAll();
     }
+
+    @Override
+    public void destroy(User registUser) {
+        userMapper.deleteByPrimaryKey(registUser.UserId().Value());
+    }
 }

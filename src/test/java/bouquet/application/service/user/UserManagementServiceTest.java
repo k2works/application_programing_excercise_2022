@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @IntegrationTest
 @DisplayName("ユーザーサービス")
@@ -108,7 +109,18 @@ public class UserManagementServiceTest {
         }
 
         @Nested
+        @WithMockUser
         class ユーザー情報を抹消する {
+            @Test
+            void 登録したユーザーを削除する() {
+                User user = new User("2", "password", "山田", "太郎", RoleName.USER);
+                userManagementService.regist(user);
+                User registUser = userManagementService.findOne(user.UserId());
+                userManagementService.destroy(registUser);
+
+                User result = userManagementService.findOne(user.UserId());
+                assertNull(result);
+            }
 
         }
     }

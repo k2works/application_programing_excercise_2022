@@ -14,4 +14,6 @@ public interface UserRepository {
     void save(User newUser);
 
     List<User> findAll();
+
+    void destroy(User registUser);
 }

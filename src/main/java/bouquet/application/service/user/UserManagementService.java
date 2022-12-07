@@ -30,4 +30,8 @@ public class UserManagementService {
     public void update(User user) {
         userRepository.save(user);
     }
+
+    public void destroy(User registUser) {
+        userRepository.destroy(registUser);
+    }
 }
