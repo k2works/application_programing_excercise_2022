@@ -97,7 +97,7 @@ public class UserManagementServiceTest {
                 User user = new User("U000001", getUser().Password().Value(), getUser().Name().FirstName(), getUser().Name().LastName(), getUser().RoleName());
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
-                User updateUser = new User(registUser.UserId().Value(), registUser.Password().Value(), registUser.Name().FirstName(), registUser.Name().LastName(), registUser.RoleName(), RegistType.無効);
+                User updateUser = new User(registUser, RegistType.無効);
                 userManagementService.update(updateUser);
 
                 User result = userManagementService.findOne(user.UserId());
@@ -114,10 +114,10 @@ public class UserManagementServiceTest {
                 User user = new User("U000001", getUser().Password().Value(), getUser().Name().FirstName(), getUser().Name().LastName(), getUser().RoleName());
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
-                User unregistUser = new User(registUser.UserId().Value(), registUser.Password().Value(), registUser.Name().FirstName(), registUser.Name().LastName(), registUser.RoleName(), RegistType.無効);
+                User unregistUser = new User(registUser, RegistType.無効);
                 userManagementService.update(unregistUser);
                 User reregistUser = userManagementService.findOne(unregistUser.UserId());
-                User updateReregistUser = new User(reregistUser.UserId().Value(), reregistUser.Password().Value(), reregistUser.Name().FirstName(), reregistUser.Name().LastName(), reregistUser.RoleName(), RegistType.有効);
+                User updateReregistUser = new User(reregistUser, RegistType.有効);
                 userManagementService.update(updateReregistUser);
 
                 User result = userManagementService.findOne(user.UserId());

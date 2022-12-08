@@ -34,16 +34,17 @@ public class User {
         this.userType = UserType.スタッフ;
     }
 
-    public User(String userId, String password, String firstName, String lastName, RoleName user, RegistType registType) {
-        this.userId = new UserId(userId);
-        this.password = new Password(password);
-        this.name = new Name(firstName, lastName);
-        this.roleName = user;
+    public User(User user, RegistType registType) {
+        this.userId = user.UserId();
+        this.password = user.Password();
+        this.name = user.Name();
+        this.roleName = user.RoleName();
         if (registType == null) {
             this.registType = RegistType.有効;
         } else {
             this.registType = registType;
         }
+        this.userType = user.UserType();
     }
 
     public User(User user, UserType userType) {
