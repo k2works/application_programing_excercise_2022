@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @IntegrationTest
-@DisplayName("認証サービス")
+@DisplayName("認証APIサービス")
 public class UserAuthApiServiceTest {
     @Autowired
     UserAuthApiService userAuthApiService;
@@ -26,7 +26,7 @@ public class UserAuthApiServiceTest {
     TestDataFactory testDataFactory;
 
     @Nested
-    class 認証API {
+    class 認証 {
         @MockBean
         UserAuthApiService userAuthApiServiceMock;
 

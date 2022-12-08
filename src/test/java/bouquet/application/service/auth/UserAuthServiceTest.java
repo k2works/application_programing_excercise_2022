@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//TODO UserAuthServiceに統合する
 @IntegrationTest
 @DisplayName("認証サービス")
 public class UserAuthServiceTest {
