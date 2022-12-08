@@ -2,9 +2,8 @@ package bouquet.infrastructure.datasource.user;
 
 import bouquet.TestDataFactoryImpl;
 import bouquet.domain.model.auth.User;
-import bouquet.domain.model.autogen.orders.Customer;
+import bouquet.domain.model.user.Customer;
 import bouquet.infrastructure.datasource.auth.UserMapper;
-import bouquet.infrastructure.datasource.autogen.orders.CustomerMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
