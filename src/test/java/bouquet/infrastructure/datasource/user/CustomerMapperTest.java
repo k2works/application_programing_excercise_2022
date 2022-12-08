@@ -11,6 +11,7 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,84 +36,100 @@ public class CustomerMapperTest {
     void 得意先を登録できる() {
         User user = getUser();
         userMapper.insert(user);
-        Customer customer = new Customer();
-        customer.setCustomerNumber(1);
-        customer.setCustomerCode("customerCode");
-        customer.setCreatedBy(user.UserId().Value());
-        customer.setCreatedAt(Date.valueOf("2020-01-01"));
-        customer.setUserId(user.UserId().Value());
-        customer.setFirstName("firstName");
-        customer.setLastName("lastName");
-        customer.setEmail("email");
-        customer.setBirthday(Date.valueOf("2020-01-01"));
+        Customer customer = new Customer(
+                user,
+                1,
+                "C000001",
+                "mail@hoge.com",
+                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                "M",
+                "000-0000",
+                "東京都",
+                "千代田区",
+                "千代田1-1-1",
+                "00000000000",
+                null
+        );
         customerMapper.insert(customer);
 
         Customer actual = customerMapper.selectByPrimaryKey(1);
-        assertEquals(customer.getCustomerNumber(), actual.getCustomerNumber());
-        assertEquals(customer.getCustomerCode(), actual.getCustomerCode());
-        assertEquals(customer.getCreatedBy(), actual.getCreatedBy());
-        assertEquals(customer.getCreatedAt(), actual.getCreatedAt());
-        assertEquals(customer.getUserId(), actual.getUserId());
-        assertEquals(customer.getFirstName(), actual.getFirstName());
-        assertEquals(customer.getLastName(), actual.getLastName());
-        assertEquals(customer.getEmail(), actual.getEmail());
-        assertEquals(customer.getBirthday(), actual.getBirthday());
+        assertEquals(customer.CustomerNumber(), actual.CustomerNumber());
+        assertEquals(customer.CustomerCode(), actual.CustomerCode());
+        assertEquals(customer.CreatedBy(), actual.CreatedBy());
+        assertEquals(customer.CreatedAt(), actual.CreatedAt());
+        assertEquals(customer.UserId(), actual.UserId());
+        assertEquals(customer.FirstName(), actual.FirstName());
+        assertEquals(customer.LastName(), actual.LastName());
+        assertEquals(customer.Email(), actual.Email());
+        assertEquals(customer.Birthday(), actual.Birthday());
     }
 
     @Test
     void 得意先を更新できる() {
         User user = getUser();
         userMapper.insert(user);
-        Customer customer = new Customer();
-        customer.setCustomerNumber(1);
-        customer.setCustomerCode("customerCode");
-        customer.setCreatedBy(user.UserId().Value());
-        customer.setCreatedAt(Date.valueOf("2020-01-01"));
-        customer.setUserId(user.UserId().Value());
-        customer.setFirstName("firstName");
-        customer.setLastName("lastName");
-        customer.setEmail("email");
-        customer.setBirthday(Date.valueOf("2020-01-01"));
+        Customer customer = new Customer(
+                user,
+                1,
+                "C000001",
+                "mail@hoge.com",
+                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                "M",
+                "000-0000",
+                "東京都",
+                "千代田区",
+                "千代田1-1-1",
+                "00000000000",
+                null
+        );
         customerMapper.insert(customer);
 
-        Customer updateCustomer = new Customer();
-        updateCustomer.setCustomerNumber(1);
-        updateCustomer.setCustomerCode("customerCode2");
-        updateCustomer.setCreatedBy(user.UserId().Value());
-        updateCustomer.setCreatedAt(Date.valueOf("2020-01-02"));
-        updateCustomer.setUserId(user.UserId().Value());
-        updateCustomer.setFirstName("firstName2");
-        updateCustomer.setLastName("lastName2");
-        updateCustomer.setEmail("email2");
-        updateCustomer.setBirthday(Date.valueOf("2020-01-02"));
+        Customer updateCustomer = new Customer(
+                user,
+                1,
+                "C000001",
+                "mail@hoge.com",
+                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                "M",
+                "000-0000",
+                "東京都",
+                "千代田区",
+                "千代田1-1-1",
+                "00000000000",
+                null
+        );
         customerMapper.updateByPrimaryKey(updateCustomer);
 
         Customer actual = customerMapper.selectByPrimaryKey(1);
-        assertEquals(customer.getCustomerNumber(), actual.getCustomerNumber());
-        assertEquals(updateCustomer.getCustomerCode(), actual.getCustomerCode());
-        assertEquals(updateCustomer.getCreatedBy(), actual.getCreatedBy());
-        assertEquals(updateCustomer.getCreatedAt(), actual.getCreatedAt());
-        assertEquals(updateCustomer.getUserId(), actual.getUserId());
-        assertEquals(updateCustomer.getFirstName(), actual.getFirstName());
-        assertEquals(updateCustomer.getLastName(), actual.getLastName());
-        assertEquals(updateCustomer.getEmail(), actual.getEmail());
-        assertEquals(updateCustomer.getBirthday(), actual.getBirthday());
+        assertEquals(customer.CustomerNumber(), actual.CustomerNumber());
+        assertEquals(updateCustomer.CustomerCode(), actual.CustomerCode());
+        assertEquals(updateCustomer.CreatedBy(), actual.CreatedBy());
+        assertEquals(updateCustomer.CreatedAt(), actual.CreatedAt());
+        assertEquals(updateCustomer.UserId(), actual.UserId());
+        assertEquals(updateCustomer.FirstName(), actual.FirstName());
+        assertEquals(updateCustomer.LastName(), actual.LastName());
+        assertEquals(updateCustomer.Email(), actual.Email());
+        assertEquals(updateCustomer.Birthday(), actual.Birthday());
     }
 
     @Test
     void 得意先を削除できる() {
         User user = getUser();
         userMapper.insert(user);
-        Customer customer = new Customer();
-        customer.setCustomerNumber(1);
-        customer.setCustomerCode("customerCode");
-        customer.setCreatedBy(user.UserId().Value());
-        customer.setCreatedAt(Date.valueOf("2020-01-01"));
-        customer.setUserId(user.UserId().Value());
-        customer.setFirstName("firstName");
-        customer.setLastName("lastName");
-        customer.setEmail("email");
-        customer.setBirthday(Date.valueOf("2020-01-01"));
+        Customer customer = new Customer(
+                user,
+                1,
+                "C000001",
+                "mail@hoge.com",
+                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                "M",
+                "000-0000",
+                "東京都",
+                "千代田区",
+                "千代田1-1-1",
+                "00000000000",
+                null
+        );
         customerMapper.insert(customer);
 
         customerMapper.deleteByPrimaryKey(1);
