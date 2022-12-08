@@ -20,16 +20,16 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String password, String firstName, String lastName, RoleName user) {
+    public User(String userId, String password, String firstName, String lastName, RoleName roleName) {
         if (userId == null || userId.isEmpty()) throw new UserException("ユーザーIDが未入力です。");
         if (firstName == null || firstName.isEmpty()) throw new UserException("名前が未入力です。");
         if (lastName == null || lastName.isEmpty()) throw new UserException("名前が未入力です。");
-        if (user == null) throw new UserException("役割が未入力です。");
+        if (roleName == null) throw new UserException("役割が未入力です。");
 
         this.userId = new UserId(userId);
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
-        this.roleName = user;
+        this.roleName = roleName;
         this.registType = RegistType.有効;
         this.userType = UserType.スタッフ;
     }
