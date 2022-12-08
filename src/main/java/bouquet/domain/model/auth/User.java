@@ -14,6 +14,8 @@ public class User {
 
     private RegistType registType;
 
+    private UserType userType;
+
     @Deprecated
     public User() {
     }
@@ -29,6 +31,7 @@ public class User {
         this.name = new Name(firstName, lastName);
         this.roleName = user;
         this.registType = RegistType.有効;
+        this.userType = UserType.スタッフ;
     }
 
     public User(String userId, String password, String firstName, String lastName, RoleName user, RegistType registType) {
@@ -43,12 +46,29 @@ public class User {
         }
     }
 
+    public User(User user, UserType userType) {
+        this.userId = user.UserId();
+        this.password = user.Password();
+        this.name = user.Name();
+        this.roleName = user.RoleName();
+        this.registType = user.RegistType();
+        if (userType == null) {
+            this.userType = UserType.スタッフ;
+        } else {
+            this.userType = userType;
+        }
+    }
+
     public RoleName RoleName() {
         return roleName;
     }
 
     public RegistType RegistType() {
         return registType;
+    }
+
+    public UserType UserType() {
+        return userType;
     }
 
     public UserId UserId() {
@@ -68,7 +88,12 @@ public class User {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         User user = (User) other;
-        return userId.equals(user.userId);
+        return userId.equals(user.userId) &&
+                name.equals(user.name) &&
+                password.equals(user.password) &&
+                roleName == user.roleName &&
+                registType == user.registType &&
+                userType == user.userType;
     }
 
     @Override

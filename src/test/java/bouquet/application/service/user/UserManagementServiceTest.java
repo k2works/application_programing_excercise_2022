@@ -7,6 +7,7 @@ import bouquet.TestDataFactoryImpl;
 import bouquet.domain.model.auth.RegistType;
 import bouquet.domain.model.auth.RoleName;
 import bouquet.domain.model.auth.User;
+import bouquet.domain.model.auth.UserType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -69,6 +70,18 @@ public class UserManagementServiceTest {
                 userManagementService.regist(user);
                 User registUser = userManagementService.findOne(user.UserId());
                 User updateUser = new User(registUser.UserId().Value(), "b234567Z2", "山田", "花子", RoleName.一般);
+                userManagementService.update(updateUser);
+
+                User result = userManagementService.findOne(user.UserId());
+                assertEquals(updateUser, result);
+            }
+
+            @Test
+            void 登録したユーザー区分を更新する() {
+                User user = new User("U000001", getUser().Password().Value(), getUser().Name().FirstName(), getUser().Name().LastName(), getUser().RoleName());
+                userManagementService.regist(user);
+                User registUser = userManagementService.findOne(user.UserId());
+                User updateUser = new User(new User(registUser.UserId().Value(), "b234567Z2", "山田", "花子", RoleName.一般), UserType.得意先);
                 userManagementService.update(updateUser);
 
                 User result = userManagementService.findOne(user.UserId());

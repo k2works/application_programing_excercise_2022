@@ -20,6 +20,7 @@ public class UserTest {
             assertEquals(new Password("a234567Z"), user.Password());
             assertEquals(RoleName.一般, user.RoleName());
             assertEquals(RegistType.有効, user.RegistType());
+            assertEquals(UserType.スタッフ, user.UserType());
         }
 
         @Test
