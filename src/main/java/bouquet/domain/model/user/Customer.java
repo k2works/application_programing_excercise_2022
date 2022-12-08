@@ -64,127 +64,63 @@ public class Customer {
         return customerNumber;
     }
 
-    public void setCustomerNumber(Integer customerNumber) {
-        this.customerNumber = customerNumber;
-    }
-
     public String CustomerCode() {
         return customerCode;
-    }
-
-    public void setCustomerCode(String customerCode) {
-        this.customerCode = customerCode;
     }
 
     public String CreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public Date CreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public String UserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public String FirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String LastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String Email() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Date Birthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
     public String Gender() {
         return gender;
-    }
-
-    public void Gender(String gender) {
-        this.gender = gender;
     }
 
     public String Zip() {
         return zip;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
     public String Prefecture() {
         return prefecture;
-    }
-
-    public void setPrefecture(String prefecture) {
-        this.prefecture = prefecture;
     }
 
     public String Address1() {
         return address1;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
     public String Address2() {
         return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
     }
 
     public String TelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
     public Date Withdraw() {
         return withdraw;
-    }
-
-    public void setWithdraw(Date withdraw) {
-        this.withdraw = withdraw;
     }
 }
