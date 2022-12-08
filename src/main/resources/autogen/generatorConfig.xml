@@ -54,5 +54,18 @@
                modelType="flat"
                schema="orders">
         </table>
+        <table tableName="%"
+               enableInsert="true"
+               enableSelectByPrimaryKey="true"
+               enableSelectByExample="false"
+               enableUpdateByPrimaryKey="true"
+               enableUpdateByExample="false"
+               enableDeleteByPrimaryKey="true"
+               enableDeleteByExample="false"
+               enableCountByExample="false"
+               selectByExampleQueryId="false"
+               modelType="flat"
+               schema="inventories">
+        </table>
     </context>
 </generatorConfiguration>
