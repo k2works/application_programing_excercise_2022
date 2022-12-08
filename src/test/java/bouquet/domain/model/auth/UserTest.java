@@ -1,6 +1,5 @@
-package bouquet.domain.model;
+package bouquet.domain.model.auth;
 
-import bouquet.domain.model.auth.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
