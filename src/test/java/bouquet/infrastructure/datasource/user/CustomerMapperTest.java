@@ -87,15 +87,15 @@ public class CustomerMapperTest {
         Customer updateCustomer = new Customer(
                 user,
                 1,
-                "C000001",
-                "mail@hoge.com",
+                "C000002",
+                "mail2@hoge.com",
                 Date.valueOf(LocalDate.of(2020, 1, 1)),
-                "M",
-                "000-0000",
-                "東京都",
-                "千代田区",
-                "千代田1-1-1",
-                "00000000000",
+                "F",
+                "000-0001",
+                "東京都2",
+                "千代田区2",
+                "千代田1-1-2",
+                "00000000001",
                 null
         );
         customerMapper.updateByPrimaryKey(updateCustomer);
