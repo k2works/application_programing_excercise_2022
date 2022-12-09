@@ -4,7 +4,6 @@ import bouquet.domain.model.auth.Name;
 import bouquet.domain.model.auth.User;
 import bouquet.domain.model.auth.UserId;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class Customer {
@@ -36,17 +35,17 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(User user, Integer customerNumber, String customerCode, String email, LocalDate birthday, String gender, String zip, String prefecture, String address1, String address2, String telephoneNumber, LocalDate withdraw) {
-        this.customerNumber = customerNumber;
-        this.customerCode = new CustomerCode(customerCode);
+    public Customer(User user, Integer customerNumber, CustomerCode customerCode, Email email, Birthday birthday, Gender gender, Address address, TelephoneNumber phoneNumber, Withdraw withdraw) {
         this.userId = user.UserId();
+        this.customerNumber = customerNumber;
         this.name = user.Name();
-        this.email = new Email(email);
-        this.birthday = new Birthday(birthday);
-        this.gender = Gender.valueOf(gender);
-        this.address = new Address(zip, prefecture, address1, address2);
-        this.telephoneNumber = new TelephoneNumber(telephoneNumber);
-        this.withdraw = new Withdraw(withdraw);
+        this.customerCode = customerCode;
+        this.email = email;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.address = address;
+        this.telephoneNumber = phoneNumber;
+        this.withdraw = withdraw;
         this.createdBy = user.UserId().Value();
         this.createdAt = new Date(System.currentTimeMillis());
     }

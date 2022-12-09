@@ -23,19 +23,22 @@ public class CustomerTest {
         @Test
         void 得意先を生成できる() {
             User user = getUser();
+            CustomerCode customerCode = new CustomerCode("C000001");
+            Email email = new Email("mail@hoge.com");
+            Birthday birthday = new Birthday(LocalDate.of(2020, 1, 1));
+            Address address = new Address("000-0000", "東京都", "千代田区", "千代田1-1-1");
+            TelephoneNumber phoneNumber = new TelephoneNumber("00000000000");
+            Withdraw withdraw = new Withdraw(null);
             Customer customer = new Customer(
                     user,
                     1,
-                    "C000001",
-                    "mail@hoge.com",
-                    LocalDate.of(2020, 1, 1),
-                    "M",
-                    "000-0000",
-                    "東京都",
-                    "千代田区",
-                    "千代田1-1-1",
-                    "00000000000",
-                    null
+                    customerCode,
+                    email,
+                    birthday,
+                    Gender.M,
+                    address,
+                    phoneNumber,
+                    withdraw
             );
 
             assertEquals(1, customer.CustomerNumber());
