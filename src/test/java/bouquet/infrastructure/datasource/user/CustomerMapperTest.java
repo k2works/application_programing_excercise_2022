@@ -23,6 +23,8 @@ public class CustomerMapperTest {
     @Autowired
     CustomerMapper customerMapper;
 
+    private User user;
+
     private static User getUser() {
         return TestDataFactoryImpl.newUser();
     }
@@ -30,12 +32,12 @@ public class CustomerMapperTest {
     @BeforeEach
     void setUp() {
         userMapper.deleteAll();
+        user = getUser();
+        userMapper.insert(user);
     }
 
     @Test
     void 得意先を登録できる() {
-        User user = getUser();
-        userMapper.insert(user);
         Integer customerNumber = customerMapper.newCustomerNumber();
         Customer customer = new Customer(
                 user,
@@ -67,8 +69,6 @@ public class CustomerMapperTest {
 
     @Test
     void 得意先を更新できる() {
-        User user = getUser();
-        userMapper.insert(user);
         Integer customerNumber = customerMapper.newCustomerNumber();
         Customer customer = new Customer(
                 user,
@@ -116,8 +116,6 @@ public class CustomerMapperTest {
 
     @Test
     void 得意先を削除できる() {
-        User user = getUser();
-        userMapper.insert(user);
         Integer customerNumber = customerMapper.newCustomerNumber();
         Customer customer = new Customer(
                 user,
