@@ -1,22 +1,22 @@
 package bouquet.domain.model.user;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * 生年月日
  */
 public class Birthday {
-    private Date value;
+    private LocalDate value;
 
     @Deprecated
     public Birthday() {
     }
 
-    public Birthday(Date value) {
+    public Birthday(LocalDate value) {
         this.value = value;
     }
 
-    public Date Value() {
+    public LocalDate Value() {
         return value;
     }
 

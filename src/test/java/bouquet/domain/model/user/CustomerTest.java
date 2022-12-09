@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +28,7 @@ public class CustomerTest {
                     1,
                     "C000001",
                     "mail@hoge.com",
-                    Date.valueOf(LocalDate.of(2020, 1, 1)),
+                    LocalDate.of(2020, 1, 1),
                     "M",
                     "000-0000",
                     "東京都",
@@ -45,7 +44,7 @@ public class CustomerTest {
             assertEquals("テスト", customer.Name().FirstName());
             assertEquals("太郎", customer.Name().LastName());
             assertEquals(new Email("mail@hoge.com"), customer.Email());
-            assertEquals(new Birthday(Date.valueOf(LocalDate.of(2020, 1, 1))), customer.Birthday());
+            assertEquals(new Birthday(LocalDate.of(2020, 1, 1)), customer.Birthday());
             assertEquals(Gender.M, customer.Gender());
             assertEquals(new PostalNumber("000-0000"), customer.Address().Zip());
             assertEquals(Prefecture.東京都, customer.Address().Prefecture());

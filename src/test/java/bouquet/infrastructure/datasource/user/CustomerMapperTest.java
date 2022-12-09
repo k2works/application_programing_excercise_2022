@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +43,7 @@ public class CustomerMapperTest {
                 customerNumber,
                 "C000001",
                 "mail@hoge.com",
-                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                LocalDate.of(2020, 1, 1),
                 "M",
                 "000-0000",
                 "東京都",
@@ -76,7 +75,7 @@ public class CustomerMapperTest {
                 customerNumber,
                 "C000001",
                 "mail@hoge.com",
-                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                LocalDate.of(2020, 1, 1),
                 "M",
                 "000-0000",
                 "東京都",
@@ -92,7 +91,7 @@ public class CustomerMapperTest {
                 customerNumber,
                 "C000002",
                 "mail2@hoge.com",
-                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                LocalDate.of(2020, 1, 1),
                 "F",
                 "000-0001",
                 "京都府",
@@ -124,7 +123,7 @@ public class CustomerMapperTest {
                 customerNumber,
                 "C000001",
                 "mail@hoge.com",
-                Date.valueOf(LocalDate.of(2020, 1, 1)),
+                LocalDate.of(2020, 1, 1),
                 "M",
                 "000-0000",
                 "東京都",

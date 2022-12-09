@@ -1,22 +1,22 @@
 package bouquet.domain.model.user;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * 退会日
  */
 public class Withdraw {
-    private Date value;
+    private LocalDate value;
 
     @Deprecated
     public Withdraw() {
     }
 
-    public Withdraw(Date value) {
+    public Withdraw(LocalDate value) {
         this.value = value;
     }
 
-    public Date Value() {
+    public LocalDate Value() {
         return value;
     }
 
