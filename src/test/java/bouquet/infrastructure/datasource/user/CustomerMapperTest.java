@@ -98,7 +98,7 @@ public class CustomerMapperTest {
                 "00000000001",
                 null
         );
-        customerMapper.updateByPrimaryKey(updateCustomer);
+        customerMapper.update(updateCustomer);
 
         Customer actual = customerMapper.selectByPrimaryKey(1);
         assertEquals(customer.CustomerNumber(), actual.CustomerNumber());
