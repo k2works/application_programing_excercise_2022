@@ -1,19 +1,20 @@
 package bouquet.domain.model.user;
 
 import bouquet.domain.model.auth.User;
+import bouquet.domain.model.auth.UserId;
 
 import java.util.Date;
 
 public class Customer {
     private Integer customerNumber;
 
-    private String customerCode;
+    private CustomerCode customerCode;
 
     private String createdBy;
 
     private Date createdAt;
 
-    private String userId;
+    private UserId userId;
 
     private String firstName;
 
@@ -43,8 +44,8 @@ public class Customer {
 
     public Customer(User user, Integer customerNumber, String customerCode, String email, Date birthday, String gender, String zip, String prefecture, String address1, String address2, String telephoneNumber, Date withdraw) {
         this.customerNumber = customerNumber;
-        this.customerCode = customerCode;
-        this.userId = user.UserId().Value();
+        this.customerCode = new CustomerCode(customerCode);
+        this.userId = user.UserId();
         this.firstName = user.Name().FirstName();
         this.lastName = user.Name().LastName();
         this.email = email;
@@ -64,7 +65,7 @@ public class Customer {
         return customerNumber;
     }
 
-    public String CustomerCode() {
+    public CustomerCode CustomerCode() {
         return customerCode;
     }
 
@@ -76,7 +77,7 @@ public class Customer {
         return createdAt;
     }
 
-    public String UserId() {
+    public UserId UserId() {
         return userId;
     }
 

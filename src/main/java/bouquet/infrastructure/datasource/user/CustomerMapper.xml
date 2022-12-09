@@ -7,10 +7,10 @@
 
     <resultMap id="BaseResultMap" type="bouquet.domain.model.user.Customer">
         <id column="customer_number" jdbcType="INTEGER" property="customerNumber"/>
-        <result column="customer_code" jdbcType="VARCHAR" property="customerCode"/>
+        <result column="customer_code" jdbcType="VARCHAR" property="customerCode.value"/>
         <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
         <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
-        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId.value"/>
         <result column="first_name" jdbcType="VARCHAR" property="firstName"/>
         <result column="last_name" jdbcType="VARCHAR" property="lastName"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
@@ -50,7 +50,7 @@
             <if test="customerNumber != null">
                 customer_number,
             </if>
-            <if test="customerCode != null">
+            <if test="customerCode.value != null">
                 customer_code,
             </if>
             <if test="createdBy != null">
@@ -59,7 +59,7 @@
             <if test="createdAt != null">
                 created_at,
             </if>
-            <if test="userId != null">
+            <if test="userId.value != null">
                 user_id,
             </if>
             <if test="firstName != null">
@@ -100,8 +100,8 @@
             <if test="customerNumber != null">
                 #{customerNumber,jdbcType=INTEGER},
             </if>
-            <if test="customerCode != null">
-                #{customerCode,jdbcType=VARCHAR},
+            <if test="customerCode.value != null">
+                #{customerCode.value,jdbcType=VARCHAR},
             </if>
             <if test="createdBy != null">
                 #{createdBy,jdbcType=VARCHAR},
@@ -109,8 +109,8 @@
             <if test="createdAt != null">
                 #{createdAt,jdbcType=TIMESTAMP},
             </if>
-            <if test="userId != null">
-                #{userId,jdbcType=VARCHAR},
+            <if test="userId.value != null">
+                #{userId.value,jdbcType=VARCHAR},
             </if>
             <if test="firstName != null">
                 #{firstName,jdbcType=VARCHAR},
@@ -151,8 +151,8 @@
     <update id="update" parameterType="bouquet.domain.model.user.Customer">
         update orders.customer
         <set>
-            <if test="customerCode != null">
-                customer_code = #{customerCode,jdbcType=VARCHAR},
+            <if test="customerCode.value != null">
+                customer_code = #{customerCode.value,jdbcType=VARCHAR},
             </if>
             <if test="createdBy != null">
                 created_by = #{createdBy,jdbcType=VARCHAR},
@@ -160,8 +160,8 @@
             <if test="createdAt != null">
                 created_at = #{createdAt,jdbcType=TIMESTAMP},
             </if>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=VARCHAR},
+            <if test="userId.value != null">
+                user_id = #{userId.value,jdbcType=VARCHAR},
             </if>
             <if test="firstName != null">
                 first_name = #{firstName,jdbcType=VARCHAR},
