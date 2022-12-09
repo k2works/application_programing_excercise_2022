@@ -18,4 +18,6 @@ public interface CustomerMapper {
     void deleteByPrimaryKey(Integer customerId);
 
     void deleteAll();
+
+    Integer newCustomerNumber();
 }

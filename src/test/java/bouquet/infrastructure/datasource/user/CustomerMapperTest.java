@@ -36,9 +36,10 @@ public class CustomerMapperTest {
     void 得意先を登録できる() {
         User user = getUser();
         userMapper.insert(user);
+        Integer customerNumber = customerMapper.newCustomerNumber();
         Customer customer = new Customer(
                 user,
-                1,
+                customerNumber,
                 "C000001",
                 "mail@hoge.com",
                 Date.valueOf(LocalDate.of(2020, 1, 1)),
@@ -52,7 +53,7 @@ public class CustomerMapperTest {
         );
         customerMapper.insert(customer);
 
-        Customer actual = customerMapper.selectByPrimaryKey(1);
+        Customer actual = customerMapper.selectByPrimaryKey(customerNumber);
         assertEquals(customer.CustomerNumber(), actual.CustomerNumber());
         assertEquals(customer.CustomerCode(), actual.CustomerCode());
         assertEquals(customer.CreatedBy(), actual.CreatedBy());
@@ -68,9 +69,10 @@ public class CustomerMapperTest {
     void 得意先を更新できる() {
         User user = getUser();
         userMapper.insert(user);
+        Integer customerNumber = customerMapper.newCustomerNumber();
         Customer customer = new Customer(
                 user,
-                1,
+                customerNumber,
                 "C000001",
                 "mail@hoge.com",
                 Date.valueOf(LocalDate.of(2020, 1, 1)),
@@ -86,7 +88,7 @@ public class CustomerMapperTest {
 
         Customer updateCustomer = new Customer(
                 user,
-                1,
+                customerNumber,
                 "C000002",
                 "mail2@hoge.com",
                 Date.valueOf(LocalDate.of(2020, 1, 1)),
@@ -100,7 +102,7 @@ public class CustomerMapperTest {
         );
         customerMapper.update(updateCustomer);
 
-        Customer actual = customerMapper.selectByPrimaryKey(1);
+        Customer actual = customerMapper.selectByPrimaryKey(customerNumber);
         assertEquals(customer.CustomerNumber(), actual.CustomerNumber());
         assertEquals(updateCustomer.CustomerCode(), actual.CustomerCode());
         assertEquals(updateCustomer.CreatedBy(), actual.CreatedBy());
@@ -116,9 +118,10 @@ public class CustomerMapperTest {
     void 得意先を削除できる() {
         User user = getUser();
         userMapper.insert(user);
+        Integer customerNumber = customerMapper.newCustomerNumber();
         Customer customer = new Customer(
                 user,
-                1,
+                customerNumber,
                 "C000001",
                 "mail@hoge.com",
                 Date.valueOf(LocalDate.of(2020, 1, 1)),
@@ -132,8 +135,8 @@ public class CustomerMapperTest {
         );
         customerMapper.insert(customer);
 
-        customerMapper.deleteByPrimaryKey(1);
-        Customer actual = customerMapper.selectByPrimaryKey(1);
+        customerMapper.deleteByPrimaryKey(customerNumber);
+        Customer actual = customerMapper.selectByPrimaryKey(customerNumber);
         assert actual == null;
     }
 }
