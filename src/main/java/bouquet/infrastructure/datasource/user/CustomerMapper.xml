@@ -56,9 +56,6 @@
             <if test="createdBy != null">
                 created_by,
             </if>
-            <if test="createdAt != null">
-                created_at,
-            </if>
             <if test="userId.value != null">
                 user_id,
             </if>
@@ -105,9 +102,6 @@
             </if>
             <if test="createdBy != null">
                 #{createdBy,jdbcType=VARCHAR},
-            </if>
-            <if test="createdAt != null">
-                #{createdAt,jdbcType=TIMESTAMP},
             </if>
             <if test="userId.value != null">
                 #{userId.value,jdbcType=VARCHAR},
@@ -156,9 +150,6 @@
             </if>
             <if test="createdBy != null">
                 created_by = #{createdBy,jdbcType=VARCHAR},
-            </if>
-            <if test="createdAt != null">
-                created_at = #{createdAt,jdbcType=TIMESTAMP},
             </if>
             <if test="userId.value != null">
                 user_id = #{userId.value,jdbcType=VARCHAR},
