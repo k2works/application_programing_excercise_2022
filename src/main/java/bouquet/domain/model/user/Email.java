@@ -1,16 +1,16 @@
 package bouquet.domain.model.user;
 
 /**
- * 顧客コード
+ * メールアドレス
  */
-public class CustomerCode {
+public class Email {
     private String value;
 
     @Deprecated
-    public CustomerCode() {
+    public Email() {
     }
 
-    public CustomerCode(String value) {
+    public Email(String value) {
         this.value = value;
     }
 
@@ -29,7 +29,7 @@ public class CustomerCode {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        CustomerCode rhs = (CustomerCode) obj;
+        Email rhs = (Email) obj;
         return this.value.equals(rhs.value);
     }
 

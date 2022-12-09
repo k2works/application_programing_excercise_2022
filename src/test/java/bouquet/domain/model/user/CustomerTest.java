@@ -40,19 +40,19 @@ public class CustomerTest {
             );
 
             assertEquals(1, customer.CustomerNumber());
-            assertEquals("C000001", customer.CustomerCode());
-            assertEquals("U999999", customer.UserId());
-            assertEquals("テスト", customer.FirstName());
-            assertEquals("太郎", customer.LastName());
-            assertEquals("mail@hoge.com", customer.Email());
-            assertEquals(Date.valueOf(LocalDate.of(2020, 1, 1)), customer.Birthday());
-            assertEquals("M", customer.Gender());
-            assertEquals("000-0000", customer.Zip());
-            assertEquals("東京都", customer.Prefecture());
-            assertEquals("千代田区", customer.Address1());
-            assertEquals("千代田1-1-1", customer.Address2());
-            assertEquals("00000000000", customer.TelephoneNumber());
-            assertNull(customer.Withdraw());
+            assertEquals(new CustomerCode("C000001"), customer.CustomerCode());
+            assertEquals(user.UserId(), customer.UserId());
+            assertEquals("テスト", customer.Name().FirstName());
+            assertEquals("太郎", customer.Name().LastName());
+            assertEquals(new Email("mail@hoge.com"), customer.Email());
+            assertEquals(new Birthday(Date.valueOf(LocalDate.of(2020, 1, 1))), customer.Birthday());
+            assertEquals(Gender.M, customer.Gender());
+            assertEquals("000-0000", customer.Address().Zip());
+            assertEquals("東京都", customer.Address().Prefecture());
+            assertEquals("千代田区", customer.Address().Address1());
+            assertEquals("千代田1-1-1", customer.Address().Address2());
+            assertEquals(new TelephoneNumber("00000000000"), customer.TelephoneNumber());
+            assertNull(customer.Withdraw().Value());
         }
     }
 }

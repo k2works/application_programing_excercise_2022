@@ -1,5 +1,6 @@
 package bouquet.domain.model.user;
 
+import bouquet.domain.model.auth.Name;
 import bouquet.domain.model.auth.User;
 import bouquet.domain.model.auth.UserId;
 
@@ -16,27 +17,19 @@ public class Customer {
 
     private UserId userId;
 
-    private String firstName;
+    private Name name;
 
-    private String lastName;
+    private Email email;
 
-    private String email;
+    private Birthday birthday;
 
-    private Date birthday;
+    private Gender gender;
 
-    private String gender;
+    private Address address;
 
-    private String zip;
+    private TelephoneNumber telephoneNumber;
 
-    private String prefecture;
-
-    private String address1;
-
-    private String address2;
-
-    private String telephoneNumber;
-
-    private Date withdraw;
+    private Withdraw withdraw;
 
     @Deprecated
     public Customer() {
@@ -46,17 +39,13 @@ public class Customer {
         this.customerNumber = customerNumber;
         this.customerCode = new CustomerCode(customerCode);
         this.userId = user.UserId();
-        this.firstName = user.Name().FirstName();
-        this.lastName = user.Name().LastName();
-        this.email = email;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.zip = zip;
-        this.prefecture = prefecture;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.telephoneNumber = telephoneNumber;
-        this.withdraw = withdraw;
+        this.name = user.Name();
+        this.email = new Email(email);
+        this.birthday = new Birthday(birthday);
+        this.gender = Gender.valueOf(gender);
+        this.address = new Address(zip, prefecture, address1, address2);
+        this.telephoneNumber = new TelephoneNumber(telephoneNumber);
+        this.withdraw = new Withdraw(withdraw);
         this.createdBy = user.UserId().Value();
         this.createdAt = new Date(System.currentTimeMillis());
     }
@@ -81,47 +70,31 @@ public class Customer {
         return userId;
     }
 
-    public String FirstName() {
-        return firstName;
+    public Name Name() {
+        return name;
     }
 
-    public String LastName() {
-        return lastName;
-    }
-
-    public String Email() {
+    public Email Email() {
         return email;
     }
 
-    public Date Birthday() {
+    public Birthday Birthday() {
         return birthday;
     }
 
-    public String Gender() {
+    public Gender Gender() {
         return gender;
     }
 
-    public String Zip() {
-        return zip;
+    public Address Address() {
+        return address;
     }
 
-    public String Prefecture() {
-        return prefecture;
-    }
-
-    public String Address1() {
-        return address1;
-    }
-
-    public String Address2() {
-        return address2;
-    }
-
-    public String TelephoneNumber() {
+    public TelephoneNumber TelephoneNumber() {
         return telephoneNumber;
     }
 
-    public Date Withdraw() {
+    public Withdraw Withdraw() {
         return withdraw;
     }
 }

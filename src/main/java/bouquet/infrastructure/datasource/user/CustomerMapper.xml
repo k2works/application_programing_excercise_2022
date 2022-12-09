@@ -11,17 +11,17 @@
         <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
         <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId.value"/>
-        <result column="first_name" jdbcType="VARCHAR" property="firstName"/>
-        <result column="last_name" jdbcType="VARCHAR" property="lastName"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="first_name" jdbcType="VARCHAR" property="name.firstName"/>
+        <result column="last_name" jdbcType="VARCHAR" property="name.lastName"/>
+        <result column="email" jdbcType="VARCHAR" property="email.value"/>
+        <result column="birthday" jdbcType="DATE" property="birthday.value"/>
         <result column="gender" jdbcType="VARCHAR" property="gender"/>
-        <result column="zip" jdbcType="VARCHAR" property="zip"/>
-        <result column="prefecture" jdbcType="VARCHAR" property="prefecture"/>
-        <result column="address_1" jdbcType="VARCHAR" property="address1"/>
-        <result column="address_2" jdbcType="VARCHAR" property="address2"/>
-        <result column="telephone_number" jdbcType="VARCHAR" property="telephoneNumber"/>
-        <result column="withdraw" jdbcType="DATE" property="withdraw"/>
+        <result column="zip" jdbcType="VARCHAR" property="address.zip"/>
+        <result column="prefecture" jdbcType="VARCHAR" property="address.prefecture"/>
+        <result column="address_1" jdbcType="VARCHAR" property="address.address1"/>
+        <result column="address_2" jdbcType="VARCHAR" property="address.address2"/>
+        <result column="telephone_number" jdbcType="VARCHAR" property="telephoneNumber.value"/>
+        <result column="withdraw" jdbcType="DATE" property="withdraw.value"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -62,37 +62,37 @@
             <if test="userId.value != null">
                 user_id,
             </if>
-            <if test="firstName != null">
+            <if test="name.firstName != null">
                 first_name,
             </if>
-            <if test="lastName != null">
+            <if test="name.lastName != null">
                 last_name,
             </if>
-            <if test="email != null">
+            <if test="email.value != null">
                 email,
             </if>
-            <if test="birthday != null">
+            <if test="birthday.value != null">
                 birthday,
             </if>
             <if test="gender != null">
                 gender,
             </if>
-            <if test="zip != null">
+            <if test="address.zip != null">
                 zip,
             </if>
-            <if test="prefecture != null">
+            <if test="address.prefecture != null">
                 prefecture,
             </if>
-            <if test="address1 != null">
+            <if test="address.address1 != null">
                 address_1,
             </if>
-            <if test="address2 != null">
+            <if test="address.address2 != null">
                 address_2,
             </if>
-            <if test="telephoneNumber != null">
+            <if test="telephoneNumber.value != null">
                 telephone_number,
             </if>
-            <if test="withdraw != null">
+            <if test="withdraw.value != null">
                 withdraw,
             </if>
         </trim>
@@ -112,38 +112,38 @@
             <if test="userId.value != null">
                 #{userId.value,jdbcType=VARCHAR},
             </if>
-            <if test="firstName != null">
-                #{firstName,jdbcType=VARCHAR},
+            <if test="name.firstName != null">
+                #{name.firstName,jdbcType=VARCHAR},
             </if>
-            <if test="lastName != null">
-                #{lastName,jdbcType=VARCHAR},
+            <if test="name.lastName != null">
+                #{name.lastName,jdbcType=VARCHAR},
             </if>
-            <if test="email != null">
-                #{email,jdbcType=VARCHAR},
+            <if test="email.value != null">
+                #{email.value,jdbcType=VARCHAR},
             </if>
-            <if test="birthday != null">
-                #{birthday,jdbcType=DATE},
+            <if test="birthday.value != null">
+                #{birthday.value,jdbcType=DATE},
             </if>
             <if test="gender != null">
                 #{gender,jdbcType=VARCHAR},
             </if>
-            <if test="zip != null">
-                #{zip,jdbcType=VARCHAR},
+            <if test="address.zip != null">
+                #{address.zip,jdbcType=VARCHAR},
             </if>
-            <if test="prefecture != null">
-                #{prefecture,jdbcType=VARCHAR},
+            <if test="address.prefecture != null">
+                #{address.prefecture,jdbcType=VARCHAR},
             </if>
-            <if test="address1 != null">
-                #{address1,jdbcType=VARCHAR},
+            <if test="address.address1 != null">
+                #{address.address1,jdbcType=VARCHAR},
             </if>
-            <if test="address2 != null">
-                #{address2,jdbcType=VARCHAR},
+            <if test="address.address2 != null">
+                #{address.address2,jdbcType=VARCHAR},
             </if>
-            <if test="telephoneNumber != null">
-                #{telephoneNumber,jdbcType=VARCHAR},
+            <if test="telephoneNumber.value != null">
+                #{telephoneNumber.value,jdbcType=VARCHAR},
             </if>
-            <if test="withdraw != null">
-                #{withdraw,jdbcType=DATE},
+            <if test="withdraw.value != null">
+                #{withdraw.value,jdbcType=DATE},
             </if>
         </trim>
     </insert>
@@ -163,38 +163,38 @@
             <if test="userId.value != null">
                 user_id = #{userId.value,jdbcType=VARCHAR},
             </if>
-            <if test="firstName != null">
-                first_name = #{firstName,jdbcType=VARCHAR},
+            <if test="name.firstName != null">
+                first_name = #{name.firstName,jdbcType=VARCHAR},
             </if>
-            <if test="lastName != null">
-                last_name = #{lastName,jdbcType=VARCHAR},
+            <if test="name.lastName != null">
+                last_name = #{name.lastName,jdbcType=VARCHAR},
             </if>
-            <if test="email != null">
-                email = #{email,jdbcType=VARCHAR},
+            <if test="email.value != null">
+                email = #{email.value,jdbcType=VARCHAR},
             </if>
-            <if test="birthday != null">
-                birthday = #{birthday,jdbcType=DATE},
+            <if test="birthday.value != null">
+                birthday = #{birthday.value,jdbcType=DATE},
             </if>
             <if test="gender != null">
                 gender = #{gender,jdbcType=VARCHAR},
             </if>
-            <if test="zip != null">
-                zip = #{zip,jdbcType=VARCHAR},
+            <if test="address.zip != null">
+                zip = #{address.zip,jdbcType=VARCHAR},
             </if>
-            <if test="prefecture != null">
-                prefecture = #{prefecture,jdbcType=VARCHAR},
+            <if test="address.prefecture != null">
+                prefecture = #{address.prefecture,jdbcType=VARCHAR},
             </if>
-            <if test="address1 != null">
-                address_1 = #{address1,jdbcType=VARCHAR},
+            <if test="address.address1 != null">
+                address_1 = #{address.address1,jdbcType=VARCHAR},
             </if>
-            <if test="address2 != null">
-                address_2 = #{address2,jdbcType=VARCHAR},
+            <if test="address.address2 != null">
+                address_2 = #{address.address2,jdbcType=VARCHAR},
             </if>
-            <if test="telephoneNumber != null">
-                telephone_number = #{telephoneNumber,jdbcType=VARCHAR},
+            <if test="telephoneNumber.value != null">
+                telephone_number = #{telephoneNumber.value,jdbcType=VARCHAR},
             </if>
-            <if test="withdraw != null">
-                withdraw = #{withdraw,jdbcType=DATE},
+            <if test="withdraw.value != null">
+                withdraw = #{withdraw.value,jdbcType=DATE},
             </if>
         </set>
         where customer_number = #{customerNumber,jdbcType=INTEGER}

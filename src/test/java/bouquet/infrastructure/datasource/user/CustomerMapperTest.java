@@ -61,10 +61,11 @@ public class CustomerMapperTest {
         assertEquals(customer.CreatedBy(), actual.CreatedBy());
         assertEquals(customer.CreatedAt(), actual.CreatedAt());
         assertEquals(customer.UserId(), actual.UserId());
-        assertEquals(customer.FirstName(), actual.FirstName());
-        assertEquals(customer.LastName(), actual.LastName());
+        assertEquals(customer.Name().FirstName(), actual.Name().FirstName());
+        assertEquals(customer.Name().LastName(), actual.Name().LastName());
         assertEquals(customer.Email(), actual.Email());
         assertEquals(customer.Birthday(), actual.Birthday());
+        assertEquals(customer.Gender(), actual.Gender());
     }
 
     @Test
@@ -108,10 +109,11 @@ public class CustomerMapperTest {
         assertEquals(updateCustomer.CreatedBy(), actual.CreatedBy());
         assertEquals(updateCustomer.CreatedAt(), actual.CreatedAt());
         assertEquals(updateCustomer.UserId(), actual.UserId());
-        assertEquals(updateCustomer.FirstName(), actual.FirstName());
-        assertEquals(updateCustomer.LastName(), actual.LastName());
+        assertEquals(updateCustomer.Name().FirstName(), actual.Name().FirstName());
+        assertEquals(updateCustomer.Name().LastName(), actual.Name().LastName());
         assertEquals(updateCustomer.Email(), actual.Email());
         assertEquals(updateCustomer.Birthday(), actual.Birthday());
+        assertEquals(updateCustomer.Gender(), actual.Gender());
     }
 
     @Test

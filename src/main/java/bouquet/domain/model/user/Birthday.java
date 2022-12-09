@@ -1,20 +1,22 @@
 package bouquet.domain.model.user;
 
+import java.util.Date;
+
 /**
- * 顧客コード
+ * 生年月日
  */
-public class CustomerCode {
-    private String value;
+public class Birthday {
+    private Date value;
 
     @Deprecated
-    public CustomerCode() {
+    public Birthday() {
     }
 
-    public CustomerCode(String value) {
+    public Birthday(Date value) {
         this.value = value;
     }
 
-    public String Value() {
+    public Date Value() {
         return value;
     }
 
@@ -29,7 +31,7 @@ public class CustomerCode {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        CustomerCode rhs = (CustomerCode) obj;
+        Birthday rhs = (Birthday) obj;
         return this.value.equals(rhs.value);
     }
 
@@ -40,6 +42,6 @@ public class CustomerCode {
 
     @Override
     public String toString() {
-        return value;
+        return String.valueOf(value);
     }
 }
