@@ -4,9 +4,9 @@ package bouquet.domain.model.user;
  * 住所
  */
 public class Address {
-    private String zip;
+    private PostalNumber postalNumber;
 
-    private String prefecture;
+    private Prefecture prefecture;
 
     private String address1;
 
@@ -17,17 +17,17 @@ public class Address {
     }
 
     public Address(String zip, String prefecture, String address1, String address2) {
-        this.zip = zip;
-        this.prefecture = prefecture;
+        this.postalNumber = new PostalNumber(zip);
+        this.prefecture = Prefecture.valueOf(prefecture);
         this.address1 = address1;
         this.address2 = address2;
     }
 
-    public String Zip() {
-        return zip;
+    public PostalNumber Zip() {
+        return postalNumber;
     }
 
-    public String Prefecture() {
+    public Prefecture Prefecture() {
         return prefecture;
     }
 

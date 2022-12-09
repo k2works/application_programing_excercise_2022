@@ -47,8 +47,8 @@ public class CustomerTest {
             assertEquals(new Email("mail@hoge.com"), customer.Email());
             assertEquals(new Birthday(Date.valueOf(LocalDate.of(2020, 1, 1))), customer.Birthday());
             assertEquals(Gender.M, customer.Gender());
-            assertEquals("000-0000", customer.Address().Zip());
-            assertEquals("東京都", customer.Address().Prefecture());
+            assertEquals(new PostalNumber("000-0000"), customer.Address().Zip());
+            assertEquals(Prefecture.東京都, customer.Address().Prefecture());
             assertEquals("千代田区", customer.Address().Address1());
             assertEquals("千代田1-1-1", customer.Address().Address2());
             assertEquals(new TelephoneNumber("00000000000"), customer.TelephoneNumber());

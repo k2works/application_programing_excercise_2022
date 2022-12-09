@@ -16,7 +16,7 @@
         <result column="email" jdbcType="VARCHAR" property="email.value"/>
         <result column="birthday" jdbcType="DATE" property="birthday.value"/>
         <result column="gender" jdbcType="VARCHAR" property="gender"/>
-        <result column="zip" jdbcType="VARCHAR" property="address.zip"/>
+        <result column="zip" jdbcType="VARCHAR" property="address.postalNumber.value"/>
         <result column="prefecture" jdbcType="VARCHAR" property="address.prefecture"/>
         <result column="address_1" jdbcType="VARCHAR" property="address.address1"/>
         <result column="address_2" jdbcType="VARCHAR" property="address.address2"/>
@@ -77,7 +77,7 @@
             <if test="gender != null">
                 gender,
             </if>
-            <if test="address.zip != null">
+            <if test="address.postalNumber.value != null">
                 zip,
             </if>
             <if test="address.prefecture != null">
@@ -127,8 +127,8 @@
             <if test="gender != null">
                 #{gender,jdbcType=VARCHAR},
             </if>
-            <if test="address.zip != null">
-                #{address.zip,jdbcType=VARCHAR},
+            <if test="address.postalNumber.value != null">
+                #{address.postalNumber.value,jdbcType=VARCHAR},
             </if>
             <if test="address.prefecture != null">
                 #{address.prefecture,jdbcType=VARCHAR},
@@ -178,8 +178,8 @@
             <if test="gender != null">
                 gender = #{gender,jdbcType=VARCHAR},
             </if>
-            <if test="address.zip != null">
-                zip = #{address.zip,jdbcType=VARCHAR},
+            <if test="address.postalNumber.value != null">
+                zip = #{address.postalNumber.value,jdbcType=VARCHAR},
             </if>
             <if test="address.prefecture != null">
                 prefecture = #{address.prefecture,jdbcType=VARCHAR},

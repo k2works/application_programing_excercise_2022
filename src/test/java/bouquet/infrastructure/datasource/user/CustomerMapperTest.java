@@ -95,7 +95,7 @@ public class CustomerMapperTest {
                 Date.valueOf(LocalDate.of(2020, 1, 1)),
                 "F",
                 "000-0001",
-                "東京都2",
+                "京都府",
                 "千代田区2",
                 "千代田1-1-2",
                 "00000000001",
