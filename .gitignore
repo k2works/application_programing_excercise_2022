@@ -107,7 +107,7 @@ public
 .vercel
 
 cypress/screenshots
-cypress/videos 
+cypress/videos
 
 db.*
 .idea
@@ -118,3 +118,16 @@ docs/cypress
 bin
 build
 .gradle
+
+!ops/build
+ops/build/docker/mysql/data
+ops/build/docker/schemaspy/output
+ops/build/docker/mssql/data
+ops/build/docker/mssql/log
+ops/build/docker/dynamodb/data
+ops/build/docker/postgres/data
+
+.project
+.settings
+.fleet
+tmp
