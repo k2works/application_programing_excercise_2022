@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bouquet.infrastructure.datasource.auth.UserMapper">
+    <resultMap id="BaseResultMap" type="bouquet.domain.model.auth.User">
+        <id column="user_id" jdbcType="VARCHAR" property="userId.value"/>
+        <result column="first_name" jdbcType="VARCHAR" property="name.firstName"/>
+        <result column="last_name" jdbcType="VARCHAR" property="name.lastName"/>
+        <result column="password" jdbcType="VARCHAR" property="password.value"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="regist_type" jdbcType="VARCHAR" property="registType"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id
+        , first_name, last_name, password, role_name, regist_type, user_type
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from auth.usr
+        where user_id = #{userId.value,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from auth.usr
+    </select>
+
+    <insert id="insert" parameterType="bouquet.domain.model.auth.User">
+        insert into auth.usr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId.value != null">
+                user_id,
+            </if>
+            <if test="name.firstName != null">
+                first_name,
+            </if>
+            <if test="name.lastName != null">
+                last_name,
+            </if>
+            <if test="password.value != null">
+                password,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="registType != null">
+                regist_type,
+            </if>
+            <if test="userType != null">
+                user_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId.value != null">
+                #{userId.value,jdbcType=VARCHAR},
+            </if>
+            <if test="name.firstName != null">
+                #{name.firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="name.lastName != null">
+                #{name.lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="password.value != null">
+                #{password.value,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="registType != null">
+                #{registType,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                #{userType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="bouquet.domain.model.auth.User">
+        update auth.usr
+        <set>
+            <if test="name.firstName != null">
+                first_name = #{name.firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="name.lastName != null">
+                last_name = #{name.lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="password.value != null">
+                password = #{password.value,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="registType != null">
+                regist_type = #{registType,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId.value,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from auth.usr
+        where user_id = #{userId.value,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteAll">
+        delete
+        from auth.usr
+    </delete>
+</mapper>

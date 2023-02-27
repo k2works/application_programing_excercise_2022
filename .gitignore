@@ -107,7 +107,7 @@ public
 .vercel
 
 cypress/screenshots
-cypress/videos 
+cypress/videos
 
 db.*
 .idea
@@ -115,6 +115,59 @@ db.*
 
 docs/cypress
 
-bin
-build
 .gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+!ops/build
+tmp/
+
+ops/build/docker/postgres/config/pgadmin
+ops/build/docker/mysql/data
+ops/build/docker/schemaspy/output
+docs/images/schemaspy/mysql
+docs/.asciidoctor/
+docs/*.svg
+docs/*.png
+
+ops/build/docker/mysql/data
+ops/build/docker/schemaspy/output
+ops/build/docker/mssql/data
+ops/build/docker/mssql/log
+ops/build/docker/dynamodb/data
+ops/build/docker/postgres/data
+
+.fleet

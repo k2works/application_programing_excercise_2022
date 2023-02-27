@@ -1,0 +1,10 @@
+schemaVersion: 2.2.0
+attributes:
+  space:
+    instanceType: regular
+    editor:
+      type: Idea
+components:
+  - name: ubuntu-container
+    container:
+      image: k2works.registry.jetbrains.space/p/application-programing-excercise-2022/containers/devenv:latest

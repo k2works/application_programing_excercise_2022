@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bouquet.infrastructure.datasource.user.CustomerMapper">
+    <select id="newCustomerNumber" resultType="int">
+        SELECT NEXTVAL('orders.customer_number')
+    </select>
+
+    <resultMap id="BaseResultMap" type="bouquet.domain.model.user.Customer">
+        <id column="customer_number" jdbcType="INTEGER" property="customerNumber"/>
+        <result column="customer_code" jdbcType="VARCHAR" property="customerCode.value"/>
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy"/>
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId.value"/>
+        <result column="first_name" jdbcType="VARCHAR" property="name.firstName"/>
+        <result column="last_name" jdbcType="VARCHAR" property="name.lastName"/>
+        <result column="email" jdbcType="VARCHAR" property="email.value"/>
+        <result column="birthday" jdbcType="DATE" property="birthday.value"/>
+        <result column="gender" jdbcType="VARCHAR" property="gender"/>
+        <result column="zip" jdbcType="VARCHAR" property="address.postalNumber.value"/>
+        <result column="prefecture" jdbcType="VARCHAR" property="address.prefecture"/>
+        <result column="address_1" jdbcType="VARCHAR" property="address.address1"/>
+        <result column="address_2" jdbcType="VARCHAR" property="address.address2"/>
+        <result column="telephone_number" jdbcType="VARCHAR" property="telephoneNumber.value"/>
+        <result column="withdraw" jdbcType="DATE" property="withdraw.value"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        customer_number
+        , customer_code, created_by, created_at, user_id, first_name, last_name,
+        email, birthday, gender, zip, prefecture, address_1, address_2, telephone_number,
+        withdraw
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from orders.customer
+        where customer_number = #{customer_number.value,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders.customer
+    </select>
+
+    <insert id="insert" parameterType="bouquet.domain.model.user.Customer">
+        insert into orders.customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerNumber != null">
+                customer_number,
+            </if>
+            <if test="customerCode.value != null">
+                customer_code,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="userId.value != null">
+                user_id,
+            </if>
+            <if test="name.firstName != null">
+                first_name,
+            </if>
+            <if test="name.lastName != null">
+                last_name,
+            </if>
+            <if test="email.value != null">
+                email,
+            </if>
+            <if test="birthday.value != null">
+                birthday,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="address.postalNumber.value != null">
+                zip,
+            </if>
+            <if test="address.prefecture != null">
+                prefecture,
+            </if>
+            <if test="address.address1 != null">
+                address_1,
+            </if>
+            <if test="address.address2 != null">
+                address_2,
+            </if>
+            <if test="telephoneNumber.value != null">
+                telephone_number,
+            </if>
+            <if test="withdraw.value != null">
+                withdraw,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerNumber != null">
+                #{customerNumber,jdbcType=INTEGER},
+            </if>
+            <if test="customerCode.value != null">
+                #{customerCode.value,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="userId.value != null">
+                #{userId.value,jdbcType=VARCHAR},
+            </if>
+            <if test="name.firstName != null">
+                #{name.firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="name.lastName != null">
+                #{name.lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="email.value != null">
+                #{email.value,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday.value != null">
+                #{birthday.value,jdbcType=DATE},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="address.postalNumber.value != null">
+                #{address.postalNumber.value,jdbcType=VARCHAR},
+            </if>
+            <if test="address.prefecture != null">
+                #{address.prefecture,jdbcType=VARCHAR},
+            </if>
+            <if test="address.address1 != null">
+                #{address.address1,jdbcType=VARCHAR},
+            </if>
+            <if test="address.address2 != null">
+                #{address.address2,jdbcType=VARCHAR},
+            </if>
+            <if test="telephoneNumber.value != null">
+                #{telephoneNumber.value,jdbcType=VARCHAR},
+            </if>
+            <if test="withdraw.value != null">
+                #{withdraw.value,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="bouquet.domain.model.user.Customer">
+        update orders.customer
+        <set>
+            <if test="customerCode.value != null">
+                customer_code = #{customerCode.value,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="userId.value != null">
+                user_id = #{userId.value,jdbcType=VARCHAR},
+            </if>
+            <if test="name.firstName != null">
+                first_name = #{name.firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="name.lastName != null">
+                last_name = #{name.lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="email.value != null">
+                email = #{email.value,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday.value != null">
+                birthday = #{birthday.value,jdbcType=DATE},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="address.postalNumber.value != null">
+                zip = #{address.postalNumber.value,jdbcType=VARCHAR},
+            </if>
+            <if test="address.prefecture != null">
+                prefecture = #{address.prefecture,jdbcType=VARCHAR},
+            </if>
+            <if test="address.address1 != null">
+                address_1 = #{address.address1,jdbcType=VARCHAR},
+            </if>
+            <if test="address.address2 != null">
+                address_2 = #{address.address2,jdbcType=VARCHAR},
+            </if>
+            <if test="telephoneNumber.value != null">
+                telephone_number = #{telephoneNumber.value,jdbcType=VARCHAR},
+            </if>
+            <if test="withdraw.value != null">
+                withdraw = #{withdraw.value,jdbcType=DATE},
+            </if>
+        </set>
+        where customer_number = #{customerNumber,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from orders.customer
+        where customer_number = #{customerNumber,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteAll">
+        delete
+        from orders.customer
+    </delete>
+</mapper>

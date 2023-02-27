@@ -8,75 +8,33 @@
 
 ### 前提
 
-| ソフトウェア | バージョン | 備考 |
-| :----------- | :--------- | :--- |
-| nodejs       | 16.3.0    |      |
+| ソフトウェア | バージョン  | 備考 |
+|:-------|:-------| :--- |
+| nodejs | 16.3.0 |      |
+| java   | 17.0.0 |      |
 
-## 構成
-
-- [構築](#構築)
-- [配置](#配置)
-- [運用](#運用)
-- [開発](#開発)
-
-## 詳細
-
-### Quick Start
+#### Quick Start
 
 ```bash
+docker-compose up -d 
+
 npm install
+
 npm start
 ```
 
-### 構築
+### 事例
 
-```bash
-npm init -y
-npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/register
-npm install --save-dev npm-run-all watch foreman cpx rimraf marked@1.2.2 
-npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
-touch Procfile
-npm install --save-dev jest
-npm install cypress
-npx cypress open
-npm install --save-dev cypress-cucumber-preprocessor
-npm install --save-dev cucumber-html-reporter
-npm install --save-dev asciidoctor asciidoctor-kroki
-```
+- [花束問題V1.2](https://www.benkyoenkai.org/contents/Bouquet1-2)
 
-**[⬆ back to top](#構成)**
+## 実践
 
-### 配置
+要件・開発に [CCSR手法](https://masuda220.hatenablog.com/entry/2020/05/27/103750) を適用
 
-```bash
-npm i -g vercel
-npm run deploy
-```
+![](./docs/images/life_cycle.drawio.svg)
 
-**[⬆ back to top](#構成)**
+### [要件](./docs/index.adoc)
 
-### 運用
+### [開発](./docs/index.adoc)
 
-```bash
-npm run deploy
-```
-
-**[⬆ back to top](#構成)**
-
-### 開発
-
-```bash
-npm start
-```
-
-**[⬆ back to top](#構成)**
-
-## 参照
-
-- [Vercel](https://vercel.com/)
-- [webpack](https://webpack.js.org/)
-- [GitHub Actions でステータスバッジを表示する](https://qiita.com/SnowCait/items/487d70b342ffbe2f33d8)
-- [cypress](https://www.cypress.io/)
-- [cypress-cucumber-preprocessor](https://www.npmjs.com/package/cypress-cucumber-preprocessor)
-- [Asciidoctor Kroki Extension](https://github.com/Mogztter/asciidoctor-kroki)
-- [Asciidoctor Documentation Site](https://docs.asciidoctor.org/)
+### [運用](./docs/index.adoc)
