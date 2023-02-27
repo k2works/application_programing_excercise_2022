@@ -162,3 +162,12 @@ docs/images/schemaspy/mysql
 docs/.asciidoctor/
 docs/*.svg
 docs/*.png
+
+ops/build/docker/mysql/data
+ops/build/docker/schemaspy/output
+ops/build/docker/mssql/data
+ops/build/docker/mssql/log
+ops/build/docker/dynamodb/data
+ops/build/docker/postgres/data
+
+.fleet
